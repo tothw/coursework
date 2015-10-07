@@ -1,0 +1,110 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{report}
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\pagestyle{fancy}
+
+\listfiles
+
+\setlength{\hoffset}{0pt}			% 1 inch left margin
+\setlength{\oddsidemargin}{0pt}		% 1 inch left margin
+\setlength{\voffset}{0pt}			% 1 inch top margin
+\setlength{\marginparwidth}{0pt}	% no margin notes
+\setlength{\marginparsep}{0pt}		% no margin notes
+\setlength{\textwidth}{6.375in}
+\raggedbottom
+
+\rhead{William Justin Toth 642 1} %CHANGE n to ASSIGNMENT NUMBER
+\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{1}
+Let $G = (V,E)$ be a simple graph with no $K_4$-minor.
+\subsection*{a}
+\paragraph{}
+Suppose that $P$ is a longest path in $G$ and $x$ is an end of $P$ such that $deg(x) \geq 3$.
+Since $x$ is an end of $P$, for any $a \in V(G)$ if $a$ is adjacent to $x$ then $a \in V(P)$. This follows from $P$ being a longest path since any vertex adjacent to $x$ but not on $P$ could be used to extend $P$ to a longer path in $G$, a contradiction. Then since $deg(x) \geq 3$ there exist vertices $w,y,z$ adjacent to $x$ such that $w, y, z \in V(P)$. Say without loss of generality that $w$ is the vertex directly preceeding $x$ on $P$. Also say that $y$ is the adjacent vertex such that the subpath from $y$ to $x$ along $P$ is longest, and say that $z$ is the adjacent vertex such that the subpath from $z$ to $x$ is second longest. More precisely, the subpath from $y$ to $x$ along $P$ is of the form $y,\dots,z,\dots,w,x$.
+\paragraph{}
+Let $C$ be the cycle formed by the subpath of $P$ from $y$ to $x$ and the $xy$ edge. Then $V(C) \subseteq V(P)$. Choose $f = \{x,z\}$. Since $x \in V(C)$ and $z \in V(C)$ but $xz$ is not an edge of $P$ (and consequently $C$), $f$ is a chord of $C$ incident with $x$. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+Suppose $f = xy$ is a chord of a cycle $C$ in $G$. Then $deg(x) \geq 3$ and $deg(y) \geq 3$. Assume for contradiction that $G-x-y$ is connected. Between any two vertices of a cycle there are two distinct paths. Choose a vertex $u$ in one such $xy$ path in $C$, and a vertex $w$ in the other such $xy$ path in $C$. Now since $G-x-y$ is connected, there is a $uw$ path in $G-x-y$. Let this path be of the form $u,\dots,u',a,\dots,b,w',\dots,w$ where $a,b \not\in C$ but $w',u' \in C$. The vertices $w'$ and $u'$ exist because the paths along the cycle between $u$ and $w$ were broken by the deletion of $x$ and $y$. Thus $deg(w') \geq 3$ and $deg(u') \geq 3$ in $G$. That is to say, in $G$ there are four vertices $x,y,u',w'$ all of degree at least three with a distinct path between any two of them. Therefore $G$ contains $K_4$ as a minor. A contradiction.$\blacksquare$
+\subsection*{c}
+\paragraph{}
+Proceed by induction on $|V|$. If $|V|=3$ then every vertex has degree at most two. So let $e=uv$ be an edge of $G$. Choose the other vertex $w$ such that $w \neq u$ and $w \neq v$. Then $deg(w) \leq 2$.
+\paragraph{}
+Suppose for induction that for all simple graphs $G=(V,E)$ with no $K_4$-minor such that $3 \leq |V| < n$ if $e=uv$ is an edge of $G$ then there is a vertex $w \not\in \{u,v\}$ with $deg(w) \leq 2$. 
+Let $|V| = n$ and let $e = \{u,v\} \in E(G)$.
+\paragraph{} 
+Let $P$ be a longest path in $G - u - v$. Let $x$ and $z$ be the end vertices of $P$.
+\paragraph{}
+Consider the case where $deg(x) \leq 2$ and $deg(z) \leq 2$. If $deg(x) \leq 2$ in $G$ then we are done. So if $deg(x) \geq 3$ in $G$, then $x$ is adjacent to $u$ or $v$. Similarly $z$ is adjacent to $u$ or $v$ in $G$. Form a cycle $C$ in $G$ by taking the path $P$ from $x$ to $z$, taking one of whichever of $u$ or $v$ is adjacent to $z$, then one of whichever of $u$ or $z$ is adjacent to $x$ (ignoring it if it is the same vertex as previously chosen) and returning to $x$. Now in $G-u-v$, $deg(x) \neq 1$ or $deg(z) \neq 1$. This holds since if $deg(x) = 1$ and $deg(z) = 1$ in $G - u - v$ then $deg(x) \geq 3$ and $deg(z) \geq 3$ in $G$ implies that $x$ and $z$ are adjacent to both $u$ and $v$. This forms a $K_4$-minor in $G$, a contradiction. So at least one of $x$, $z$ has $deg = 2$ in $G - u - v$. Say without loss of generality that $deg(x) = 2$. Let $x'$ be the vertex preceeding $x$ on $P$.  Since $deg(x) = 2$ let $y$ be a vertex adjacent to $x$ in $G - u - v$ such that $y \neq x'$. Then $y$ is on $P$, else $Py$ is a longer path than $P$ in $G - u -v$. So $f = xy$ is a chord of $C$, a cycle of $G$, vertex distinct from $u$ and $v$.
+\paragraph{}
+Now consider the case where $deg(x) \geq 3$ or $deg(z) \geq 3$. Say without loss of generality that $deg(x) \geq 3$. Then by $1(a)$ there is a cycle $C$ in $G-u-v$ and a chord $f=xy$ of $C$. Since $C$ is a cycle in $G-u-v$ it is a cycle in $G$. Thus $f = xy$ is a chord of $C$, a cycle in $G$, vertext distinct from $u$ and $v$.
+\paragraph{}
+In either case we have a chord $f=xy$ of a cycle $C$ in $G$ which is vertex distinct from $u$ and $v$. Therefore by $1(b)$ the graph $G - x - y$ is disconnected. Let $G_e$ be the connected component of $G-x-y$ containing $e$. Let $G' = G[V(G) - V(G_e)]$. Notice that $|V(G')| \geq 1$ since $G - x- y$ has more than one connected component. If $|V(G')| < 3$ then it is trivial to find $w \in V(G')$ such that $deg(w) \leq 2$ in $G'$. In this case $f$ cannot be in $G'$ since $deg(x) \geq 3$. So $w \not \in f$. Now if $|V(G')| \geq 3$ then by the induction hypothesis using edge $f$ (or an arbitrary edge in the case $f \not \in E(G')$) there exists a $w \in V(G')$ such that $deg(w) \leq 2$ and $w \not \in f$.
+\paragraph{}
+Since $w \in V(G')$, $w \not \in e$. In the graph $G$ all vertices in $V(G_e)$ are connected to vertices in $V(G')$ through vertices of $f$ if it is at all possible to do so since $G_e$ is a connected component of $G - x - y$. So $deg(w) \leq 2$ in $G'$ implies that $deg(w) \leq 2$ in $G' \cup G_e = G$. That is, there exists a vertex $w \in V(G)$ such that $w \not\in e$ and $deg(w) \leq 2$. Thus by the principle of mathematical induction the result holds.$\blacksquare$
+\subsection*{d}
+Suppose $V$ is non-empty. If $|V(G)| \geq 3$ and $G$ has an edge $e$ the result follows from $1(c)$. If $|V(G)| \geq 3$ but $G$ does not have any edges then all vertices of $G$ have degree zero which is less than three. If $|V(G)| < 3$ then any vertex of $G$ has degree at most one which is less than two. $\blacksquare$
+\section*{2}
+\subsection*{a}
+\paragraph{}
+Suppose $G$ is a simple graph with no $K_4$-minor. Suppose for every $C_1, C_2$, cycles of $G$, that $V(C_1) \cap V(C_2) \neq \emptyset$. Proceed by induction on $|V(G)|$. If $|V(G)|=1$ then $G$ is a forest, and therefore $G$ has a hitting set of size $0 \leq 2$. Suppose for induction that for every integer $k$ such that $1 \leq k < n$, for every simple graph, $H$, with no $K_4$-minor if $|V(H)| = k$ and for every $C_1, C_2$, cycles of $H$, that $V(C_1) \cap V(C_2) \neq \emptyset$ then $H$ has a hitting set of size at most $2$.
+\paragraph{}
+Suppose that $|V(G)| = n$. Since $n \geq 1$ and $G$ has no $K_4$-minor by $1(d)$ there exists $v \in V(G)$ such that $deg(v) \leq 2$. If $deg(v) = 0$ or $deg(v) = 1$ then $v$ does not lie on any cycle in $G$. Consider the graph $G - v$. Since $v$ does not lie on any cycle and $G$ has no disjoint cycles $G-v$ has no disjoint cycles. Further since $G$ is $K_4$-minor free $G-v$ is $K_4$-minor free. Therefore by the induction hypothesis $G-v$ has a hitting set $X$ such that $|X| \leq 2$. Since $v$ does not lie on any cycle in $G$, $X$ is also a hitting set for $G$, of size at most $2$.
+\paragraph{}
+Now consider the case that $deg(v) = 2$. Let $w, u$ be the vertices adjacent to $v$. Either $w$ is adjacent $u$ or it is not. Firstly suppose that $w$ is not adjacent to $u$. Let $e = \{w,v\}$. Then $G_{/e}$ is $K_4$-minor free and has no vertex disjoint cycles. Further since $|V(G_{/e})| < n$ we apply the induction hypothesis to obtain that $G_{/e}$ has a hitting set, $X$, of size at most $2$. Let $x$ be the vertex that results in contracting $e$. Then the graph that results from subdividing the $\{x, u\}$ edge in $G_{/e}$ is isomorphic to $G$ since $deg(v)=2$ and $w$ and $u$ are not adjacent. Since subdivision introduces no new cycles $X$ is a hitting set of size at most $2$ for $G$.
+\paragraph{}
+Finally consider when $deg(v) = 2$ and $w$ is adjacent to $u$. Now let $C$ be the $wvu$ cycle in $G$. Then for every cycle $C'$ of $G$, $V(C) \cap V(C') \neq \emptyset$. Let $X = \{w,u\}$. Let $C'$ be a cycle of $G$. Since $V(C) \cap V(C') \neq \emptyset$, $w \in V(C')$ or $u \in V(C')$. Notice that if $C' \neq C$ then $v \not \in V(C')$ since $deg(v) = 2$. So $w$ or $u$ lies on every cylce in $G$. Thus $X$ is a hitting set for $G$ of size at most $2$. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+Suppose that $H$ is a subdivision of $K_4$, $X$ is the set of degree $3$ vertices of $H$, and $H$ is a subgraph of a graph $G$.
+\section*{3}
+\paragraph{}
+Let $(T,(B_w : w\in V(T)))$ be a tree decomposition of a graph $G$. Let $H$ be a connected subgraph of $G$. Let $S = \{w \in V(T) : B_w \cap V(H) \neq \emptyset \}$.
+\paragraph{Lemma 3.1}
+Let $u, v \in S$. Let $x \in B_u \cap V(H)$ and $y \in B_v \cap V(H)$. If there exists $e \in E(G)$ such that $e = \{x,y\}$ then there exists a $uv$-path in $T[S]$.
+\paragraph{Proof of Lemma 3.1}
+Suppose there exists $e=\{x,y\} \in E(G)$. Then by the definition of tree decomposition there exists $w \in T$ such that $x \in B_w$ and $y \in B_w$. Notice that $w \in S$. Now $\{ s \in V(T) : x \in B_s \}$ induces a subtree of $T$, $T_x$ by the definition of tree decomposition. Since $x \in V(H)$, $T_x$ is a subtree of $T[S]$. Now $x \in B_w$ and $x \in B_u$ so $w,u \in V(T_x)$. Thus there is a $uw$-path in $T_x$, $P_1$. Since $T_x$ is a subtree of $T[S]$, $P_1$ is a $uw$-path in $T[S]$. Similarly $\{s \in V(T) : y \in B_s \}$ induces a subtree of $T$, $T_y$. Since $y \in V(H)$ , $T_y$ is a subtree of $T[S]$. Now $y \in B_w$ and $y \in B_v$ so $w,v \in V(T_y)$. Thus there is a $wy$-path in $T_y$, $P_2$. Since $T_y$ is a subtree of $T[S]$, $P_2$ is a $wy$-path in $T[S]$. Therefore the path resulting from joining $P_2$ to $P_1$ is a $uv$-path in $S$. $\blacksquare$
+\paragraph{Lemma 3.2}
+Let $u, v \in S$. Let $x \in B_u \cap V(H)$ and $y \in B_v \cap V(H)$. If there exists an $xy$-path in $G$ then there exists a $uv$-path in $T[S]$.
+\paragraph{Proof of Lemma 3.2}
+Suppose there exists an $xy$-path in $G$, $P$. Proceed by induction of the length of $P$. If the length of $P$ is zero then $x=y$. So $x \in B_u$ and $x \in B_v$. By the definition of tree decomposition $\{w \in V(T) : x \in B_w \}$ induces a subtree of $T$, $T_x$. Since $x \in V(H)$, $T_x$ is a subtree of $T[S]$. Now $x \in B_u$ and $x \in B_v$, so $u, v \in V(T_x)$. Thus there is a $uv$-path in $T_x$ and therefore there is a $uv$-path in $S$. Suppose for induction that for all paths of length $k$ such that $0\leq k < n$ the lemma holds. Suppose $P$ is of length $n \in \mathbb{N}$. Let $z$ be the vertex preceeding $y$ in $P$. Then $\{z,y\} \in E(G)$, so by the definition of tree decomposition there exists $w \in V(T)$ such that $z,y \in B_w$. Notice that $w \in S$ since $y \in B_w \cap V(H)$. So by Lemma $3.1$ there is a $wv$-path $T[S]$, $P_1$. Since the length of the subpath from $x$ to $z$ in $P$ in less than $n$, by the induction hypothesis there is a $uw$-path in $T[S]$, $P_2$. Therefore the path joining $P_1$ to $P_2$ in $S$ is a $uv$-path in $T[S]$. Thus by the principle of mathematical induction the lemma holds.$\blacksquare$
+\paragraph{}
+Since any subset of vertices of a tree induce a forest, $T[S]$ is a forest. It remains to show that $T[S]$ is connected. Let $u,v \in S$. Then $B_u \cap V(H) \neq \emptyset$ and $B_v \cap V(H) \neq \emptyset$. Thus there exists $x \in B_u \cap V()$ and $y \in B_v \cap V(H)$. Since $H$ is a connected subgraph of $G$, there is an $xy$-path in $H$ and therefore an $xy$-path in $G$. By Lemma $3.2$ there is a $uv$-path in $T[S]$. Therefore $T[S]$ is a connected forest, that is to say a tree. $\blacksquare$
+\section*{4}
+\paragraph{}
+Let $\mathcal{F}$ be a collection of subtrees of a tree $T$. Suppose that there are no two vertex disjoint trees in $\mathcal{F}$. Then for all $A, B \in \mathcal{F}$, $V(A) \cap V(B) \neq \emptyset$. Proceed by induction on $|\mathcal{F}|$. If $|\mathcal{F}|$ is one then the result is trivial. We will show the result holds for the base case where $|\mathcal{F}| = 2$. Let $T_1, T_2 \in \mathcal{F}$. Since $V(T_1) \cap V(T_2) \neq \emptyset$ there exists $w \in V(T)$ such that $w \in V(T_1)$ and $w \in V(T_2)$. This $w$ is contained in every subtree in $\mathcal{F}$.
+\paragraph{}
+Now suppose that $|\mathcal{F}| = n$. For induction suppose that for all $k \in \mathbb{N}$ such that $2 \leq k < n$, in any collection of subtrees of $T$, of size $k$, with no two vertex disjoint subtrees there is a vertex contained in each subtree. Assume for contradiction that for all $v \in V(T)$, there exists an $F \in \mathcal{F}$, $v \not\in F$. Let $T_1 \in \mathcal{F}$. Then, since $|\mathcal{F} - T_1| < n$, by the induction hypothesis, there exists $w \in V(T)$, for all $F \in \mathcal{F} - T_1$, $w \in V(F)$.
+\paragraph{}
+ By the assumption for contradiction $w \not\in T_1$. Since $|\mathcal{F} - T_1| \geq 2$, there exists $T_2, T_3 \in \mathcal{F} - T_1$, $T_2 \neq T_3$. Then $w \in T_2$ and $w \in T_3$. Since $\mathcal{F}$ does not contain vertex disjoin subtrees there exists $u \in V(T_1) \cap V(T_2)$ and let $v \in V(T_1) \cap V(T_3)$. At least one of $u$ and $v$ is not equal to $w$. Say without loss of generality that $u \neq w$. Since $T_2$ is a subtree of $T$ there is a $uw$-path in $T_2$, and thus $T$. Call said path $P_1$. Similarly there is a $wv$-path in $T_3$, and thus in $T$. Call in $P_2$. This path is possibly a trivial path (in the case $w=v$), but that does not affect the argument. Finally, since $T_1$ is a subtree of $T$, there is a $vu$-path in $T_1$, and thus in $T$. Call it $P_3$. Then the path resulting from joining $P_1$ to $P_2$ to $P_3$ contains a cycle in $T$. This contradicts that $T$ is a tree. Therefore by the principle of mathematical induction the result holds. $\blacksquare$
+\section*{5}
+\paragraph{}
+Let $\mathcal{F}$ be a collection of subtrees of a tree $T$. Let $k$ be an integer such that $k \geq 1$.
+\paragraph{Definitions}
+Let $e=\{u,v\} \in E(T)$. The forest $T-e$ has two connected components, one containing $u$ and one containing $v$. Let $T_u$ denote the component containing $u$, and $T_v$ denote the component containing $v$. Let $S = \{e=\{u,v\} \in E(T) : \text{there exists } F_1,F_2 \in \mathcal{F}, V(F_1) \subseteq V(T_u) \text{ and } V(F_2) \subseteq V(T_v)\}$. Let $K$ be the subforest of $T$ induced by the edges in $S$.
+\paragraph{Lemma 5.1}
+The subforest of $T$, $K$, is a tree.
+\paragraph{Proof}
+All that remains is to show connectedness. Let $u,v \in V(K)$. Let $P$ be the $uv$-path in $T$. Let $e=\{x,y\} \in E(P)$. Say without loss of generality that $P$ is of the form $u,\dots,x,y,\dots,v$. Then $u \in V(T_x)$, and consequently $V(T_u) \subseteq V(T_x)$ by connectedness. By the definition of $S$ there exists $F_1 \in \mathcal{F}$, such that $V(F_1) \subseteq V(T_u)$. Then by transitivity $V(F_1) \subseteq V(T_x)$. Similarly $V(T_v) \subseteq V(T_y)$ and there exists $F_2 \in \mathcal{F}$, such that $V(F_2) \subseteq V(T_v)$, so $V(F_2) \subseteq V(T_y)$. Therefore $e \in S$ and consequently in $E(K)$. Thus all edges in the $uv$-path in $T$ are in $K$ and hence $K$ is connected. $\blacksquare$
+\paragraph{Lemma 5.2}
+Let $\{w, l\} \in E(K)$ such that $l$ is a leaf of $K$. Then for all $F \in \mathcal{F}$ if $V(F) \subseteq V(T_l)$ then $l \in V(F)$.
+\paragraph{Proof}
+Let $F \in \mathcal{F}$ and suppose that $V(F) \subseteq V(T_l)$. Assume for contradiction that $l \not\in V(F)$. Let $v \in V(F)$ such that $v \neq l$. Let $P$ be the $lv$-path in $T$. Notice that $w \not\in V(P)$. The length of $P$ is $\geq 1$ since $l \neq v$. Since $l$ is a leaf of $K$, for all $e \in E(P)$, $e \not\in K$. Let $e = \{a,b\} \in E(P)$ such that $a \not\in V(F)$ and $b \in V(F)$. Then $l \in V(T_a)$. Since $w$ is connected to $l$, $w \in V(T_a)$. Therefore $V(T_w) \subseteq V(T_a)$. Since $\{w, l\} \in E(K)$, there exists $F' \in \mathcal{F}$, such that $V(F') \subseteq V(T_w)$. Then by transitivity $V(F') \subseteq V(T_a)$. Since $b \in V(F)$ and $F$ is a tree, $V(F) \subseteq V(T_b)$ by connectivity within a connected component. Thus $e \in S$ and therefore $e \in E(K)$. By Lemma $5.1$, $K$ is a tree so the subpath of $P$ from $l$ to $a$ is in $K$. Since $l$ is adjacent to a vertex on this path not equal to $w$ and to $w$ the degree of $l$ is $\geq 2$, contradicting that $l$ is a leaf. $\blacksquare$
+\paragraph{Lemma 5.3}
+Let $\{w,l\} \in E(K)$ such that $l$ is a leaf of $K$. Then for all $F_1, F_2 \in \mathcal{F}$, if $V(F_1) \subseteq V(T_w)$ and $V(F_2) \subseteq V(T_l)$ then $V(F_1) \cap V(F_2) = \emptyset$.
+\paragraph{Proof}
+Let $F_1, F_2 \in \mathcal{F}$. Suppose that $V(F_1) \subseteq V(T_w)$ and $V(F_2) \subseteq V(T_l)$. Assume for contradiction that $V(F_1) \cap V(F_2) \neq \emptyset$. Then there exists $v \in V(F_1) \cap V(F_2)$. Let $x \in V(T_w)$ and let $y \in V(T_l)$. Since $T_w$ is a tree there is an $xv$-path in $T_w$, call it $P_1$. Further there is a $vy$-path in $T_l$, call it $P_2$. Then joining $P_1$ to $P_2$ forms an $xy$-path in $T - \{w,l\}$. A contradiction since $x$, and $y$ are in different connected components, $T_w$ and $T_l$ respectively. $\blacksquare$
+\paragraph{}
+For the main result we proceed by induction on $|\mathcal{F}|$. First notice that the result is trivial if $k > |\mathcal{F}$ since one can simply take $X$ to be a set containing one vertex from each tree in $\mathcal{F}$. So suppose that $k \leq |\mathcal{F}|$. As in problem $4$ if $|\mathcal{F}| = 1$ the result is trivial. For the base case $|\mathcal{F}| = 2$, the result is implied by problem $4$.
+\paragraph{}
+Suppose for induction that for all collections of subtrees of $T$, $\mathcal{T}$, such that $1 \leq |\mathcal{T}| < n$, for all integers $k \geq 1$ there are $k$ vertex disjoint trees in $\mathcal{T}$ or there is a set $X$ of $<k$ vertices in $T$ that intersects each tree in $T$. Suppose $|\mathcal{F}| = n$. Consider the tree $K$ as defined previously and let $l$ be a leaf of $K$. Let $F \in \mathcal{F}$ such that $V(F) \subseteq V(T_l)$. Such $F$ exists by the definition of $S$. Let $A = \{ B \in \mathcal{F} : l \in V(B)\}$. Let $\mathcal{T} = \mathcal{F} \backslash A$. If there does not exist $B \in \mathcal{T}$ then $\mathcal{F} = A$. The result holds with $X = \{l\}$ by Lemma $5.2$. So say there exists $B \in \mathcal{T}$. Then $1 \leq |\mathcal{T}| < n$. By the induction hypothesis there are either $k-1$ vertex disjoint trees in $\mathcal{T}$ (case $1$) or there exists a set $X'$ of $ < k-1$ vertices in $T$ that intersects each tree in $T$ (case $2$). If $|\mathcal{T}| < k - 1$ then case $1$ does not hold. We will treat this scenario with case $2$ and assume $|\mathcal{T}| = k - 1$ for case $1$.
+\paragraph{}
+Suppose case $1$ holds. Let $\mathcal{D}$ be the set of $k-1$ vertex disjoint trees in $\mathcal{T}$. By lemma $5.3$, for all $D \in \mathcal{D}$, $V(F) \cap V(D) = \emptyset$. So $\mathcal{D} \cup \{F\}$ is a set of $k$ vertex disjoint trees in $\mathcal{F}$.
+\paragraph{}
+Suppose case $2$ holds. Let $X$ be the set of $< k-1$ vertices in $T$ that interesects every tree in $\mathcal{T}$. By lemma $5.2$, $l$ intersects every tree in $A$. Thus $X \cup \{l\}$ intersects every tree in $\mathcal{T} \cup A = \mathcal{F}$. Further $|X \cup \{l\}| < k$. Therefore $X \cup \{l\}$ is a set of $< k$ vertices in $T$ that intersects each tree in $\mathcal{F}$. In either case the result holds. $\blacksquare$  
+\end{document}
