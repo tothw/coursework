@@ -1,0 +1,8 @@
+#exclude files generated from compiling with pdflatex
+
+.DS_Store
+*/.DS_Store
+*/*.aux
+*/*.log
+*/*.pdf
+*/*.synctex.gz
