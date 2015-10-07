@@ -61,7 +61,7 @@ Now consider the case that $deg(v) = 2$. Let $w, u$ be the vertices adjacent to 
 Finally consider when $deg(v) = 2$ and $w$ is adjacent to $u$. Now let $C$ be the $wvu$ cycle in $G$. Then for every cycle $C'$ of $G$, $V(C) \cap V(C') \neq \emptyset$. Let $X = \{w,u\}$. Let $C'$ be a cycle of $G$. Since $V(C) \cap V(C') \neq \emptyset$, $w \in V(C')$ or $u \in V(C')$. Notice that if $C' \neq C$ then $v \not \in V(C')$ since $deg(v) = 2$. So $w$ or $u$ lies on every cylce in $G$. Thus $X$ is a hitting set for $G$ of size at most $2$. $\blacksquare$
 \subsection*{b}
 \paragraph{}
-Suppose that $H$ is a subdivision of $K_4$, $X$ is the set of degree $3$ vertices of $H$, and $H$ is a subgraph of a graph $G$.
+Suppose that $H$ is a subdivision of $K_4$, $X$ is the set of degree $3$ vertices of $H$, and $H$ is a subgraph of a graph $G$. Suppose that for every $C_1, C_2$, cycles of $G$, that $V(C_1) \cap V(C_2) \neq \emptyset$. Proceed by induction on $|V(H)|$. If $|V(H)|=4$ then $X = V(H)$.
 \section*{3}
 \paragraph{}
 Let $(T,(B_w : w\in V(T)))$ be a tree decomposition of a graph $G$. Let $H$ be a connected subgraph of $G$. Let $S = \{w \in V(T) : B_w \cap V(H) \neq \emptyset \}$.
