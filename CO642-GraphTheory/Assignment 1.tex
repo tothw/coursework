@@ -50,6 +50,16 @@ Since $w \in V(G')$, $w \not \in e$. In the graph $G$ all vertices in $V(G_e)$ a
 \subsection*{d}
 Suppose $V$ is non-empty. If $|V(G)| \geq 3$ and $G$ has an edge $e$ the result follows from $1(c)$. If $|V(G)| \geq 3$ but $G$ does not have any edges then all vertices of $G$ have degree zero which is less than three. If $|V(G)| < 3$ then any vertex of $G$ has degree at most one which is less than two. $\blacksquare$
 \section*{2}
+\paragraph{Lemma 2.1}
+Let $G$ be a simple graph. Let $e = \{w,v\} \in E(G)$. Let $X \subseteq V(G_{/e})$, such that for all $C$, cycles in $G_{/e}$, $X \cap V(C) \neq \emptyset$. Let $wv \in V(G_{/e})$ be the vertex resulting from contracting $e$. Let $f : V(G_{/e}) \rightarrow V(G)$ defined by $f(x) = x $ if $x \neq wv$ and $f(x) = w$ if $x = wv$. Let $X' = f(X)$. Then for all all $C$, cycles in $G$, if there does not exist $u \in V(C)$, such that $V(C) = \{w,u,v\}$ then $X' \cap V(C) \neq \emptyset$.
+\paragraph{Proof}
+Let $C$ be a cycle of $G$. Suppose that there does not exist $u \in V(C)$, such that $V(C) = \{w,u,v\}$.
+\subparagraph{Claim}
+$C_{/e}$ is a cycle.
+\subparagraph{Proof}
+If $e \not \in E(C)$ then $C_{/e} = C$ is a cycle. If $e \in E(C)$ then $|V(C)| \geq 4$. Consider the $vw$-path in $C$ that avoids $e$, call it $P$. Since $|V(C)| \geq 4$, the length of $P$ is $\geq 3$. Contracting $e$ closes $P$ to form $C_{/e}$. A closed path of length $\geq 3$ is a cycle. $\blacksquare$
+\paragraph{}
+Since $C_{/e} \cap X \neq \emptyset$, there exists $a \in V(C_{/e}) \cap X$. Then $f(a) \in X'$ and $f(a) \in  V(C)$. So $f(a) \in X' \cap V(C)$. Therefore for all cycles $C$ in $G$, $X' \cap V(C) \neq \emptyset$. $\blacksquare$
 \subsection*{a}
 \paragraph{}
 Suppose $G$ is a simple graph with no $K_4$-minor. Suppose for every $C_1, C_2$, cycles of $G$, that $V(C_1) \cap V(C_2) \neq \emptyset$. Proceed by induction on $|V(G)|$. If $|V(G)|=1$ then $G$ is a forest, and therefore $G$ has a hitting set of size $0 \leq 2$. Suppose for induction that for every integer $k$ such that $1 \leq k < n$, for every simple graph, $H$, with no $K_4$-minor if $|V(H)| = k$ and for every $C_1, C_2$, cycles of $H$, that $V(C_1) \cap V(C_2) \neq \emptyset$ then $H$ has a hitting set of size at most $2$.
@@ -63,9 +73,12 @@ Finally consider when $deg(v) = 2$ and $w$ is adjacent to $u$. Now let $C$ be th
 \paragraph{}
 Suppose that $H$ is a subdivision of $K_4$, $X$ is the set of degree $3$ vertices of $H$, and $H$ is a subgraph of a graph $G$. Suppose that for every $C_1, C_2$, cycles of $G$, that $V(C_1) \cap V(C_2) \neq \emptyset$. Proceed by induction on $|V(H)|$. If $|V(H)|=4$ then $H = K_4$ and $X = V(H)$. Write $X = \{v_1,v_2,v_3,v_4\}$. Then $v_1,v_2,v_3,v_4,v_1$ is a cycle in $H$ and consequently $G$. Call it $C$. Let $C'$ be any cycle of $G$. Then $V(C) \cap V(C') \neq \emptyset$ so $V(C) \cap X \neq \emptyset$. Therefore every cycle in $G$ is hit by $X$. Now suppose for induction that every graph with no vertex disjoint cycles, containing a subdivision of $K_4$, $K$, with $V(K) = k$ where $4 \leq k < n$ is such that the set of degree $3$ vertices of $K$ is a hitting set for $G$.
 \paragraph{}
-Let $|V(H)| = n$. Notice no subdivision of $K_4$ increase the number of degree $3$ vertices. That is, $|X| = 4$. Write $X = \{v_1, v_2, v_3, v_4\}$. Since $|V(H)| > 4$, $H$ contains a vertex $v$ arising from the subdivision of an edge of $K_4$. That is $deg(v) = 2$ in $H$. Let $\{w,v\} = e \in E(H)$. Then every cycle in $G-v$ equivalent up to isomorphism to a cycle in $G_{/e}$. This can be seen by mapping every vertex in $G$ to itself in $G_{/e}$ except $w$ which is mapped to the $w$ contracted vertex. By applying the induction hypothesis to $G_{/e}$ we obtain that $X$ is a hitting set for $G_{/e}$. Thus $X$ hits every cycle in $G-v$. It remains to consider the cycles in $G$ containing $v$.
+Let $|V(H)| = n$. Notice no subdivision of $K_4$ increase the number of degree $3$ vertices. That is, $|X| = 4$. Write $X = \{v_1, v_2, v_3, v_4\}$. Since $|V(H)| > 4$, $H$ contains a vertex $v$ arising from the subdivision of an edge of $K_4$. That is $deg(v) = 2$ in $H$. Let $\{w,v\} = e \in E(H)$. Then $G_{/e}$ is such that $G_{/e}$ contains no vertex disjoint cycles, a subdivision of $K_4$, and $|V(G_{/e}| < n$. Applying the induction hypothesis, we see that $X$ is a hitting set of $G_{/e}$. Consider lemma $2.1$. In this setting $f(X) = X$. Therefore by lemma $2.1$, every cycle, $C$, of $G$ such that there does not exists $u \in V(G)$ such that $V(C) = \{w,v,u\}$ is hit by $X$.
 \paragraph{}
-Suppose for contradiction that every cycle in $G$ containing $v$ is not hit by $X$.
+Let $C$ be a cycle of $G$ such that there exists a $u$, $V(C) = \{w,v,u\}$. Suppose for contradiction that $C$ is not hit by $X$. Then $w, u \not\in X$. There are three cases to consider: $w, u \not \in V(H)$, exactly one of $w,u \in V(H)$, or both $w,u \in V(H)$.
+\subparagraph{Case 1} Suppose $w,u \not\in V(H)$. The vertex $v$ arose from the subdivision of some edge of $K_4$. Suppose without loss of generality that such edge was between $v_1$ and $v_2$. Since $H$ is a subdivision of $K_4$ there are three vertex disjoint paths between any two of $v_1,v_2,v_3,v_4$ in $H$. Thus there are two vertex disjoint paths between $v_1$ and $v_2$ avoiding $v$ in $H$. These paths form a cycle in $H$ disjoint from $v$. Further this cycle is disjoint from $w,u$ since they do not lie on $H$. A contradiction.
+\subparagraph{Case 2}
+Suppose exactly one of $w,u \in V(H)$. Say without loss of generality that $w \in V(H)$ and $u \not \in V(H)$. If $w$ and $v$ lie on the same independent path between two vertices, we can obtain two vertex disjoint cycles as in Case $1$. Suppose  
 \section*{3}
 \paragraph{}
 Let $(T,(B_w : w\in V(T)))$ be a tree decomposition of a graph $G$. Let $H$ be a connected subgraph of $G$. Let $S = \{w \in V(T) : B_w \cap V(H) \neq \emptyset \}$.
