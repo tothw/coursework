@@ -43,4 +43,38 @@ x &\equiv y\ (p) &x &\equiv z\ (q)
 \end{align}
 \paragraph{}
 By the Chinese Remainder Theorem each system has a unique solution mod $pq = n$. That is, $x^2 \equiv a\ (n)$ has four solutions. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+Let $a \in \mathbb{Z}_n^*$. Suppose a machine has given us four distinct solutions to the congruence $x^2 \equiv a\ (n)$. Call those solutions $x_1,x_2,x_3,x_4$. Exactly one of $x_2, x_3, x_4$ is congruent to $\pm x_1$ mod $n$. Say without loss of generality $x_2$ is such that $x_1 \not\equiv \pm x_2\ (n)$. Then $x_1 \pm x_2 \not\equiv 0\ (n)$. That is $n \nmid x_1 \pm x_2$. Now, since $x_1^2 \equiv a\ (n)$ and $x_2^2 \equiv a\ (n)$ we have:
+\begin{align*}
+&\ &x_1^2 &\equiv x_2^2 &(n)\\
+&\Rightarrow &x_1^2 - x_2^2 &\equiv 0 &(n) \\
+&\Rightarrow &(x_1 + x_2)(x_1 - x_2) &\equiv 0 &(n) \\
+\end{align*}
+\paragraph{}
+That is $n \mid (x_1 + x_2)(x_1 - x_2)$. But $n \nmid (x_1 + x_2)$ and $n \nmid (x_1 - x_2)$. Then, since $n = pq$, one of $p,q$ divides $(x_1 + x_2)$ and the other divides $(x_1 - x_2)$. Say without loss of generality that $p \mid (x_1 + x_2)$. Therefore $gcd(x_1 + x_2, n) = p$. Apply the Euclidean algorithm to compute $gcd(x_1 + x_2,n)$ to obtain $p$. Divide $p$ into $n$ to obtain $q$. In this manner the prime factorization of $n$ has been found from the four solutions of $x^2 \equiv a\ (n)$.$\blacksquare$
+\section*{3.15}
+\paragraph{}
+See attached printout from Sage Math, titled Miller-Rabin Test.
+\section*{3.39}
+Let $p$ be a prime satisfying $p \equiv 3\ (4)$.
+\subsection*{a}
+Let $a$ be a quadratic residue modulo $p$. Let $b \equiv a^{\frac{p+1}{4}}\ (p)$. Notice $\frac{p+1}{4}$ is an integer since $p \equiv 3\ (4) \Rightarrow p + 1 \equiv 0\ (4)$. Let $g$ be a generator of $\mathbb{Z}_p$. Then there exists a $k \in mathbb{Z}$ such that $g^k \equiv a\ (p)$. Since $a$ is a quadratic residue $k$ is even. Thus there exists $b \in \mathbb{Z}$ such that $k = 2b$. Now we have:
+\begin{align*}
+b^2 &\equiv a^{\frac{p+1}{2}} &(p)\\
+&\equiv a^{1 + \frac{p-1}{2}} &(p)\\
+&\equiv a\cdot a^{\frac{p-1}{2}} &(p)\\
+&\equiv a\cdot g^{\frac{2b(p-1)}{2}} &(p)\\
+&\equiv a\cdot (g^{p-1})^b &(p)\\
+&\equiv a\cdot 1^b &(p)\\
+&\equiv a &(p)
+\end{align*} $\blacksquare$
+\subsection*{b}
+\paragraph{i}
+Let $b^2 \equiv 116\ (587)$. Since $587 \equiv 3\ (4)$, $b \equiv 116^{\frac{587 + 1}{4}}\ (587)$. Thus $b \equiv 65\ (587)$.
+\paragraph{ii}
+Let $b^2 \equiv 3217 \ (8627)$. Since $8627 \equiv 3\ (4)$, $b \equiv 3217 ^{\frac{8627 + 1}{4}}\ (8627)$. Thus $b \equiv 2980\ (8627)$.
+\paragraph{iii}
+Let $b^2 \equiv 9109\ (10663)$. Since $9109^{\frac{10663-1}{2}} \equiv -1\ (10663)$, $9109$ is not a quadratic residuue modulo $(10663)$. Therefore no solution for $b$ exists.
+\section*{Goldwasser-Micali is IND-CPA}
 \end{document}
