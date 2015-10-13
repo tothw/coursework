@@ -68,5 +68,23 @@ Let $D = (C_1 - \{e\}) \cup (C_2 - \{e\}) = (C_1 \cup C_2) - \{e\}$. Let $G_1$ b
 \paragraph{}
 Thus $\mathcal{C}$ satisfies the circuit family properties for $M$, so we conclude that $M$ is a matroid. $\blacksquare$
 \section*{2}
-
+\section*{3}
+\section*{4}
+\paragraph{}
+Let $g : 2^S \rightarrow \mathbb{R}_+$ be a submodular function and let $P(g)$ be the corresponding nonempty polymatroid. Choose $f : 2^S \rightarrow \mathbb{R}_+$ to be defined by $f(A) = max_{x \in P(g)} x(A)$. Then $f(\emptyset) = max_{x \in P(g)} x(\emptyset) = 0$. Let $A, B \subseteq S$. Then we have:
+\begin{align*}
+f(A \cup B) + f(A \cap B) &= max_{x \in P(g)} x(A \cup B) + max_{x \in P(g)} x(A \cap B) \\
+&\leq max_{x \in P(g)}(x(A) + x(B) - x(A\cap B)) + max_{x \in P(g)} x(A \cap B) \\
+&\leq max_{x \in P(g)}x(A) + max_{x \in P(g)}x(B) - max_{x \in P(g)} x(A \cap B) + max_{x \in P(g)} x(A \cap B) \\
+& = f(A) + f(B) 
+\end{align*}
+so $f$ is submodular. Now let $A \subseteq B \subseteq S$. Then we have:
+\begin{align*}
+f (A) &= max_{x \in P(g)}x(A) \\
+&\leq max_{x \in P(g)} x(B) &\text{ Since $A\subseteq B$} \\
+&= f(B)
+\end{align*}
+so $f$ is monotone.
+\paragraph{}
+Let $x \in P(g)$. Let $A \subseteq S$. Then $x(A) \leq max_{x \in P(g)} x(A) \leq f(A)$. So $x \in P(f)$. Now let $x \in P(f)$. Let $A \subseteq S$. Then $x(A) \leq f(A) = max_{x \in P(g)} x(A) \leq g(A)$. So $x \in P(g)$. Therefore $P(f) = P(g)$. $\blacksquare$
 \end{document}
