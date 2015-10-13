@@ -76,7 +76,7 @@ Let $g : 2^S \rightarrow \mathbb{R}_+$ be a submodular function and let $P(g)$ b
 f(A \cup B) + f(A \cap B) &= max_{x \in P(g)} x(A \cup B) + max_{x \in P(g)} x(A \cap B) \\
 &\leq max_{x \in P(g)}(x(A) + x(B) - x(A\cap B)) + max_{x \in P(g)} x(A \cap B) \\
 &\leq max_{x \in P(g)}x(A) + max_{x \in P(g)}x(B) - max_{x \in P(g)} x(A \cap B) + max_{x \in P(g)} x(A \cap B) \\
-& = f(A) + f(B) 
+& = f(A) + f(B) \\
 \end{align*}
 so $f$ is submodular. Now let $A \subseteq B \subseteq S$. Then we have:
 \begin{align*}
@@ -87,4 +87,23 @@ f (A) &= max_{x \in P(g)}x(A) \\
 so $f$ is monotone.
 \paragraph{}
 Let $x \in P(g)$. Let $A \subseteq S$. Then $x(A) \leq max_{x \in P(g)} x(A) \leq f(A)$. So $x \in P(f)$. Now let $x \in P(f)$. Let $A \subseteq S$. Then $x(A) \leq f(A) = max_{x \in P(g)} x(A) \leq g(A)$. So $x \in P(g)$. Therefore $P(f) = P(g)$. $\blacksquare$
+\section*{5}
+\subsection*{a}
+\paragraph{}.
+Let $f : 2^S \rightarrow \mathbb{R}$. Let $p_j(A) = f(A \cup \{j\{) - f(A)$, for all $A \subseteq S$ and $j \in S$. 
+\paragraph{}
+Suppose that $f$ is submodular. Let $A \subseteq B \subseteq S$. Let $j \in S \backslash B$. Let $X = A \cup \{j \{$. Then we have: $f(X) + f(B) \geq f(X \cup B) + f(X \cap B) = f(B \cup \{j\}) + f(A)$. Which implies $f(A \cup \{j\}) - f(A) \geq f(B \cup \{j\}) - f(B)$. That is, $p_j(A) \geq p_j(B)$.
+\paragraph{}
+Now suppose that for all $A \subseteq B \subseteq S$, for all $j \in S \backslash B$, that $s_j(A) \geq s_j(B)$. Then we have $f(A \cup \{j\}) - f(A) \geq f(B \cup \{j\}) - f(B)$ which implies $f(A \cup \{j\}) - f(B \cup \{j\}) \geq f(A) + f(B)$, for all $A \subseteq B \subseteq S$ and $j \in S \backslash B$. Now let $X, Y \subseteq S$. Say without loss of generality $|X| \leq |Y|$.Let $|Y - X| = k$. Let $\{e_1, \dots, e_k\} = Y-X$. Then we have:
+\begin{align*}
+f(X \cap Y) - f(X) &\leq f((X \cap Y) \cup \{e_1\}) - f(X \cup \{e_1\}) &\text{by $p_{e_1}(X) \geq p_{e_1}(X\cap Y)$} \\
+& \dots &\text{inductively} \\
+&\leq f((X\cap Y) \cup \{e_1, \dots, e_k\}) - f(X \cup \{e_1, \dots, e_k\}) \\
+&= f((X \cap Y) \cup (X - Y)) - f(X \cup (X - Y))  &\text{by $Y-X = \{e_1, \dots, e_k\}$}\\
+&= f(Y) - f(X \cup Y)
+\end{align*}  
+so we have $f(X \cap Y) - f(X) \leq f(Y) - f(X \cup Y)$ which implies that $f(X \cup Y) + f(X \cap Y) \leq f(X) + f(Y)$ for all $X,Y \subseteq S$. Thus $f$ is submodular. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+Let $G = (V,E)$ be an undirected graph on $n$ vertices. Let $f(A) = n - \kappa(A)$ where $\kappa(A)$ is the number of connected components of $(V,A)$. Let $A \subseteq B \subseteq E$. Let $j \in S \backslash B$. Then $\kappa(B) \leq \kappa(A)$ by $A \subseteq B$, so $n - \kappa(A) \leq n - kappa(B)$, that is $f(A) \leq f(B)$. Then $f(A \cup \{j\}) - f(A) \geq f(A \cup \{j\}) - f(B)$. Now $\kappa(A \cup \{j\}) \leq \kappa(B \cup \{j\})$ so $f(A\cup \{j\}) \geq f(B \cup \{j\})$. Therefore $f(A \cup \{j\}) - f(B) \geq f(B \cup \{j\}) - f(B)$. So we have $f(A \cup \{j\}) - f(A) \geq f(B \cup \{j\}) - f(B)$ which implies $p_j(A) \geq p_j(B)$. Finally, by $5(a)$, $f$ is submodular. $\blacksquare$ 
 \end{document}
