@@ -1,0 +1,30 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{report}
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\pagestyle{fancy}
+
+\listfiles
+
+\setlength{\hoffset}{0pt}			% 1 inch left margin
+\setlength{\oddsidemargin}{0pt}		% 1 inch left margin
+\setlength{\voffset}{0pt}			% 1 inch top margin
+\setlength{\marginparwidth}{0pt}	% no margin notes
+\setlength{\marginparsep}{0pt}		% no margin notes
+\setlength{\textwidth}{6.375in}
+\raggedbottom
+
+\rhead{William Justin Toth 650 2} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{1}
+\subsection*{a}
+\paragraph{}
+Let $M = (S,I)$ be the uniform matroid of rank $2$ over four elements. Then we can write $S = \{e_1, e_2, e_3, e_4\}$ and $I = \{\{e_1, e_2\}, \{e_1, e_3\}, \{e_1,e_4\},\{e_2,e_3\}, \{e_2,e_4\}, \{e_3,e_4\}, \{e_1\}, \{e_2\}, \{e_3\}, \{e_4\}, \emptyset\}$. Suppose for contradiction that $M$ is a graphic matroid corresponding to the graph $G = (V, S)$. Now $\{e_1,e_2,e_3\} \not\in I$ implies $e_1, e_2,e_3$ for a $3$-cycle in $G$. Since $\{e_1, e_2\} \in I$, $e_1,e_2$ forms a forest so they intersect at at most one vertex. Since $e_1,e_2,e_3$ forms a cycle, $e_1,e_2$ is a connected path. Therefore $|e_1 \cap e_2| = 1$. Let $v \in V$ such that $v \in e_1$ and $v \in e_2$. Let $e_1 = \{w,v\}$ and $e_2 = \{u,v\}$ with $u \neq w$. Since $e_1,e_2,e_3$ is a cycle on three vertices and $e_3 \neq e_1$ and $e_3 \neq e_2$, $e_3 = \{w,u\}$. Similarly $\{e_1,e_2,e_4\} \not\in I$ so $e_1,e_2,e_4$ forms a $3$-cycle in $G$, but as before $e_4 = \{w,u\}$. Thus $e_3 = e_4$ contradicting $|S| = 4$. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+Let $D = (V,A)$ be a directed graph. Let $N$ be the incidence matrix of $D$. Let $M$ be the linear matroid defined by $N$ (over the rationals). Let $G = (V,E)$ be the undirected graph corresponding to $D$.
+\end{document}
