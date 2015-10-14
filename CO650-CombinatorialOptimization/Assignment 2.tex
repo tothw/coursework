@@ -69,6 +69,16 @@ Let $D = (C_1 - \{e\}) \cup (C_2 - \{e\}) = (C_1 \cup C_2) - \{e\}$. Let $G_1$ b
 Thus $\mathcal{C}$ satisfies the circuit family properties for $M$, so we conclude that $M$ is a matroid. $\blacksquare$
 \section*{2}
 \section*{3}
+\paragraph{}
+Let $S$ be a finite set and $\mathcal{B} \subseteq 2^S$. Suppose that $\mathcal{B}$ is the set of bases of some matroid $M = (S, \mathcal{I})$. Since $M$ is an independence system, $\emptyset \in \mathcal{I}$. Since $M$ is a matroid, $\emptyset$ can be extended to a basis of $M$, $B$. So $B \in \mathcal{B}$, and therefore $\mathcal{B} \neq \emptyset$. Now let $B_1, B_2 \in \mathcal{B}$ and $y \in B_2 \backslash B_1$. Since $B_1$ is a basis, $B_1 \cup \{y\}$ has at most one circuit, but since $|B_1 \cup \{y\}| > k$ it is not independent, so we conclude it has exactly	one circuit. Let $C$ be said circuit. Since $B_1$ is a basis, $C$ is not a subset of $B_1$. Since $\{y\} \in \mathcal{I}$, $C \neq \{y\}$. Thus there exists an $x \in C$ such that $x \in B_1$. Now $C$ is minimally dependent, so $C - \{x\} \in \mathcal{I}$. That is $(B_1 \backslash \{x\}) \cup \{y\} \in \mathcal{I}$. Further $|B_1 \backslash \{x\}) \cup \{y\}| = |B_1|$, so $B_1 \backslash \{x\}) \cup \{y\}$ is a maximal independent set in $M$. Therefore $B_1 \backslash \{x\}) \cup \{y\} \in \mathcal{B}$.
+\paragraph{}
+Now suppose that $\mathcal{B} \neq \emptyset$, Suppose that for all $B_1, B_2 \in \mathcal{B}$ and  $y \in B_2 \backslash B_1$, there exists an $x \in B_1 \backslash B_2$ such that $B_1 \backslash \{x\}) \cup \{y\} \in \mathcal{B}$. Let $\mathcal{I} = \{A : A \subseteq B \text{ for some } B \in \mathcal{B} \}$. Notice that the maximal elements of $\mathcal{I}$ are exactly the elements of $\mathcal{B}$. We will show that $M = (S, \mathcal{I})$ is a matroid.
+\subparagraph{M1}
+Let $B \in \mathcal{B}$. Then $\emptyset \subseteq B$, so $\emptyset \in \mathcal{I}$.
+\subparagraph{M2}
+Let $X \subseteq Y \in \mathcal{I}$. Then $X \subseteq Y$ and there exists $B \in \mathcal{B}$ such that $Y \subseteq B$, so $X \subseteq B$. Therefore $X \in \mathcal{I}$.
+\subparagraph{M3}
+Let $B_1, B_2 \in \mathcal{B}$. Proceed by induction on $D(B_1,B_2) = |B_1\cup B_2| - |B_1 \cap B_2|$. If $D(B_1, B_2) = 0$ then $|B_2| = |B_1|$. Suppose for induction that any two bases, $B_1,B_2$ with size of difference $D(B_1, B_2) = k-1$ such that $0 \geq k-1$ have $|B_1| = |B_2|$. Let $|B_2 \ B_1| = k \geq 1$. So there exists $y \in B_2 \backslash B_1$. Thus there exists $x \in B_1 \backslash B_2$ such that $(B_1 \backslash \{x\}) \cup \{y\} \in \mathcal{B}$. But $D(B_2,(B_1 \backslash \{x\}) \cup \{y\}) = k-1$. Thus $|B_2| = |(B_1 \backslash \{x\}) \cup \{y\}|$ by the induction hypothesis. But $|(B_1 \backslash \{x\}) \cup \{y\}| = |B_1|$ so $|B_1| = |B_2|$. Therefore by the principle of mathematical induction any two maximal independent subsets of $M$ have the same size. $\blacksquare$
 \section*{4}
 \paragraph{}
 Let $g : 2^S \rightarrow \mathbb{R}_+$ be a submodular function and let $P(g)$ be the corresponding nonempty polymatroid. Choose $f : 2^S \rightarrow \mathbb{R}_+$ to be defined by $f(A) = max_{x \in P(g)} x(A)$. Then $f(\emptyset) = max_{x \in P(g)} x(\emptyset) = 0$. Let $A, B \subseteq S$. Then we have:
@@ -113,7 +123,7 @@ Let $M = (S,\mathcal{I})$ be a uniform matroid of rank $k > 0$. Let $A \subseteq
 \paragraph{M1}
 By $M1$ for $M$, $\emptyset \in \mathcal{I}$. Since $|\emptyset| = 0 < k$, $A \neq \emptyset$, so $\emptyset \in \mathcal{I}_A$.
 \paragraph{M2}
-Let $B \subseteq C \in \mathcal{I}_A$. Then $C \in \mathcal{I}$ and $C \neq A$. Since $B \subseteq C$, $B in \mathcal{I}$ and $B \neq A$. Therefore $B \in \mathcal{I}_A$.
+Let $B \subseteq C \in \mathcal{I}_A$. Then $C \in \mathcal{I}$ and $C \neq A$. Since $B \subseteq C$, $B \in \mathcal{I}$ and $B \neq A$. Therefore $B \in \mathcal{I}_A$.
 \paragraph{M3}
 Let $B_1, B_2 \in \mathcal{I}_A$, of maximal size. Suppose for contradiction that $|B_1| < |B_2|$. Then $|B_2| \leq k$ and $|B_1| < k$. There exists $b \in B_2$ such that $b \not\in B_1$. If $b \not \in A$ then $B_1 \cup \{b\} \neq A$ and $|B_1 \cup \{b\}| \leq k$, so $B_1 \cup \{b\} \in \mathcal{I}_A$ but $|B_1 \cup \{b\}| < |B_1|$ contradicting the maximality of $B_1$. Now consider the case $b \in A$. If $B_1 \cup \{b\} \neq A$ then the previous argument still holds. A problem occurs when $B_1 \cup \{b\} = A$. In such a case $|B_1| = k-1$ and $B_1 \subset A$. Now $B_2 \neq A$ so there exists $b' \in B_2$ such that $b' \not\in A$. Then $b' \not\in B_1$. So $|B_1 \cup \{b'\}| = k$ and $B_1 \cup \{b'\} \neq A$ and therefore $B_1 \cup \{b'\} \in \mathcal{I}_A$. But $|B_1 \cup \{b'\}| > |B_1|$, contradicting the maximality if $B_1$. Thus every maximal independent subset in $M_A$ has the same size. $\blacksquare$.
 \subsection*{b}
