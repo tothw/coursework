@@ -106,4 +106,17 @@ so we have $f(X \cap Y) - f(X) \leq f(Y) - f(X \cup Y)$ which implies that $f(X 
 \subsection*{b}
 \paragraph{}
 Let $G = (V,E)$ be an undirected graph on $n$ vertices. Let $f(A) = n - \kappa(A)$ where $\kappa(A)$ is the number of connected components of $(V,A)$. Let $A \subseteq B \subseteq E$. Let $j \in S \backslash B$. Then $\kappa(B) \leq \kappa(A)$ by $A \subseteq B$, so $n - \kappa(A) \leq n - kappa(B)$, that is $f(A) \leq f(B)$. Then $f(A \cup \{j\}) - f(A) \geq f(A \cup \{j\}) - f(B)$. Now $\kappa(A \cup \{j\}) \leq \kappa(B \cup \{j\})$ so $f(A\cup \{j\}) \geq f(B \cup \{j\})$. Therefore $f(A \cup \{j\}) - f(B) \geq f(B \cup \{j\}) - f(B)$. So we have $f(A \cup \{j\}) - f(A) \geq f(B \cup \{j\}) - f(B)$ which implies $p_j(A) \geq p_j(B)$. Finally, by $5(a)$, $f$ is submodular. $\blacksquare$ 
+\section*{6}
+\subsection*{a}
+\paragraph{}
+Let $M = (S,\mathcal{I})$ be a uniform matroid of rank $k > 0$. Let $A \subseteq S$ with $|A| = k$. Let $M_A = (S, \mathcal{I}_A)$ where $\mathcal{I}_A = \mathcal{I} - \{A\}$.
+\paragraph{M1}
+By $M1$ for $M$, $\emptyset \in \mathcal{I}$. Since $|\emptyset| = 0 < k$, $A \neq \emptyset$, so $\emptyset \in \mathcal{I}_A$.
+\paragraph{M2}
+Let $B \subseteq C \in \mathcal{I}_A$. Then $C \in \mathcal{I}$ and $C \neq A$. Since $B \subseteq C$, $B in \mathcal{I}$ and $B \neq A$. Therefore $B \in \mathcal{I}_A$.
+\paragraph{M3 first case}
+Suppose there exists a maximal independent set of $M$, $B \in \mathcal{I}$ such that $B \cap A = \emptyset$. Then $|B| = k$. Further $B \in \mathcal{I}_A$. Suppose for contradiction there exists a maximal independent set of $M_A$, $B'$ such that $|B'| < k$. Then there exists a $b \in B$ such that $b \not\in A$ and $b \not\in B'$. So $|B' \cup \{b\}| \leq k$, and thus $B' \cup \{b\} \in \mathcal{I}$. But $(B' \cup \{b\}) \cap A = \emptyset$. So $B' \cup \{b\} \in \mathcal{I}_A$, contradicting the maximality of $B'$. Thus rank of $M_A$ is $k$.
+\paragraph{M3 second case}
+Now suppose every maximal independent set of $M$, $B$, is such that $B \cap A \neq \emptyset$.
+
 \end{document}
