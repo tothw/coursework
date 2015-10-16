@@ -1,0 +1,44 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{report}
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\pagestyle{fancy}
+
+\listfiles
+
+\setlength{\hoffset}{0pt}			% 1 inch left margin
+\setlength{\oddsidemargin}{0pt}		% 1 inch left margin
+\setlength{\voffset}{0pt}			% 1 inch top margin
+\setlength{\marginparwidth}{0pt}	% no margin notes
+\setlength{\marginparsep}{0pt}		% no margin notes
+\setlength{\textwidth}{6.375in}
+\raggedbottom
+
+\rhead{William Justin Toth 642 2} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{1}
+\paragraph{}
+Let $k$ and $l$ be non-negative integers. Let $G$ be a graph. Suppose that $G$ does not contain $k$ vertex disjoint cycles, each of length at least $l$. Let $H$ be the graph formed by $k$ disjoint copies of the cycle graph of length $l$. Then $G \in Forb(H)$. Since $H$ is planar, by the Grid Theorem, there exists a function $f: \mathbb{Z}^+ \rightarrow \mathbb{Z}^+$ such that $tw(G) \leq f(k)$.
+\paragraph{}
+Thus there exists a tree-decomposition $(T, X(G))$ of width at most $f(k)$. For every cycle, $C_l$, of length at least $l$,  in $G$ let $S_{C_l} = \{ v \in V(T) : X(v) \cap V(C_l) \neq \emptyset \}$. Note that $S_{C_l} \subseteq V(T)$. Since every cycle of length $l$, $C_l$, is connected, by the definition of tree decompositions, $S_{C_l}$ is a subtree of $T$. Thus $\{S_{C_l}\}_{C_l \in G}$ is a collection of subtrees of $T$. By the Helly Property Lemma (proven in Assignment $1$) either there exists $k$ vertex disjoint trees $S_{C_l}$ or there exists $X \subseteq V(T)$, $|X| \leq k-1$, such that for all $C_l$, $S_{C_l} \cap X \neq \emptyset$. If there are $k$ vertex disjoint $S_{C_l}$ then there are $k$ vertex disjoint cycles in $G$ of length at least $l$, a contradiction. So there exists $X \subseteq V(T)$, $|X| \leq k-1$, such that for all $C_l$, $S_{C_l}\cap X \neq emptyset$.
+\paragraph{}
+Let $X' = \bigcup_{v\in X} X(v) \subseteq V(G)$. Suppose there exists a cycle $C_l$ of length at least $l$ such that $X' \cap C_l = \emptyset$. Then $S_{C_l} \cap X = \emptyset$, a contradiction. Thus every cycle of length at least $l$, $C_l$, in $G$ is such that $X' \cap C_l \neq \emptyset.$ Then $G-X$ has no cycle of length $\geq l$. Now $|X'| = |\bigcup_{v\in X} X(v)| \leq |X|\cdot (tw(G) + 1) \leq (k-1)(f(k) + 1)$.  Choosing $h = (k-1)(f(k) + 1) \in \mathbb{Z}$ (independent of $G$) gives $|X| \leq h$ as desired. $\blacksquare$ 
+
+\section*{4}
+\paragraph{}
+Let $G$ be a graph and let $\phi$ be a $k$-coloring of $G$. Let $G_{ij}$ denote the subgraph of $G$ induced by the vertices colored $i$ and $j$ in $\phi$.
+\subsection*{a}
+\paragraph{}
+Let $e = \{u,w\} \in E(G)$. Then there exists a unique $i$ such that $\phi(u) = i$ and a unique $j$ such that $\phi(w) = j$. Thus $e \in E(G_{ij})$ and $e \not\in E(G_{kl})$ for $k \neq i$ or $l \neq j$. That is, $e$ is counted in exactly one $G_{ij}$. Therefore $\sum_{i \neq j} |E(G_{ij})| = \sum_{e \in E(G)} \sum_{G_{ij}: e \in E(G_ij)} 1 = \sum_{e \in E(G)} 1 = |E(G)|$.
+\paragraph{}
+Let $v \in V(G)$. Then there exists a unique $i$ such that $\phi(v) = i$. So for all $j\neq i$, $v \in V(G_{ij})$. There are $k-1$ such $G_{ij}$. Thus $\sum_{G_{ij}: v \in V(G_{ij})} 1 = k-1$. Therefore $\sum_{i\neq j} |V(G_{ij})| = \sum_{v \in V(G)} \sum_{G_{ij} : v \in V(G_{ij})} 1 = \sum_{v \in V(G)} k-1 = (k-1)|V(G)|$.
+\paragraph{}
+Hence combining the two previous summation results we obtain the result $\sum_{i\neq j}|E(G_{ij})| - |V(G_{ij})| = \sum_{i\neq j} |E(G_{ij})| - \sum_{i\neq j} |V(G_{ij})| = |E(G)| - (k-1)|V(G)|$. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+
+\end{document}
