@@ -27,6 +27,68 @@ Let $k$ and $l$ be non-negative integers. Let $G$ be a graph. Suppose that $G$ d
 Thus there exists a tree-decomposition $(T, X(G))$ of width at most $f(k)$. For every cycle, $C_l$, of length at least $l$,  in $G$ let $S_{C_l} = \{ v \in V(T) : X(v) \cap V(C_l) \neq \emptyset \}$. Note that $S_{C_l} \subseteq V(T)$. Since every cycle of length $l$, $C_l$, is connected, by the definition of tree decompositions, $S_{C_l}$ is a subtree of $T$. Thus $\{S_{C_l}\}_{C_l \in G}$ is a collection of subtrees of $T$. By the Helly Property Lemma (proven in Assignment $1$) either there exists $k$ vertex disjoint trees $S_{C_l}$ or there exists $X \subseteq V(T)$, $|X| \leq k-1$, such that for all $C_l$, $S_{C_l} \cap X \neq \emptyset$. If there are $k$ vertex disjoint $S_{C_l}$ then there are $k$ vertex disjoint cycles in $G$ of length at least $l$, a contradiction. So there exists $X \subseteq V(T)$, $|X| \leq k-1$, such that for all $C_l$, $S_{C_l}\cap X \neq \emptyset$.
 \paragraph{}
 Let $X' = \bigcup_{v\in X} X(v) \subseteq V(G)$. Suppose there exists a cycle $C_l$ of length at least $l$ such that $X' \cap C_l = \emptyset$. Then $S_{C_l} \cap X = \emptyset$, a contradiction. Thus every cycle of length at least $l$, $C_l$, in $G$ is such that $X' \cap C_l \neq \emptyset.$ Then $G-X$ has no cycle of length $\geq l$. Now $|X'| = |\bigcup_{v\in X} X(v)| \leq |X|\cdot (tw(G) + 1) \leq (k-1)(f(k) + 1)$.  Choosing $h = (k-1)(f(k) + 1) \in \mathbb{Z}$ (independent of $G$) gives $|X| \leq h$ as desired. $\blacksquare$ 
+\section*{2}
+\paragraph{}
+Let $G$ be a planar graph with minimum degreee at least $3$. Suppose for contradiction that $G$ has all of the following properties:
+\begin{align*}
+&\text{(a) Every vertex of degree three is not incident with a face of length at most } 5\\
+&\text{(b) Every vertex of degree four is not incident with a triangle} \\
+&\text{(c) Every vertex of degree five is incident with at most three triangles}
+\end{align*}
+\paragraph{}
+Proceed by a face discharging argument. Let the initial charge of every vertex, $v$, of $G$ be $ch(v) = 2d(v) - 6$. Let the initial charge of every face, $f$, of $G$ be $ch(f) = |f| - 6$. Then
+\begin{align*}
+\sum_{v \in V(G)} ch(v) + \sum_{f \in F(G)} ch(f) &= \sum_{v \in V(G)} (2d(v) - 6) + \sum_{f \in F(G)} (|f| - 6) \\ &= 4|E| - 6|V| + 2|E| - 6|F| \\ &= -6(|V| - |E| + F|) \\ &= -12. 
+\end{align*}
+\paragraph{}
+Discharge according to the following rules:
+\begin{align*}
+&\text{Let } v\in V(G) \text{. If } d(v) \geq 4 \text{ then send } \frac{1}{2} \text{ charge to adjacent faces of length at least four} &(1)\\
+&\text{Let } v \in V(G) \text{. If } d(v) \geq 5 \text{ then send } 1 \text{ charge to adjacent triangle faces.} &(2)
+\end{align*}
+\paragraph{}
+Let $v \in V(G)$. Let $ch_F(v)$ denote the final charge of $v$. If $d(v) < 4$ then $v$ sends no charge and $d(v) = 3$. So $ch_F(v) \geq ch(v)  = 2(3) - 6 = 0$. 
+\paragraph{}
+If $d(v) = 4$ then $v$ sends $\frac{1}{2}$ charge to each of its neighbouring faces. Since $v$ has at most four neighbouring faces, $ch_F(v) \geq ch(v) - 4\frac{1}{2} = 2(4) - 6 - 2 = 8 - 8 = 0$. 
+\paragraph{}
+If $d(v) = 5$ then $v$ sends $\frac{1}{2}$ charge to each of its neighbouring faces of length at least four and $1$ charage to each adjacent triangle face. By assumption $(c)$ every vertex of degree $5$ is incident with at most three triangles. Since $v$ is incident with at most five faces, it is incident with at most three triangles and at least two faces of length four or more. Since $v$ gives more charge to triangle faces than other faces, in the worst case $v$ is adjacent to three triangle faces and two length four or more faces. Thus $ch_F(v) \geq ch(v) - 2\frac{1}{2} - 3(1) = 2(5) - 6 -1 - 3 = 0$.
+\paragraph{}
+If $d(v) \geq 6$ then $v$ sends $\frac{1}{2}$ charge to each of its neighbouring faces of length at least four and $1$ charge to each of its triangle faces. Since $v$ has at most $d(v)$ neighbouring faces, in the worst case $v$ has at most $d(v)$ neighbouring triangle faces. Then $ch_F(v) \geq ch(v) - d(v) = 2d(v) - 6 - d(v) = d(v) - 6 \geq 6 - 6 = 0$. Therefore every vertex has a non-negative final charge.
+\paragraph{}
+Let $f \in F(G)$. Let $ch_F(f)$ denote the final charge of $f$. No faces send any charge, so $ch_F(f) \geq ch(f)$. If $|f| \geq 6$ then $ch_F(f) \geq ch(f) = 6 -6 =0$.
+\paragraph{}
+If $|f| = 5$ then by assumption $(a)$ every vertex incident with $f$ is of degree four or more. Since $f$ has five adjacent vertices it receives at least $5\frac{1}{2}$ charge from its adjacent vertices. Thus $ch_F(f) \geq ch(f) + \frac{5}{2} = 5 - 6 + \frac{5}{2} \geq 0$.
+\paragraph{}
+If $|f| = 4$ then by assumption $(a)$ every vertex incident with $f$ is of degree four or more. Since $f$ has four adjacent vertices it receives at least $4\frac{1}{2}$ charge from its adjacent vertices. Thus $ch_F(f) \geq ch(f) + \frac{4}{2} = 4 - 6 + 2 = 0$.  
+\paragraph{}
+If $|f| = 3$ then by assumption $(a)$ every vertex incident with $f$ is of degree four or more. Further by assumption $(b)$ every vertex incident with $f$ is not of degree four, so every vertex incident with $f$ is of degree $5$ or more. Thus every vertex incident with $f$ sends $f$ one charge by rule $(2)$. Therefore $ch_F(f) = ch(f) + 3 = 3 - 6 + 3 = 0$. Therefore every face has a non-negative charge.
+\paragraph{}
+The total charge has not changed, precisely it is negative, yet every vertex and every face has non-negative charge, a contradiction. $\blacksquare$
+
+\section*{3}
+\paragraph{}
+Choose $c = 49 > 0$. Let $G$ be a connected graph embedded on a surface $\Sigma$ of genus $g$ such that every face bounds a disk. Suppose for contradiction that $G$ has all of the following properties:
+\begin{align*}
+&\text{(a) Every vertex of $G$ has degree at least six}\\
+&\text{(b) Every vertex of degree six is incident with less than six facial triangles}\\
+&\text{   or has a neighbour of degree greater than six} \\
+&\text{(c) } |V(G)| > cg 
+\end{align*}
+\paragraph{}
+Proceed by a vertex discharging argument. Let the initial charge of every vertex, $v$, of $G$ be $ch(v) = d(v) - 6 - \frac{d(v)}{|V|}g$. Let the initial charge of every face, $f$, of $G$ be $ch(f) = 2|f| - 6$. Then
+\begin{align*}
+\sum_{v \in V(G)} ch(v) + \sum_{f \in F(G)} ch(f) &\leq \sum_{v \in V(G)} (d(v) - 6 -\frac{6}{|V|}g) + \sum_{f \in F(G)} (2|f| - 6) \\ &= 2|E| - 6|V| - 6g + 4|E| - 6|F| \\ &= -6(|V| - |E| + |F| + g) \\ &= -12. 
+\end{align*}
+\paragraph{}
+Discharge according to the following rules:
+\begin{align*}
+&\text{A vertex of degree at least seven gives $\frac{6}{c}$ charge to adjacent vertices of degree six} &(1)\\
+&\text{A face of length at least four gives $\frac{6}{c}$ charge to adjacent vertices of degree six} &(2)
+\end{align*}
+\paragraph{}
+Let $v \in V(G)$. Let $ch_F(v)$ denote the final charge of $v$. The degree of $v$ is at least six. If $d(v) = 6$ then either $v$ is incident with less than six facial triangles or $v$ has a neighbour of degree greater than six. Suppose $v$ is incident with less than six facial triangles. Then $v$ is incident with at least one face of length at least four. By rule $(2)$ this face gives $\frac{6}{c}$ charge to $v$. Notice $v$ gives away no charge. Thus $ch_F(v) \geq ch(v) + \frac{6}{c} = 6 - 6 - \frac{6}{|V|}g + \frac{6}{c} > -\frac{6}{cg}g + \frac{6}{c} = 0$. 
+\paragraph{}
+If $d(v) 
 
 \section*{4}
 \paragraph{}
@@ -49,4 +111,23 @@ Let $k \in \mathbb{Z}$ such that $k \geq 2$. Choose $m =$ $\frac{2}{k(k-1)} > 0$
 If for all $i \neq j$, $|E(G_{ij})| - |V(G_{ij})| < - \epsilon m |V(G)|$ then $\sum_{i \neq j} |E(G_{ij})| - |V(G_{ij})| < \sum_{i \neq j } -  \epsilon m |V(G)| < \frac{-\epsilon m |V(G)|}{m}$. The last inequality follows since there are $k \choose 2$ $= \frac{k(k-1)}{2}$ ways to choose $i,j$ such that $i \neq j$. But then $\sum_{i \neq j} |E(G_{ij})| - |V(G_{ij})| < -\epsilon |V(G)|$, a contradiction. Hence there exists $i, j$, such that $i \neq j$, and $|E(G_{ij})| - |V(G_{ij})| \leq - \epsilon m |V(G)|$.
 \paragraph{}
 Thus we have $\epsilon m |V(G)| \leq |V(G_{ij})| - |E(G_{ij})|$. So by lemma $4.1$, $\epsilon m |V(G)| \leq \kappa(G_{ij})$. Let $Comp$ denote the set of connected components of $G_{ij}$. Then $|Comp| = \kappa(G_{ij})$. Let $\mathcal{K} = \{ K \subseteq Comp \}$. Then $|\mathcal{K}| = 2^{|Comp|} = 2^{\kappa(G_{ij})} \geq 2^{\epsilon m |V(G)|}$. Let $K \in \mathcal{K}$. Let $\phi_{K}$ be the coloring given by $\phi$, except that every connected component in $K$ has its vertices that are colored $i$ in $\phi$ colored $j$, and those colored $j$ in $\phi$ colored $i$. Since $G_{ij}$ is bipartite this is still a valid coloring. Each possible $\phi_{K}$ is a distinct coloring. There are $|\mathcal{K}|$ ways to choose $K$ and thus $|\mathcal{K}|$ such distinct colorings. Therefore there are at least $2^{\epsilon m |V(G)|}$ distinct colorings of $G$. $\blacksquare$
+\subsection*{c}
+\paragraph{i}
+Let $G$ be a planar graph with vertex set $V$, edge set $E$, and face set $F$. Suppose $|V| \geq 3$. Then every face of $G$ is bordered by at least $3$ edges, and every edge of $G$ is adjacent to at most two faces. Thus is $3|F| \leq 2|E|$. Substituting into Euler's formula, $|V| - |E| + |F| = 2$ we obtain $|V| -|E| + \frac{2}{3}|E| \geq 2$ which implies that $3|V| - 6 \geq |E|$.
+\paragraph{}
+Let $k = 5$. Then by $4(b)$ there exists $m > 0$ such that for every $\epsilon > 0 $ if $|E| \leq (4 - \epsilon)|V|$ then $G$ has at least $2^{\epsilon m |V|}$ distinct $5$-colorings. Choose $\epsilon = 1$. Then $(4 - 1)|V| = 3|V|\geq 3|V| - 6 \geq |E|$. Therefore $G$ satisfies the hypothesis of $4(b)$ with $\epsilon = 1 > 0$ and thus has $2^{\epsilon m |V|}$ distinct $5$-colorings.
+\paragraph{}
+Now if $|V| < 3$ then $G$ has a least $5$ distinct colorings by the $5$ choices of coloring a single vertex. Now $5 > 2^2 \geq 2^{|V|}$. Therefore in either case $G$ has exponentially many distinct $5$-colorings. $\blacksquare$
+\paragraph{ii}
+Let $G$ be a planar graph with vertex set $V$, edge set $E$, and face set $F$. Suppose that $G$ is triangle-free. Suppose that $|V| \geq 4$. Then every face of $G$ is bordered by at least $4$ edges, and every edge of $G$ is adjacent to at most two faces. Thus $4|F| \leq 2|E|$, that is $2|F| \leq |E|$. Substituting into Euler's formula, $|V| - |E| + |F| = 2$ we obtain $|V| - |E| + \frac{1}{2} |E| \geq 2$ which implies that $2|V| - 4 \geq |E|$.
+\paragraph{}
+Let $k = 4$. Then by $4(b)$ there exists $m > 0$ such that for every $\epsilon > 0 $ if $|E| \leq (3 - \epsilon)|V|$ then $G$ has at least $2^{\epsilon m |V|}$ distinct $4$-colorings. Choose $\epsilon = 1$. Then $(3 - 1)|V| = 2|V| \geq 2|V| - 4 \geq |E|$. Therefore $G$ satisfies the hypothesis of $4(b)$ with $\epsilon = 1 > 0$ and thus has $2^{\epsilon m |V|}$ distinct $4$-colorings.
+\paragraph{}
+Now consider the case where $|V| < 4$. If $|V| < 3$ then $G$ has a least $4$ distinct colorings by the $4$ choices of coloring a single vertex. Now $4 \geq 2^2 \geq 2^{|V|}$, and thus $G$ has exponentially many distinct $4$-colorings. If $|V| = 3$ then $G$ must be acyclic otherwise it is not triangle-free. Then $G$ is no harder to color than a $3$ vertex path. To count the number of ways to color $G$ see that there are $4$ choices of colors for the first vertex, $3$ choices of colors for the second vertex, and $3$ choices of colors for the third vertex. That is there are $4\cdot 3 \cdot 3$ ways to color $G$. Therefore in either case $G$ has exponentially many distinct $4$-colorings.$\blacksquare$
+\paragraph{iii}
+Let $G$ be a planar graph with vertex set $V$, edge set $E$, and face set $F$. Suppose that $G$ has girth at least $5$. Suppose that $|V| \geq 5$. Then every face of $G$ is bordred by at least $5$ edges, and every edge of $G$ is adjacent to at most two faces. Thust $5|F| \leq 2|E|$. Substituting into Euler's formula, $|V| - |E| + |F| = 2$ we obtain $|V| - |E| + \frac{2}{5}|E| \geq 2$. which implies that $5|V| - 10 \geq 3|E|$. 
+\paragraph{}
+Let $k = 3$. Then by $4(b)$ there exists $m > 0$ such that for every $\epsilon > 0$ if $|E| \leq (2 - \epsilon)|V|$ then $G$ has at least $2^{\epsilon m |V|}$ distinct $3$-colorings. Choose $\epsilon = \frac{1}{3}$. Then $(2 - \frac{1}{3})|V| = \frac{5}{3}|V| \geq \frac{5}{3}|V| - \frac{10}{3} \geq |E|$. Therefore $G$ satisfies the hypothesis of $4(b)$ with $\epsilon = \frac{1}{3} > 0$ and thus has $2^{\epsilon m |V|}$ distinct $3$-colorings.
+\paragraph{}
+Therefore in either case $G$ has exponentially many distinct $3$-colorings.$\blacksquare$
 \end{document}
