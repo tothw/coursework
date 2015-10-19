@@ -61,7 +61,7 @@ If $|f| = 5$ then by assumption $(a)$ every vertex incident with $f$ is of degre
 \paragraph{}
 If $|f| = 4$ then by assumption $(a)$ every vertex incident with $f$ is of degree four or more. Since $f$ has four adjacent vertices it receives at least $4\frac{1}{2}$ charge from its adjacent vertices. Thus $ch_F(f) \geq ch(f) + \frac{4}{2} = 4 - 6 + 2 = 0$.  
 \paragraph{}
-If $|f| = 3$ then by assumption $(a)$ every vertex incident with $f$ is of degree four or more. Further by assumption $(b)$ every vertex incident with $f$ is not of degree four, so every vertex incident with $f$ is of degree $5$ or more. Thus every vertex incident with $f$ sends $f$ one charge by rule $(2)$. Therefore $ch_F(f) = ch(f) + 3 = 3 - 6 + 3 = 0$. Therefore every face has a non-negative charge.
+If $|f| = 3$ then by assumption $(a)$ every vertex incident with $f$ is of degree four or more. Further by assumption $(b)$ every vertex incident with $f$ is not of degree four, so every vertex incident with $f$ is of degree $5$ or more. Thus every vertex incident with $f$ sends $f$ one charge by rule $(2)$. Therefore $ch_F(f) = ch(f) + 3 = 3 - 6 + 3 = 0$. Therefore every face has a non-negative final charge.
 \paragraph{}
 The total charge has not changed, precisely it is negative, yet every vertex and every face has non-negative charge, a contradiction. $\blacksquare$
 
@@ -86,10 +86,23 @@ Discharge according to the following rules:
 &\text{A face of length at least four gives $\frac{6}{c}$ charge to adjacent vertices of degree six} &(2)
 \end{align*}
 \paragraph{}
-Let $v \in V(G)$. Let $ch_F(v)$ denote the final charge of $v$. The degree of $v$ is at least six. If $d(v) = 6$ then either $v$ is incident with less than six facial triangles or $v$ has a neighbour of degree greater than six. Suppose $v$ is incident with less than six facial triangles. Then $v$ is incident with at least one face of length at least four. By rule $(2)$ this face gives $\frac{6}{c}$ charge to $v$. Notice $v$ gives away no charge. Thus $ch_F(v) \geq ch(v) + \frac{6}{c} = 6 - 6 - \frac{6}{|V|}g + \frac{6}{c} > -\frac{6}{cg}g + \frac{6}{c} = 0$. 
+Let $v \in V(G)$. Let $ch_F(v)$ denote the final charge of $v$. The degree of $v$ is at least six. If $d(v) = 6$ then by $(b)$ either $v$ is incident with less than six facial triangles or $v$ has a neighbour of degree greater than six. Suppose $v$ is incident with less than six facial triangles. Then $v$ is incident with at least one face of length at least four. By rule $(2)$ this face gives $\frac{6}{c}$ charge to $v$ by rule $(2)$. Otherwise $v$ is incident with a vertex of degree at least seven and this vertex gives $\frac{6}{c}$ charge to $v$ by rule $(1)$. Notice $v$ gives away no charge. Thus $ch_F(v) \geq ch(v) + \frac{6}{c} = 6 - 6 - \frac{6}{|V|}g + \frac{6}{c} > -\frac{6}{cg}g + \frac{6}{c} = 0$. 
 \paragraph{}
-If $d(v) 
-
+If $d(v) \geq 7$ then $v$ sends $\frac{6}{c}$ charge to each neighbouring vertex of degree $6$ by rule $(1)$. There can be at most $d(v)$ such vertices therefore $v$ sends at most $\frac{6}{c}d(v)$ charge. Thus
+\begin{align*}
+ch_F(v) &\geq ch(v) -\frac{6}{c}d(v) \\ &= d(v) - 6 - \frac{d(v)}{|V|}g - \frac{6}{c}d(v) \\ &\geq d(v) - 6 -\frac{d(v)}{c} - \frac{6}{c}d(v) \\ &= \frac{d(v)c - 6c - d(v) - 6d(v)}{c} \\ &= \frac{(c - 7)d(v) - 6c}{c} \\ &= \frac{42d(v) - 6(49)}{c} \\ &\geq \frac{42(7) - 6(49)}{c} \\ &= \frac{6(7)(7) - 6(7)(7)}{c} \\ &=  0.
+\end{align*}
+Therefore every vertex has a non-negative final charge.
+\paragraph{}
+Let $f \in F(G)$. Let $ch_F(f)$ denote the final charge of $f$. If $|f| = 3$ then $f$ gives no charge. Thus $ch_F(f) = ch(f) = 2|f| - 6 = 0$.
+\paragraph{}
+If $|f| \geq 4$ then $f$ sends $\frac{6}{c}$ charge to each incident vertex of degree six by rule $(2)$. There can be at most $|f|$ such vertices. Thus
+\begin{align*} 
+ch_F(f) &\geq ch(f) - \frac{6}{c}|f| \\ &= 2|f| - 6 - \frac{6}{c}|f| \\ &= \frac{2c|f| - |f| - 6c}{c}  \\ &= \frac{97|f| - 6(49)}{c} \\ &\geq \frac{97(4) - 6(49)}{c} \\ &= \frac{94}{c} \\ &\geq 0.
+\end{align*}
+Therefore every face has a non-negative final charge.
+\paragraph{}
+The total charge has not changed, precisely it is negative, yet every vertex and every face has non-negative charge, a contradiction. $\blacksquare$
 \section*{4}
 \paragraph{}
 Let $G$ be a graph and let $\phi$ be a $k$-coloring of $G$. Let $G_{ij}$ denote the subgraph of $G$ induced by the vertices colored $i$ and $j$ in $\phi$.
@@ -117,17 +130,17 @@ Let $G$ be a planar graph with vertex set $V$, edge set $E$, and face set $F$. S
 \paragraph{}
 Let $k = 5$. Then by $4(b)$ there exists $m > 0$ such that for every $\epsilon > 0 $ if $|E| \leq (4 - \epsilon)|V|$ then $G$ has at least $2^{\epsilon m |V|}$ distinct $5$-colorings. Choose $\epsilon = 1$. Then $(4 - 1)|V| = 3|V|\geq 3|V| - 6 \geq |E|$. Therefore $G$ satisfies the hypothesis of $4(b)$ with $\epsilon = 1 > 0$ and thus has $2^{\epsilon m |V|}$ distinct $5$-colorings.
 \paragraph{}
-Now if $|V| < 3$ then $G$ has a least $5$ distinct colorings by the $5$ choices of coloring a single vertex. Now $5 > 2^2 \geq 2^{|V|}$. Therefore in either case $G$ has exponentially many distinct $5$-colorings. $\blacksquare$
+Choose $n_0 = 3$, choose $c = 1$ then for all planar graphs, $G$, with $|V(G)| \geq n_0$, $G$ has at least $c \cdot 2^{\epsilon m |V(G)|}$ distinct $5$-colorings. That is $G$ has $\Omega(2^{\epsilon m |V(G)|})$ distinct $5$-colorings. Therefore $G$ has exponentially many distinct $5$-colorings. $\blacksquare$
 \paragraph{ii}
 Let $G$ be a planar graph with vertex set $V$, edge set $E$, and face set $F$. Suppose that $G$ is triangle-free. Suppose that $|V| \geq 4$. Then every face of $G$ is bordered by at least $4$ edges, and every edge of $G$ is adjacent to at most two faces. Thus $4|F| \leq 2|E|$, that is $2|F| \leq |E|$. Substituting into Euler's formula, $|V| - |E| + |F| = 2$ we obtain $|V| - |E| + \frac{1}{2} |E| \geq 2$ which implies that $2|V| - 4 \geq |E|$.
 \paragraph{}
 Let $k = 4$. Then by $4(b)$ there exists $m > 0$ such that for every $\epsilon > 0 $ if $|E| \leq (3 - \epsilon)|V|$ then $G$ has at least $2^{\epsilon m |V|}$ distinct $4$-colorings. Choose $\epsilon = 1$. Then $(3 - 1)|V| = 2|V| \geq 2|V| - 4 \geq |E|$. Therefore $G$ satisfies the hypothesis of $4(b)$ with $\epsilon = 1 > 0$ and thus has $2^{\epsilon m |V|}$ distinct $4$-colorings.
 \paragraph{}
-Now consider the case where $|V| < 4$. If $|V| < 3$ then $G$ has a least $4$ distinct colorings by the $4$ choices of coloring a single vertex. Now $4 \geq 2^2 \geq 2^{|V|}$, and thus $G$ has exponentially many distinct $4$-colorings. If $|V| = 3$ then $G$ must be acyclic otherwise it is not triangle-free. Then $G$ is no harder to color than a $3$ vertex path. To count the number of ways to color $G$ see that there are $4$ choices of colors for the first vertex, $3$ choices of colors for the second vertex, and $3$ choices of colors for the third vertex. That is there are $4\cdot 3 \cdot 3$ ways to color $G$. Therefore in either case $G$ has exponentially many distinct $4$-colorings.$\blacksquare$
+Choose $n_0 = 4$, choose $c = 1$ then for all triangle-free planar graphs, $G$, with $|V(G)| \geq n_0$, $G$ has at least $c \cdot 2^{\epsilon m |V(G)|}$ distinct $4$-colorings. That is $G$ has $\Omega(2^{\epsilon m |V(G)|})$ distinct $4$-colorings.Therefore $G$ has exponentially many distinct $4$-colorings.$\blacksquare$
 \paragraph{iii}
 Let $G$ be a planar graph with vertex set $V$, edge set $E$, and face set $F$. Suppose that $G$ has girth at least $5$. Suppose that $|V| \geq 5$. Then every face of $G$ is bordred by at least $5$ edges, and every edge of $G$ is adjacent to at most two faces. Thust $5|F| \leq 2|E|$. Substituting into Euler's formula, $|V| - |E| + |F| = 2$ we obtain $|V| - |E| + \frac{2}{5}|E| \geq 2$. which implies that $5|V| - 10 \geq 3|E|$. 
 \paragraph{}
 Let $k = 3$. Then by $4(b)$ there exists $m > 0$ such that for every $\epsilon > 0$ if $|E| \leq (2 - \epsilon)|V|$ then $G$ has at least $2^{\epsilon m |V|}$ distinct $3$-colorings. Choose $\epsilon = \frac{1}{3}$. Then $(2 - \frac{1}{3})|V| = \frac{5}{3}|V| \geq \frac{5}{3}|V| - \frac{10}{3} \geq |E|$. Therefore $G$ satisfies the hypothesis of $4(b)$ with $\epsilon = \frac{1}{3} > 0$ and thus has $2^{\epsilon m |V|}$ distinct $3$-colorings.
 \paragraph{}
-Therefore in either case $G$ has exponentially many distinct $3$-colorings.$\blacksquare$
+Choose $n_0 = 5$, choose $c = 1$ then for all planar graphs of girth at least $5$, $G$, with $|V(G)| \geq n_0$, $G$ has at least $c \cdot 2^{\epsilon m |V(G)|}$ distinct $3$-colorings. That is $G$ has $\Omega(2^{\epsilon m |V(G)|})$ distinct $3$-colorings.Therefore $G$ has exponentially many distinct $3$-colorings.$\blacksquare$
 \end{document}
