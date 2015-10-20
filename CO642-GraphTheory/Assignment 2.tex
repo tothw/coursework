@@ -160,11 +160,12 @@ $|X| \geq 2$.
 \paragraph{Proof}
 Suppose $|X| < 2$. If $X = \emptyset$ the trivial $3$-coloring can be extended to any $3$-coloring of $G$ since $G$ is $3$-colorable by Grotzsch's theorem.If $|X| = 1$ then there exists a single $x \in X$.  Let $\phi$ be a $3$-coloring of $G$, which exists by Grotzsch's theorem. If $\phi_X(x) = \phi(x)$ we have a contradiction as $\phi_X$ can be extended to $\phi$ immediately. If $\phi_X(x) \neq \phi(x)$, then permute the colours in $\phi$ to obtain $\phi'$ such that every vertex in $G$ colored $\phi(x)$ in $\phi$ is colored $\phi_X(x)$ in $\phi'$ and every vertex colored $\phi_X(x)$ in $\phi$ is colored $\phi(x)$ in $\phi'$. Then $\phi'$ is a $3$-coloring of $G$ that can be extended from $\phi_X$. Thus the $3$-coloring of $X$ can be extended to a $3$-coloring of $G$, a contradiction. $\blacksquare$
 \paragraph{}
-Now for all vertices of $X$ colored $i$ identify them as a new vertex $v_i$. Pairwise connect all such $v_i$'s (of which there are at most three, but at least one). Call the resulting graph $G'$.
+Now for all vertices of $X$ colored $i$ identify them as a "super" vertex $v_i$. Pairwise connect all vertices in different $v_i$'s (of which there are at most three, but at least one). Call the set of added edges $E_X$. Call the resulting graph $G'$. There are no edges between the vertices which form each $v_i$  since they share a color in $\phi$ so $E(G') = E(G) \cup E_X $.
 \paragraph{Claim 5.3}
 $G'$ is $4$-critical.
 \paragraph{Proof}
 
 \paragraph{}
+Since $E(G') = E(G) \cup E_X$ and $G$ is of girth at least five, every cycle of length less than five in $G'$ contains an edge of $E_X$. Therefore $G' - X$ is of girth at least five. Since $G'$ is also $4$-critical, by theorem $0.1$, $|E(G')| \geq (\frac{5}{3} + \epsilon)|V(G')| - \delta|X|$. Now $|E(G')|  = |E(G)| + |E_X|$ so $|E(G)| \geq |E(G')|$. Since $G$ is planar and of girth at least five, by the proof of $4(c)(iii)$, $\frac{5}{3}|V(G)| -\frac{10}{3} \geq |E(G)|$. Therefore $\frac{5}{3}|V(G)| -\frac{10}{3} \geq \frac{5}{3} + \epsilon)|V(G')| - \delta|X|$.
 
 \end{document}
