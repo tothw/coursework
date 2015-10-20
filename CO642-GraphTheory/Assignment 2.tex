@@ -140,11 +140,31 @@ Let $k = 4$. Then by $4(b)$ there exists $m > 0$ such that for every $\epsilon >
 \paragraph{}
 Choose $n_0 = 4$, choose $c = 1$ then for all triangle-free planar graphs, $G$, with $|V(G)| \geq n_0$, $G$ has at least $c \cdot 2^{\epsilon m |V(G)|}$ distinct $4$-colorings. That is $G$ has $\Omega(2^{\epsilon m |V(G)|})$ distinct $4$-colorings.Therefore $G$ has exponentially many distinct $4$-colorings.$\blacksquare$
 \paragraph{iii}
-Let $G$ be a planar graph with vertex set $V$, edge set $E$, and face set $F$. Suppose that $G$ has girth at least $5$. Suppose that $|V| \geq 5$. Then every face of $G$ is bordred by at least $5$ edges, and every edge of $G$ is adjacent to at most two faces. Thust $5|F| \leq 2|E|$. Substituting into Euler's formula, $|V| - |E| + |F| = 2$ we obtain $|V| - |E| + \frac{2}{5}|E| \geq 2$. which implies that $5|V| - 10 \geq 3|E|$. 
+Let $G$ be a planar graph with vertex set $V$, edge set $E$, and face set $F$. Suppose that $G$ has girth at least $5$. Suppose that $|V| \geq 5$. Then every face of $G$ is bordred by at least $5$ edges, and every edge of $G$ is adjacent to at most two faces. Thus $5|F| \leq 2|E|$. Substituting into Euler's formula, $|V| - |E| + |F| = 2$ we obtain $|V| - |E| + \frac{2}{5}|E| \geq 2$. which implies that $5|V| - 10 \geq 3|E|$. 
 \paragraph{}
 Now we will show that $G$ is $2$-degenerate. Suppose for contradiction that every vertex of $G$ has degree at least three. Then $\sum_{v\in V} deg(v) \geq 3|V|$. So by handshaking $2|E| \geq 3|V|$, that is $|E| \geq \frac{3}{2}|V|$, contradiction that $\frac{5}{3}|V| \geq |E|$. Therefore $G$ is $2$-degenerate. Invoking a proposition from the notes we see that this implies that $G$ has a $3$-coloring.
 \paragraph{}
 Let $k = 3$. Then by $4(b)$ there exists $m > 0$ such that for every $\epsilon > 0$ if $|E| \leq (2 - \epsilon)|V|$ then $G$ has at least $2^{\epsilon m |V|}$ distinct $3$-colorings. Choose $\epsilon = \frac{1}{3}$. Then $(2 - \frac{1}{3})|V| = \frac{5}{3}|V| \geq \frac{5}{3}|V| - \frac{10}{3} \geq |E|$. Therefore $G$ satisfies the hypothesis of $4(b)$ with $\epsilon = \frac{1}{3} > 0$ and thus has $2^{\epsilon m |V|}$ distinct $3$-colorings.
 \paragraph{}
 Choose $n_0 = 5$, choose $c = 1$ then for all planar graphs of girth at least $5$, $G$, with $|V(G)| \geq n_0$, $G$ has at least $c \cdot 2^{\epsilon m |V(G)|}$ distinct $3$-colorings. That is $G$ has $\Omega(2^{\epsilon m |V(G)|})$ distinct $3$-colorings.Therefore $G$ has exponentially many distinct $3$-colorings.$\blacksquare$
+
+\section*{5}
+\paragraph{}
+Let $\delta > \epsilon > 0$ be the chosen by theorem $0.1$. Choose $D = ?$. Let $G$ be a planar graph of girth at least five and let $X \subseteq V(G)$ such that $d(x_1, x_2) \geq D$ for all $x_1, x_2 \in X$. Suppose for contradiction that $G$ is a minimal counterexample. That is $|V(G)|$ is minimal such that there is a $3$-coloring of $X$ that does not extend to a $3$-coloring of $G$. Let $\phi_X$ be such a coloring of $X$.
+\paragraph{Claim 5.1}
+$G$ is connected.
+\paragraph{Proof}
+Suppose $G$ is disconnected. If every connected component of $G$, $G_i$ is such that the $3$-coloring of $X \cap V(G_i)$ could be extended to a $3$-coloring of $G$ then the $3$-coloring of $X$ can be extended to a $3$-coloring of $G$ by the possible extensions in the respective connected components of $G$, a contradiction. So there exists a connected compont of $G$,  $G_1$ such that $X \cap V(G_1) \neq \emptyset$ and the $3$-coloring of $X \cap V(G_1)$ cannot be extended to a $3$-coloring of $G$. Let $X_1 = X \cap V(G_1)$. Let $x_1, x_2 \in X_1$. Then $d(x_1, x_2) \geq D$ since $x_1, x_2 \in X$. Therefore $G_1$ along with $X_1$ are a smaller counterexample than $G$ with $X$, contradicting the minimality of $G$. Therefore the claim holds. $\blacksquare$
+\paragraph{Claim 5.2}
+$|X| \geq 2$.
+\paragraph{Proof}
+Suppose $|X| < 2$. If $X = \emptyset$ the trivial $3$-coloring can be extended to any $3$-coloring of $G$ since $G$ is $3$-colorable by Grotzsch's theorem.If $|X| = 1$ then there exists a single $x \in X$.  Let $\phi$ be a $3$-coloring of $G$, which exists by Grotzsch's theorem. If $\phi_X(x) = \phi(x)$ we have a contradiction as $\phi_X$ can be extended to $\phi$ immediately. If $\phi_X(x) \neq \phi(x)$, then permute the colours in $\phi$ to obtain $\phi'$ such that every vertex in $G$ colored $\phi(x)$ in $\phi$ is colored $\phi_X(x)$ in $\phi'$ and every vertex colored $\phi_X(x)$ in $\phi$ is colored $\phi(x)$ in $\phi'$. Then $\phi'$ is a $3$-coloring of $G$ that can be extended from $\phi_X$. Thus the $3$-coloring of $X$ can be extended to a $3$-coloring of $G$, a contradiction. $\blacksquare$
+\paragraph{}
+Now for all vertices of $X$ colored $i$ identify them as a new vertex $v_i$. Pairwise connect all such $v_i$'s (of which there are at most three, but at least one). Call the resulting graph $G'$.
+\paragraph{Claim 5.3}
+$G'$ is $4$-critical.
+\paragraph{Proof}
+
+\paragraph{}
+
 \end{document}
