@@ -1,0 +1,43 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{report}
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\pagestyle{fancy}
+
+\listfiles
+
+\setlength{\hoffset}{0pt}			% 1 inch left margin
+\setlength{\oddsidemargin}{0pt}		% 1 inch left margin
+\setlength{\voffset}{0pt}			% 1 inch top margin
+\setlength{\marginparwidth}{0pt}	% no margin notes
+\setlength{\marginparsep}{0pt}		% no margin notes
+\setlength{\textwidth}{6.375in}
+\raggedbottom
+
+\rhead{William Justin Toth 650 3} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{1}
+\subsection*{a}
+\paragraph{}
+Let $M=(S,\mathcal{I})$ be a matroid. Let $r$ be the rank function of $M$. Let $r^*$ be the rank function of $M* = (S, \mathcal{I}^*)$.
+\paragraph{Lemma 1.1}
+Let $\mathcal{B}$ be the set of bases of independent sets of $M$. Let $\mathcal{B}^*$ be the set of bases of independent sets of $M^*$. Then $\mathcal{B}^* = \{S\backslash B : B \in mathcal{B}\}$.
+\paragraph{Proof of Lemma 1.1}
+Let $B \in \mathcal{B}$. Since $B$ is a basis of $M$, $r(B) = |B|$. Now by the rank formula of $M^*$, $r^*(S\backslash B) = |S \backslash B| + r(B) - r(S) = |S \backslash B|$ since $B$ is a basis and thus $r(B) = r(S)$. Hence $S \backslash B| \in \mathcal{I}^*$. Now let $A \in mathcal{I}^*$ such that $S\backslash B \subseteq A$. Extend $S\backslash B$ to a basis of $A$, $B'$. Then $S\backslash B \subseteq B'$ and thus $|S\backslash B| \leq |B'|$. Now we have: 
+\begin{align*}
+&\ r*(B') &= |B'| - r(S\backslash B') + r(S) &\text{by the rank formula of $M*$}\\
+&\Rightarrow |B'| &= |B'| - r(S\backslash B') + r(S) &\text{since $B'$ is independent in $M^*$}\\
+&\Rightarrow r(S\backslash B') &= r(S) \\
+&\Rightarrow r(S\backslash B') &= |B| &\text{since $B$ is a basis of $M$}\\
+&\Rightarrow |S\backslash B'| &\geq |B| \\
+&\Rightarrow |S| - |B'| &\geq |B| \\
+&\Rightarrow |S\backslash B| &\geq |B'|
+\end{align*}
+Therefore we have $|S\backslash B| \leq |B'|$ and $|B'| \leq |S\backslash B|$, so $|S\backslash B| = |B'|$ and thus $|S\backslash B|$ is a basis of $B^*$.\
+\paragraph{}
+Now let $B^* \in \mathcal{B}^*$.
+\end{document}
