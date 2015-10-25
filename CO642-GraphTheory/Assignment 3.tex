@@ -3,6 +3,10 @@
 \usepackage{fancyhdr}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
 \pagestyle{fancy}
 
 \listfiles
@@ -20,5 +24,29 @@
 %\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
 
 \begin{document}
+\section*{1}
+\paragraph{}
+Let $G$ be a planar graph of girth at least $7$, and minimum degree at least $2$. Suppose for contradiction that every $v \in V(G)$ such that $d(v) = 2$ is not a adjacent to a vertex of degree at most $3$. We may assume without loss of generality that $G$ is connected, as otherwise we may consider in turn each connected component of $G$. Now since $G$ is connected, by the minimum degree of $G$, $G$ is $2$-connected. Thus every face of $G$ is bounded by a cycle by Proposition $4.2.6$ in the text. So by the minimum degree of $G$ every vertex is adjacent to at least two faces.
+\paragraph{}
+We proceed by a face discharging argument. For every $v \in V(G)$ let $ch(v)$ denote the initial charge of $v$. Set $ch(v) = 2d(v) - 6$ for every $v \in V(G)$. For every $f \in F(G)$ (the set of faces of $G$), denote the initial charge of $f$ by $ch(f)$.  Set $ch(f) = |f| - 6$ for every $f \in F(G)$. Now $\sum_{v\in V(G)} ch(v) + \sum_{f\in F(G)} ch(f) = 2\sum_{v \in V(G)}d(v) - 6|V(G)| +  2\sum_{f \in F(G)}|f| - 6|F(G)| = 4|E(G)| - 6|V(G)| + 2|E(G)| - 6|F(G)| = -6(|V(G)| - |E(G)| + |F(G)|) = -12$. Therefore the total charge is negative.
+\paragraph{}
+Discharge according to the following rules:
+\begin{align}
+&\text{Every vertex of degree at least four sends $\frac{1}{2}$ charge to each adjacent face,}\\
+&\text{and every face sends one charge to each adjacent vertex of degree two.}
+\end{align}
+\paragraph{}
+Let $ch_F(v)$ denote the final charge of vertex $v$. If $d(v) = 2$ then by rule $(2)$ $v$ receives at least $2$ charge because it is adjacent to at least two faces, and $v$ does not send any charge by rule $(1)$ since its degree is less that four. Thus $ch_F(v) \geq ch(v) + 2 = -2 + 2 = 0$.If $d(v) = 3$ then $v$ does not receive charge by rule $(2)$ nor send charge by rule $(1)$ so $ch_F(v) = ch(v) = 2(3) - 6 = 0$.
+\paragraph{} 
+If $d(v) \geq 4$ then $v$ does receive any charge by rule $(2)$, but $v$ sends charge by rule $(1)$. The vertex $v$ is adjacent to at most $d(v)$ faces, and thus sends at most $\frac{d(v)}{2}$ charge by rule $(2)$. Hence $ch_F(v) \geq ch(v) - \frac{d(v)}{2} = 2d(v) - 6 - \frac{d(v)}{2} = \frac{3}{2}d(v) - 6 \geq \frac{3}{2}4 - 6 = 0$. Therefore every $v \in V(G)$ has non-negative final charge.
+\paragraph{}
+Let $ch_F(f)$ denote the final charge of face $f$. Let $f \in F(G)$. Let $t$ denote the number of degree two vertices adjacent to $f$. Let $l$ denote the number of degree four vertices adjacent to $f$. Suppose $|f| = 7$. Then $t \leq 3$ since if $t \geq 4$ then $l\leq 3$ and thus there is a pair of adjacent degree $2$ vertices contradicting our assumption for contradiction. By rules $(1)$ and $(2)$, $f$ sends $t$ charge and receives $\frac{l}{2}$ charge. So $ch_F(f) = ch(f) - t + \frac{l}{2}$. If $t = 3$ then $l = 4$ as otherwise there is a vertex of degree $2$ adjacent to a vertex of degree less than four. In this case $ch_F(f) = 7 - 6 - 3 + \frac{4}{2} = -2 + 2 = 0$. If $t \leq 2$ then $l \geq t$, thus $ch_F(f) = 7 - 6 - t + \frac{l}{2} \geq 1 - t + \frac{t}{2} = 1 -\frac{t}{2} \geq 1 - 1 = 0$.
+\paragraph{}
+Suppose $|f| \geq 8$. Then $t \leq \frac{|f|}{2}$ by our assumption for contradiction. This can be seen by noticing that degree $2$ vertices have at least one vertex of degree at least four separating them along $f$. Further this implies $l \geq t$. By rule $(1)$, $f$ receives $\frac{l}{2}$ charge. By rule $(2)$, $f$ sends $t$ charge. Therefore $ch_F(f) = ch(f) - t + \frac{l}{2} \geq ch(f) - t + \frac{t}{2} = ch(f) - \frac{t}{2} \geq ch(f) - \frac{|f|}{4} = |f| - 6 - \frac{|f|}{4} = \frac{3}{4}|f| - 6 \geq \frac{24}{4} - 6 = \frac{24}{4} - \frac{24}{4} = 0$. Therefore every $f \in F(G)$ has non-negative final charge, and so the total final charge in non-negative contradicting the initial total charge being negative. $\blacksquare$
 
+\section*{2}
+\paragraph{}
+Let $G$ be a $k$-critical graph with $k\geq 4$ such that $\Delta \geq 3$. Define $p(G) = (k-1)|V(G)| - 2|E(G)|$. Suppose that $G$ is minimal such that $p(G) = 0$ and $G$ is not a clique. Note then that $G$ is $k-1$-regular. Further since $G$ is not a clique, there exists a vertex with two nonadjacent neighbours.
+\paragraph{a}
+Let $R \subsetneq V(G)$. If $G[R] = K_2$ then $p(R) = 2(k-1) - 2 = k-1 + (k-3) \geq k-1$ since $k \geq 4$. Similarly if $G[R] = K_3$ then $p(R) = 3(k-1) - 6 = k-1 + 2(k-1) - 6 \geq k-1 + 2(4-1) - 6 = k-1$. So we may assume $|R| \geq 4$. Then $R$ has a $k-1$-coloring, $\phi$ since $G$ is $k$-critical. Now $R$ has a critical extendsion $R'$ with extender $W$ and core $X$.
 \end{document}

@@ -23,21 +23,102 @@
 \section*{1}
 \subsection*{a}
 \paragraph{}
-Let $M=(S,\mathcal{I})$ be a matroid. Let $r$ be the rank function of $M$. Let $r^*$ be the rank function of $M* = (S, \mathcal{I}^*)$.
+Let $M=(S,\mathcal{I})$ be a matroid. Let $r$ be the rank function of $M$. Let $r^*$ be the rank function of $M^* = (S, \mathcal{I}^*)$.
 \paragraph{Lemma 1.1}
-Let $\mathcal{B}$ be the set of bases of independent sets of $M$. Let $\mathcal{B}^*$ be the set of bases of independent sets of $M^*$. Then $\mathcal{B}^* = \{S\backslash B : B \in mathcal{B}\}$.
+Let $\mathcal{B}$ be the set of bases of independent sets of $M$. Let $\mathcal{B}^*$ be the set of bases of independent sets of $M^*$. Then $\mathcal{B}^* = \{S\backslash B : B \in \mathcal{B}\}$.
 \paragraph{Proof of Lemma 1.1}
-Let $B \in \mathcal{B}$. Since $B$ is a basis of $M$, $r(B) = |B|$. Now by the rank formula of $M^*$, $r^*(S\backslash B) = |S \backslash B| + r(B) - r(S) = |S \backslash B|$ since $B$ is a basis and thus $r(B) = r(S)$. Hence $S \backslash B| \in \mathcal{I}^*$. Now let $A \in mathcal{I}^*$ such that $S\backslash B \subseteq A$. Extend $S\backslash B$ to a basis of $A$, $B'$. Then $S\backslash B \subseteq B'$ and thus $|S\backslash B| \leq |B'|$. Now we have: 
+Let $B \in \mathcal{B}$. Since $B$ is a basis of $M$, $r(B) = |B|$. Now by the rank formula of $M^*$, $r^*(S\backslash B) = |S \backslash B| + r(B) - r(S) = |S \backslash B|$ since $B$ is a basis and thus $r(B) = r(S)$. Hence $S \backslash B \in \mathcal{I}^*$. Now let $A \in \mathcal{I}^*$ such that $S\backslash B \subseteq A$. Extend $S\backslash B$ to a basis of $A$, $B'$. Then $S\backslash B \subseteq B'$ and thus $|S\backslash B| \leq |B'|$. Now we have: 
 \begin{align*}
-&\ r*(B') &= |B'| - r(S\backslash B') + r(S) &\text{by the rank formula of $M*$}\\
-&\Rightarrow |B'| &= |B'| - r(S\backslash B') + r(S) &\text{since $B'$ is independent in $M^*$}\\
-&\Rightarrow r(S\backslash B') &= r(S) \\
-&\Rightarrow r(S\backslash B') &= |B| &\text{since $B$ is a basis of $M$}\\
-&\Rightarrow |S\backslash B'| &\geq |B| \\
-&\Rightarrow |S| - |B'| &\geq |B| \\
-&\Rightarrow |S\backslash B| &\geq |B'|
+&\ &r*(B') &= |B'| - r(S\backslash B') + r(S) &\text{by the rank formula of $M*$}\\
+&\Rightarrow &|B'| &= |B'| - r(S\backslash B') + r(S) &\text{since $B'$ is independent in $M^*$}\\
+&\Rightarrow &r(S\backslash B') &= r(S) \\
+&\Rightarrow &r(S\backslash B') &= |B| &\text{since $B$ is a basis of $M$}\\
+&\Rightarrow &|S\backslash B'| &\geq |B| \\
+&\Rightarrow &|S| - |B'| &\geq |B| \\
+&\Rightarrow &|S\backslash B| &\geq |B'|
 \end{align*}
-Therefore we have $|S\backslash B| \leq |B'|$ and $|B'| \leq |S\backslash B|$, so $|S\backslash B| = |B'|$ and thus $|S\backslash B|$ is a basis of $B^*$.\
+Therefore we have $|S\backslash B| \leq |B'|$ and $|B'| \leq |S\backslash B|$, so $|S\backslash B| = |B'|$ and thus $|S\backslash B|$ is a basis of $B^*$. So $\mathcal{B}^* \supseteq \{S\backslash B : B \in \mathcal{B}\}$.
 \paragraph{}
-Now let $B^* \in \mathcal{B}^*$.
+Now let $B^* \in \mathcal{B}^*$. Then $r^*(B^*) = |B^*|$, and $r(B^*) = r(S\backslash B^*)$. Now let $B = S\backslash B^*$. Then $B^* = S\backslash B$. We will now show that $B \in \mathcal{B}$ to conclude that $B^* \in \{S\backslash B : B \in \mathcal{B}\}$. We have: $r(B) = r(S\backslash B^*)$. Further since $r*(B^*) = |B^*| + r(S\backslash B^*) - r(S)$ and $r^*(B^*) = |B^*|$ we have that $r(S) = r(S\backslash B^*)$. So $r(B) = r(S)$. Thus we have:
+\begin{align*}
+r(B) &= r(S) \\
+&= |S| - r^*(S) &\text{by the rank formula of $M^*$}\\
+&= |S| - r^*(B^*) &\text{since $B^*$ is a basis}\\
+&= |S| - |B^*| &\text{since $B^*$ is independent in $M^*$}\\
+&= |S\backslash B^*| \\
+&= |B|
+\end{align*}
+So $r(B) = |B|$ and thus $B \in \mathcal{I}$. Further $r(B) = r(S)$ so $|B|$ is maximal. Thus $B \in \mathcal{B}$. Therefore $\mathcal{B}^* \subseteq \{S\backslash B : B \in \mathcal{B}\}$, and so $\mathcal{B}^* = \{S\backslash B : B \in \mathcal{B}\}$. $\blacksquare$
+\paragraph{}
+Let $\mathcal{B}^{**}$ be the set of bases of $M^{**}$. Then by Lemma $1.1$, $\mathcal{B}^{**} = \{S\backslash B^* : B^* \in \mathcal{B}^*\} = \{S\backslash (S\backslash B): B \in \mathcal{B} \} = \{B : B \in \mathcal{B} \} = \mathcal{B}$. Therefore $M^{**}$ and $M$ have the same set of bases and hence are equal.$\blacksquare$
+\subsection*{b}
+\paragraph{}
+Let $M = (S,\mathcal{I})$ be a matroid and let $A \subseteq S$. By $1(a)$, $(M \backslash A)^* = M^*/A$ if and only if $M \backslash A = (M^*/A)^*$. The ground set of $M\backslash A$ is $S\backslash A$. Similary the ground set of $(M^*/A)^*$ is $S\backslash A$ as taking duals doesn't change the ground set and both $M\backslash A$ and $M/A$ have ground set $S\backslash A$. It remains to show equivalence of the independent sets.
+\paragraph{}
+Let $X \in \mathcal{I}_{M\backslash A}$. Then $X \in \mathcal{I}_M$ and $X \subseteq S\backslash A$. Now we have:
+\begin{align*}
+r_{(M^*/A)^*}(X) &= |X| + r_{M^*/A}(S\backslash X) - r_{M^*/A}(S\backslash A) &\text{by dual rank}\\
+&= |X| +r_{M^*}(S\backslash X \cup A) - r_{M^*}(A) - r_{M^*/A}(S\backslash A) &\text{by contraction rank}\\
+&= |X| +r_{M^*}(S\backslash X \cup A) - r_{M^*}(A) - r_{M^*}(S\backslash A \cup A) + r_{M^*}(A) &\text{by contraction rank}\\
+&= |X| + r_{M^*}(S\backslash X \cup A) -r_{M^*}(S)\\
+&= |X| + r_{M^*}(S) - r_{M^*}(S) &\text{since $X \subseteq S\backslash A$}\\ 
+&= |X|
+\end{align*}
+Thus $X \in \mathcal{I}_{(M^*/A)^*}$.
+\paragraph{}
+Now let $X \in \mathcal{I}_{(M^*/A)^*}$. Extend $X$ to a basis, $B$, of $(M^*/A)^*$. Then $X \subseteq B$. Further by Lemma $1.1$, $S\backslash B$ is a basis of $M^*/A$. Since $X \subseteq B$ then $X \cap (S\backslash B) = \emptyset$. Notice $X \cap A = \emptyset$. Thus $X \cap ((S\backslash B) \cup A) = \emptyset$. But $(S\backslash B) \cup A$ contains a basis for $M^*$. Call such a basis for $M*$ $B^*$. Since $X \cap ((S\backslash B) \cup A = \emptyset$, $X \cap B^* = \emptyset$. Thus $X \subseteq S\backslash B^*$. But again by Lemma $1.1$, $S\backslash B^*$ is a basis of $M$, and therefore $X \in \mathcal{I}_M$. Since $X \subseteq S\backslash A$ and $X \in \mathcal{I}_M$, $X \in \mathcal{I}_{M\backslash A}$. Therefore $\mathcal{I}_{M\backslash A} = \mathcal{I}_{(M^*/A)^*}$ and so $M\backslash A = (M^*/A)^*$ and by $1(a)$ $(M\backslash A)^* = M^*/A$.$\blacksquare$
+
+\section*{2}
+Suppose that there exists an algorithm, $\mathcal{A}$ which solves the matroid intersection problem on three matroids in polynomial time. Let $D=(V,A)$ and $r \neq s \in V$ such that there exists a directed $r-s$ path in $D$ be input to the Hamiltonian path problem. We may assume without loss of generality that $|\delta^-(r)| = |\delta^+(s)| = 0$, as otherwise just remove those arcs before proceeding. Let $G=(V,E)$ be the underlying undirected graph for $D$. Let $S = E$. Let $M_1 = (S, \mathcal{I}_1)$ be the forest matroid of $G$. Let $M_2 = (S, \mathcal{I}_2)$ where $\mathcal{I}_2 = \{J \subseteq E : \forall v \in V, \forall e \in J, |\delta^+(v) \cap e| \leq 1 \}$. Then $M_2$ is a partition matroid. Similarly let $M_3 = (S, \mathcal{I}_3)$ where $\mathcal{I}_3 = \{J \subseteq E : \forall v \in V, \forall e \in J, |\delta^-(v) \cap e| \leq 1 \}$. Then $M_3$ is a partition matroid. The intersection of $M_1, M_2, M_3$ are exactly the forests of $G$ where each $v \in V$ satisfies $|\delta^+(v)| \leq 1$ and $|\delta^-(v)| \leq 1$. Thus the independent sets of the intersection of $M_1, M_2, M_3$ are disjoint directed paths in $D$.  Let $J$ be the set returned by $\mathcal{A}$. If $|J| = |V| - 1$ then there is a directed path in $D$ hitting every vertex in $D$. Since $|\delta^-(r)| = |\delta^+(s)| = 0$ this path begins at $r$ and ends at $s$. In the case return yes for this instance of the Hamiltonian path problem. If $|J| < |V| - 1$ then such a path does not exists, and return no. The initialization of these matroids can be done in polynomial time assuming access to appropriate independence oracles, and $\mathcal{A}$ runs in polynomial time so the Hamiltonian path problem can be solved in polynomial time.$\blacksquare$
+
+\section*{3}
+\subsection*{a}
+\paragraph{}
+Let $G = (V,E)$ be an undirected graph. We may assume $G$ is connected, as otherwise $G$ does not contain even one spanning tree. Let $M=(S,\mathcal{I})$ be the graphic matroid of $G$ and let $M^*=(S,\mathcal{I}^*)$ be the dual matroid of $M$. By the matroid intersection theorem $max\{|J| : J \in \mathcal{I} \cap \mathcal{I}^* \} = min \{r_M(A) + r_{M^*}(S\backslash A) : A \subseteq S \}$. But for any $A \subseteq S$ we have:
+\begin{align*}
+r_M(A) + r_{M^*}(S\backslash A) &= r_M(A) + |S\backslash A| + r_{M}(A) - r_M(S) \\
+&= 2(|V| - \kappa((V,A)) - |V| + \kappa((V,S)) + |S\backslash A|\\
+&= |V| + 1 -2\kappa((V,A)) + |S\backslash A| &\text{Since $G$ is connected, $\kappa((V,S))=1$.}
+\end{align*}
+Thus $max\{|J| : J \in \mathcal{I} \cap \mathcal{I}^* \} \leq |V| + 1 - 2\kappa((V,A)) + |S\backslash A|$ for any $A \subseteq S$.
+\paragraph{Lemma 3.1}
+Let $G = (V,E)$ be a connected undirected graph. Let $M=(S,\mathcal{I})$ be the graphic matroid of $G$ and let $M^*=(S,\mathcal{I}^*)$ be the dual matroid of $M$. Then $max\{|J| : J \in \mathcal{I} \cap \mathcal{I}^* \} = |V| - 1$ if and only if $G$ contains two edge disjoint spanning trees.
+\paragraph{Proof of Lemma 3.1}
+Suppose $max\{|J| : J \in \mathcal{I} \cap \mathcal{I}^* \} = |V| - 1$.  Let $J \in \mathcal{I} \cap \mathcal{I}^*$ such that $|J| = |V|-1$. Then $r_M(J) = r_{M}(S\backslash J) = |V| - 1$. Since $J$ is also acyclic, $(V,J)$ is a spanning tree of $G$. Let $B$ be a $M$-basis of $S\backslash J$. Then $|B| = |V|-1$. Since $B$ is also acyclic, $(V,B)$ is a spanning tree of $G$. Now since $B \subseteq S\backslash J$, $(V,J)$ and $(V,B)$ are edge-disjoint. Therefore $G$ has two edge disjoint spanning trees.
+\paragraph{}
+Suppose that $G$ has two edge disjoint spanning trees. Let $(V,B_1), (V,B_2)$ be two edge disjoint spanning trees of $G$. Then $B_1 \cap B_2 = \emptyset$ and $r_M(B_1) = r_M(B_2) = |V| - 1$. Since $B_1 \cap B_2 = \emptyset$, $B_2 \subseteq S\backslash B_1$. Therefore $r_M(S\backslash B_1) = |V|-1$ since $B_2$ is a basis. Therefore $r(B_1) = r(S\backslash B_1)$, so $B_1 \in \mathcal{I}^*$. So $B_1 \in \mathcal{I} \cap \mathcal{I}^*$. Then $max\{|J| : J \in \mathcal{I} \cap \mathcal{I}^* \} \geq |B_1| = |V|-1$, but $|B_1|$ is maximal in $\mathcal{I}$, so in fact $max\{|J| : J \in \mathcal{I} \cap \mathcal{I}^* \} = |V| - 1$. $\blacksquare$
+\paragraph{}
+So for any $A \subseteq S$, by Lemma $3.1$, $|V| - 1 \leq |V| + 1 - 2\kappa((V,A)) + |S\backslash A|$ if and only if $G$ has two edge disjoint spanning trees. Rearranging we obtain:
+\begin{align}
+2(\kappa((V,A)) - 1) &\leq |S\backslash A|.
+\end{align}
+Let $V_0 \dot\cup V_1 \dot\cup \dots \dot\cup V_P$ be a partition of $V$. Choose $A =S \backslash \{uv \in E : \exists 0\leq i < j \leq p \text{ s.t. } uv \in \delta(V_i) \cap \delta(V_j) \}$. Then $|S\backslash A| = |\{uv \in E : \exists 0\leq i < j \leq p \text{ s.t. } uv \in \delta(V_i) \cap \delta(V_j) \}|$ and $\kappa((V,A)) = p+1$. Substituting into $(1)$ we see that $2p \leq |\{uv \in E : \exists 0\leq i < j \leq p \text{ s.t. } uv \in \delta(V_i) \cap \delta(V_j) \}|$. Therefore $G$ has two edge-disjoint spanning trees if and only if every partition of $V$, $V_0 \dot\cup V_1 \dot\cup \dots \dot\cup V_P$, is such that $2p \leq |\{uv \in E : \exists 0\leq i < j \leq p \text{ s.t. } uv \in \delta(V_i) \cap \delta(V_j) \}|$. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+Let $k \in \mathbb{Z}$. Let $G=(V,E)$ be an undirected graph. Let $M = (S,\mathcal{I})$ be the graphic matroid of $G$. Then $G$ has $k$ edge-disjoint spanning trees $T_1 = (V,E_1), \dots, T_k = (V,E_k)$ if and only if $|J| = k(|V| - 1)$ where $J = \dot\bigcup_{i=1}^k E_i$. That is, if and only if $k(|V| - 1) \leq max\{ |J| : J\subseteq S \text{ is partitionable}\}$. So by the matroid partition theorem $k(|V| - 1) \leq |S\backslash A| + \sum_{i=1}^k r_i(A)$ for all $A \subseteq S$ where $r_i(A) = r(A) = |V| - \kappa(A)$. Thus we have $k|V| - k \leq |S\backslash A| + k|V| -k\kappa(A)$. Rearranging we see that $G$ has $k$ edge-disjoint spanning trees if and only if 
+\begin{align}
+k(\kappa(A) - 1) &\leq |S \backslash A|.
+\end{align}
+
+\paragraph{}
+Now let $V_0 \dot\cup V_1 \dot\cup \dots \dot\cup V_P$ be a partition of $V$. Choose $A =S \backslash \{uv \in E : \exists 0\leq i < j \leq p \text{ s.t. } uv \in \delta(V_i) \cap \delta(V_j) \}$. Then $|S\backslash A| = |\{uv \in E : \exists 0\leq i < j \leq p \text{ s.t. } uv \in \delta(V_i) \cap \delta(V_j) \}|$ and $\kappa((V,A)) = p+1$. Substituting into $(2)$ we see that $kp \leq |\{uv \in E : \exists 0\leq i < j \leq p \text{ s.t. } uv \in \delta(V_i) \cap \delta(V_j) \}|$. Therefore $G$ has $k$ edge-disjoint spanning trees if and only if every partition of $V$, $V_0 \dot\cup V_1 \dot\cup \dots \dot\cup V_P$, is such that $kp \leq |\{uv \in E : \exists 0\leq i < j \leq p \text{ s.t. } uv \in \delta(V_i) \cap \delta(V_j) \}|$. $\blacksquare$
+
+\section*{4}
+\paragraph{}
+Let $G = (V,E)$. Let $k \in \mathbb{Z}_+^V$. Let $D = (V, A)$ be the directed graph obtained by adding a forward arc and a backward arc for every edge in $E$. That is, if $uv \in E$ then $uv \in A$ and $vu \in A$. Let $M_1 = (A, \mathcal{I}_1)$ be the matroid given by $\mathcal{I}_1 = \{J \subseteq A : \forall uv \in E, |uv \cap J| + |vu \cap J| \leq 1 \}$. That is, a set of arcs is independent in $M_1$ provided at most one orientation of every edge in $E$ is contained in the set. Let $M_2 = (A, \mathcal{I}_2)$ be the matroid given by $\mathcal{I}_2 = \{ J \subseteq A : \forall v \in V, |\delta^-(v) \cap J| \leq k_v\}$.
+\paragraph{Claim 4.1}
+$M_1$ is a matroid.
+\paragraph{Proof of Claim 4.1}
+For all $uv \in E$, $|uv \cap \emptyset| + |vu \cap \emptyset| = 0 \leq 1$, so $\emptyset \in \mathcal{I}_1$. That is $M0$ is satisfied. Let $J' \subseteq J \in \mathcal{I}_1$. Then for all $uv \in E$, $|uv \cap J'| + |vu \cap J'| \leq |uv \cap J| + |vu \cap J| \leq 1$. That is $M1$ is satisfied. A maximal independent set of $M_1$ contains a single orientation of every edge in $D$, as otherwise a larger independent set could be formed by adding an orientation of a left out edge. Thus the size of any maximal independent set of $M_1$ is $|E|$, specifically they are all equal in size. Thus $M2$ is satisfied and therefore $M_1$ is a matroid. $\blacksquare$
+\paragraph{Claim 4.2}
+$M_2$ is a matroid.
+\paragraph{Proof of Claim 4.2}
+Since $\{d^-(v) : \forall v \in V\}$ is a partition of $A$, $M_2$ is a partition matroid. $\blacksquare$
+\paragraph{}
+Now consider the set $J$ which maximizes $\{|J| : J \in \mathcal{I}_1 \cap \mathcal{I}_2 \}$. The graph $D' = (V, J)$ is a subgraph of $D$ which is an orientation of a subgraph of $G$. Further $D'$ satisfies $|\delta^-(v)| \leq k_v$ for all $v\in V$. Thus if $|J| = |E|$ then an orientation of $G$ satisfying $|\delta^-(v)| \leq k_v$ for all $v\in V$ has been found. Otherwise such an orientation does not exist as it would have size greater than $J$, a contradiction.
+\paragraph{}
+Therefore, the algorithm for solving the given problem is to construct $M_1$ and $M_2$ the run the maximum cardinality matroid intersection algorithm and check the size of the set returned. If the size is $|E|$ return the set, otherwise return that the problem is unsatisfiable. This algorithm runs in polynomial time since constructing the matroids runs in polynomial time, matroid intersection of two matroids runs in polynomial time, and checking the size of the set returned by the max cardinality matroid intersection algorithm runs in polynomial time. The algorithm is correct by the preceding discussion. $\blacksquare$
+\section*{5}
+\paragraph{}
+Let $G=(V,E)$ be a connected, undirected graph. For every edge $e \in E$ assigned a colour $c_e \in \mathbb{N}$.
 \end{document}
