@@ -47,6 +47,39 @@ Suppose $|f| \geq 8$. Then $t \leq \frac{|f|}{2}$ by our assumption for contradi
 \section*{2}
 \paragraph{}
 Let $G$ be a $k$-critical graph with $k\geq 4$ such that $\Delta \geq 3$. Define $p(G) = (k-1)|V(G)| - 2|E(G)|$. Suppose that $G$ is minimal such that $p(G) = 0$ and $G$ is not a clique. Note then that $G$ is $k-1$-regular. Further since $G$ is not a clique, there exists a vertex with two nonadjacent neighbours.
-\paragraph{a}
-Let $R \subsetneq V(G)$. If $G[R] = K_2$ then $p(R) = 2(k-1) - 2 = k-1 + (k-3) \geq k-1$ since $k \geq 4$. Similarly if $G[R] = K_3$ then $p(R) = 3(k-1) - 6 = k-1 + 2(k-1) - 6 \geq k-1 + 2(4-1) - 6 = k-1$. So we may assume $|R| \geq 4$. Then $R$ has a $k-1$-coloring, $\phi$ since $G$ is $k$-critical. Now $R$ has a critical extendsion $R'$ with extender $W$ and core $X$.
+\subsection*{a}
+\paragraph{}
+Let $R \subsetneq V(G)$. Then $R$ has a $k-1$-coloring, $\phi$, since $G$ is $k$-critical. Now $R$ has a critical extension $R'$ with extender $W$ and core $X$. Choose $R'$ to be the maximal such critical extension. So by the Potential Extension Lemma, $p(R') \leq p(R) + p(W) - p(X)$. Rearranging we see that $p(R) \geq p(R') + p(X) - p(W)$. Now since $W$ is $k$-critical, the min degree of vertices in $W$ is $k-1$. So $p(W) = (k-1)|V(W)| - 2|E(W)| = (k-1)|V(W)| - \sum_{v \in V(W)} deg(v) \leq (k-1)|V(W)| -(k-1)|V(W)| = 0$. Thus $p(R) \geq p(R') + p(X) + 0 = p(R') + p(X)$.
+\paragraph{}
+If $V(R') \neq V(G)$ then $V(R') \subsetneq V(G)$. Thus $R'$ has a $k-1$-coloring, $\phi'$, since $G$ is $k$-critical. Thus $R'$ has a critical extension $R''$ with extender $W'$ and core $X'$. Notice that $W' \neq \emptyset$ and $X' \neq \emptyset$ since $W' \cap X' \neq \emptyset$. So $|V(R'')| > |V(R')|$. Now let $W'' = W \cup W'$ and $X'' = X \cup X'$. Then $R'' = R \cup W'' - X''$. Therefore $R''$ is a critical extension of $R$ of size larger than $R'$, contradicting the maximality of $R'$.
+\paragraph{}
+So $V(R') = V(G)$. Then $|X| = k-1$ so as to delete all identified vertices in $G(\phi,R)$. So $p(R) \geq p(R') + p(X) = (k-1)|V(R')| - 2|E(R')| + (k-1)|V(X)| - 2|E(X)| \geq (k-1)|V(X)| - \sum_{v \in V(X)} deg(v)$. Since $|V(X)| = k-1$, $\Delta(X) \leq k-2$. Thus $p(R) \geq (k-1)|V(X)| - (k-2)|V(X)| = |V(X)| = k-1$. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+Let $z \in V(G)$ such that $x,y \in N(z)$ and $xy \not\in E(G)$. Let $G'$ be the graph formed by identifying the vertices $x$ and $y$ as $v$, and deleting $z$. If $G'$ is $k-1$-colorable then such a coloring could be extended to a $k-1$-coloring of $G$, a contradiction. Thus $G'$ is not $k-1$-colorable. So $G'$ has a $k$-critical subgraph. Let $H'$ be a $k$-critical subgraph of $G'$. If $v \not\in V(H')$ then $H'$ is a $k$-critical subgraph of $G$, contradicting that $G$ is $k$-critical. Thus $v \in V(H')$.
+\paragraph{}
+Since $H'$ is $k$-critical, the minimum degree of vertices in $H'$ is $k-1$. Therefore $|N(v) \cap V(H'1)| \geq k-1$. For all $w\in V(H')$ such that $w \neq v$, $deg(w) \leq k-1$ in $H'$, since $G$ is $k-1$-regular and no vertices not equal to $v$ can increase in degree in $H'$. Thus $deg(w) = k-1$ in $H'$ since its minimum and maximum degree in $H'$ is $k-1$.  So we have:
+\begin{align*}
+p(H') &= (k-1)|V(H')| - 2|E(H')| \\
+&= (k-1)|V(H')| - sum_{w \in V(H')} deg_{H'}(w)\\
+&= (k-1)|V(H')| - (k-1)|V(H') - 1| - deg_{H'}(v)\\
+&= k-1 - deg_{H'}(v) 
+\end{align*}
+\paragraph{}
+Now suppose for contradiction that $deg(v) > k-1$ in $H'$. Then $p(H') \leq -1$. Let $K = H' - v + x + y$. Then $V(K) \subseteq V(G-z) \subsetneq V(G)$. So by $(a)$, $p(K) \geq k-1$. But in fact:
+\begin{align*}
+p(K) &= (k-1)|V(K)| - 2|E(K)| \\
+&= (k-1)|V(H')| -(k-1) + k-1 + k-1 -2|E(H')|\\
+&+ 2|N(v) \cap V(H')| - 2|N(x) \cap V(H')| - 2|N(y) \cap V(H')| \\
+&\leq p(H') + k-1 + 2|N(v) \cap V(H')| - 2|N(x) \cup N(y) \cap V(H')|\\
+&\leq p(H') + k-1 + 2|N(v) \cap V(H')| - 2|N(v) \cap V(H')|\\
+&= p(H') + k-1\\
+&\leq -1 + k - 1\\
+&= k-2. 
+\end{align*}
+Thus we have $p(K) \geq k-1$ and $p(K) \leq k-2$, a contradiction. Therefore $deg(v) = k-1$ in $H'$.
+\paragraph{}
+Now we have $p(H') = k-1 - deg_{H'}(v) = k-1 - k-1 = 0$. Since $|V(H')| < |V(G)|$ and $H'$ is $k$-critical, by minimality $p(H') = 0$ if and only if $H'$ is a clique. Since $H'$ is $k-1$-regular, $H'$ is in fact a $k$-clique. Further since $|v \cup (N(v) \cap V(H')| = k$, $v \cup (N(v) \cap V(H') = V(H')$. Therefore $N(v) \cap V(H')$ is $k-1$-clique in $G\backslash \{x,y,z\}$.
+\paragraph{}
+Suppose there exists, $w \in V(H')$ such that $w \in N(x) \cup N(y)$. Then since $H'$ is $k$-critical, $H' -w$ has a $k-1$-coloring, $\phi$. We can extend $\phi$ to a $k-1$-coloring of $H' -w - v + x + y$ by giving $x$ and $y$ the color $\phi(v)$. Now $w$ sees at most $k-2$-colors in $\phi$ so we can extend $\phi$ to a $k-1$ coloring of $H' - v + x + y$. But that is a subgraph of $G-z$. 
 \end{document}
