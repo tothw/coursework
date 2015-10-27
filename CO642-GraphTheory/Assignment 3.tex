@@ -92,4 +92,37 @@ Let $H$ be a $(k-1)$-clique by $(b)$ for non-adjacent $x,y$. Let $G' = G\backsla
 \paragraph{}
 Before we proceed note that $N(x) \cap V(H) \neq \emptyset$ and $N(y) \cap V(H) \neq \emptyset$. As otherwise since $z \in N(x) \cap N(y)$ and $z \not \in V(H)$ and thus $N(x)$ and $N(y)$ each contribute at most $k-2$ vertices to $H$, neither set can contribute $0$ vertices. If either set contributed $0$ vertices to $V(H)$, then $H$ would have at most $k-2$ vertices, but it has $k-1$ vertices.
 \paragraph{}
-Let $C_x = \{\phi_H(v) : v \in N(x) \cap V(H) \}$ and let $C_y = \{\phi_H(v) : v \in N(y) \cap V(H) \}$. If $\phi_{G'}(x) \not\in C_x$ and $\phi_{G'}(y) \not\in C_y$ then we can extend $\phi_{G'}$ to a $k-1$-coloring of $G + xy$ and therefore $G$ using $\phi_H$.
+Let $C_x = \{\phi_H(v) : v \in N(x) \cap V(H) \}$ and let $C_y = \{\phi_H(v) : v \in N(y) \cap V(H) \}$. 
+\paragraph{}Case 1: If $\phi_{G'}(x) \not\in C_x$ and $\phi_{G'}(y) \not\in C_y$ then we can extend $\phi_{G'}$ to a $k-1$-coloring of $G + xy$ and therefore $G$ using $\phi_H$. 
+\paragraph{}Case 2: If $\phi_{G'}(x) \in C_x$ and $\phi_{G'}(y) \not \in C_y$ then since $N(x) \cap V(H)$, $N(y) \cap V(H)$ partition $V(H)$ and neither are empty there is $c \in C_y$ such that $c \not \in C_x$. In this case permute the coloring of $\phi_{G'}$ to obtain coloring $\phi'$ by transposing the color $\phi_{G'}(x)$ with $c$. Then $\phi'(x) \not \in C_x$. Since $\phi_{G'}(y) \neq c$ and $\phi_{G'}(y) \neq \phi_{G'}(x)$ since $x$ is adjacent to $y$, we have $\phi'(y) = \phi_{G'}(y) \not\in C_y$. Thus running case $1$ we can extend $\phi'$ to a $k-1$-coloring of $G$.
+\paragraph{}Case 3: If $\phi_{G'}(x) \not\in C_x$ and $\phi_{G'}(y) \in C_y$ then this case is symmetric to Case 2 and we can extend a transposed coloring to a $k-1$-coloring of $G$.
+\paragraph{} Case 4: If $\phi_{G'}(x) \in C_x$ and $\phi_{G'}(y) \in C_y$ then construct coloring $\phi'$ from $\phi_{G'}$ by transposing the colors $\phi_{G'}(x)$ and $\phi_{G'}(y)$. Then $\phi'(x) = \phi_{G'}(y) \in C_y$ and $\phi'(y) = \phi_{G'}(x) \in C_x$ and $C_x$ and $C_y$ are disjoint by partitioning of $V(H)$ we are in case $1$ and we can extend $\phi'$ to a $k-1$-coloring of $G$.
+\paragraph{}
+Therefore in any case we obtain a $k-1$-coloring of $G$, a contradiction. Thus $G'$ is not $k-1$-colorable. Therefore $G'$ contains a $k$-critical subgraph $K$. The vertices $x,y$ are contained in $V(K)$ as otherwise $K$ is a $k$-critical subgraph of $G$, contradicting that $G$ is $k$-critical. Now $K - xy$ is a subgraph of $G\backslash V(H)$, let $H' = K-xy$. Then $K = H' + xy$. So we have:
+\begin{align*}
+p(K) &= (k-1)|V(K)| - 2|E(K)| \\
+&= (k-1)|V(H')| - 2|E(K)| &\text{ since $V(H') = V(K)$}\\
+&= (k-1)|V(H')| -2|E(H')| - 2 &\text{ since $K = H' + xy$}\\
+&= p(H') - 2 \\
+\geq k-1 -2 &\text{ By $2(a)$}\\
+\geq 1 &\text{ since $k \geq 4.$}
+\end{align*}
+\paragraph{}
+Thus we have a $k$-critical graph with potential strictly greater than zero, a contradiction. $\blacksquare$
+\subsection*{d}
+\paragraph{}
+Contradiction reached in $2(c)$. $\blacksquare$
+\section*{3}
+\paragraph{}
+Let $G$ be a $4$-critical graph and $R \subsetneq V(G)$ such that $|R| \geq 4$. Suppose that $R'$ is an extension of $R$ with extender $W$ and core $X$. Let $\delta > \epsilon > 0$. Define $p(G) = (5 + \epsilon)|V(G)| - 3|E(G)| - \delta Y(G)$ where $Y(G)$ denotes the size of the smallest subset $Y$ of $V(G)$ such that $G-Y$ has girth at least five. 
+\paragraph{}
+Let $p_{KY}(G) = 5|V(G)| - 3|E(G)|. Then we have:
+\begin{align*}
+p(R') &= (5 + \epsilon)|V(R')| - 3|E(R')| - \delta Y(R') \\
+&= p_{KY}(R') + \epsilon |V(R')| - \delta Y(R') \\
+&\leq p_{KY}(R) + p_{KY}(W) -P_{KY}(X) + \epsilon|V(R')| - \delta Y(R') &\text{ by Potential Extension Lemma}\\
+&= p(R) - \epsilon|V(R)| + \delta Y(R) + p(W) - \epsilon|V(W)| + \delta Y(W) - (p(X) - \epsilon|V(X)| + \delta Y(X)) + \epsilon|V(R')| -\delta Y(R') \\
+&= p(R) + p(W) - p(X) + \delta (Y(R) + Y(W) - Y(X)) - \epsilon(|V(R)| + |V(W)| - |V(X)|).
+\end{align*}
+\paragraph{}
+Thus the result follows if we can show that $Y(R) + Y(W) - Y(X) \leq |X| \leq 4$.
