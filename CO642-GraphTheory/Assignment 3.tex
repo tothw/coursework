@@ -9,6 +9,7 @@
 
 \pagestyle{fancy}
 
+
 \listfiles
 
 \setlength{\hoffset}{0pt}			% 1 inch left margin
@@ -17,6 +18,7 @@
 \setlength{\marginparwidth}{0pt}	% no margin notes
 \setlength{\marginparsep}{0pt}		% no margin notes
 \setlength{\textwidth}{6.375in}
+
 \raggedbottom
 
 \rhead{William Justin Toth 642 3} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
@@ -83,7 +85,11 @@ Now we have $p(H') = k-1 - deg_{H'}(v) = k-1 - k-1 = 0$. Since $|V(H')| < |V(G)|
 \paragraph{}
 Suppose for contradiction there exists, $w \in V(H')$ such that $w \in N(x) \cap N(y)$. Then since $H'$ is $k$-critical, $H' -w$ has a $k-1$-coloring, $\phi$. We can extend $\phi$ to a $k-1$-coloring of $H' -w - v + x + y$ by giving $x$ and $y$ the color $\phi(v)$. Now $w$ sees at most $k-2$ colors in $\phi$ so we can extend $\phi$ to a $k-1$ coloring of $H' - v + x + y$.  But $\phi(x) = \phi(y) = \phi(v)$  so we can re-identify $x$ and $y$ as $v$ to obtain a $k-1$ coloring of $H'$, contradicting $H'$ is $k$-critical.
 \paragraph{}
-Thus $(N(x) \cap N(y)) \cap V(H') = \emptyset$, so $(N(x) \cap N(y)) \cap V(H) = \emptyset$. Further $V(H) = N(v) \cap V(H') = N(x) \cap V(H) \cup N(y) \cap V(H)$. Therefore $H$ is a $k-1$-clique in $G\backslash \{x,y,z\]$ and $N(x) \cap V(H)$, $N(y) \cap V(H)$ partitions $V(H)$. $\blacksquare$
+Thus $(N(x) \cap N(y)) \cap V(H') = \emptyset$, so $(N(x) \cap N(y)) \cap V(H) = \emptyset$. Further $V(H) = N(v) \cap V(H') = N(x) \cap V(H) \cup N(y) \cap V(H)$. Therefore $H$ is a $k-1$-clique in $G\backslash \{x,y,z\}$ and $N(x) \cap V(H)$, $N(y) \cap V(H)$ partitions $V(H)$. $\blacksquare$
 \subsection*{c}
-
-\end{document}
+\paragraph{}
+Let $H$ be a $(k-1)$-clique by $(b)$ for non-adjacent $x,y$. Let $G' = G\backslash V(H) + xy$. Suppose for contradiction that $G'$ is $k-1$-colorable. Call such a coloring $\phi_{G'}$. Since $H$ is a $k-1$-clique, $H$ is $k-1$-colorable. Call such a coloring $\phi_{H}$. 
+\paragraph{}
+Before we proceed note that $N(x) \cap V(H) \neq \emptyset$ and $N(y) \cap V(H) \neq \emptyset$. As otherwise since $z \in N(x) \cap N(y)$ and $z \not \in V(H)$ and thus $N(x)$ and $N(y)$ each contribute at most $k-2$ vertices to $H$, neither set can contribute $0$ vertices. If either set contributed $0$ vertices to $V(H)$, then $H$ would have at most $k-2$ vertices, but it has $k-1$ vertices.
+\paragraph{}
+Let $C_x = \{\phi_H(v) : v \in N(x) \cap V(H) \}$ and let $C_y = \{\phi_H(v) : v \in N(y) \cap V(H) \}$. If $\phi_{G'}(x) \not\in C_x$ and $\phi_{G'}(y) \not\in C_y$ then we can extend $\phi_{G'}$ to a $k-1$-coloring of $G + xy$ and therefore $G$ using $\phi_H$.
