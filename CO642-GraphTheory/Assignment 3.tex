@@ -116,13 +116,38 @@ Contradiction reached in $2(c)$. $\blacksquare$
 \paragraph{}
 Let $G$ be a $4$-critical graph and $R \subsetneq V(G)$ such that $|R| \geq 4$. Suppose that $R'$ is an extension of $R$ with extender $W$ and core $X$. Let $\delta > \epsilon > 0$. Define $p(G) = (5 + \epsilon)|V(G)| - 3|E(G)| - \delta Y(G)$ where $Y(G)$ denotes the size of the smallest subset $Y$ of $V(G)$ such that $G-Y$ has girth at least five. 
 \paragraph{}
-Let $p_{KY}(G) = 5|V(G)| - 3|E(G)|. Then we have:
-\begin{align*}
-p(R') &= (5 + \epsilon)|V(R')| - 3|E(R')| - \delta Y(R') \\
-&= p_{KY}(R') + \epsilon |V(R')| - \delta Y(R') \\
-&\leq p_{KY}(R) + p_{KY}(W) -P_{KY}(X) + \epsilon|V(R')| - \delta Y(R') &\text{ by Potential Extension Lemma}\\
-&= p(R) - \epsilon|V(R)| + \delta Y(R) + p(W) - \epsilon|V(W)| + \delta Y(W) - (p(X) - \epsilon|V(X)| + \delta Y(X)) + \epsilon|V(R')| -\delta Y(R') \\
-&= p(R) + p(W) - p(X) + \delta (Y(R) + Y(W) - Y(X)) - \epsilon(|V(R)| + |V(W)| - |V(X)|).
-\end{align*}
+Let $p_{KY}(G) = 5|V(G)| - 3|E(G)|$. Then we have: $p(R') = (5 + \epsilon)|V(R')| - 3|E(R')| - \delta Y(R') = p_{KY}(R') + \epsilon |V(R')| - \delta Y(R') \leq p_{KY}(R) + p_{KY}(W) -P_{KY}(X) + \epsilon|V(R')| - \delta Y(R')$ by the Potential Extension Lemma. Now $p_{KY}(R) = p(R) - \epsilon|V(R)| + \delta Y(R)$, and $p_{KY}(W) = p(W) - \epsilon|V(W)| + \delta Y(W)$, and $p_{KY}(X) = p(X) - \epsilon|V(X)| + \delta Y(X)$. Thus $p(R') \leq p(R) - \epsilon|V(R)| + \delta Y(R) + p(W) - \epsilon|V(W)| + \delta Y(W) - (p(X) - \epsilon|V(X)| + \delta Y(X)) + \epsilon|V(R')| -\delta Y(R')$. Rearranging we see that $p(R') \leq  p(R) + p(W) - p(X) + \delta (Y(R) + Y(W) - Y(X)) - \epsilon(|V(R)| + |V(W)| - |V(X)|)$.
 \paragraph{}
-Thus the result follows if we can show that $Y(R) + Y(W) - Y(X) \leq |X| \leq 4$.
+Thus the result follows if we can show that $Y(R) + Y(W) - Y(X) \leq |X|$.
+\paragraph{Lemma 3.1}
+If $G$ is $4$-critical then $Y(G) \leq 2$.
+\section*{4}
+\paragraph{Lemma 4.0}
+If $G$ is $5$-list-critical then $G$ does contain a vertex of degree at most three.
+\paragraph{Proof of Lemma 4.0}
+Suppose $G$ is a $5$-list-critical graph and $v$ is a vertex of $G$ such that $d(v) \leq 3$. Since $G$ is $5$-list-critical, $G-v$ is $4$-list-colorable. In such a coloring at most $3$ of the colors on $v$'s list have been used by neighbours of $v$. Therefore there is a color on $v$'s list to assign $v$ and extend the coloring the a $4$-list-coloring of $G$. This contradicts that $G$ is $5$-list-critical. $\blacksquare$
+\paragraph{}
+Let $\sigma$ be surface of genus $g$.
+\paragraph{Lemma 4.1}
+For any $5$-list-critical triangle free graph embeddable in $\sigma$, $G$, either $|F| < 20g$ or there is face of $G$ of length $4$, $f$, with every vertex adjacent to $f$ having degree at most $4$. 
+\paragraph{Proof of Lemma 4.1}
+Let $G$ be $5$-list-critical, triangle free, and embeddable in $\sigma$. Suppose for contradiction that $G$ is such that $|F| \geq 20g$ and every face of $G$ of length $4$, $f$, is such that every vertex adjacent adjacent to $f$ is of degree at least $5$. Proceed by a discharging argument.
+\paragraph{}
+For every $v \in V(G)$ let the initial charge of $v$ be denoted by $ch(v)$. Set $ch(v) = d(v) - 4$. For every $f \in F(G)$ let the initial charge of $f$ be denoted by $ch(f)$. Set $ch(f) = |f| - 4 -\frac{4g}{|F(G)|}$. Then $\sum_{v \in V(G)} ch(v) + \sum_{f \in F(G)} ch(f) = 2|E(G)| - 4|V(G)| + 2|E(G)| - 4|F(G)| -4g = -4(|V(G)| - |E(G)| - |F(G)| + g) = -4(2-g + g) = -8$, which is to say the initial charge is negative.
+\paragraph{}
+Discharge the vertices according to the following rule:
+\begin{align}
+\text{Every vertex of degree at least $5$ gives $\frac{1}{5}$ charge to adjacent faces of length $4$.}
+\end{align}
+Let $ch_F(v)$ denote the final charge of every vertex $v$. Let $ch_F(f)$ denote the final charge of every face $f$.
+\paragraph{}
+Let $v \in V(G)$. By Lemma $4.0$, $d(v) \geq 4$. If $d(v) = 4$ then $v$ neither gives nor receives any charge during discharging, and $ch_F(v) = ch(v) = d(v) - 4 = 0$. If $d(v) \geq 5$ then $v$ gives away $\frac{1}{5}$ to each length four face adjacent to $v$. There are at most $d(v)$ length four faces adjacent to $v$, so $v$ gives away at most $\frac{d(v)}{5}$ charge. Therefore $ch_F(v) = ch(v) - \frac{d(v)}{5} = d(v) - 4 - \frac{d(v)}{5} \geq \frac{5d(v) - 20 - d(v)}{5} \geq \frac{5(5) - 20 -5}{5} = 0$. Thus every vertex has non-negative charge after discharging.
+\paragraph{}
+Let $f \in F(G)$. Since $G$ is triangle-free, $|f| \geq 4$. If $|f| = 4$ then $f$ receives $\frac{1}{5}$ charge from each adjacent vertex of degree at least $5$. By our assumption for contradiction there is at least one such vertex adjacent to $f$. Thus $ch_F(f) \geq ch(f) + \frac{1}{5} = |f| - 4 - \frac{4g}{|F(G)|} + \frac{1}{5} = 4 - 4 - \frac{1}{5} + \frac{1}{5} = 0$. If $|f| \geq 5$ then $f$ neither gives nor receives any charge during discharging. So $ch_F(f) = ch(f) = |f| - 4 -\frac{4g}{|F(G)|} \geq 5 - 4 - \frac{1}{5} = \frac{4}{5} > 0$. Thus every face has non-negative charge after discharging. Therefore the total final charge after discharging is non-negative contradicting the initial negative charge. $\blacksquare$
+\paragraph{Lemma 4.2}
+For any $5$-list-critical triangle free graph embeddable in $\sigma$, $G$, $|F| < 20g$.
+\paragraph{Proof of Lemma 4.2}
+TODO SHOW "there is face of $G$ of length $4$, $f$, with every vertex adjacent to $f$ having degree at most $4$" CANNOT HAPPEN.$\blacksquare$
+\paragraph{}
+By Euler's Formula, $|V(G)| - |E(G)| + |F(G)| = 2-g$. So by Lemma $4.2$, $|V(G)| - |E(G)| + 20g \leq 2-g$. Further we have that $2|E(G)| = \sum_{f \in F(G)} |f|$, so in fact $|E(G)| \leq 10g\cdot max(|f|)$. TODO NEED a bound on the length of a face. 
+\end{document}
