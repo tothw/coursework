@@ -119,9 +119,12 @@ Let $G$ be a $4$-critical graph and $R \subsetneq V(G)$ such that $|R| \geq 4$. 
 \paragraph{}
 Let $p_{KY}(G) = 5|V(G)| - 3|E(G)|$. Then we have: $p(R') = (5 + \epsilon)|V(R')| - 3|E(R')| - \delta Y(R') = p_{KY}(R') + \epsilon |V(R')| - \delta Y(R') \leq p_{KY}(R) + p_{KY}(W) -P_{KY}(X) + \epsilon|V(R')| - \delta Y(R')$ by the Potential Extension Lemma. Now $p_{KY}(R) = p(R) - \epsilon|V(R)| + \delta Y(R)$, and $p_{KY}(W) = p(W) - \epsilon|V(W)| + \delta Y(W)$, and $p_{KY}(X) = p(X) - \epsilon|V(X)| + \delta Y(X)$. Thus $p(R') \leq p(R) - \epsilon|V(R)| + \delta Y(R) + p(W) - \epsilon|V(W)| + \delta Y(W) - (p(X) - \epsilon|V(X)| + \delta Y(X)) + \epsilon|V(R')| -\delta Y(R')$. Rearranging we see that $p(R') \leq  p(R) + p(W) - p(X) + \delta (Y(R) + Y(W) - Y(X) - Y(R')) - \epsilon(|V(R)| + |V(W)| - |V(X)| - |V(R')|)$.
 \paragraph{}
-Now $V(R') = V(R) \cup V(W) - V(X)$ so $|V(R')| \leq |V(R)| + |V(W)| - |V(X)|$. Therefore $pR') \leq  p(R) + p(W) - p(X) + \delta (Y(R) + Y(W) - Y(X) - Y(R'))$. Thus the result follows if we can show that $Y(R) + Y(W) - Y(X) - Y(R') \leq |X|$. Indeed $W$ is a subgraph of $G[R' \cup X]$, so $Y(W) \leq Y(R) + Y(X)$. Thus $Y(R) + Y(W) - Y(X) - Y(R') \leq Y(R) + Y(R') + Y(X) - Y(X) - Y(R') = Y(R)$.
+Now $V(R') = V(R) \cup V(W) - V(X)$ so $|V(R')| \leq |V(R)| + |V(W)| - |V(X)|$. Therefore $p(R') \leq  p(R) + p(W) - p(X) + \delta (Y(R) + Y(W) - Y(X) - Y(R')) \leq p(R) + p(W) - p(X) +\delta |X|$. The last inequality is a result of the Lemma $3.1$ which will follow. $\blacksquare$ 
 \paragraph{Lemma 3.1}
-If a connected graph $G$ such that $|V(G)| \geq 4$ is $k$-colorable then $Y(G) \leq k$. THIS IS FALSE, NEED SOMETHING STRONGER
+ $Y(R) + Y(W) - Y(X) - Y(R') \leq |X|$ or equivalently, $Y(R') \geq Y(R) + Y(W) - |X|$.
+\paragraph{Proof of Lemma 3.1}
+By definition $R' = R \cup (W\backslash X)$. Notice that $R$ and $W\backslash X$ are vertex disjoint, so they share no $<5$-cycles. Thus $R'$ has at least as many $<5$-cycles as $R$ plus $W\backslash X$, that is to say $Y(R') \geq Y(R) + Y(W\backslash X)$. Further, deleting $X$ removes at most $|X|$ $<5$-cycles from $W$ so $Y(W\backslash X) \geq Y(W) - |X|$. Therefore $Y(R') \geq Y(R) + Y(W\backslash X) \geq Y(R) + Y(W) - |X| \geq Y(R) + Y(W) - |X|$. Rearranging we see that  $Y(R) + Y(W) - Y(X) - Y(R') \leq |X|$. $\blacksquare$
+\paragraph{}
 \section*{4}
 \paragraph{Lemma 4.0}
 If $G$ is $5$-list-critical then $G$ does contain a vertex of degree at most three.
@@ -134,7 +137,7 @@ For any $5$-list-critical triangle free graph embeddable in $\Sigma$, $G$, eithe
 \paragraph{Proof of Lemma 4.1}
 Let $G$ be $5$-list-critical, triangle free, and embeddable in $\Sigma$. Suppose for contradiction that $G$ is such that $|F| \geq 20g$ and every face of $G$ of length $4$, $f$, is such that every vertex adjacent adjacent to $f$ is of degree at least $5$. Proceed by a discharging argument.
 \paragraph{}
-For every $v \in V(G)$ let the initial charge of $v$ be denoted by $ch(v)$. Set $ch(v) = d(v) - 4$. For every $f \in F(G)$ let the initial charge of $f$ be denoted by $ch(f)$. Set $ch(f) = |f| - 4 -\frac{4g}{|F(G)|}$. Then $\sum_{v \in V(G)} ch(v) + \sum_{f \in F(G)} ch(f) = 2|E(G)| - 4|V(G)| + 2|E(G)| - 4|F(G)| -4g = -4(|V(G)| - |E(G)| - |F(G)| + g) = -4(2-g + g) = -8$, which is to say the initial charge is negative.
+For every $v \in V(G)$ let the initial charge of $v$ be denoted by $ch(v)$. Set $ch(v) = d(v) - 4$. For every $f \in F(G)$ let the initial charge of $f$ be denoted by $ch(f)$. Set $ch(f) = |f| - 4 -\frac{4g}{|F(G)|}$. Then $\sum_{v \in V(G)} ch(v) + \sum_{f \in F(G)} ch(f) = 2|E(G)| - 4|V(G)| + 2|E(G)| - 4|F(G)| -4g = -4(|V(G)| - |E(G)| + |F(G)| + g) = -4(2-g + g) = -8$, which is to say the initial charge is negative.
 \paragraph{}
 Discharge the vertices according to the following rule:
 \begin{align}
@@ -148,7 +151,7 @@ Let $f \in F(G)$. Since $G$ is triangle-free, $|f| \geq 4$. If $|f| = 4$ then $f
 \paragraph{Lemma 4.2}
 For any $5$-list-critical triangle free graph embeddable in $\Sigma$, $G$, $|F| < 20g$.
 \paragraph{Proof of Lemma 4.2}
-TODO SHOW "there is face of $G$ of length $4$, $f$, with every vertex adjacent to $f$ having degree at most $4$" CANNOT HAPPEN.$\blacksquare$
+By Lemma $4.1$, either Lemma $4.2$ holds or there is face of $G$ of length $4$, $f$, with every vertex adjacent to $f$ having degree at most $4$. Suppose that there is face of $G$ of length $4$, $f$, with every vertex adjacent to $f$ having degree at most $4$. Let $v_1,v_2,v_3,v_4$ be the vertices on $f$. Let $L$ be any $(k-1)$-list-assignment such that $G$ is not $L$-colorable but every proper subgraph of $G$ is. Then $G - \{v_1,v_2,v_3,v_4\}$ is $L$-colorable. Now for all $v_i$ such that $1\leq i \leq 4$, at most two of $v_i$'s list colors have been used in the coloring of $G - \{v_1,v_2,v_3,v_4\}$ by the degree of $v_i$. So each $v_i$ has two colors still available in its list. Since $f$ is an even cycle it is $2$-colorable and therefore $2$-list colorable. So we can extend our list coloring of $G- \{v_1,v_2,v_3,v_4\}$ to an $L$-coloring of $G$, contradicting that $G$ is $k$-list-critical. Therefore there does not exist a face of $G$ of length $4$, $f$, with every vertex adjacent to $f$ having degree at most $4$, and hence any $5$-list-critical triangle free graph embeddable in $\Sigma$, $G$, $|F| < 20g$ by Lemma $4.1$. $\blacksquare$
 \paragraph{}
-By Euler's Formula, $|V(G)| - |E(G)| + |F(G)| = 2-g$. So by Lemma $4.2$, $|V(G)| - |E(G)| + 20g \leq 2-g$. Further we have that $2|E(G)| = \sum_{f \in F(G)} |f|$, so in fact $|E(G)| \leq 10g\cdot max(|f|)$. TODO NEED a bound on the length of a face. 
+By Euler's Formula, $|V(G)| - |E(G)| + |F(G)| = 2 - g$, so $4|V(G)| - 2|E(G)| + 4|F(G)| = 8- 4g + 2|E|$. By handshaking, $2|E(G)| = \sum_{v\in V(G)} d(v)$. By Lemma $4.0$, $d(v) \geq 4$, so $\sum_{v\in V(G)} d(v) \geq 4|V(G)|$, and thus $2|E(G)| \geq 4|V(G)|$.Substituting back into our result for Euler's formula we see that $4|V(G)| -4|V(G)| + 4|F(G)| \leq 8-4g +4|V(G)|$. Dividing by four and rearranging we obtain $|F(G)| -2 + g \geq |V(G)|$. By Lemma $4.2$, $|F(G)| < 20g$ so $|V(G)| < 20g - 2 + g$. So the size of the vertex set is bounded above. Thus there are a finite number of possible vertex sets for $G$, and for each such set there are a finite number of possible edge sets, so in to there are a finite number of possibilities for $G$. Therefore there exists finitely many $5$-list-critical triangle-free graphs embeddable in $\Sigma$. $\blacksquare$
 \end{document}
