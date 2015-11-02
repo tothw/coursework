@@ -112,28 +112,32 @@ Thus we have a $k$-critical graph with potential strictly greater than zero, a c
 \subsection*{d}
 \paragraph{}
 Contradiction reached in $2(c)$. $\blacksquare$
+
 \section*{3}
 \paragraph{}
 Let $G$ be a $4$-critical graph and $R \subsetneq V(G)$ such that $|R| \geq 4$. Suppose that $R'$ is an extension of $R$ with extender $W$ and core $X$. Let $\delta > \epsilon > 0$. Define $p(G) = (5 + \epsilon)|V(G)| - 3|E(G)| - \delta Y(G)$ where $Y(G)$ denotes the size of the smallest subset $Y$ of $V(G)$ such that $G-Y$ has girth at least five. 
 \paragraph{}
-Let $p_{KY}(G) = 5|V(G)| - 3|E(G)|$. Then we have: $p(R') = (5 + \epsilon)|V(R')| - 3|E(R')| - \delta Y(R') = p_{KY}(R') + \epsilon |V(R')| - \delta Y(R') \leq p_{KY}(R) + p_{KY}(W) -P_{KY}(X) + \epsilon|V(R')| - \delta Y(R')$ by the Potential Extension Lemma. Now $p_{KY}(R) = p(R) - \epsilon|V(R)| + \delta Y(R)$, and $p_{KY}(W) = p(W) - \epsilon|V(W)| + \delta Y(W)$, and $p_{KY}(X) = p(X) - \epsilon|V(X)| + \delta Y(X)$. Thus $p(R') \leq p(R) - \epsilon|V(R)| + \delta Y(R) + p(W) - \epsilon|V(W)| + \delta Y(W) - (p(X) - \epsilon|V(X)| + \delta Y(X)) + \epsilon|V(R')| -\delta Y(R')$. Rearranging we see that $p(R') \leq  p(R) + p(W) - p(X) + \delta (Y(R) + Y(W) - Y(X)) - \epsilon(|V(R)| + |V(W)| - |V(X)|)$.
+Let $p_{KY}(G) = 5|V(G)| - 3|E(G)|$. Then we have: $p(R') = (5 + \epsilon)|V(R')| - 3|E(R')| - \delta Y(R') = p_{KY}(R') + \epsilon |V(R')| - \delta Y(R') \leq p_{KY}(R) + p_{KY}(W) -P_{KY}(X) + \epsilon|V(R')| - \delta Y(R')$ by the Potential Extension Lemma. Now $p_{KY}(R) = p(R) - \epsilon|V(R)| + \delta Y(R)$, and $p_{KY}(W) = p(W) - \epsilon|V(W)| + \delta Y(W)$, and $p_{KY}(X) = p(X) - \epsilon|V(X)| + \delta Y(X)$. Thus $p(R') \leq p(R) - \epsilon|V(R)| + \delta Y(R) + p(W) - \epsilon|V(W)| + \delta Y(W) - (p(X) - \epsilon|V(X)| + \delta Y(X)) + \epsilon|V(R')| -\delta Y(R')$. Rearranging we see that $p(R') \leq  p(R) + p(W) - p(X) + \delta (Y(R) + Y(W) - Y(X) - Y(R')) - \epsilon(|V(R)| + |V(W)| - |V(X)| - |V(R')|)$.
 \paragraph{}
-Thus the result follows if we can show that $Y(R) + Y(W) - Y(X) \leq |X|$.
+Now $V(R') = V(R) \cup V(W) - V(X)$ so $|V(R')| \leq |V(R)| + |V(W)| - |V(X)|$. Therefore $p(R') \leq  p(R) + p(W) - p(X) + \delta (Y(R) + Y(W) - Y(X) - Y(R')) \leq p(R) + p(W) - p(X) +\delta |X|$. The last inequality is a result of the Lemma $3.1$ which will follow. $\blacksquare$ 
 \paragraph{Lemma 3.1}
-If $G$ is $4$-critical then $Y(G) \leq 2$.
+ $Y(R) + Y(W) - Y(X) - Y(R') \leq |X|$ or equivalently, $Y(R') \geq Y(R) + Y(W) - |X|$.
+\paragraph{Proof of Lemma 3.1}
+By definition $R' = R \cup (W\backslash X)$. Notice that $R$ and $W\backslash X$ are vertex disjoint, so they share no $<5$-cycles. Thus $R'$ has at least as many $<5$-cycles as $R$ plus $W\backslash X$, that is to say $Y(R') \geq Y(R) + Y(W\backslash X)$. Further, deleting $X$ removes at most $|X|$ $<5$-cycles from $W$ so $Y(W\backslash X) \geq Y(W) - |X|$. Therefore $Y(R') \geq Y(R) + Y(W\backslash X) \geq Y(R) + Y(W) - |X| \geq Y(R) + Y(W) - |X|$. Rearranging we see that  $Y(R) + Y(W) - Y(X) - Y(R') \leq |X|$. $\blacksquare$
+\paragraph{}
 \section*{4}
 \paragraph{Lemma 4.0}
 If $G$ is $5$-list-critical then $G$ does contain a vertex of degree at most three.
 \paragraph{Proof of Lemma 4.0}
 Suppose $G$ is a $5$-list-critical graph and $v$ is a vertex of $G$ such that $d(v) \leq 3$. Since $G$ is $5$-list-critical, $G-v$ is $4$-list-colorable. In such a coloring at most $3$ of the colors on $v$'s list have been used by neighbours of $v$. Therefore there is a color on $v$'s list to assign $v$ and extend the coloring the a $4$-list-coloring of $G$. This contradicts that $G$ is $5$-list-critical. $\blacksquare$
 \paragraph{}
-Let $\sigma$ be surface of genus $g$.
+Let $\Sigma$ be surface of genus $g$.
 \paragraph{Lemma 4.1}
-For any $5$-list-critical triangle free graph embeddable in $\sigma$, $G$, either $|F| < 20g$ or there is face of $G$ of length $4$, $f$, with every vertex adjacent to $f$ having degree at most $4$. 
+For any $5$-list-critical triangle free graph embeddable in $\Sigma$, $G$, either $|F| < 20g$ or there is face of $G$ of length $4$, $f$, with every vertex adjacent to $f$ having degree at most $4$. 
 \paragraph{Proof of Lemma 4.1}
-Let $G$ be $5$-list-critical, triangle free, and embeddable in $\sigma$. Suppose for contradiction that $G$ is such that $|F| \geq 20g$ and every face of $G$ of length $4$, $f$, is such that every vertex adjacent adjacent to $f$ is of degree at least $5$. Proceed by a discharging argument.
+Let $G$ be $5$-list-critical, triangle free, and embeddable in $\Sigma$. Suppose for contradiction that $G$ is such that $|F| \geq 20g$ and every face of $G$ of length $4$, $f$, is such that every vertex adjacent adjacent to $f$ is of degree at least $5$. Proceed by a discharging argument.
 \paragraph{}
-For every $v \in V(G)$ let the initial charge of $v$ be denoted by $ch(v)$. Set $ch(v) = d(v) - 4$. For every $f \in F(G)$ let the initial charge of $f$ be denoted by $ch(f)$. Set $ch(f) = |f| - 4 -\frac{4g}{|F(G)|}$. Then $\sum_{v \in V(G)} ch(v) + \sum_{f \in F(G)} ch(f) = 2|E(G)| - 4|V(G)| + 2|E(G)| - 4|F(G)| -4g = -4(|V(G)| - |E(G)| - |F(G)| + g) = -4(2-g + g) = -8$, which is to say the initial charge is negative.
+For every $v \in V(G)$ let the initial charge of $v$ be denoted by $ch(v)$. Set $ch(v) = d(v) - 4$. For every $f \in F(G)$ let the initial charge of $f$ be denoted by $ch(f)$. Set $ch(f) = |f| - 4 -\frac{4g}{|F(G)|}$. Then $\sum_{v \in V(G)} ch(v) + \sum_{f \in F(G)} ch(f) = 2|E(G)| - 4|V(G)| + 2|E(G)| - 4|F(G)| -4g = -4(|V(G)| - |E(G)| + |F(G)| + g) = -4(2-g + g) = -8$, which is to say the initial charge is negative.
 \paragraph{}
 Discharge the vertices according to the following rule:
 \begin{align}
@@ -145,9 +149,27 @@ Let $v \in V(G)$. By Lemma $4.0$, $d(v) \geq 4$. If $d(v) = 4$ then $v$ neither 
 \paragraph{}
 Let $f \in F(G)$. Since $G$ is triangle-free, $|f| \geq 4$. If $|f| = 4$ then $f$ receives $\frac{1}{5}$ charge from each adjacent vertex of degree at least $5$. By our assumption for contradiction there is at least one such vertex adjacent to $f$. Thus $ch_F(f) \geq ch(f) + \frac{1}{5} = |f| - 4 - \frac{4g}{|F(G)|} + \frac{1}{5} = 4 - 4 - \frac{1}{5} + \frac{1}{5} = 0$. If $|f| \geq 5$ then $f$ neither gives nor receives any charge during discharging. So $ch_F(f) = ch(f) = |f| - 4 -\frac{4g}{|F(G)|} \geq 5 - 4 - \frac{1}{5} = \frac{4}{5} > 0$. Thus every face has non-negative charge after discharging. Therefore the total final charge after discharging is non-negative contradicting the initial negative charge. $\blacksquare$
 \paragraph{Lemma 4.2}
-For any $5$-list-critical triangle free graph embeddable in $\sigma$, $G$, $|F| < 20g$.
+For any $5$-list-critical triangle free graph embeddable in $\Sigma$, $G$, $|F| < 20g$.
 \paragraph{Proof of Lemma 4.2}
-TODO SHOW "there is face of $G$ of length $4$, $f$, with every vertex adjacent to $f$ having degree at most $4$" CANNOT HAPPEN.$\blacksquare$
+By Lemma $4.1$, either Lemma $4.2$ holds or there is face of $G$ of length $4$, $f$, with every vertex adjacent to $f$ having degree at most $4$. Suppose that there is face of $G$ of length $4$, $f$, with every vertex adjacent to $f$ having degree at most $4$. Let $v_1,v_2,v_3,v_4$ be the vertices on $f$. Let $L$ be any $(k-1)$-list-assignment such that $G$ is not $L$-colorable but every proper subgraph of $G$ is. Then $G - \{v_1,v_2,v_3,v_4\}$ is $L$-colorable. Now for all $v_i$ such that $1\leq i \leq 4$, at most two of $v_i$'s list colors have been used in the coloring of $G - \{v_1,v_2,v_3,v_4\}$ by the degree of $v_i$. So each $v_i$ has two colors still available in its list. Since $f$ is an even cycle it is $2$-colorable and therefore $2$-list colorable. So we can extend our list coloring of $G- \{v_1,v_2,v_3,v_4\}$ to an $L$-coloring of $G$, contradicting that $G$ is $k$-list-critical. Therefore there does not exist a face of $G$ of length $4$, $f$, with every vertex adjacent to $f$ having degree at most $4$, and hence any $5$-list-critical triangle free graph embeddable in $\Sigma$, $G$, $|F| < 20g$ by Lemma $4.1$. $\blacksquare$
 \paragraph{}
-By Euler's Formula, $|V(G)| - |E(G)| + |F(G)| = 2-g$. So by Lemma $4.2$, $|V(G)| - |E(G)| + 20g \leq 2-g$. Further we have that $2|E(G)| = \sum_{f \in F(G)} |f|$, so in fact $|E(G)| \leq 10g\cdot max(|f|)$. TODO NEED a bound on the length of a face. 
+By Euler's Formula, $|V(G)| - |E(G)| + |F(G)| = 2 - g$, so $4|V(G)| - 2|E(G)| + 4|F(G)| = 8- 4g + 2|E|$. By handshaking, $2|E(G)| = \sum_{v\in V(G)} d(v)$. By Lemma $4.0$, $d(v) \geq 4$, so $\sum_{v\in V(G)} d(v) \geq 4|V(G)|$, and thus $2|E(G)| \geq 4|V(G)|$.Substituting back into our result for Euler's formula we see that $4|V(G)| -4|V(G)| + 4|F(G)| \leq 8-4g +4|V(G)|$. Dividing by four and rearranging we obtain $|F(G)| -2 + g \geq |V(G)|$. By Lemma $4.2$, $|F(G)| < 20g$ so $|V(G)| < 20g - 2 + g$. So the size of the vertex set is bounded above. Thus there are a finite number of possible vertex sets for $G$, and for each such set there are a finite number of possible edge sets, so in to there are a finite number of possibilities for $G$. Therefore there exists finitely many $5$-list-critical triangle-free graphs embeddable in $\Sigma$. $\blacksquare$
+
+\section*{5}
+\paragraph{}
+Let $G$ be a (multi)-graph of maximum degree $\Delta$. Let $e = v_0v_1 \in E(G)$. Let $k \geq \Delta + 1$. Suppose $G$ is not $k$-edge-colorable, but $G-e$ is $k$-edge-colorable. Let $\phi$ be a $k$-edge-coloring of $G-e$. For all $v \in V(G)$, let $\phi(v)$ denote the set of colors missing at $v$. Suppose $P = v_0v_1\dots v_m$ is a path such that for all $i \geq 1$, there exists $j < i$, such that $\phi(v_iv_{i+1}) \in \phi(v_j)$.
+\paragraph{}
+Suppose for contradiction that $\phi, P$ are such that $m$ is minimized and subject to that $m-j$ is minimized wherein there exists $j < m$ such that $\phi(v_j) \cap \phi(v_m) \neq \emptyset$. Say without loss of generality the length of $P$ is $m$.
+\paragraph{Case 1}
+Suppose $m=1$ and $j=0$. Then $\phi(v_0) \cap \phi(v_1) \neq \emptyset$. Then there exists $a \in \phi(v_0) \cap \phi(v_1)$. Thus $e=v_0v_1$ can be colored with $a$. In this way we have extended $\phi$ to a $k$-edge-coloring of $G$, a contradiction.
+\paragraph{Case 2}
+Suppose $m > 1$ and $j=m-1$. Then $\phi(v_{m-1}) \cap \phi(v_m) \neq \emptyset$.  Let $a \in \phi(v_{m-1}) \cap \phi(v_m)$. Let $b = \phi(v_{m-1}v_m)$. Then by the property of $P$ there exists $k < m-1$ such that $b \in \phi(v_k)$. Now since $a \in \phi(v_{m-1}) \cap \phi(v_m$ we can color edge $v_{m-1}v_m$ with color $a$. Now $b \in \phi(v_{m-1})$. So $b \in \phi(v_k) \cap \phi(v_{m-1})$ contradicting the minimality of $m$.
+\paragraph{Case 3}
+Suppose $m >1$ and $j < m-1$. Then $\phi(v_{j}) \cap \phi(v_m) \neq \emptyset$. Let $a \in \phi(v_{j}) \cap \phi(v_m)$. Consider $v_{m-1}$. Note $v_{m-1} \neq v_j$ since $m-1 > j$. Since $k \geq \Delta + 1$ there exists a color $b \in \phi(v_{m-1})$. Now $b \not\in \phi(v_m)$ as otherwise $b \in \phi(v_{m-1}) \cap \phi(v_m)$ which contradicts the minimality of $m-j$. Further $b \not\in \phi(v_j)$ as otherwise $b\in \phi(v_j) \cap \phi(v_{m-1})$ which contradicts the minimality of $m$. Also notice that $a \not\in \phi(v_{m-1})$ as otherwise $a \in \phi(v_{m-1}) \cap \phi(v_m)$ which contradicts the minimality of $m - j$. Therefore $v_j, v_{m-1},v_m$ are all degree one in the subgraph induced by edges colored $a$ and $b$. The components of this subgraph are alternating paths, and $v_j, v_{m-1}, v_m$ are not all in the same component as you cannot have three degree one vertices on a path.
+\subparagraph{Subcase 3.1}
+If $v_j$ is not on $P_{m-1}$ (the alternating path ending at $v_{m-1}$) then flip $a$ and $b$ on $P_{m-1}$. Now $a \in \phi(v_j)$ as this did not change, and $a \in \phi(v_{m-1})$ as it was flipped. Thus $a \in \phi(v_j) \cap \phi(v_{m-1})$ which contradicts the minimality of $m$.
+\subparagraph{Subcase 3.2}
+If $v_j$ is on $P_{m-1}$ then $v_m$ is not on $P_{m-1}$. Now flip $a$ and $b$ on $P_{m}$. Now $b \in \phi(v_{m-1})$ as this did not change, and $b \in \phi(v_m)$ as it was flipped. Thus $b \in \phi(v_{m-1}) \cap \phi(v_m)$ which contradicts the minimality of $m-j$.
+\paragraph{}
+A contradiction has been reached in all cases. Therefore for every $i \neq j$ , $\phi(v_i) \cap \phi(v_j) = \emptyset$. $\blacksquare$
 \end{document}
