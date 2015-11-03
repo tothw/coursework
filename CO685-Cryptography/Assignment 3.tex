@@ -127,4 +127,20 @@ We now consider the probability that such an $r \in \mathbb{Z}_{p(p-1)}$ is in $
 So the probability that $r \in \mathbb{Z}_p*$ is equal to $Pr(r < p) = \sum_{i=1}^p \frac{1}{p(p-1)} = \frac{p}{p(p-1)} = \frac{1}{p-1}$. Since $p$ is chosen to be large this probability of success for the attack if we verify that $r \in \mathbb{Z}_p^*$ is negligible. Thus this modification successfuly prevents the attack with high probability.
 \subsection*{d}
 \paragraph{}
+First consider what a similar attack against DSA might look like:
+\begin{itemize}
+\item Choose random elements $r' \in \mathbb{Z}_q^*$ and $S_2 \in \mathbb{Z}_q^*$
+\item Compute
+\begin{align*}
+r'' &\equiv (g^DA^{r'})^{S_2}-^{-1} &(mod\ p)
+\end{align*}
+\item Compute an integer $S_1 \in \mathbb{Z}$ such that
+\begin{align*}
+S_1 &\equiv r' &(mod\ p-1)\\
+S_1 &\equiv r'' &(mod\ q)
+\end{align*}
+\item Output $(S_1,S_2)$ as the signature.
+\end{itemize}
+\paragraph{}
+Similar to as in Elgamal one can see that $g^{V_1}A^{V_2}\ mod\ p\  \equiv S_1\ (q)$, where $V_1 \equiv DS_2^{-1}\ (q)$ and $V_2 \equiv S_1S_2^{-1}\ (q)$. But in the verification step this is not exactly what they check. In fact they check that $g^{V_1}A^{V_2}\ mod\ p\ mod\ q = S_1$. Similar to part $(c)$ one can see that $S_1 \in \mathbb{Z}_{q(p-1)}$ with its value being chosen uniformly at random, and again similarly the probability that $S_1 < q$ is $\frac{1}{p-1}$. So if $S_1$ was chosen as it is in the attack it is highly likely that $S_1 > q$ and hence it is highly unlikely that $g^{V_1}A^{V_2}\ mod\ p\ mod\ q = S_1$ since $g^{V_1}A^{V_2}\ mod\ p\ mod\ q < q$. Therefore DSA has the same check suggested in part $(c)$ built-in in a sense. Thus DSA does not admit a similar attack as Elgamal.
 \end{document}
