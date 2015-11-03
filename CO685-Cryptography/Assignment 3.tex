@@ -114,5 +114,17 @@ In step $3$ the system of congruences can be computed in polynomial time since t
 \paragraph{}
 Therefore the entire attack can be done successfully with high probability in polynomial time. $\blacksquare$
 \subsection*{c}
-
+\paragraph{}
+During the Verification step additionally verify that $r \in \mathbb{Z}_p^*$. If it is not then fail. The $r$ value used in the attack is computed by solving:
+\begin{align*}
+r &\equiv r' &(mod p-1)\\
+r &\equiv r'' &(mod p).
+\end{align*}
+Since $p$ and $p-1$ are relatively prime, by the Chinese Remainder Theorem this system of congruences has a unique solution modulo $p(p-1)$.
+\paragraph{}
+We now consider the probability that such an $r \in \mathbb{Z}_{p(p-1)}$ is in $\mathbb{Z}_p^*$ as a legitimately computed $r$ would be. The value of $r$ comes the probability distributions of $r'$ and $r''$ since it results from solving a system of congruences which depend on those values. The value of $r'$ is chosen uniformly at random. The value of $r''$ is computed based on values that are either themselves chosen uniformly at random or computed based on values chosen uniformly at random so $r''$ itself is distributed uniformly at random. Thus $r$ can be considered to be distributed uniformly at random.
+\paragraph{}
+So the probability that $r \in \mathbb{Z}_p*$ is equal to $Pr(r < p) = \sum_{i=1}^p \frac{1}{p(p-1)} = \frac{p}{p(p-1)} = \frac{1}{p-1}$. Since $p$ is chosen to be large this probability of success for the attack if we verify that $r \in \mathbb{Z}_p^*$ is negligible. Thus this modification successfuly prevents the attack with high probability.
+\subsection*{d}
+\paragraph{}
 \end{document}
