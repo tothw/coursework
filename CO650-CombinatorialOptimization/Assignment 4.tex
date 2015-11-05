@@ -1,0 +1,45 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{report}
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\pagestyle{fancy}
+
+\listfiles
+
+\setlength{\hoffset}{0pt}			% 1 inch left margin
+\setlength{\oddsidemargin}{0pt}		% 1 inch left margin
+\setlength{\voffset}{0pt}			% 1 inch top margin
+\setlength{\marginparwidth}{0pt}	% no margin notes
+\setlength{\marginparsep}{0pt}		% no margin notes
+\setlength{\textwidth}{6.375in}
+\raggedbottom
+
+\rhead{William Justin Toth 650 4} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{1}
+
+\section*{2}
+\paragraph{}
+Let $G = (V,E)$ be a graph. Suppose that $G$ is connected and that every node, $v$, is inessential. Let $v \in V$. We will show that $G-v$ has a perfect matching. Let $M$ be a maximal matching in $G$ such that $v$ is $M$-exposed. Such a matching exists as $v$ is inessential. 
+\paragraph{}
+Let $w\in V\backslash \{v\}$. Suppose for contradiction that $w$ is $M$-exposed. Since $G$ is connected there is a $vw$-path in $G$, call it $P$. Since $w$ is $M$-exposed there exists an $M$-exposed vertex in $V(P)$. Let $w'$ be the $M$-exposed vertex nearest to $v$ along the path $P$.
+\paragraph{}
+Suppose for contradiction that $vPw'$ (the subpath of $P$ from $v$ to $w'$) is not $M$-alternating. Then there exists an $M$-exposed vertex $u$ not equal to $v$ or $w'$, as otherwise every edge alternates being in $M$ and not being in $M$. But $vPu$ is a shorter path than $vPw'$ contradicting the minimality of $w'$. Thus $vPw'$ is $M$-alternating.
+\paragraph{}
+Since $vPw'$ is $M$-alternating and both $v$ and $w'$ are $M$-exposed, $vPw'$ is an $M$-augmenting path. But by the Augmenting Path Theorem this contradicts the maximality of $M$. Thus for all $w \in V\backslash \{v\}$, $w$ is not $M$-exposed. Therefore $M$ covers every vertex in $V\backslash \{v\}$. Since $v$ is $M$-exposed, $\delta(v) \cap M = \emptyset$. Therefore $M$ is a perfect matching in $G-v$.
+\paragraph{}
+Now for all $v \in V$, $G-v$ has a perfect matching. Therefore $G$ is factor critical. To conclude that $\nu(G) = (|V| - 1)/2$ observe two things. First any perfect matching of $G-v$ is a matching in $G$ so $\nu(G) \geq (|V|-1)/2$. Also $|V\backslash \{v\}|$ is even as otherwise a perfect matching does not exist. Thus $|V|$ is odd. Now, secondly, observe that by the Tutte-Berge formula (as an inequality) we have $\nu(G) \leq \frac{1}{2}(|V| - oc(G) + |\emptyset|) = (|V| - 1 + 0)/2 = (|V| - 1)/2$. Therefore $\nu(G) = (|V|-1)/2$. $\blacksquare$
+
+\section*{3}
+Let $B$ be the set of inessential nodes in a given undirected graph $G$. Let $C$ be the set of essential neighbours of $B$, and le $D$ be all remaining nodes.
+\subsection*{a}
+Let $G' = G-v$ be the graph obtained from $G$ by removing node $v \in C$.
+\end{document}
