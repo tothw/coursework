@@ -39,7 +39,10 @@ Since $vPw'$ is $M$-alternating and both $v$ and $w'$ are $M$-exposed, $vPw'$ is
 Now for all $v \in V$, $G-v$ has a perfect matching. Therefore $G$ is factor critical. To conclude that $\nu(G) = (|V| - 1)/2$ observe two things. First any perfect matching of $G-v$ is a matching in $G$ so $\nu(G) \geq (|V|-1)/2$. Also $|V\backslash \{v\}|$ is even as otherwise a perfect matching does not exist. Thus $|V|$ is odd. Now, secondly, observe that by the Tutte-Berge formula (as an inequality) we have $\nu(G) \leq \frac{1}{2}(|V| - oc(G) + |\emptyset|) = (|V| - 1 + 0)/2 = (|V| - 1)/2$. Therefore $\nu(G) = (|V|-1)/2$. $\blacksquare$
 
 \section*{3}
-Let $B$ be the set of inessential nodes in a given undirected graph $G$. Let $C$ be the set of essential neighbours of $B$, and le $D$ be all remaining nodes.
+Let $B$ be the set of inessential nodes in a given undirected graph $G$. Let $C$ be the set of essential neighbours of $B$, and let $D$ be all remaining nodes.
 \subsection*{a}
-Let $G' = G-v$ be the graph obtained from $G$ by removing node $v \in C$.
+\paragraph{}
+Let $G' = G-v$ be the graph obtained from $G$ by removing node $v \in C$. Let $B'$ be the set of inessential nodes of $G'$, let $C'$ be the set of essential neighbours of $B'$, and let $D'$ be the remaining nodes of $G'$.
+\paragraph{}
+Let $b \in B$. Since $b$ is inessential for $G$ there exists a maximal matching $M$ of $G$ such that $b$ is $M$-exposed. Now $v$ is essential for $G$ so $v$ is $M$-covered. Therefore there exists $e=vu \in M$. Now $M\backslash\{e\}$ is a $G'$ matching where $b$ is $M\backslash\{e\}$-exposed. Suppose for contradiction that $M\backslash\{e\}$ is not maximal for $G'$. That is that there exists a maximal matching $M'$ for $G'$ such that $|M\backslash\{e\}| < |M'|$. Then $|M| - 1 < |M'|$, that is $|M| < |M'| + 1$. Since size of matchings are integral, $|M| \leq |M'|$. Now $E(M') \subseteq E(G') \subseteq E(G)$. Thus $M'$ is a matching of $G$. Since $M$ is a maximal matching for $G$, $|M'| \leq |M|$. Thus $|M'| = |M|$. Thus $M'$ is a maximal matching for $G$. But $M'$ is a $G'$ matching, so $v$ is $M'$-exposed. Therefore there is a maximal matching of $G$ where $v$ is exposed, contradicting that $v$ is essential for $G$. So $M\backslash\{e\}$ is maximal for $G'$. Since $b$ is $M\backslash\{e\}$-exposed $b$ is inessential for $G'$, that is $b \in B'$. Therefore $B \subseteq B'$. 
 \end{document}
