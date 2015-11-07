@@ -61,12 +61,19 @@ Since $B \subseteq B'$ and $B' \subseteq B$, $B = B'$. Then $C' = \{ \text{essen
 \paragraph{Lemma 3.2}
 For all $S \subseteq C$, the Gallai-Edmonds partition of $G\backslash S$ is $B, C\backslash S, D$.
 \paragraph{Proof of Lemma 3.2}
-Proceed by induction on $|S|$. If $|S|  = 0$ then $S = \emptyset$ and the lemma is immediate. Suppose the lemma holds for all subsets of size less that $|S|$. Let $v \in S$. Then $G\backslash S = G\backslash (S \backslash \{v\}) - v$. By induction the Gallai-Edmonds partition of $G\backslash (S\backslash \{v\})$ is $\{B, C\backslash (S\backslash \{v\}), D \}$. So by $3a$ the Gallai-Edmonds partition of $G\backslash (S \backslash \{v\}) - v = G\backslash S$ is $\{B, C\backslash (S\backslash \{v\})\backslash \{v\}, D\} = \{V, C\backslash S, D\}$. Thus by the principle of mathematical induction the lemma holds. $\blacksquare$
+Proceed by induction on $|S|$. If $|S|  = 0$ then $S = \emptyset$ and the lemma is immediate. Suppose the lemma holds for all subsets of size less that $|S|$. Let $v \in S$. Then $G\backslash S = G\backslash (S \backslash \{v\}) - v$. By induction the Gallai-Edmonds partition of $G\backslash (S\backslash \{v\})$ is $\{B, C\backslash (S\backslash \{v\}), D \}$. So by $(3a)$ the Gallai-Edmonds partition of $G\backslash (S \backslash \{v\}) - v = G\backslash S$ is $\{B, C\backslash (S\backslash \{v\})\backslash \{v\}, D\} = \{V, C\backslash S, D\}$. Thus by the principle of mathematical induction the lemma holds. $\blacksquare$
 \paragraph{Corollary 3.2}
 Every vertex of $G[B]$ is inessential and every vertex of $G[D]$ is essential.
 \paragraph{Proof of Corollary 3.2}
 Let $S = C$. By Lemma $3.2$, $G\backslash C$ has Gallai-Edmonds partition $\{B, \emptyset, D\}$. But $G \backslash C = G[B] \dot \cup G[D]$. Thus $G[B]$ has Gallai-Edmonds partition $\{B, \emptyset, ]\emptyset\}$ and $G[D]$ has Gallai-Edmonds partition $\{\emptyset, \emptyset, D\}$. That is, every vertex of $G[B]$ is inessential and every vertex of $G[D]$ is essential. $\blacksquare$
 \paragraph{}
 Let $G'$ be a connected component of $G[B]$. By Corollary $3.2$ every vertex of $G[B]$ is inessential, so every vertex of $G'$ is inessential. Further $G'$ is connected by $(2)$, so $G'$ is factor critical. By Corollary $3.2$ every vertex of $G[D]$ is essential so in any maximal matching every vertex of $G[D]$ is covered, that is $G[D]$ has a perfect matching. $\blacksquare$
-
+\subsection*{c}
+\paragraph{Lemma 3.3}
+Let $\{B,C,D\}$ be the Gallai-Edmonds partition of a graph $G$. Then in any maximal matching $M$ there does not exist $c\in C$ and $d \in D$ such that $cd \in M$. 
+\paragraph{Proof of Lemma 3.3}
+Let $M$ be a maximal matching of $G$. Suppose for contradiction that there exists $c \in C$ and $d \in D$ such that $cd \in M$. Let $G' = G - c$. By $(3a)$ the Gallai-Edmonds partition of $G'$ is $\{B,C\backslash \{c\}, D\}$. Thus $d$ is essetial in $G'$. Let $M' = M \backslash \{cd\}$. Then $M'$ is matching of $G'$. Notice that $|M'| = |M| - |\{cd\}| = |M| - 1$. Therefore by Lemma $3.1$, $M'$ is a maximal matching of $G'$. But $d$ is $M'$-exposed, contradicting that $d$ is essential in $G'$. $\blacksquare$
+\paragraph{}
+Let $M$ be a maximum matching of $G$. By Lemma $3.3$ there does not exist an edge $cd \in M$ such that $c \in C$ and $d \in D$.  Thus $M = M_1 \dot \cup M_2$ where $M_1$ is a maximal matching of $G[B \cup C]$ and $M_2$ is a maximal matching of $G[D]$. By $(3b)$, $M_2$ is a perfect matching of $G[D]$. Therefore $M$ contains a perfect matching of $G[D]$.
+\paragraph{}
 \end{document}
