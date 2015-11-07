@@ -76,4 +76,27 @@ Let $M$ be a maximal matching of $G$. Suppose for contradiction that there exist
 \paragraph{}
 Let $M$ be a maximum matching of $G$. By Lemma $3.3$ there does not exist an edge $cd \in M$ such that $c \in C$ and $d \in D$.  Thus $M = M_1 \dot \cup M_2$ where $M_1$ is a maximal matching of $G[B \cup C]$ and $M_2$ is a maximal matching of $G[D]$. By $(3b)$, $M_2$ is a perfect matching of $G[D]$. Therefore $M$ contains a perfect matching of $G[D]$.
 \paragraph{}
+Now let $G'$ be a connected component of $G[B]$. Let $M' = M_1 \cap E(G')$. Suppose that $M'$ is not maximal, that is that $|M'| < (|V(G')| - 1)/2$ since $G'$ is factor-critical by $(3b)$. Let $N = \delta(V(G') \cap M_1$ be the set of edges i $M_1$ between $G'$ and $C$. First consider if $|N| = 0$. Then let $M_{PM}$ be a perfect matching on $G' - v$ for some $v \in V(G')$. Then $|M_{PM}| > |M'|$, and $(M_1 \backslash M') \cup M_{PM}$ is matching of $G[B \cup C]$. Such a matching is of size greater than $M_2$, contradicting the maximality of $M_1$.
+\paragraph{}
+So $|N| \geq 1$. Suppose for contradiction that $|N| \geq 2$. Let $b_1c_1 \in N$ such that $b_1 \in V(G')$ and $c_1 \in C$. Then $N \backslash {b_1c_1}$ is not empty. Let $PM$ be a perfect matching of $G' - b_1$. Let $M_{PM}$ be the matching $((M_1 \backslash M')\backslash N) \cup PM \cup \{b_1c_1\}$. Consider the graph on vertices $B \cup C$ with edge set $M_{PM} \triangle M_1$. This graph is the disjoint union of paths and cycles. Let $b_2c_2 \in N\backslash \{b_1c_1\}$ such that $b_2 \in V(G')$ and $c_2 \in C$. Then $c_2$ is $M_{PM}$-exposed, but $M_1$-covered by the edge $b_1c_1$ in the graph. Let $P$ be the $M_1M_{PM}$-alternating path starting at $c_2$. Since $c_2$ is $M_{PM}$-exposed, $P$ is not a cycle.
+\paragraph{}
+If $P$ terminates at an $M_1$-exposed vertex then $P$ is an $M_1$-alternating path of even length. So $M_1 \triangle P$ is a matching in $G[B \cup C]$ of the same size as $M_1$, thus it is a maximal matching. But $c_2$ is $M_1 \triangle P$-exposed, contradicting that $c_2$ is essential.
+So $P$ does not terminate at an $M_1$-exposed vertex.
+\paragraph{}
+Then $P$ terminates at an $M_{PM}$-exposed vertex, $c_3$. Such a $v \not\in V(G')$ as $V(G')$ in $M_{PM}$-covered. But $P$ enters $G'$ through its first edge, $b_2c_2$, and terminates outside $G'$, so it exits $G'$ along some edge. Let $b_3c_3 \in N\backslash \{b_1c_1\}$, such that $b_3 \in V(G')$ and $c_3 \in C$, be the edge $P$ exits $G'$ along. Then $c_3$ is $M_{PM}$ exposed so $P$ terminates at $c_3$.
+\paragraph{}
+Now the paths in the graph on edge set $M_1 \triangle M_{PM}$ are disjoint, and we have shown that for every $b_2c_2 \in N \backslash \{b_1c_1\}$ the path starting at $c_2$ terminates at a distinct $c_3 \in C$ such that $b_3c_3 \in N \backslash \{b_1c_1\}$. Let $\mathcal{P}$ be the collection of all such paths. Then $|\mathcal{P}| = |N \backslash \{b_1c_1\}|/2$. That is, these $M_{PM}$-augmenting paths pair $C$-neightbours of $G'$. Let $M^*$ be the graph resulting from taking the symmetric difference of $M_{PM}$ with each $P \in \mathcal{P}$. Then $|M^*| = |M_{PM}| + |\mathcal{P}|$.
+\paragraph{}
+Now we consider $|M'|$. Since $|M'|$ is not maximal $|M'| < (|V(G')| - 1)/2$. More tightly $|M'| < (|V(G')| - 1)/2 - |\mathcal{P}|$ as otherwise there are not enough $M_{PM}$ exit edges from $G'$ for the each $P \in \mathcal{P}$ to be edge-disjoint. Now we have:
+\begin{align*}
+|M_{PM}| &= |M_1| -|M'| - |N| + (|V(G')| - 1)/2  + 1 &\text{by construction}\\
+&= |M_1| - |M'| - |N \backslash \{b_1c_1\}| - 1  + (|V(G')| - 1)/2  + 1 \\
+&= |M_1| - |M'| - 2|\mathcal{P}| + (|V(G')| - 1)/2 &\text{by the size of $\mathcal{P}$}\\
+&> |M_1| - (|V(G')| - 1)/2 + |\mathcal{P}| - 2|\mathcal{P}| + (|V(G')| - 1)/2  &\text{by the size of $|M'|$}\\
+&= |M_1| - |\mathcal{P}|.
+\end{align*}
+Thus $|M_{PM}| > |M_1| - |\mathcal{P}|$. Therefore $|M*| = |M_{PM}| + |\mathcal{P}| > |M_1| - |\mathcal{P}| + |\mathcal{P}| = |M_1|$. So $M^*$ is a larger $G[B \cup C]$ matching than $M_1$, contradicting the maximality of $M_1$. Therefore $|N| = 1$.
+\paragraph{}
+Now since $|N| = 1$, if $M'$ is not a perfect matching (that is, not maximal), then as in the case of no $N$ edges replacing $M'$ with a perfect matching yields a larger matching than $M_1$ for $G[B \cup C]$. Therefore $M'$ is a perfect matching, that is maximal. So for all connected components of $G[B]$, $G'$, $M_1$ contains a maximal matching of of $G'$, and thus $M$ contains a maximal matching of $G'$. $\blacksquare$
+\subsection*{d}
 \end{document}
