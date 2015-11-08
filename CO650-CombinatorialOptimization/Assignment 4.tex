@@ -108,10 +108,35 @@ The Tutte-Berge formula states that $\nu(G) = \frac{1}{2}min_{S \subseteq V} \{n
 \section*{4}
 \subsection*{a}
 \paragraph{}
-Let $M$ be a maximal matching of $G$. Let $X = \{v \in V : \forall e \in M, v \not\in e\}$. Then $2|M| + |X| = |V|$, as each edge in $M$ connects two vertices not in $X$. Notice that $X$ is an independent set, as otherwise let $e$ be an edge between two vertices in $X$ and then see that $M \cup e $ is a valid matching of size larger than $M$ contradicting the maximality of $M$. Construct an edge cover $F$ by starting with $M$ and greedily adding edges to cover the remaining vertices in $X$. Since $X$ is an independent set one edge will need to be added to $F$ for each vertex in $X$. That is $|F| = |M| + |X|$. Therefore, since $2|M| + |X| = |V|$, we have that $|M| + |F| = |V|$.
+Let $M$ be a maximal matching of $G$. Let $X = \{v \in V : \forall e \in M, v \not\in e\}$. Then $2|M| + |X| = |V|$, as each edge in $M$ connects two vertices not in $X$. Notice that $X$ is an independent set, as otherwise let $e$ be an edge between two vertices in $X$ and then see that $M \cup e $ is a valid matching of size larger than $M$ contradicting the maximality of $M$. Construct an edge cover $F$ by starting with $M$ and greedily adding edges to cover the remaining vertices in $X$. Since there are no isolated vertices such an edge can always be found. Since $X$ is an independent set one edge will need to be added to $F$ for each vertex in $X$. That is $|F| = |M| + |X|$. Therefore, since $2|M| + |X| = |V|$, we have that $|M| + |F| = |V|$.
 \paragraph{}
 Let $F^*$ be a minimal edge cover. Since $|M| + |F| = |V|$, $|M| + |F^*| \leq |V|$. Let $G_{F*}$ be the graph with vertex set $V$ and edge set $F^*$. Let $G'$ be a connected component of $G_{F^*}$. Suppose there exists $v_1, v_2 \in V(G')$ such that $v_1 \neq v_2$, and $deg(v_1) \geq 2$ and $deg(v_2)\geq 2$. Then since $G'$ is connected there is a path, $P$, between $v_1$ and $v_2$. Every vertex along $P$ has degree two. Thus every vertex along $P$ is covered by at least two edges. Let $e \in E(P)$. Since every vertex along $P$ is covered by at least two edges, $F^* \backslash \{e\}$ is still an edge cover. But $|F^* \backslash \{e\}| < |F^*|$, contradicting the minimality of $F^*$. Therefore every connected component of $F^*$ has at most one vertex of degree greater than one, that is $F^*$ is the disjoint union of "star" graphs.
 \paragraph{}
 Let $k$ be the number of connected components of $F^*$. Then $|F^*| + k = |V|$, as the number of edges in $F^*$ count the degree one vertices of each star in $G_{F^*}$, and it remains to count the $k$ higher degree vertices to reach $|V|$. Let $M'$ be the matching obtained by choosing one edge from each connected component of $F^*$. Since the edges were chosen from disjoint connected components, $M'$ is indeed a valid matching. Now $|M'| = k$, so $|F^*| + |M'| = |V|$. But $|M'| \leq |M|$, so in fact $|M| + |F^*| \geq |F^*| + |M'| = |V|$. Therefore we have $|M| + |F^*| \leq |V|$ and $|M| + |F^*| \geq |V|$, hence $|M| + |F^*| = |V|$. That is to say, $\nu(G) + \rho(G) = |V|$. $\blacksquare$
 \subsection*{b}
+\paragraph{}
+Let $c \in \mathbb{R}^E$. Make a copy $G^*$ of $G$. Form a graph $\hat{G}$ by taking $G$ and $G^*$ and adding edges from nodes in $G$ to the corresponding nodes in $G^*$. Let $Q$ denote the set of such edges added joining $G$ and $G^*$. As argued in the textbook, $\hat{G}$ has a perfect matching.
+\paragraph{}
+Let $\hat{c}$ be the weight function for $\hat{G}$, defined as follows: 
+$$
+\hat{c}(e) = 
+\begin{cases}
+c_e, \text{ if $e \in E(G)$ or $e \in E(G^*)$}\\
+2min\{c_e : e \in \delta(v)\}, \text{ if $e=vv^* \in Q$}
+\end{cases}
+$$.
+\paragraph{}
+Use the minimum weight perfect matching algorithm from the text on $\hat{G}$ with cost function $\hat{c}$ to obtain matching $M$. Obtain an edge cover of $G$, $F$, by starting with $M \cap E(G)$, and for all $q=vv^* \in M\cap Q$ add edge $e \in \delta(v)$, $c_e = \hat{c}(q)$. Then $c(F) = c(M\cap E(G)) + \frac{1}{2}\hat{c}(M \cap Q)$. Now we have:
+\begin{align*}
+\hat{c}(M) &= 2c(M \cap E(G)) + \hat{c}(Q \cap M) \\
+&= 2(c(M \cap E(G)) + \frac{1}{2}\hat{c}(Q\cap M)) \\
+&= 2c(F).
+\end{align*}
+Then $c(F) = \frac{1}{2}\hat{c}(M)$.
+\paragraph{}
+Let $F^*$ be a minimum weight edge cover of $G$. We will construct a perfect matching of $\hat{G}$ from $F^*$. Denote this matching $M^*$. Let $G_{F^*}$ be the graph with vertex set $V$ and edge set $F^*$. For each $v \in V$ do the following: Let $N(v)$ be the neighbourhood of $v$ in $G_{F^*}$. Let $w \in N(v)$, $c_{wv} = max\{c_{uv} : u \in N(v)\}$. For each $u \in N(v) \backslash \{w\}$, add edge $uu^* \in Q$ to $M^*$ and remove $uv$ from $F^*$.
+\paragraph{}
+What edges remain in $F^*$ form a matching on $G$. Add these edges to $M^*$, and add the corresponding edges of $G^*$ to $M^*$. Now $M^*$ is a perfect matching of $\hat{G}$ as it contains a matching of $G$, a matching of $G^*$, and the remaining vertices are matched through $Q$ edges. By our construction, $c(F^*) \geq \frac{1}{2}\hat{c}(M^* \cap Q) + c(M^* \cap E(G))$. But $\hat{c}(M^*) = 2c(M* \cap E(G)) + \hat{c}(M^* \cap Q) \leq 2c(F^*)$. Then $c(F^*) \geq \frac{1}{2} \hat{c}(M^*)$. Since $M$ is a minimum cost perfect matching $\hat{c}(M) \leq \hat{c}(M^*)$, and thus $c(F^*) \geq \frac{1}{2} \hat{c}(M^*) \geq \frac{1}{2}\hat{c}(M) = c(F)$. That is, $c(F^*) \geq c(F)$.
+\paragraph{}
+But $F^*$ is a minimum cost edge cover so $c(F^*) \leq c(F)$, and therefore $c(F^*) = c(F)$. Thus the edge cover $F$ constructed by our process discussed above is a minimum cost edge cover of $G$. To confirm that $F$ is indeed an edge cover, see that $F$ contains a matching of $G$ and an edge (derived from a $Q$ edge) for each vertex unmatched in $G$ and thus covers every vertex. Now it remains to confirm this process runs in polynomial time. The copy of $G$, $G^*$, can be formed in $O(nm)$ time. The edges of $Q$ can be added in $O(n)$ time. So the graph $\hat{G}$ can be formed in polynomial time. The new cost function can be written in constructed in polynomial time in the size of $\hat{G}$ which is itself polynomial in the size of $G$. The minimum cost perfect matching algorithm runs in polynomial time on the size of the input which is itself a polynomial in the size of $G$, so the minimum cost perfect matching algorithm will terminate in polynomial time in the size of $G$. Constructing $F$ from the result can be done in $O(m)$ time. So the total running time of this process is polynomial. $\blacksquare$
 \end{document}
