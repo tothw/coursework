@@ -139,4 +139,19 @@ Let $F^*$ be a minimum weight edge cover of $G$. We will construct a perfect mat
 What edges remain in $F^*$ form a matching on $G$. Add these edges to $M^*$, and add the corresponding edges of $G^*$ to $M^*$. Now $M^*$ is a perfect matching of $\hat{G}$ as it contains a matching of $G$, a matching of $G^*$, and the remaining vertices are matched through $Q$ edges. By our construction, $c(F^*) \geq \frac{1}{2}\hat{c}(M^* \cap Q) + c(M^* \cap E(G))$. But $\hat{c}(M^*) = 2c(M* \cap E(G)) + \hat{c}(M^* \cap Q) \leq 2c(F^*)$. Then $c(F^*) \geq \frac{1}{2} \hat{c}(M^*)$. Since $M$ is a minimum cost perfect matching $\hat{c}(M) \leq \hat{c}(M^*)$, and thus $c(F^*) \geq \frac{1}{2} \hat{c}(M^*) \geq \frac{1}{2}\hat{c}(M) = c(F)$. That is, $c(F^*) \geq c(F)$.
 \paragraph{}
 But $F^*$ is a minimum cost edge cover so $c(F^*) \leq c(F)$, and therefore $c(F^*) = c(F)$. Thus the edge cover $F$ constructed by our process discussed above is a minimum cost edge cover of $G$. To confirm that $F$ is indeed an edge cover, see that $F$ contains a matching of $G$ and an edge (derived from a $Q$ edge) for each vertex unmatched in $G$ and thus covers every vertex. Now it remains to confirm this process runs in polynomial time. The copy of $G$, $G^*$, can be formed in $O(nm)$ time. The edges of $Q$ can be added in $O(n)$ time. So the graph $\hat{G}$ can be formed in polynomial time. The new cost function can be written in constructed in polynomial time in the size of $\hat{G}$ which is itself polynomial in the size of $G$. The minimum cost perfect matching algorithm runs in polynomial time on the size of the input which is itself a polynomial in the size of $G$, so the minimum cost perfect matching algorithm will terminate in polynomial time in the size of $G$. Constructing $F$ from the result can be done in $O(m)$ time. So the total running time of this process is polynomial. $\blacksquare$
+
+\section*{5}
+\paragraph{}
+Let $G=(V,E)$ be a graph. Suppose that $G$ has no perfect matching. We may assume without loss of generality that $G$ is connected, as otherwise there is a connected component of $G$ with no perfect matching and we may restrict our focus to that component. By the Tutte-Berge formula there exists $A \subseteq V$ such that $oc(G\backslash A) > |A|$. Let $k = |A|$. Let $S_1, S_2, \dots, S_k, S_{k+1}$ be distinct odd components of $G\backslash A$. Now since $G$ is connected there exists $u \in A$ and $i \neq j \in \{1,\dots, k+1\}$ such that $u \in N(S_i) \cap N(S_j)$ where $N(S_i)$ denotes the neighbourhood of $S_i$.
+\paragraph{}
+Consider the dual to the linear program:
+\begin{align*}
+max &\sum_{v\in V} y_v + \sum_{S\subseteq V: |S| \text{ is odd}} y_S \\
+s.t. &y_u + y_v + \sum_{uv \in \delta(S), |S| \text{ is odd}} y_S \leq c_{uv} &\text{,}\forall uv \in E \\
+&y_S \geq 0 &\text{,}\forall S\subseteq V, |S| \text{ is odd}
+\end{align*}
+\paragraph{}
+Let $c_{uv} = 0$ for all $uv \in E$. Consider the dual solution vector $y$. Set $y_v=0$ for all $v \in V\backslash A$. Let $\epsilon \in \mathbb{R}_+$ and set $y_{S_i} = \epsilon$ for all $i \in \{1, \dots, k+1\}$. Set $y_{S} = 0$ for all odd $S \subseteq V$ such that $S \not \in \{S_1, \dots, S_{k+1}\}$. Set $y_v = -\epsilon$ for all $v \in A$. Notice that $y_v \leq 0$ for all $v \in V$.
+\paragraph{}
+We claim this $y$ is dual feasible. Let $ab \in E$. If $ab \not\in \delta(S_i)$ for any $i \in \{1, \dots, k+1\}$, then $\sum_{ab \in \delta(S), |S| \text{ is odd}} y_S \leq 0 $ and thus $y_u + y_v + \sum_{uv \in \delta(S), |S| \text{ is odd}} y_S \leq 0 + 0 + 0 = c_{ab}$. If $ab \in \delta(S_i)$  for some $i \in \{1, \dots, k+1\}$ then $\sum_{ab \in \delta(S), |S| \text{ is odd}} y_S = y_{S_i} = \epsilon$ as $ab$ can only be on the boundary of one odd component of $G\backslash A$. NOT EXACTLY!
 \end{document}
