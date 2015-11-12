@@ -30,7 +30,7 @@
 \begin{document}
 \section*{1}
 \paragraph{}
-Let $G$ be a graph with $n$ vertices and minimum degree $\delta > 1$. Let $X \subseteq V(G)$ chosen at random such that for any $v \in V(G)$, $Pr(v \in X) = \frac{ln(\delta)}{\delta + 1}$. Let $p = \frac{ln(\delta)}{\delta + 1}$. Then $Pr(|X| = k ) = {n \choose k} p^k (1-p)^k$, and $E[|X|] = np$. Let $u  \adjacent v$ denote that $u$ is adjacent to $v$ for any $u,v \in V(G)$. Since $G$ has minimum degree $\delta$, for any $u, v \in V(G)$, $Pr(u \adjacent v) \geq \frac{\delta}{n}$. Since $G$ has $n$ vertices, $Pr(u = v) = \frac{1}{n}$. Now $Pr(u \notadjacent v \text{ and } u \neq v) = 1 - (Pr(u \adjacent v) + Pr(u = v)) = \frac{n - 1- \delta}{n}$.
+Let $G$ be a graph with $n$ vertices and minimum degree $\delta > 1$. Let $X \subseteq V(G)$ chosen at random such that for any $v \in V(G)$, $Pr(v \in X) = \frac{ln(\delta)}{\delta + 1}$. For convenience let $p = \frac{ln(\delta)}{\delta + 1}$. Then $Pr(|X| = k ) = {n \choose k} p^k (1-p)^k$, and $E[|X|] = np$. Let $u  \adjacent v$ denote that $u$ is adjacent to $v$ for any $u,v \in V(G)$. Since $G$ has minimum degree $\delta$, for any $u, v \in V(G)$, $Pr(u \adjacent v) \geq \frac{\delta}{n}$. Since $G$ has $n$ vertices, $Pr(u = v) = \frac{1}{n}$. Now $Pr(u \notadjacent v \text{ and } u \neq v) = 1 - (Pr(u \adjacent v) + Pr(u = v)) = \frac{n - 1- \delta}{n}$.
 \paragraph{}
 Now for any $y \in V(G)$, $Pr(y \not \in N(X) \text{ and } y \not\in X) = \Pi_{x \in X} Pr(y \notadjacent x \text{ and } y \neq x) \leq (\frac{n - 1- \delta}{n})^{|X|}$. Let $Y = \{y \in V(G) | y \not \in N(X) \text{ and } y \not\in X)\}$. Then
 \begin{align*}
@@ -54,4 +54,7 @@ E[|X \cup Y|] &\leq E[|X|] + E[|Y|] \\
 \end{align*}
 \paragraph{}
 Therefore there exists a dominating set of size at most $n\frac{1 + ln(\delta + 1)}{\delta + 1}$ as desired. $\blacksquare$
+\section*{2}
+\paragraph{}
+Let $G$ be a graph on $n$ vertices with $nd/2$ edges, where $d \geq 1$. Let $X \subseteq V(G)$ chosen at random such that for any $v \in V(G)$, $Pr(v \in X) = \frac{1}{\delta}$. For convenience let $p = \frac{1}{\delta}$. Then for any $uv \in E(G)$, $Pr(uv \subseteq X) Pr(u \in X \text{ and } v \in X) = Pr(u \in X)Pr(v \in X)$, with the last equality holding by independence. Therefore since $Pr(uv \subseteq X) = p^2$.
 \end{document}
