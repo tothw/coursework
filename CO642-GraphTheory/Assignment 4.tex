@@ -1,0 +1,57 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{report}
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+\usepackage{centernot}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\newcommand{\adjacent}[1][.7em]{\mathrel{\rule[.5ex]{#1}{.4pt}}}
+\newcommand{\notadjacent}[1][.7em]{\mathrel{\centernot{\adjacent[#1]}}}
+
+\pagestyle{fancy}
+
+\listfiles
+
+\setlength{\hoffset}{0pt}			% 1 inch left margin
+\setlength{\oddsidemargin}{0pt}		% 1 inch left margin
+\setlength{\voffset}{0pt}			% 1 inch top margin
+\setlength{\marginparwidth}{0pt}	% no margin notes
+\setlength{\marginparsep}{0pt}		% no margin notes
+\setlength{\textwidth}{6.375in}
+\raggedbottom
+
+\rhead{William Justin Toth 642 4} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{1}
+\paragraph{}
+Let $G$ be a graph with $n$ vertices and minimum degree $\delta > 1$. Let $X \subseteq V(G)$ chosen at random such that for any $v \in V(G)$, $Pr(v \in X) = \frac{ln(\delta)}{\delta + 1}$. Let $p = \frac{ln(\delta)}{\delta + 1}$. Then $Pr(|X| = k ) = {n \choose k} p^k (1-p)^k$, and $E[|X|] = np$. Let $u  \adjacent v$ denote that $u$ is adjacent to $v$ for any $u,v \in V(G)$. Since $G$ has minimum degree $\delta$, for any $u, v \in V(G)$, $Pr(u \adjacent v) \geq \frac{\delta}{n}$. Since $G$ has $n$ vertices, $Pr(u = v) = \frac{1}{n}$. Now $Pr(u \notadjacent v \text{ and } u \neq v) = 1 - (Pr(u \adjacent v) + Pr(u = v)) = \frac{n - 1- \delta}{n}$.
+\paragraph{}
+Now for any $y \in V(G)$, $Pr(y \not \in N(X) \text{ and } y \not\in X) = \Pi_{x \in X} Pr(y \notadjacent x \text{ and } y \neq x) \leq (\frac{n - 1- \delta}{n})^{|X|}$. Let $Y = \{y \in V(G) | y \not \in N(X) \text{ and } y \not\in X)\}$. Then
+\begin{align*}
+E[|Y|] &= E[y \mid y \not\in N(x) \text{ and } y \not\in X] \\
+&\leq \sum_{y \in V(G)} E[(\frac{n - 1- \delta}{n})^{|X|}] \\
+&= n \sum_{k = 1}^n Pr(|X| = k) (\frac{n - 1- \delta}{n})^{k} \\
+&= n \sum_{k=1}^n {n \choose k} p^k (1-p)^{n-k} (\frac{n - 1- \delta}{n})^{k} \\
+&= n(1-p)^n \sum_{k=1}^n {n \choose k} (\frac{p(n - 1- \delta)}{(1-p)n})^{k} \\
+&=  n(1-p)^n [(\frac{p(n - 1- \delta)}{(1-p)n})^{n} - 1] &\text{ since $\sum_{k=1}^n {n \choose k} (x)^{k} = x^n - 1$ for any $x$}\\
+&= n(1-p)^n (\frac{n - (\delta + 1)p}{(1-p)n})^n - n(1-p)^n \\
+&= n(1 + \frac{-(d+1)p}{n})^n - n(1-p)^n \\
+&\leq ne^{-(d+1)p} &\text{ since $n(1-p)^n \geq 0$ and $(1 + \frac{x}{n})^n \leq e^x$ for any $x$.}
+\end{align*}
+\paragraph{}
+Now by our choice of $X$ and $Y$, $X \cup Y$ is a dominating set for $G$. We will proceed by computing the expectation of $|X \cup Y|$ and concluding that there is a set $X \cup Y$ that at most realizes this size. We have:
+\begin{align*}
+E[|X \cup Y|] &\leq E[|X|] + E[|Y|] \\
+&\leq  np + ne^{-(d+1)p} &\text{ by our computations of $E[|X|]$ and $E[|Y|]$}\\
+&= \frac{n ln(\delta)}{\delta + 1} + ne^{-\frac{(\delta + 1)ln(\delta)}{\delta+1}} \\
+&= n\frac{1 + ln(\delta + 1)}{\delta + 1}.
+\end{align*}
+\paragraph{}
+Therefore there exists a dominating set of size at most $n\frac{1 + ln(\delta + 1)}{\delta + 1}$ as desired. $\blacksquare$
+\end{document}
