@@ -78,7 +78,24 @@ Now since $E[|X \backslash Y|] \geq \frac{n}{2d}$ there exists an independence s
 
 \section*{4}
 \subsection*{a}
-
+\paragraph{}
+This proof follows the techniques of Diestel in the textbook. We reproduce it here with some added detail for completeness.
+\paragraph{Definition}
+Let $G$ be a graph. Let $\mathcal{P}_{i,j}$ denote the property that for any disjoint vertex sets $U, W \subseteq V(G)$ satisfying $|U| \leq i$ and $|W| \leq j$, there exists a vertex $v \not\in U \cup W$ that is adjacent to all the vertices in $U$ but to none in $W$.
+\paragraph{Lemma 11.3.2} For every constant $p \in (0,1)$ and $i,j \in \mathbb{N}$, asymptotically almost surely $G_{n,p}$ has the property $\mathcal{P_{i,j}}$.
+\paragraph{Proof of Lemma 11.3.2}
+Let $p \in (0,1)$. Let $i,j \in \mathbb{N}$. Let $U, W \subseteq V(G_{n,p})$ be disjoint and satisfy $|U| \leq i$, and $|W| \leq j$. Let $v \in G - (U \cup W)$. Let $A$ be the event that $v \text{ is adjacent to all the vertices in $U$ but to none in $W$}$. Then 
+\begin{align*}
+Pr(A) &= p^{|U|}(1-p)^{|W|} \\
+&\geq p^i(1-p)^j.
+\end{align*}
+Hence, the probability that no such $v$ exists is 
+\begin{align*}
+(1 - p^{|U|}(1-p)^{|W|})^{n-|U|-|W|} &\leq (1-p^i(1-p)^j)^{n-i-j}. &\text{(for $n \geq i + j$)}
+\end{align*}
+This follows since the corresponding events are independent for different $v$. As there are at most $n^{i+j}$ pairs of such sets $U,W$ in $V(G)$ (encoding sets $U$ of fewer than $i$ vertices as non-injective maps $\{0,\dots,i-1\} \rightarrow \{0, \dots, n-1\}$, etc.), the probability that any such pair $U$, $W$ has no suitable $v$ satisfying the lemma is at most $n^{i+j}(1-p^i(1-p)^j)^{n-i-j}$. Since $1-p^i(1-p)^j < 1$, this probability tends to $0$ as $n \rightarrow \infty$. $\blacksquare$
+\paragraph{Main Result (Corollary 11.3.3 in the text)}
+Let $k \geq 1 \in \mathbb{Z}$. Let $p \in (0,1)$ be a constant. By Lemma $11.3.2$, $G_{n,p}$ asymptotically almost surely has the property $\mathcal{P}_{2,k-1}$. We will show this implies $k$-connectedness. Any graph satisfying $\mathcal{P}_{2,k-1}$ has order at least $k+2$.  If $W$ is a set of fewer than $k$ vertices, then by the definition of $\mathcal{P}_{2,k-1}$, any two vertices $x,y \in V(G_{n,p}) - W$ can be taken as $U$ (ie, $U = \{x,y\}$ and hence $|U| \leq 2$) and thus have a common neighbour $v \in V(G_{n,p}) - U - W$. In particular, every $x,y \not\in W$ has a common neighbour $v \not\in W$. That is, $W$ does not separate $x$ from $y$, and hence $G_{n,p}$ is $k$-connected asymptotically almost surely. $\blacksquare$
 \subsection*{b}
 \paragraph{}
 Suppose that $c$ is a constant such that $c > 1$, and $p(n) = c\frac{ln(n)}{n}$. Let $A$ be the event that $G_{n,p}$ has an isolated vertex. Let $A_v$ be the event that $v \in V(G_{n,p})$ is an isolated vertex of $G_{n,p}$. Then $A \subseteq \bigcup_{v \in V(G_{n,p})} A_v$. Then for all $v \in V(G_{n,p})$,
