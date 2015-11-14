@@ -80,6 +80,25 @@ Now since $E[|X \backslash Y|] \geq \frac{n}{2d}$ there exists an independence s
 \subsection*{a}
 
 \subsection*{b}
-
+\paragraph{}
+Suppose that $c$ is a constant such that $c > 1$, and $p(n) = c\frac{ln(n)}{n}$. Let $A$ be the event that $G_{n,p}$ has an isolated vertex. Let $A_v$ be the event that $v \in V(G_{n,p})$ is an isolated vertex of $G_{n,p}$. Then $A \subseteq \bigcup_{v \in V(G_{n,p})} A_v$. Then for all $v \in V(G_{n,p})$,
+\begin{align*}
+Pr(A_v) &= Pr(\text{for all } u \in V(G_{n,p})\backslash \{v\}, uv \not\in G_{n,p}) \\
+&= (1- p(n))^{n-1} \\
+&= (1- c\frac{ln(n)}{n})^{n-1}.
+\end{align*}
+\paragraph{}
+Now by the union bound, $Pr(A) \leq \sum_{v\in V(G_{n,p})} Pr(A_v) = n(1- c\frac{ln(n)}{n})^{n-1}$. We now compute the limit as $n \rightarrow \infty$:
+\begin{align*}
+\lim_{n \to \infty} Pr(A) &\leq \lim_{n\to \infty} n(1- c\frac{ln(n)}{n})^{n-1} \\
+&= \lim_{n\to \infty} \frac{n-cln(n))^{n-1}}{n^{n-2}} \\
+&=  \lim_{n\to \infty} e^{ln(\frac{n-cln(n))^{n-1}}{n^{n-2}})} \\
+&=  \lim_{n\to \infty} \frac{e^{(n-1)ln(n - cln(n))}}{e^{(n-2)ln(n)}}\\
+&=  \lim_{n\to \infty} \frac{e^{(n)ln(n - cln(n))}e^{2ln(n)}}{e^{(n)ln(n)}e^{cln(n)}}\\
+&\leq \lim_{n\to \infty} e^{-n}e^{(2-c)ln(n)} &\text{ since $n-cln(n) < n$} \\
+& = 0.
+\end{align*}
+\paragraph{}
+Therefore asymptotically almost surely $A$ does not happen, as desired. $\blacksquare$
 \section*{5}
 \end{document}
