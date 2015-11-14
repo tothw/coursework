@@ -56,5 +56,30 @@ E[|X \cup Y|] &\leq E[|X|] + E[|Y|] \\
 Therefore there exists a dominating set of size at most $n\frac{1 + ln(\delta + 1)}{\delta + 1}$ as desired. $\blacksquare$
 \section*{2}
 \paragraph{}
-Let $G$ be a graph on $n$ vertices with $nd/2$ edges, where $d \geq 1$. Let $X \subseteq V(G)$ chosen at random such that for any $v \in V(G)$, $Pr(v \in X) = \frac{1}{\delta}$. For convenience let $p = \frac{1}{\delta}$. Then for any $uv \in E(G)$, $Pr(uv \subseteq X) Pr(u \in X \text{ and } v \in X) = Pr(u \in X)Pr(v \in X)$, with the last equality holding by independence. Therefore since $Pr(uv \subseteq X) = p^2$.
+Let $G$ be a graph on $n$ vertices with $nd/2$ edges, where $d \geq 1$. Let $X \subseteq V(G)$ chosen at random such that for any $v \in V(G)$, $Pr(v \in X) = \frac{1}{\delta}$. For convenience let $p = \frac{1}{\delta}$. Then for any $uv \in E(G)$, $Pr(uv \subseteq X) = Pr(u \in X \text{ and } v \in X) = Pr(u \in X)Pr(v \in X)$, with the last equality holding by independence. Therefore $Pr(uv \subseteq X) = p^2$.
+\paragraph{}
+Let $C$ be a random variable counting the number of edges contained in $G[X]$. Then we have:
+\begin{align*}
+E[C] &= \sum_{uv \in E(G)} Pr(uv \subseteq X) \\
+&= |E(G)|p^2 \\
+&= \frac{nd}{2}p^2.
+\end{align*}
+So there exists an $X \subseteq V(G)$ such that $|E(G[X])| \leq \frac{nd}{2} p^2$. Let $Y$ be a set containing exactly one vertex of each edge in $X$. Then $X \backslash Y$ is an independent set. Now we have:
+\begin{align*}
+E[|X \backslash Y|] &\geq E[|X|] - E[|Y|] \\
+&= np - E[|Y|] &\text{since $E[|X]| = np$}\\
+&\geq np - \frac{nd}{2} p^2 &\text{since $E[|Y|] \leq E[C] = \frac{nd}{2} p^2$}\\
+&= \frac{n}{d} - \frac{nd}{2d^2} \\
+&= \frac{n}{2d}.
+\end{align*}
+Now since $E[|X \backslash Y|] \geq \frac{n}{2d}$ there exists an independence set of at least this size, as desired. $\blacksquare$
+
+\section*{3}
+
+\section*{4}
+\subsection*{a}
+
+\subsection*{b}
+
+\section*{5}
 \end{document}
