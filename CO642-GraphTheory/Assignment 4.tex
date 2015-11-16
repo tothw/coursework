@@ -158,5 +158,42 @@ By Markov's Inequality, $Pr(X \geq 1) \leq E[X]$, and therefore by $(1)$,
 Thus $X = 0$ asymptotically almost surely, that is $G_{n,p}$ has no $K_4$ subgraph asymptotically almost surely.
 \subsection*{b}
 \paragraph{}
-Now suppose that $p(n) >> n^{-2/3}$.
+Now suppose that $p(n) >> n^{-2/3}$. We consider $E[X^2]$ with the intent of applying the second moment method. We have:
+\begin{align}
+E[X^2] &= E[(\sum_{S\in \mathcal{S}} X_S)(\sum_{S \in \mathcal{S}} X_S)] \nonumber\\
+&= E[\sum_{S_1,S_2 \in \mathcal{S}} X_{S_1}X_{S_2}] \nonumber\\
+&= \sum_{S_1,S_2 \in \mathcal{S}} Pr(X_{S_1} \text{ and } X_{S_2}) \nonumber\\
+&= \sum_{i = 0}^4 \sum_{S_1,S_2 \in \mathcal{S} : |S_1 \cap S_2| = i} Pr(X_{S_1} \text{ and } X_{S_2}).
+\end{align}
+\paragraph{}
+So by $(2)$ we need to consider the sizes of the intersections of $S_1$ and $S_2$.
+\subparagraph{Case $i = 0$}
+If $i = 0$ then $Pr(X_{S_1} \text{ and } X_{S_2}) = p^6p^6 = p^{12}$ by independence, and so $\sum_{S_1,S_2 \in \mathcal{S} : |S_1 \cap S_2| = 0} Pr(X_{S_1} \text{ and } X_{S_2}) = {n \choose 8}p^{12}$.
+\subparagraph{Case $i=1$}
+If $i=1$ then again $Pr(X_{S_1} \text{ and } X_{S_2}) = p^{12}$ by independence. So $\sum_{S_1,S_2 \in \mathcal{S} : |S_1 \cap S_2| = 1} Pr(X_{S_1} \text{ and } X_{S_2}) = {n \choose 4}{n-4 \choose 3}p^{12}$.
+\subparagraph{Case $i=2$}
+If $i=2$ then $Pr(X_{S_1} \text{ and } X_{S_2}) = p^{12} p^{-1} = p^{11}$ as there is a shared edge. So $\sum_{S_1,S_2 \in \mathcal{S} : |S_1 \cap S_2| = 2} Pr(X_{S_1} \text{ and } X_{S_2}) = {n \choose 4}{n-4 \choose 2}p^{11}$.
+\subparagraph{Case $i=3$}
+If $i=3$ then $Pr(X_{S_1} \text{ and } X_{S_2}) = p^{12} p^{-3} = p^{9}$ as there is a shared triangle. So $\sum_{S_1,S_2 \in \mathcal{S} : |S_1 \cap S_2| = 3} Pr(X_{S_1} \text{ and } X_{S_2}) = {n \choose 4}(n-4)p^{9}$.
+\subparagraph{Case $i=4$}
+If $i=4$ then $Pr(X_{S_1} \text{ and } X_{S_2}) = p^6$ as the subgraphs completely overlap. So $\sum_{S_1,S_2 \in \mathcal{S} : |S_1 \cap S_2| = 4} Pr(X_{S_1} \text{ and } X_{S_2}) = {n \choose 4}p^{6}$.
+\paragraph{}
+So by $(2)$ and the preceding case analysis,
+\begin{align}
+E[X^2] &= {n \choose 8}p^{12} + {n \choose 4}{n-4 \choose 3}p^{12} + {n \choose 4}{n-4 \choose 2}p^{11} + {n \choose 4}(n-4)p^{9} + {n \choose 4}p^{6} .
+\end{align}
+Thus, since $E[X]^2 = ({n \choose 4} p^6)^2  = {n \choose 4}^2 p^{12}$, we have by $(3)$ that:
+\begin{align*}
+\frac{E[X^2]}{E[X]^2} &= \frac{{n \choose 8}p^{12} + {n \choose 4}{n-4 \choose 3}p^{12} + {n \choose 4}{n-4 \choose 2}p^{11} + {n \choose 4}(n-4)p^{9} + {n \choose 4}p^{6}}{{n \choose 4}^2 p^{12}} \\
+&= O(\frac{n^8p^{12} + n^7p^{12} + n^6p^{11} + n^5p^{9} + n^4p^{6}}{n^8 p^{12}}) \\
+&= O(1 + n^{-1} + n^{-2}p^{-1} + n^{-3}p^{-3} + n^{-4}p^{-6}) \\
+&<< O(1 + n^{-1} + n^{-2}n^{2/3} + n^{-3}n^2 + n^{-4}p^4).
+\end{align*}
+Therefore $lim_{n \to \infty} \frac{E[X^2]}{E[X]^2} = 1$. Since $\frac{Var(X)}{E[X]^2} = \frac{E[X^2]}{[E[X]^2} - 1$,
+\begin{align*}
+lim_{n \to \infty} \frac{Var(X)}{E[X]^2} &= \lim_{n \to \infty} ( \frac{E[X^2]}{[E[X]^2} - 1) \\
+&= 1 - 1 \\
+&= 0.
+\end{align*}
+Now by theorem, $Pr[X = 0] \leq \frac{Var(X)}{E[X]^2}$, and so $\lim_{n \to \infty} Pr[X = 0] \leq \lim_{n \to \infty} \frac{Var(X)}{E[X]^2} = 0$. Therefore $G_{n,p}$ has a $K_4$ subgraph asymptotically almost surely.$\blacksquare$
 \end{document}
