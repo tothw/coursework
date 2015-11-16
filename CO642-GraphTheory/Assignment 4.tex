@@ -75,7 +75,18 @@ E[|X \backslash Y|] &\geq E[|X|] - E[|Y|] \\
 Now since $E[|X \backslash Y|] \geq \frac{n}{2d}$ there exists an independence set of at least this size, as desired. $\blacksquare$
 
 \section*{3}
-
+\paragraph{}
+Let $G$ be a graph and let $L$ be a $10d$-list assignment for some $d \geq 1$. Suppose that for each $v \in V(G)$ and $c \in L(v)$ that $|\{ u \in N(v) : c \in L(v) \}| \leq d$. Let $\phi$ be a (possibly improper) random list coloring of the vertices of $G$ such that the vertices are colord uniformly at random from their list assignments. That is, for all $v \in V(G)$, for all $c \in L(v)$, $Pr(\phi(v) = c) = \frac{1}{10d}$, and for all colors $c \not\in L(v)$, $Pr(\phi(v) = c) = 0$.
+\paragraph{}
+For each $e = uv \in E(G)$, and color $c$, let $A_{e,c}$ be the event that $\phi(u) = \phi(v) = c$. Then 
+\begin{align*}
+Pr(A_{e,c}) &= Pr(\phi(u) = c \text{ and } \phi(v) = c) \\
+&= Pr(\phi(u) = c)Pr(\phi(v) = c) &\text{ by independence} \\
+&\leq \frac{1}{10d}\frac{1}{10d} \\
+&= \frac{1}{100d^2}.
+\end{align*}
+\paragraph{}
+The event $A_{uv,c}$ depends on the events $A_{uw, c}$ for each $w \in N(v)$ and the events $A_{wv,c}$ for each $w \in N(u)$. For each vertex $v \in V(G)$, for each $c \in L(v)$ there are at most $d$ vertices in $N(v)$ sharing color $c$, and $|L(v)| = 10d$ so $|N(v)| \leq 10d\cdot d = 10d^2$. Each edge connects two vertices, so the event $A_{e,c}$ depends on at most $2\cdot 10d^2 = 20d^2$ other events. Now $4(\frac{1}{100d^2})(20d^2) = \frac{4}{5} \leq 1$, so by the Local Lemma the $Pr(\text{ no } A_{e,c} \text{ occurs for any }e\in E(G)\text{ and color }c) > 0$. Therefore there exists a proper $L$-coloring of $G$ (as otherwise the aforementioned probability would be $0$, not $>0$). $\blacksquare$
 \section*{4}
 \subsection*{a}
 \paragraph{}
@@ -118,4 +129,34 @@ Now by the union bound, $Pr(A) \leq \sum_{v\in V(G_{n,p})} Pr(A_v) = n(1- c\frac
 \paragraph{}
 Therefore asymptotically almost surely $A$ does not happen, as desired. $\blacksquare$
 \section*{5}
+\paragraph{}
+Let $\mathcal{S} = \{S \subseteq V(G_{n,p}) : |S| = 4\}$. For each $S \in \mathcal{S}$, let $X_S$ be the event that $G_{n,p}[S]$ is isomorphic to $K_4$. Let $X$ be a random variable counting the number of $K_4$ subgraphs of $G_{n,p}$. That is $X = \sum_{S \in \mathcal{S}} X_S$. Now $Pr(X_S) = p^6$ as for all $S \in \mathcal{S}$. So we have:
+\begin{align*} 
+E[X] &= E[\sum_{S \in \mathcal{S}} X_S] \\
+&= \sum_{S \in \mathcal{S}} E[X_S] \\
+&= \sum_{S \in \mathcal{S}} Pr(X_S) \\
+&= {n \choose 4} p^6.
+\end{align*}
+\subsection*{a}
+\paragraph{}
+Suppose that $p(n) << n^{-2/3}$. Then 
+\begin{align*}
+E[X] &= {n \choose 4} p^6 \\
+&\leq n^4 p^6 \\
+&<< n^4 n^-\frac{2}{3}6 \\
+&= n^0 \\
+&= 1.
+\end{align*}
+Therefore 
+\begin{align}
+\lim_{n\to \infty}E[X] &= 0.
+\end{align}
+By Markov's Inequality, $Pr(X \geq 1) \leq E[X]$, and therefore by $(1)$, 
+\begin{align*}
+\lim_{n \to \infty}Pr(X \geq 1) &= 0.
+\end{align*}
+Thus $X = 0$ asymptotically almost surely, that is $G_{n,p}$ has no $K_4$ subgraph asymptotically almost surely.
+\subsection*{b}
+\paragraph{}
+Now suppose that $p(n) >> n^{-2/3}$.
 \end{document}
