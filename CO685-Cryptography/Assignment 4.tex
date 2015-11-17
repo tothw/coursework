@@ -1,0 +1,41 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{report}
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\pagestyle{fancy}
+
+\listfiles
+
+\setlength{\hoffset}{0pt}			% 1 inch left margin
+\setlength{\oddsidemargin}{0pt}		% 1 inch left margin
+\setlength{\voffset}{0pt}			% 1 inch top margin
+\setlength{\marginparwidth}{0pt}	% no margin notes
+\setlength{\marginparsep}{0pt}		% no margin notes
+\setlength{\textwidth}{6.375in}
+\raggedbottom
+
+\rhead{William Justin Toth 685 4} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{6.9}
+\paragraph{}
+Let $E$ be an elliptic curve over $\mathbb{F}_p$ and let $P$ and $Q$ be points in $E(\mathbb{F}_p)$. Suppose that $Q$ is a multiple of $P$ and let $n_0 > 0$ be the smallest solution to $Q = nP$. Let $s > 0$ be the smallest solution to $sP = \infty$. Let $n$ be such that $Q = nP$. By the division algorithm there exists $i, r \in \mathbb{Z}$ such that $n= is + r$, and $0 \leq r < s$. Then $Q = (is + r)P = isP + rP = \infty + rP = rP$.
+\paragraph{}
+Consider the case $Q = \infty$. Then $\infty = rP$ since $Q = rP$. Now, since $0 \leq r < s$ and $s$ is minimal such that $s>0$ and $sP = \infty$, $r = 0$. Since $Q = n_oP$ and $Q = \infty$, $\infty = n_oP$. Since $n_0, s > 0$ are minimal such that $Q = n_0P$ and $\infty = sP$ respectively, and $Q = \infty$, we have that $n_0 = s$. Now $n = is + r = is + 0 = (i-1)s + s = (i-1)s + n_0$ as desired.
+\paragraph{}
+Now consider the case $Q \neq \infty$. Then $rP \neq \infty$. Thus $r > 0$, and so $r \geq n_0$ by minimality of $n_0$. Therefore we have $0 < n_0 \leq r < s$. So there exists $0 \leq l < s$, such that $n_0 + l = r$. Then
+\begin{align*}
+Q &= rP \\
+&= (n_0 + l)P \\
+&= n_0P + lP \\
+&= Q + lP.
+\end{align*}
+Thus we have $Q = Q + lP$ and so $\infty = lP$. Therefore by the minimality of $s$, $l = 0$. Thus $n_0 = r$, and so $n = is + n_0$ as desired. $\blacksquare$
+\end{document}
