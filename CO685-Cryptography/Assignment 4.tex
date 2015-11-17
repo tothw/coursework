@@ -38,4 +38,30 @@ Q &= rP \\
 &= Q + lP.
 \end{align*}
 Thus we have $Q = Q + lP$ and so $\infty = lP$. Therefore by the minimality of $s$, $l = 0$. Thus $n_0 = r$, and so $n = is + n_0$ as desired. $\blacksquare$
+\section*{6.10}
+\paragraph{}
+Let $\{P_1, P_2 \}$ be a basis for $E[m]$. Suppose that we have an algorithm $\mathcal{A}$ which can solve the basis problem in polynomial time. Let $P, Q=nP \in E[m]$ be an instance of $ECDLP$. Use $\mathcal{A}$ to compute values $a_1, a_2$ such that $nP = a_1P_1 + a_2P_2$. Now use $\mathcal{A}$ to compute values $b_1, b_2$ such that $P = b_1P_1 + b_2P_2$. Then $nP = nb_1P_1 + nb_2P_2$. Since $\{ P_1, P_2 \}$ are a basis $P_1$ and $P_2$ are independent, and therefore $nb_1 \equiv a_1\ (mod\ m)$ and $nb_2 \equiv b_2\ (mod\ m)$. Since a solution, $n$, exists at least one of these congruences has a solution (both, but we only need one). Say without loss of generality that $nb_1 \equiv a_1\ (mod\ m)$ has a solution. Then $d = gcd(b_1, m) \mid a_1$. Consider the reduced congruence $n\frac{b_1}{d} \equiv \frac{a_1}{d}\ (mod\ \frac{m}{d})$. Solve this congruence finding $d$ solutions $n_1, \dots, n_d$ to $nb_1 \equiv a_1\ (mod\ m)$. Compute $n_1P, \dots, n_dP$ testing for equality with $Q$ to find $n$. Therefore, using $\mathcal{A}$ we have solved $ECDLP$ in polynomial time. $\blacksquare$
+\section*{6.16}
+\subsection*{a}
+\paragraph{}
+Let $R = (x_R, y_R) \in E(\mathbb{F}_p)$. Let
+\begin{equation*}
+\beta_R = \begin{cases}
+0 \text{, if $0 \leq y_R < \frac{1}{2}p$}\\
+1 \text{, if $\frac{1}{2}p < y_R < p$.}\\
+\end{cases}
+\end{equation*}
+Suppose that Alice can compute square roots modulo $p$ efficiently. We will show that Alice can deduce $y_R$ using only $x_R$ and $\beta_R$. 
+\paragraph{}
+Suppose that $y^2 = x^3 + ax + b$ is the equation describing the elliptic curve Alice and Bob are using. Alice can compute $y_R^2 = x_R^3 + ax_R + b$. Then $y_R = \pm \sqrt{x_R^3 + ax_R + b}$. Let $y_0 = -\sqrt{x_R^3 + ax_R + b}$ and $y_1 = \sqrt{x_R^3 + ax_R + b}$ be the two possible values for $y_R$. Then $y_0 \equiv -y_1\ (mod\ p)$ and hence $y_0 + y_1 \equiv 0\ (mod\ p)$.
+\paragraph{}
+We claim that one of $y_0,y_1$ is between $0$ and $\frac{1}{2}p$ and the other is between $\frac{1}{2}p$ and $p$ modulo $p$. In this way Alice can use $\beta_R$ to decide what the intended $y_R$ Bob sent was. To prove this claim, first suppose for a contradiction that $0 \leq y_0,y_1 < \frac{1}{2}p$. They cannot both be $0$ since the solutions are unique. Then $0 < y_0 + y_1 < p$ modulo $p$. Since $p$ is prime, $y_0 + y_1 \nmid p$. But this contradicts that $y_0 + y_1 \equiv 0\ (mod\ p)$.
+\paragraph{}
+Similarly, suppose for a contradiction that $\frac{1}{2}p < y_0,y_1 < p$ modulo $p$.So  $0 < -y_0 -y_1 < \frac{1}{2}p$ modulo $p$. Since $p$ is prime, $-y_0 - y_1 \nmid p$. But this contradicts that $-y_0 -y_1 \equiv 0\ (mod\ p)$ (which clearly holds since since $y_0 + y_1 \equiv 0\ (mod\ p)$). Therefore one of $y_0,y_1$ is between $0$ and $\frac{1}{2}p$ and the other is between $\frac{1}{2}p$ and $p$ modulo $p$. Therefore Alice can use $\beta_R$ to decide which of $y_0,y_1$ Bob intended as $y_R$. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+Let $p = 1123$. Notice that $p \equiv 3\ (mod\ 4)$. Let $E: Y^2 = X^3 + 54X + 87$ be an elliptic curve group over $\mathbb{F}_p$. Suppose Bob sends Alice $x=278$ and $\beta = 0$. Then $278^3 + 54(278) + 87 = 216$ modulo $1123$. By proposition $2.26$, $y_0 \equiv 216^{(p+1)/4}\ (mod\ p)$ is a square root. Then $y_0 \equiv 487\ (mod 1123)$. Thus $y_1 \equiv -y0 \equiv 636\ (mod\ 1123)$. Now $\frac{1}{2}p = \frac{1}{2}1123 = 561.5$. Since $0 \leq 487 < 561.5$ and $\beta = 0$, Bob was trying to convey that $y_R = 487$, that is the point was $(278, 487)$.
+\paragraph{}
+Now suppose $\beta = 1$. Then since $561.5 < 636 < 1123$, Bob was trying to convey that $y_R = 636$ in this case. That is the point was $(278, 636)$.
+\section*{Fujisaki-Okamoto transform is IND-CCA2}
 \end{document}
