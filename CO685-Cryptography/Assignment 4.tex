@@ -63,5 +63,47 @@ Similarly, suppose for a contradiction that $\frac{1}{2}p < y_0,y_1 < p$ modulo 
 Let $p = 1123$. Notice that $p \equiv 3\ (mod\ 4)$. Let $E: Y^2 = X^3 + 54X + 87$ be an elliptic curve group over $\mathbb{F}_p$. Suppose Bob sends Alice $x=278$ and $\beta = 0$. Then $278^3 + 54(278) + 87 = 216$ modulo $1123$. By proposition $2.26$, $y_0 \equiv 216^{(p+1)/4}\ (mod\ p)$ is a square root. Then $y_0 \equiv 487\ (mod 1123)$. Thus $y_1 \equiv -y0 \equiv 636\ (mod\ 1123)$. Now $\frac{1}{2}p = \frac{1}{2}1123 = 561.5$. Since $0 \leq 487 < 561.5$ and $\beta = 0$, Bob was trying to convey that $y_R = 487$, that is the point was $(278, 487)$.
 \paragraph{}
 Now suppose $\beta = 1$. Then since $561.5 < 636 < 1123$, Bob was trying to convey that $y_R = 636$ in this case. That is the point was $(278, 636)$.
-\section*{Fujisaki-Okamoto transform is IND-CCA2}
+\section*{Fujisaki-Okamoto transform}
+\paragraph{}
+Note (for academic integrity) that the proofs in this section follow closely the proofs given in the class notes on Fujisaki-Okamoto transform with minor modifications, I do not claim the structure as my own but simply the details needed to accommodate the changes in the full version of the transform.
+\paragraph{}
+Suppose we have a probabilistic public-key cryptosystem $(\mathcal{G}, \mathcal{E}, \mathcal{D})$ that is \textbf{OW-CPA}, and random oracles $H_1, H_2$. The Fujisaki-Okamoto transform is as described below:
+\subparagraph{Key Generation:}
+Use $G$.
+\subparagraph{Notation:}
+$\mathcal{E}$(pubkey,$\sigma;r$) denotes the encryption of the message $\sigma$ resulting from the use of the bitstring $r$ as the source of random bits.
+\subparagraph{Encryption:}
+Then encryption algorithm is
+\begin{align*}
+\text{Encrypt(pubkey, }m) = (\mathcal{E}(\text{pubkey, }\sigma;H_2(m,\sigma)), m \oplus H_1(\sigma)),
+\end{align*}
+ where $\sigma$ is a string chosen at random.
+ \subparagraph{Decryption:}
+ Given a ciphertext of the form $(c_1,c_2)$, the decryption algorithm computes
+ \begin{align*}
+ \hat{\sigma} &= \mathcal{D}(\text{privkey},c_1) \\
+ \hat{m} &= c_2 \oplus H_1(\hat{\sigma})
+ \end{align*}
+ and then outputs
+ \begin{align*}
+ \text{Decrypt(privkey, }(c_1,c_2)) = \begin{cases}
+ \hat{m} &\text{if $c_1 = \mathcal{E}$(pubkey,$\hat{\sigma};H_2(\hat{m},\hat{\sigma}))$}\\
+ \text{NULL} &\text{otherwise.}
+ \end{cases}
+ \end{align*}
+ \subsection*{Fujisaki-Okamoto transform is IND-CPA}
+ \paragraph{}
+ Suppose that an algorithm $\mathcal{A}$, given two  messages $m_0$ and $m_1$ of its choice and an encrypted ciphertext ($\mathcal{E}(\text{pubkey, }\sigma;H_2(m_b,\sigma)), m_b \oplus H_1(\sigma)$) of $m_b$, is able to determine the value of $b$. Since $H_1$ and $H_2$ are random oracles, the algorithm $\mathcal{A}$ cannot distinguish between the two distributions:
+ \begin{align}
+ (\mathcal{E}(\text{pubkey, }\sigma;H_2(m_b,\sigma)), m_b \oplus H_1(\sigma)) : \sigma \text{ chosen at random} \\
+ (\mathcal{E}(\text{pubkey, }\sigma;\tau), \mu) : \sigma, \tau, \mu : \text{ chosen at random}
+ \end{align}
+ unless $\mathcal{A}$ evaluates $H_1(\sigma)$ and $H_2(m_b, \sigma)$. However, since $H_1$ is a random oracle, in order to evaluate $H_1(\sigma)$ the algorithm $\mathcal{A}$ must determine the value of $\sigma$. But then $\mathcal{A}$ can also determine the value of $\sigma$ from the pair $(\mathcal{E}(\text{pubkey, }\sigma;H_2(m_b,\sigma)), m_b \oplus H_1(\sigma))$. But then $\mathcal{A}$ is capable of determining the value of $\sigma$ from the pair $(\mathcal{E}(\text{pubkey, }\sigma;\tau), \mu)$ where $\tau$ and $\mu$ are chosen at random, because distributions $(1)$ and $(2)$ are indistinguishable to $\mathcal{A}$ prior to the determination of $\sigma$. It follows that $\mathcal{A}$ can determine the value of $\sigma$ from $\mathcal{E}(\text{pubkey},\sigma; \tau)$ (for random $\tau$), and hence the original public key cryptosystem $(\mathcal{E}, \mathcal{D})$ was not \textbf{OW-CPA}, contradicting the assumption that the starting cryptosystem is \textbf{OW-CPA}. $\blacksquare$
+\subsection*{Fujisaki-Okamoto transform is IND-CCA2}
+\paragraph{}
+Suppose that an algorithm $\mathcal{A}$, given a decryption oracle $\mathcal{D}$, two messages $m_0$ and $m_1$ of its choice, and an encrypted ciphertext $c = (\mathcal{E}(\text{pubkey, }\sigma;H_2(m_b,\sigma)), m_b \oplus H_1(\sigma)$) of $m_b$, is able to determine the value of $b$ without querying $\mathcal{D}$ on $c$. We will show that, using $\mathcal{A}$, one can construct an alternative algorithm $\mathcal{B}$ which accomplishes the same task without using $\mathcal{D}$.
+\paragraph{}
+The algorithm $\mathcal{B}$ operates as follows. It runs the algorithm $\mathcal{A}$, and monitors every call that $\mathcal{A}$ makes to the random oracles $H_1$ and $H_2$. Since $H_1$ and $H_2$ are random oracles, there is no way $\mathcal{A}$ can evaluate them on values except by calling them explicitly, so $\mathcal{B}$ can perform this monitoring step reliably. When $\mathcal{B}$ observes $\mathcal{A}$ evaluating $H_2(m,\sigma)$, $\mathcal{B}$ will compute $c = \mathcal{E}(\text{pubkey}, \sigma:H_2(m,\sigma))$ and store in a table $c : (m,\sigma)$ (with the intention of later being able to recognize this ciphertext). Since $H_2$ is deterministic the mapping given by the table is one to one. Whenever $\mathcal{A}$ asks for the decryption of a ciphertext $(c_1,c_2)$, the algorithm $\mathcal{B}$ responds as follows. The algorithm $\mathcal{B}$ checks if $c_1$ is a ciphertext in the table it previously stored. If $c_1$ was previously computed in the table, let $(\hat{m}, \hat{\sigma})$ be the corresponding input that produced $c_1$, and check whether $c_2 = \hat{m} \oplus H_1(\hat{\sigma})$. If this equation holds then output $\hat{m}$, otherwise (or if $c_1$ is not found in the table) output NULL. 
+\paragraph{}
+We claim that, except with negligible probability, the decryption response provided
 \end{document}
