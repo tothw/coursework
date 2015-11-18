@@ -34,14 +34,14 @@ Let $G$ be a graph with $n$ vertices and minimum degree $\delta > 1$. Let $X \su
 \paragraph{}
 Now for any $y \in V(G)$, $Pr(y \not \in N(X) \text{ and } y \not\in X) = \Pi_{x \in X} Pr(y \notadjacent x \text{ and } y \neq x) \leq (\frac{n - 1- \delta}{n})^{|X|}$. Let $Y = \{y \in V(G) | y \not \in N(X) \text{ and } y \not\in X)\}$. Then
 \begin{align*}
-E[|Y|] &= E[y \mid y \not\in N(x) \text{ and } y \not\in X] \\
+E[|Y|] &= E[|\{y \in V(G)\mid y \not\in N(x) \text{ and } y \not\in X\}|] \\
 &\leq \sum_{y \in V(G)} E[(\frac{n - 1- \delta}{n})^{|X|}] \\
 &= n \sum_{k = 1}^n Pr(|X| = k) (\frac{n - 1- \delta}{n})^{k} \\
 &= n \sum_{k=1}^n {n \choose k} p^k (1-p)^{n-k} (\frac{n - 1- \delta}{n})^{k} \\
 &= n(1-p)^n \sum_{k=1}^n {n \choose k} (\frac{p(n - 1- \delta)}{(1-p)n})^{k} \\
 &=  n(1-p)^n [(\frac{p(n - 1- \delta)}{(1-p)n})^{n} - 1] &\text{ since $\sum_{k=1}^n {n \choose k} (x)^{k} = x^n - 1$ for any $x$}\\
 &= n(1-p)^n (\frac{n - (\delta + 1)p}{(1-p)n})^n - n(1-p)^n \\
-&= n(1 + \frac{-(d+1)p}{n})^n - n(1-p)^n \\
+&= n(1 + \frac{-(\delta+1)p}{n})^n - n(1-p)^n \\
 &\leq ne^{-(d+1)p} &\text{ since $n(1-p)^n \geq 0$ and $(1 + \frac{x}{n})^n \leq e^x$ for any $x$.}
 \end{align*}
 \paragraph{}
@@ -76,7 +76,7 @@ Now since $E[|X \backslash Y|] \geq \frac{n}{2d}$ there exists an independence s
 
 \section*{3}
 \paragraph{}
-Let $G$ be a graph and let $L$ be a $10d$-list assignment for some $d \geq 1$. Suppose that for each $v \in V(G)$ and $c \in L(v)$ that $|\{ u \in N(v) : c \in L(v) \}| \leq d$. Let $\phi$ be a (possibly improper) random list coloring of the vertices of $G$ such that the vertices are colord uniformly at random from their list assignments. That is, for all $v \in V(G)$, for all $c \in L(v)$, $Pr(\phi(v) = c) = \frac{1}{10d}$, and for all colors $c \not\in L(v)$, $Pr(\phi(v) = c) = 0$.
+Let $G$ be a graph and let $L$ be a $10d$-list assignment for some $d \geq 1$. Suppose that for each $v \in V(G)$ and $c \in L(v)$ that $|\{ u \in N(v) : c \in L(v) \}| \leq d$. Let $\phi$ be a (possibly improper) random list coloring of the vertices of $G$ such that the vertices are colored uniformly at random from their list assignments. That is, for all $v \in V(G)$, for all $c \in L(v)$, $Pr(\phi(v) = c) = \frac{1}{10d}$, and for all colors $c \not\in L(v)$, $Pr(\phi(v) = c) = 0$.
 \paragraph{}
 For each $e = uv \in E(G)$, and color $c$, let $A_{e,c}$ be the event that $\phi(u) = \phi(v) = c$. Then 
 \begin{align*}
@@ -93,7 +93,7 @@ The event $A_{uv,c}$ depends on the events $A_{uw, c}$ for each $w \in N(v)$ and
 This proof follows the techniques of Diestel in the textbook. We reproduce it here with some added detail for completeness.
 \paragraph{Definition}
 Let $G$ be a graph. Let $\mathcal{P}_{i,j}$ denote the property that for any disjoint vertex sets $U, W \subseteq V(G)$ satisfying $|U| \leq i$ and $|W| \leq j$, there exists a vertex $v \not\in U \cup W$ that is adjacent to all the vertices in $U$ but to none in $W$.
-\paragraph{Lemma 11.3.2} For every constant $p \in (0,1)$ and $i,j \in \mathbb{N}$, asymptotically almost surely $G_{n,p}$ has the property $\mathcal{P_{i,j}}$.
+\paragraph{Lemma 11.3.2} For every constant $p \in (0,1)$ and $i,j \in \mathbb{N}$, asymptotically almost surely $G_{n,p}$ has the property $\mathcal{P}_{i,j}$.
 \paragraph{Proof of Lemma 11.3.2}
 Let $p \in (0,1)$. Let $i,j \in \mathbb{N}$. Let $U, W \subseteq V(G_{n,p})$ be disjoint and satisfy $|U| \leq i$, and $|W| \leq j$. Let $v \in G - (U \cup W)$. Let $A$ be the event that $v \text{ is adjacent to all the vertices in $U$ but to none in $W$}$. Then 
 \begin{align*}
@@ -102,7 +102,7 @@ Pr(A) &= p^{|U|}(1-p)^{|W|} \\
 \end{align*}
 Hence, the probability that no such $v$ exists is 
 \begin{align*}
-(1 - p^{|U|}(1-p)^{|W|})^{n-|U|-|W|} &\leq (1-p^i(1-p)^j)^{n-i-j}. &\text{(for $n \geq i + j$)}
+(1 - p^{|U|}(1-p)^{|W|})^{n-|U|-|W|} &\leq (1-p^i(1-p)^j)^{n-i-j} &\text{(for $n \geq i + j$)}.
 \end{align*}
 This follows since the corresponding events are independent for different $v$. As there are at most $n^{i+j}$ pairs of such sets $U,W$ in $V(G)$ (encoding sets $U$ of fewer than $i$ vertices as non-injective maps $\{0,\dots,i-1\} \rightarrow \{0, \dots, n-1\}$, etc.), the probability that any such pair $U$, $W$ has no suitable $v$ satisfying the lemma is at most $n^{i+j}(1-p^i(1-p)^j)^{n-i-j}$. Since $1-p^i(1-p)^j < 1$, this probability tends to $0$ as $n \rightarrow \infty$. $\blacksquare$
 \paragraph{Main Result (Corollary 11.3.3 in the text)}
@@ -133,7 +133,7 @@ Therefore asymptotically almost surely $A$ does not happen, as desired. $\blacks
 Let $\mathcal{S} = \{S \subseteq V(G_{n,p}) : |S| = 4\}$. For each $S \in \mathcal{S}$, let $X_S$ be the event that $G_{n,p}[S]$ is isomorphic to $K_4$. Let $X$ be a random variable counting the number of $K_4$ subgraphs of $G_{n,p}$. That is $X = \sum_{S \in \mathcal{S}} X_S$. Now $Pr(X_S) = p^6$ as for all $S \in \mathcal{S}$. So we have:
 \begin{align*} 
 E[X] &= E[\sum_{S \in \mathcal{S}} X_S] \\
-&= \sum_{S \in \mathcal{S}} E[X_S] \\
+&= \sum_{S \in \mathcal{S}} E[X_S] &\text{by linearity of expectation}\\
 &= \sum_{S \in \mathcal{S}} Pr(X_S) \\
 &= {n \choose 4} p^6.
 \end{align*}
@@ -143,7 +143,7 @@ Suppose that $p(n) << n^{-2/3}$. Then
 \begin{align*}
 E[X] &= {n \choose 4} p^6 \\
 &\leq n^4 p^6 \\
-&<< n^4 n^-\frac{2}{3}6 \\
+&<< n^4 n^{-\frac{2}{3}6} \\
 &= n^0 \\
 &= 1.
 \end{align*}
@@ -153,9 +153,9 @@ Therefore
 \end{align}
 By Markov's Inequality, $Pr(X \geq 1) \leq E[X]$, and therefore by $(1)$, 
 \begin{align*}
-\lim_{n \to \infty}Pr(X \geq 1) &= 0.
+\lim_{n \to \infty}Pr(X \geq 1) &\leq 0.
 \end{align*}
-Thus $X = 0$ asymptotically almost surely, that is $G_{n,p}$ has no $K_4$ subgraph asymptotically almost surely.
+Thus $X = 0$ asymptotically almost surely. That is $G_{n,p}$ has no $K_4$ subgraph asymptotically almost surely.
 \subsection*{b}
 \paragraph{}
 Now suppose that $p(n) >> n^{-2/3}$. We consider $E[X^2]$ with the intent of applying the second moment method. We have:
