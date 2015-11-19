@@ -37,10 +37,14 @@
 
 \raggedbottom
 
-\rhead{William Justin Toth ijk An} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\rhead{William Justin Toth 650 A5} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
 \renewcommand{\headrulewidth}{1pt} %heading underlined
 %\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
 
 \begin{document}
-
+\section*{1}
+\paragraph{}
+Let $G=(V,E)$ be an undirected graph. Let $k \in \Z_+^V$. Let $E'$ be a set of vertices each corresponding to an edge, $e\in E$. Construct a capacitated digraph $D=(N,A)$ with capacities $\mu$ where $N = E' \cup V \cup \{r,s\}$ where $r$ and $s$ are the source and sink nodes respectively. Construct the arc set $A$ as follows. For each $e \in E'$, $a = (r,e) \in A$ and $\mu_a = 1$. For each $e \in E'$ such that $e=uv \in E$, $a_1 = (e,u) \in A$ and $a_2 = (e,v) \in A$ such that $\mu_{a_1} = 1$ and $\mu_{a_2} = 1$. For each $v \in V$, $a = (v,s) \in A$ and $\mu_a = k_v$.
+\paragraph{}
+We claim that an integral maximum flow on $D$ corresponds to an orientation of $G$. 
 \end{document}
