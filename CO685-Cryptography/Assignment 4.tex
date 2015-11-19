@@ -40,7 +40,27 @@ Q &= rP \\
 Thus we have $Q = Q + lP$ and so $\infty = lP$. Therefore by the minimality of $s$, $l = 0$. Thus $n_0 = r$, and so $n = is + n_0$ as desired. $\blacksquare$
 \section*{6.10}
 \paragraph{}
-Let $\{P_1, P_2 \}$ be a basis for $E[m]$. Suppose that we have an algorithm $\mathcal{A}$ which can solve the basis problem in polynomial time. Let $P \in E$ and let $Q=nP \in E[m]$ be an instance of $ECDLP$.
+Let $E$ be an elliptic curve over $\mathbb{F}p$. Let $\{P_1, P_2\}$ be a basis of $E[m]$. Suppose we have an algorithm, $\mathcal{A}$, which solves the basis problem for $E[m]$ with basis $\{P_1, P_2\}$. That is, for all $P \in E[m]$, $\mathcal{A}$ computes $n_1,n_2$ such that $P = n_1P_1 + n_2P_2$. Let $P \in E(\mathbb{F}_p)$, and let $Q \in E[m]$ such that $Q=nP$, be an instance of $ECDLP$. We will show that using $\mathcal{A}$ we can find  a solution for $n$ in polynomial time.
+\paragraph{}
+Use $\mathcal{A}$ to compute $n_1, n_2$ such that $Q = nP = n_1P_1 + n_2P_2$. By remark $6.34$ of the textbook, $n_1, n_2$ are unique modulo $m$. Let $s = ord(E(\mathbb{F}_p))$ computed by Schoof's algorithm in polynomial time. Let $d = \frac{s}{m}$. Then $dP \in E[m]$ as $m(dP) = sP = \infty$. Now use $\mathcal{A}$ to compute $d_1, d_2$ such that $dP = d_1P_1 + d_2P_2$. Again by remark $6.34$ of the textbook, $d_1, d_2$ are unique modulo $m$. Now we have,
+\begin{align*}
+dnP &= dn_1P_1 + dn_2P_2 \\
+dnP &= nd_1P_1 + nd_2P_2.\\
+\end{align*}
+Invoking the uniqueness of representation modulo $m$ we have the congruences:
+\begin{align*}
+d_1n &\equiv dn_1 &(mod\ m)\\
+d_2n &\equiv dn_2 &(mod\ m)\\
+\end{align*}
+Subtracting the congruences we obtain:
+\begin{align}
+(d_1 - d_2)n &\equiv d(n_1-n_2) &(mod\ m).
+\end{align}
+Let $g = gcd(m, d_1-d_2)$. This can be computed in polynomial time by the Extended Euclidean Algorithm. Then solve the reduced equation:
+\begin{align*}
+\frac{d(n_1 - n_2)}{g} &\equiv \frac{d_1 - d_2}{g} &(mod\ \frac{m}{g}).
+\end{align*}
+Let $n_0$ be the solution obtained. Then $n_0$ is a solution to $(1)$ (one of $g$ in fact). Thus $n_0P = n_1P_1 + n_2P_2$ and hence $n_0$ is a solution to the $ECDLP$ instance. $\blacksquare$
 \section*{6.16}
 \subsection*{a}
 \paragraph{}
