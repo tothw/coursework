@@ -44,7 +44,39 @@
 \begin{document}
 \section*{1}
 \paragraph{}
-Let $G=(V,E)$ be an undirected graph. Let $k \in \Z_+^V$. Let $E'$ be a set of vertices each corresponding to an edge, $e\in E$. Construct a capacitated digraph $D=(N,A)$ with capacities $\mu$ where $N = E' \cup V \cup \{r,s\}$ where $r$ and $s$ are the source and sink nodes respectively. Construct the arc set $A$ as follows. For each $e \in E'$, $a = (r,e) \in A$ and $\mu_a = 1$. For each $e \in E'$ such that $e=uv \in E$, $a_1 = (e,u) \in A$ and $a_2 = (e,v) \in A$ such that $\mu_{a_1} = 1$ and $\mu_{a_2} = 1$. For each $v \in V$, $a = (v,s) \in A$ and $\mu_a = k_v$.
+Let $G=(V,E)$ be an undirected graph. Let $k \in \Z_+^V$. Let $E'$ be a set of vertices each corresponding to an edge, $e\in E$. For ease of notation, for any $A \subseteq V$ let $E'(U) := \{e \in E' : e \text{ corresponds to } e \in E(U) \}$. Construct a capacitated digraph $D=(N,A)$, with capacities $\mu$, where $N = E' \cup V \cup \{r,s\}$ and $r$ and $s$ denote the source and sink nodes respectively. Construct the arc set $A$ as follows. For each $e \in E'$, $a = (r,e) \in A$ and $\mu_a = 1$. For each $e \in E'$ such that $e=uv \in E$, $a_1 = (e,u) \in A$ and $a_2 = (e,v) \in A$ such that $\mu_{a_1} = 1$ and $\mu_{a_2} = 1$. For each $v \in V$, $a = (v,s) \in A$ and $\mu_a = k_v$.
 \paragraph{}
-We claim that an integral maximum flow on $D$ corresponds to an orientation of $G$. 
+Suppose that there exists an orientation of $G$ such that $|\delta^-(v)|\leq k_v$ for all $v \in V$. From this orientation we will construct a feasible flow, $x$, on $D$. Let $a\in A$. If $a = (r,e)$ for some $e \in E'$ then set $x_a = 1$. If $a = (e,v)$ for some $e=uv \in E'$ and $v \in V$ then set $x_a = 1$ if $(u,v)$ is in the orientation of $G$, and set $x_a = 0$ otherwise. Now each $e \in E'$ has one unit flow incoming, and one unit of flow exiting as either $(u,v)$ is in the orientation of $G$ or $(v,u)$ is. The remaining case is if $a = (v,s)$ for some $v \in V$. In this case set $x_a = |\delta^-(v)|$. This is feasible since $|\delta^-(v)|\leq k_v$, and conservation is preserved because exactly $|\delta^-(v)|$ edges are oriented towards $v$, which happens to be the number of $(e,v)$ arcs given one unit of flow. Thus we have a feasible flow. The value of this flow is $f_x(s) = f_x(r) = \sum_{e\in E'} 1 = |E|$. Now by Max-Flow Min-Cut, $|E|$ is a lower bound on the capacity of any $rs$-cut.
+\paragraph{}
+Let $U \subseteq V$. Consider the $rs$-cut $R = \{r\} \cup E' \cup U$. Let $R_1 = \{a \in A : a = (v,s) $ for some $v \in U\}$ and let $R_2 = \{a \in A : a = (e,v)$ for some $e \in E'$ and $v \in V\backslash U$ such that $v \in e \}$. Then $\delta(R) = R_1 \cup R_2 $. Therefore
+\begin{align*}
+\mu(\delta(R)) &= \sum_{a\in R_1} \mu_a + \sum_{a\in R_2} \mu_a \\
+&= \sum_{v \in U} k_v + \sum_{a \in R_2} \mu_a  &\text{as $k_v = \mu_{(v,s)}$}\\
+&= \sum_{v \in U} k_v + \sum_{e \in E : e \not\in E(G[U])} 1 &\text{as $\mu_{(e,v)} = 1$ and $U\not\in \bar{R}$}\\ 
+&= \sum_{v \in U} k_v + |E \backslash E(G[U])| \\
+&= \sum_{v \in U} k_v + |E| - |E(U)|.
+\end{align*}
+Since $|E|$ is a lower bound on the capacity of any $rs$-cut, $|E| \leq \mu(\delta(R)) = \sum_{v \in U} k_v + |E| - |E(U)|$. Cancelling $|E|$ and rewriting we see that $|E(U)| \leq \sum_{v \in U} k_v$, as desired.
+\paragraph{}
+Now suppose that for all $U \subseteq V$, $|E(U)| \leq \sum_{u \in U} k_u$. Consider the digraph $D$ with capacities $\mu$ constructed as discussed previously. Let $x$ be an integral max flow on $D$. Let $R$ be a cut on $D$. Let $R_1 = \{ (r,e): e \in E' \cap \bar{R}\}$. Let $R_2 = \{(e,v): e \in E' \cap R \text{ and } v \in V \cap \bar{R}\}$. Let $R_3 = \{(v,s) : v \in V \cap R\}$. Then $\delta(R) = R_1 \cup R_2 \cup R_3$.
+\paragraph{}
+Then we have that:
+\begin{align}
+\mu(\delta(R)) &= \sum_{(r,e) \in R_1} 1 + \sum_{(e,v) \in R_2} 1 + \sum_{(v,s) \in R_3} k_v \nonumber\\
+&= |E' \cap \bar{R}| + |R_2| + \sum_{(v,s) \in R_3} k_v \nonumber\\
+&\geq |E' \cap \bar{R}| + |R_2| + |E'(V \cap R)| &\text{since $|E(U)| \leq \sum_{u \in U} k_u$, for all $U \subseteq V$} \nonumber\\
+&= |E'| - |E'(V \cap \bar{R}) \cap R| - |\delta(V\cap R)| + |R_2|. 
+\end{align}
+With the last equality following by counting missed edges in $(E' \cap \bar{R}) \cup (E'(V \cap R))$. Let $\delta'(v) := \{e' \in E: e \text{ corresponds to } uv \in \delta(v)\}$. Now $$R_2 = \{(e,v): e \in E'(V \cap \bar{R}) \cap R \} \dot\cup \{(e,v): v \in V \cap \bar{R}, e\in \delta'(v) \cap R \}.$$ Thus $$|R_2| = |E'(V \cap \bar{R}) \cap R| + |\{(e,v): v \in V \cap \bar{R}, e\in \delta'(v) \cap R \}|.$$
+So by $(1)$ we have
+\begin{align*}
+\mu(\delta(R)) &\geq |E'| - |E'(V \cap \bar{R}) \cap R| - |\delta(V\cap R)| + |R_2| \\
+&= |E'| - |E'(V \cap \bar{R}) \cap R| - |\delta(V\cap R)| + |E'(V \cap \bar{R}) \cap R| + |\{(e,v): v \in V \cap \bar{R}, e\in \delta'(v) \cap R \}| \\
+&\geq |E|.
+\end{align*}
+Therefore any cut in $D$ is of capacity at least $|E|$.
+\paragraph{}
+Now consider the cut $R = \{r\}$. Then $\mu(R) = |E|$, so $R$ is a min cut in $D$ since $|E|$ is a lower bound on the capacity of a cut. Thus by Max-Flow Min-Cut, $f_x(r) = f_x(s) = |E|$ since $x$ is a max flow and $R$ is a min cut. Then there is one unit of flow entering each $e \in E'$. Let $e \in E'$ such that $e$ corresponds to $uv \in E$. By conservation of flow there is one unit of flow leaving each $e \in E'$. Since $x$ is an integral max flow either $x_{(e,u)} = 1$ or $x_{(e,v)} = 1$. Construct an orientation of $G$, $D_G$, by orienting each $uv \in E$ such that $(u,v) \in A(D_G)$ if $x_{(e,v)} = 1$ and $(v,u) \in A(D_G)$ otherwise (that is, if $x_{(e,u)} = 1$).
+\paragraph{}
+Let $v \in V(G)$. By construction of $D_G$, $|\delta^-(v)| = |\{(e,v) : e \in E', x_{(e,v)} = 1\}|$. Since $|\{(e,v) : e \in E', x_{(e,v)} = 1\}|$ is the incoming flow to $v$, by conservation of flow $|\{(e,v) : e \in E', x_{(e,v)} = 1\}|$ is the outgoing flow from $v$. But there is only one outgoing arc from $v$. That arc is of capacity $k_v$ and so $|\{(e,v) : e \in E', x_{(e,v)} = 1\}| \leq k_v$ by feasibility of $x$. Therefore $|\delta^-(v)| \leq k_v$ for all $v \in V$ as desired. Thus there exists an orientation of $G$ such that $|\delta^-(v)| \leq k_v$ for all $v \in V$ if and only if $|E(U)| \leq \sum_{u \in U} k_u$, for all $U \subseteq V$.$\blacksquare$
 \end{document}
