@@ -1,0 +1,129 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{article}
+\usepackage[margin=1in, bottom=1in, top=1in]{geometry} %1 inch margins
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+%Macros
+\newcommand{\A}{\mathbb{A}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}} \newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+ 
+\newcommand{\cA}{\mathcal{A}} \newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}} \newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}} \newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}} \newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}} \newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}} \newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}} \newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}} \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}} \newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}} \newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}} \newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}} \newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}} \newcommand{\cZ}{\mathcal{Z}}
+
+%Page style
+\pagestyle{fancy}
+
+\listfiles
+
+\raggedbottom
+
+\rhead{William Justin Toth 685 A5} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{1pt} %heading underlined
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{6.43}
+\paragraph{}
+Let $E$ be the elliptic curve $E: y^2 = x^3 + 1$ over a field $K$. Suppose that $K$ contains an element $\beta \neq 1$ satisfying $\beta^3 = 1$. Let $\phi$ be a map given by $\phi(x,y) = (\beta x, y)$ and $\phi(\infty) = \infty$.
+\subsection*{a}
+Let $P \in E(K)$. If $P = \infty$ then $\phi(P) = \infty \in E(K)$ as desired. So we may assume $P=(x,y) \neq \infty$. Then $x, y \in K$ and $(x,y) \in E$. Now $\phi(P) = \phi(x,y) = (\beta x, y)$. Since $(x,y) \in E$, \begin{align} y^2 = x^3 + 1. \end{align} Now 
+\begin{align*}
+(\beta x)^3 + 1 &= \beta^3 x^3 + 1 \\
+&= x^3 + 1 &\text{since $\beta$ is a primitive cube root of unity}\\
+&= y^2. &\text{by $(1)$}
+\end{align*}
+Thus $(\beta x, y) \in E$. Now since $\beta \in K$, $x \in K$ and $K$ is a field, $\beta x \in K$. Since $\beta x \in K$ and $y \in K$, and $(\beta x, y) \in E$ we have that $(\beta x, y) \in E(K)$. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+Let $P_1, P_2 \in E(K)$. Suppose $P_1 = \infty$ or $P_2 = \infty$. Say without loss generality that $P_1 = \infty$ (if $P_2 = \infty$ and $P_1 \neq \infty$ relabel subscripts). Then $\phi(P_1 + P_2) = \phi(\infty + P_2) = \phi(P_2)$, and $\phi(P_1) + \phi(P_2) = \phi(\infty) + \phi(P_2) = \infty + \phi(P_2) = \phi(P_2)$. Thus $\phi(P_1 + P_2) = \phi(P_1) + \phi(P_2)$.
+\paragraph{}
+Now suppose that $P_1 \neq \infty$ and $P_2 \neq \infty$. Say $P_1 = (x_1, y_1)$ and $P_2 = (x_2, y_2)$. To compute $P_1 + P_2$ we use the computational formula. Let:
+\begin{align*}
+m = \begin{cases}
+\frac{y_2 - y_1}{x_2 - x_1}, &\text{if $P_1 \neq P_2$}\\
+\frac{3x_1^2}{2y_1}, &\text{if $P_1 = P_2$}
+\end{cases}
+\end{align*}
+Then $P_1 + P_2 = (x_3, y_3)$ where $x_3 = m^2 - x_1 - x_2$ and $y_3 = m(x_1 - x_3) - y_1$. Similarly we will use the computational formula to compute $(\beta x_1, y_1) + (\beta x_2, y_2)$. Let:
+\begin{align*}
+m_{\beta} = \begin{cases}
+\frac{y_2 - y_2}{\beta(x_2 - x_1)}, &\text{if $P_1 \neq P_2$} \\
+\frac{3\beta^2x_1^2}{2y_1}, &\text{if $P_1 = P_2$}
+\end{cases}\end{align*}
+Then $(\beta x_1, y_1) + (\beta x_2, y_2) = (m_\beta^2 - \beta x_1 - \beta x_2, m_\beta(\beta x_1 - (m_\beta^2 - \beta x_1 - \beta x_2)) -y_1)$.
+\paragraph{Claim 1.1}
+$m_\beta^2= \beta m^2$.
+\paragraph{Proof of Claim 1.1}
+If $P_1 \neq P_2$ then
+\begin{align}
+m_\beta^2 &= \frac{(y_2 - y_1)^2}{\beta^2(x_2-x_1)^2} \nonumber\\
+&= \frac{\beta(y_2 - y_1)^2}{\beta^3(x_2-x_1)^2} \nonumber\\
+&= \beta\frac{(y_2 - y_1)^2}{(x_2-x_1)^2} &\text{since $\beta^3 = 1$}\nonumber\\
+&= \beta m^2.\nonumber
+\end{align}
+Similarly if $P_1 = P_2$ then
+\begin{align*}
+m_\beta^2 &= \frac{3^2 \beta^4 x_1^4}{2^2y_1^2} \\
+&= \beta\frac{3^2\beta^3x_1^4}{2^2y_1^2} \\
+&= \beta\frac{3^2x_1^4}{2^2y_1^2} &\text{since $\beta^3 = 1$}\\
+&= \beta m^2.
+\end{align*}
+Thus in either case $m_\beta^2 = \beta m^2$ and hence the claim holds. $\blacksquare$
+\paragraph{Claim 1.2}
+$\beta m_\beta = m$.
+\paragraph{Proof of Claim 1.2}
+If $P_1 \neq P_2$ then
+\begin{align*}
+\beta m_\beta &= \beta\frac{y_2 - y_1}{\beta(x_2 - x_1)} \\
+&= \frac{y_2 - y_1}{(x_2 - x_1)} \\
+&= m.
+\end{align*}
+Similarly if $P_1 = P_2$ then
+\begin{align*}
+\beta m_\beta &= \beta \frac{3\beta^2 x_1^2}{2y_1^2} \\
+&= \frac{3\beta^3 x_1^2}{2y_1^2} \\
+&= \frac{3 x_1^2}{2y_1^2} &\text{since $\beta^3 = 1$}\\
+&= m.
+\end{align*}
+Thus in either case $\beta m_\beta = m$ and hence the claim holds. $\blacksquare$
+\paragraph{}
+Now we have:
+\begin{align}
+\phi(P_1 + P_2) &= \phi(x_3, y_3) \nonumber\\
+&= (\beta x_3, y_3)
+\end{align}
+Further we have:
+\begin{align}
+\phi(P_1) + \phi(P_2) &= (\beta x_1, y_1) + (\beta x_2, y_2) \nonumber \\
+&= (m_\beta^2 - \beta x_1 - \beta x_2,m_\beta(\beta x_1 - (m_\beta^2 - \beta x_1 - \beta x_2)) -y_1) \nonumber \\
+&= (\beta m^2 - \beta x_1 - \beta x_2, m_\beta(\beta x_1 - (m_\beta^2 - \beta x_1 - \beta x_2)) -y_1) &\text{by Claim $1.1$} \nonumber \\
+&= (\beta x_3,m_\beta(\beta x_1 - (m_\beta^2 - \beta x_1 - \beta x_2)) -y_1) \nonumber \\
+&= (\beta x_3, m_\beta(2\beta x_1 + \beta x_2 - m_\beta^2) - y_1) \nonumber \\
+&= (\beta x_3, m_\beta(2\beta x_1 + \beta x_2 - \beta m^2) - y_1) &\text{by Claim $1.1$} \nonumber\\
+&= (\beta x_3, \beta m_\beta(x_1 - (m^2 - x_1 -x_2)) - y_1) \nonumber\\
+&= (\beta x_3, \beta m_\beta(x_1 - x_3) - y_1) \nonumber\\
+&= (\beta x_3, m(x_1 - x_3) - y_1) &\text{by Claim $1.2$} \nonumber\\
+&= (\beta x_3, y_3) 
+\end{align}
+Combining $(2)$ and $(3)$ we see that $\phi(P_1 + P_2) = \phi(P_1) + \phi(P_2)$ as desired. $\blacksquare$
+\end{document}
