@@ -79,4 +79,20 @@ Therefore any cut in $D$ is of capacity at least $|E|$.
 Now consider the cut $R = \{r\}$. Then $\mu(R) = |E|$, so $R$ is a min cut in $D$ since $|E|$ is a lower bound on the capacity of a cut. Thus by Max-Flow Min-Cut, $f_x(r) = f_x(s) = |E|$ since $x$ is a max flow and $R$ is a min cut. Then there is one unit of flow entering each $e \in E'$. Let $e \in E'$ such that $e$ corresponds to $uv \in E$. By conservation of flow there is one unit of flow leaving each $e \in E'$. Since $x$ is an integral max flow either $x_{(e,u)} = 1$ or $x_{(e,v)} = 1$. Construct an orientation of $G$, $D_G$, by orienting each $uv \in E$ such that $(u,v) \in A(D_G)$ if $x_{(e,v)} = 1$ and $(v,u) \in A(D_G)$ otherwise (that is, if $x_{(e,u)} = 1$).
 \paragraph{}
 Let $v \in V(G)$. By construction of $D_G$, $|\delta^-(v)| = |\{(e,v) : e \in E', x_{(e,v)} = 1\}|$. Since $|\{(e,v) : e \in E', x_{(e,v)} = 1\}|$ is the incoming flow to $v$, by conservation of flow $|\{(e,v) : e \in E', x_{(e,v)} = 1\}|$ is the outgoing flow from $v$. But there is only one outgoing arc from $v$. That arc is of capacity $k_v$ and so $|\{(e,v) : e \in E', x_{(e,v)} = 1\}| \leq k_v$ by feasibility of $x$. Therefore $|\delta^-(v)| \leq k_v$ for all $v \in V$ as desired. Thus there exists an orientation of $G$ such that $|\delta^-(v)| \leq k_v$ for all $v \in V$ if and only if $|E(U)| \leq \sum_{u \in U} k_u$, for all $U \subseteq V$.$\blacksquare$
+
+\section*{2}
+\paragraph{}
+Let $D=(V,A)$ be a digraph, $u \in \R_+^A$ be arc capacities and $r,s \in V$ be the source and sink nods.
+\subsection*{a}
+\paragraph{}
+Let $x \in \R_+^A$ be a feasible $r-s$ flow. Suppose that any $r-s$ dipath in the residual graph, $D_x$, has residual capacity at most $K > 0$. Let $u'$ denote the residual capacities. Let $x^* \in \R_+^A$ be a max flow on $D$. Let $\cP$ be the set of $r-s$ dipaths in $D_x$. For each $P \in \cP$ let $a(P)$ denote the unique edge of minimum residual capacity closest to $r$ along $P$, and let $u_P = u$ where $a(P) = (u,v)$. Let $R = \{v \in V: \exists P \in \cP$, $v \in V(rPu_p)\}$ where $xPy$ denotes the subpath of $P$ from $x$ to $y$ along $P$. Now $r \in R$ but $s \not\in R$ as $s$ is not the tail of any arc on an $r-s$ dipath in $D_x$. Thus $R$ is an $r-s$ cut in $D_x$.
+\paragraph{}
+Now $\delta(R) = \{a_P : P \in \cP \}$ by construction. Then $u'(\delta(R)) \leq K|\{a_P : P \in \cP \}| \leq Km$, since $u'_{a_P} \leq K$ for all $P \in \cP$. But also we have:
+\begin{align*}
+u'(\delta(R)) &= \sum_{(u,v) \in \delta(R)} (u_{uv} - x_{uv} + x_{vu}) &\text{by definition of residual capacity}\\
+&= u(\delta(R)) - x(\delta(R)) + x(\delta(\bar{R})) \\
+&= u(\delta(R)) - f_x(s) &\text{by Proposition $3.3$} \\
+&\geq f_{x^*}(s) - f_x(s). &\text{by Max-Flow Min-Cut} \\
+\end{align*}
+Thus we have $u'(\delta(R)) \leq Km$ and $u'(\delta(R)) \geq f_{x^*}(s) - f_x(s)$ so by transitivity $Km \geq f_{x^*}(s) - f_x(s)$. Therefore $f_x(s) \geq f_{x^*}(s) - Km$ as desired. $\blacksquare$
 \end{document}
