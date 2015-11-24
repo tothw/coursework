@@ -95,4 +95,23 @@ u'(\delta(R)) &= \sum_{(u,v) \in \delta(R)} (u_{uv} - x_{uv} + x_{vu}) &\text{by
 &\geq f_{x^*}(s) - f_x(s). &\text{by Max-Flow Min-Cut} \\
 \end{align*}
 Thus we have $u'(\delta(R)) \leq Km$ and $u'(\delta(R)) \geq f_{x^*}(s) - f_x(s)$ so by transitivity $Km \geq f_{x^*}(s) - f_x(s)$. Therefore $f_x(s) \geq f_{x^*}(s) - Km$ as desired. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+Let $u \in \Z_+^A$ and let $u_{max}=\max_{a\in A}u_a$. Consider the algorithm which results from modifying the in-class augmenting path algorithm as follows: In stage $i\geq 1$, augment flows using only augmenting paths with residual capacity at least $u_{max}/2^i$. We will show this leads to a polynomial time algorithm for solving the max flow problem.
+\paragraph{Lemma 2.1}
+For each stage stage of the algorithm there are at most $2m$ augmentations.
+\paragraph{Proof of Lemma 2.1}
+Suppose the algorithm is beginning stage $i$. Let $x$ denote the current flow found by the algorithm, and $x^*$ denote the optimal flow. Let $K$ be as in $(2a)$. Then by $(2a)$, $$f_{x*}(s) \leq f_x(s) + Km.$$ Since the algorithm just finished stage $i-1$, $$K \geq \frac{u_{max}}{2^{i-1}}.$$
+Thus,
+\begin{align}
+f_{x^*}(s) &\leq f_x(s) + m\frac{u_{max}}{2^{i-1}} \nonumber\\
+&= f_x(s) + 2m\frac{u_{max}}{2^i}. 
+\end{align}
+Now each augmentation in stage $i$ increases the value of $f_x(s)$ by at least $\frac{u_{max}}{2^i}$, so by $(2)$ there are at most $2m$ such augmentations (as otherwise $f_x(s)$ would exceed $f_{x^*}(s)$ which cannot happen by maximality). $\blacksquare$
+\paragraph{}
+After stage $i = log_2(u_{max})$, there will be no residual graph $r-s$ dipaths of residual capacity greater than or equal to:
+$$
+\frac{u_{max}}{2^i} = \frac{u_{max}}{u_{max}} = 1.
+$$
+Thus the residual capacity of every $r-s$ dipath in the residual graph is $0$, and so there are no flow augmenting paths in the graph. Therefore the algorithm has found a max flow after this stage by Theorem $3.6$. This algorithm terminates after $O(log_2(u_{max}))$ stages each consisting of $O(m)$ augmentations. Therefore the algorithm terminates in polynomial time as $O(mlog_2(u_{max}))$ is polynomial in the size of the input since $log_2(u_{max})$ is the size of the binary representation of $u_{max}$. $\blacksquare$
 \end{document}
