@@ -126,4 +126,29 @@ Further we have:
 &= (\beta x_3, y_3) 
 \end{align}
 Combining $(2)$ and $(3)$ we see that $\phi(P_1 + P_2) = \phi(P_1) + \phi(P_2)$ as desired. $\blacksquare$
+
+\section*{6.49}
+\paragraph{}
+Consider the cryptosystem described in Table $6.12$ of the textbook. For convenience it is reproduced below:
+\paragraph{Public Parameters}
+A trusted authority Tom publishes a finite field $\F_q$, an elliptic curve $E/\F_q$, a point $P \in E(\F_q)[l]$ of prime order $l$, and an $l$-distortion map $\phi$ for $P$. Tom also chooses two hash functions: $H_1 : \{$IDs$\} \rightarrow E(\F_q)[l]$, and $H_2:\F_q^* \rightarrow \{0,1\}^B$.
+\paragraph{Master Key Creation}
+Tom chooses a secret integer $s$ modulo $l$. Tom publishes the point $P^{\text{Tom}} = sP \in E(\F_q)[l]$.
+\paragraph{Private Key Extraction}
+Alice chooses an ID-based public key $\text{Alice}^{\text{Pub}}$. Tom computes the point $P^{\text{Alice}} = H_1(\text{Alice}^{\text{Pub}}) \in E(\F_q)[l]$. Tom sends the point $Q^{\text{Alice}} = sP^{\text{Alice}} \in E(\F_q)[l]$ to Alice.
+\paragraph{Encryption}
+Bob chooses a plaintext $M$ and a random number $r$ modulo $q-1$. Bob computes the point $P^{\text{Alice}} = H_1(\text{Alice}^{\text{Pub}}) \in E(\F_q)[l]$. Bob's ciphertext is the pair $$ (C_1,C_2) = (rP, M \text{ xor } H_2(\hat{e}_l(P^{\text{Alice}}, P^{\text{Tom}})^r)).$$
+\paragraph{Decryption}
+Alice decrypts the ciphertext $(C_1, C_2)$ by computing $$C_2 \text{ xor } H_2(\hat{e}_l(Q^{\text{Alice}}, C_1)).$$
+\subsection*{a}
+\paragraph{}
+Suppose that Eve can solve the discrete logarithm in $E(\F_q)$. Then Eve can use the published point $P \in E(\F_q)[l] \subseteq E(\F_q)$, and Tom's public point $P^{\text{Tom}} = sP \in E(\F_q)[l] \subseteq E(\F_q)$, and solve the discrete logarithm with these two inputs to obtain Tom's secret key $s$.
+\paragraph{}
+Now suppose instead that Eve can solve the discrete logarithm problem in $\F_q^*$. Since Eve has access to $l$ and $\phi$ she has access to the function $\hat{e}_l$ who's codomain is $\F_q^*$. Then Eve can use the public points $P^\text{Alice}, P^{\text{Tom}} \in E(\F_q)[l]$ to compute $\hat{e}_l(P^\text{Alice}, P^{\text{Tom}}) \in \F_q^*$. Since $P^{\text{Tom}} = sP$ we have that 
+\begin{align*}
+\hat{e}_l(P^\text{Alice}, P^{\text{Tom}}) &= \hat{e}_l(P^\text{Alice}, \phi(sP))\\
+&= \hat{e}_l(P^\text{Alice}, s\phi(P)) &\text{by property $(i)$ of $\phi$} \\
+&= \hat{e}_l(P^\text{Alice},\phi(P))^s. &\text{by bilinearity of $\hat{e}_l$}
+\end{align*}
+Thus Alice can solve the discrete logarith with inputs $\hat{e}_l(P^\text{Alice},\phi(P))$ (entirely computable with public information), and $\hat{e}_l(P^\text{Alice}, P^{\text{Tom}})$ to obtain $s$. $\blacksquare$
 \end{document}
