@@ -71,4 +71,72 @@ Now let $k \in \Z$ and suppose for induction that for all $j \in \Z$ such that $
 Then $\ceil{\frac{n}{2}} \leq |N^*(v)| \leq \ceil{n}-1$. That is, $\ceil{2^{k-2}} \leq |N^*(v)| \leq \ceil{2^{k-1}} - 1$. Let $N$ be a size $\ceil{2^{k-2}}$ subset of $N^*(v)$. Then strictly either all arcs from $v$ are forward to vertices in $N$ or all arcs from $v$ are backward to vertices in $N$. Let $T' = T[N]$. Then $0\leq |V(T')| = \ceil{2^{k-2}} < n$ and so by the induction hypothesis $T'$ contains an acyclic tournament on $k-1$ vertices. Let $T^*$ be such a tournament. Then $T^* + v$ is a tournament on $k$ vertices.
 \paragraph{}
 Suppose for a contradiction that $T^* + v$ contains a directed cycle $C$. Since $T^*$ is acyclic, $v \in V(C)$. Consider the arcs $(u,v), (v,w) \in E(C)$ for $u,w \in V(T^*) = N$. Such arcs exists since $C$ is a directed cycle containing $v$. But then there is a forward arc from $v$ to a vertex in $N$ and a backward arc from $v$ to a vertex in $N$, a contradiction since all arcs from $v$ to vertices of $N$ were chosen to have the same direction. Therefore $T^* + v$ is an acyclic tournament on $k$ vertices. Thus by the principle of mathematical induction for all $k\in \Z$ such that $k\geq 0$, if $n = \ceil{2^{k-1}}$ and $T$ is a tournament on $n$ vertices then $T$ contains an acyclic tournament on $k$ vertices. Therefore for all nonnegative integers $k$ there is an integer $n$ such that every tournament on $n$ vertices contains an acyclic tournament on $k$ vertices. $\blacksquare$
+
+\section*{2}
+\paragraph{Lemma 1 (from class)}
+If $G$ is a graph, then $\alpha(G) \geq \sum_{v\in V(G)} \frac{1}{d(v) +1}$.
+\subsection*{a}
+\paragraph{}
+Suppose that $G$ is a disjoint union of cliques. Let $k = \kappa(G)$. Let $G_1,\dots, G_k$ denote the connected components of $G$. Since $G$ is a disjoint union of cliques, $\alpha(G) = k$. This follows from observing that each vertex is only independent of vertices in other connected components, and therefore an independent set contains at most one vertex from each connected component (that is, $\alpha(G) \leq k$). This bound is attained by choosing one vertex from each connected component and hence $\alpha(G) = k$. Further we have that:
+\begin{align*}
+\sum_{v \in V(G)} \frac{1}{d(v) +1} &= \sum_{i=1}^k \sum_{v \in V(G_i)} \frac{1}{d(v) + 1} &\text{since $G_i$ are disjoint}\\
+&= \sum_{i=1}^k \sum_{v \in V(G_i)} \frac{1}{(|V(G_i)| -1) + 1} &\text{since $G_i$ is a clique} \\
+&= \sum_{i=1}^k \sum_{v \in V(G_i)} \frac{1}{|V(G_i)|} \\
+&= \sum_{i=1}^k \frac{|V(G_i)|}{|V(G_i)|} \\
+&= \sum_{i=1}^k 1 \\
+&= k \\
+&=\alpha(G). &\text{since $\alpha(G) = k$ by preceding discussion}
+\end{align*}
+Therefore if $G$ is a disjoint union of cliques then $\alpha(G) = \sum_{v \in V(G)} \frac{1}{d(v) +1}$.
+\paragraph{}
+Now suppose to the contrary that $G$ is not a disjoint union of cliques. Then there exists a triple of vertices $x, y, z \in V(G)$ such that $xy \in E(G)$ and $yz \in E(G)$ but $xz \not\in E(G)$. Let $\pi: V \backslash \{x,y,z\} \rightarrow \{4, \dots, n\}$ be a random ordering of $V\backslash \{x,y,z\}$.  Let $$X = \{v \in V(G)\backslash \{x,y,z\}:\text{ for all }w\in V(G)\backslash \{x,y,z\}\text{ if }vw \in E(G)\text{ then }\pi(v) < \pi(w)\}.$$ Then by calculation in proof of Lemma $1$, $E[|X|] \geq \sum_{v\in V(G)\backslash \{x,y,z\}}\frac{1}{d(v)+1}$
+\paragraph{}
+Let $\pi_1$ be an ordering of $V$ given by:
+$$
+\pi_1(v) = \begin{cases}
+1, &\text{if $v=x$}\\
+2, &\text{if $v=y$}\\
+3, &\text{if $v=z$}\\
+\pi(v), &\text{otherwise}.
+\end{cases}
+$$
+Let $\pi_2$ be an ordering of $V$ given by:
+$$
+\pi_2(v) = \begin{cases}
+1, &\text{if $v=z$}\\
+2, &\text{if $v=x$}\\
+3, &\text{if $v=y$}\\
+\pi(v), &\text{otherwise}.
+\end{cases}
+$$
+For all possible orderings of $V$, $\pi_i$, let $$X_i = \{v \in V(G):\text{ for all }w\in V(G)\text{ if }vw \in E(G)\text{ then }\pi_i(v) < \pi_i(w)\}.$$ Then $x \in X_1$ as it is positioned first under $\pi_1$, $y \not\in X_1$ as $y$ is adjacent to $x$, and $z \not\in X_1$ as $z$ is adjacent to $y$.  Further $z \in X_2$ as it is positioned first under $\pi_2$, $x \in X_2$ as $x$ is not adjacent to $z$, and $y \not\in X_2$ as $y$ is adjacent to $z$. Now we have that $|X_1| = 1 + |X|$ and $|X_2| = 1 + |X_1|$. Then $|X_2| > |X_1|$.
+\paragraph{}
+Now suppose for a contradiction that for all orderings of $V$, $\pi_i$, that $|X_i| \leq \sum_{v \in V(G)} \frac{1}{d(v)+1}$. By our calculations in the proof of Lemma $1$ in class,  $E[|X_i|] \geq \sum_{v \in V(G)} \frac{1}{d(v)+1}$. But we have that $|X_1| < |X_2| \leq \sum_{v \in V(G)} \frac{1}{d(v)+1}$, and thus
+\begin{align*}
+E[|X_i|] &= \sum_{\pi_i} Pr(\pi_i) |X_i| \\
+&= Pr(\pi_1)|X_1| +  \sum_{\pi_i: i\neq 1} Pr(\pi_i)|X_i| \\
+&\leq Pr(\pi_1)|X_1| + \sum_{\pi_i:i\neq 1} Pr(\pi_i)(\sum_{v \in V(G)} \frac{1}{d(v)+1}) \\
+&< Pr(\pi_1)(\sum_{v \in V(G)} \frac{1}{d(v)+1}) + \sum_{\pi_i:i\neq 1} Pr(\pi_i)(\sum_{v \in V(G)} \frac{1}{d(v)+1})  \\
+&= \sum_{v \in V(G)} \frac{1}{d(v)+1}.
+\end{align*}
+Therefore $E[|X_i|] <  \sum_{v \in V(G)} \frac{1}{d(v)+1}$. This contradicts that $E[|X_i|] \geq \sum_{v \in V(G)} \frac{1}{d(v)+1}$. Thus there exists an ordering of $V$, $\pi_i$, for which $|X_i| > \sum_{v \in V(G)} \frac{1}{d(v)+1}$. As $|X_i|$ is an independent set this implies that $\alpha(G) > \sum_{v \in V(G)} \frac{1}{d(v)+1}$. Therefore if $G$ is not a disjoint union of cliques then $\alpha(G) > \sum_{v \in V(G)} \frac{1}{d(v)+1}$. So by contraposition if $\alpha(G) = \sum_{v\in V(G)} \frac{1}{d(v) + 1}$ then $G$ is a disjoint union of cliques. Therefore $\alpha(G) = \sum_{v\in V(G)} \frac{1}{d(v) + 1}$ if and only if $G$ is a disjoint union of cliques. $\blacksquare$
+\subsection*{b}
+\paragraph{Lemma 2.1}
+If $G$ is a graph on $n$ vertices then $\omega(G) \geq \sum_{v \in V(G)} \frac{1}{n-d(v)}$.
+\paragraph{Proof of Lemma 2.1}
+Suppose $G$ is a graph on $n$ vertices. Let $\bar{d}(v)$ denote the degree of $v$ in $\bar{G}$ for all $v \in V(G)$. Note that $\bar{d}(v) = n-1-d(v)$ for all $v \in V(G)$ by the definition of $\bar{G}$. Then we have that:
+\begin{align*}
+\omega(G) &= \alpha(\bar{G}) \\
+&\geq \sum_{v \in V(\bar{G})} \frac{1}{\bar{d}(v) + 1} &\text{By Lemma $1$}\\
+&= \sum_{v \in V(G)} \frac{1}{\bar{d}(v) + 1} &\text{Since $V(G) = V(\bar{G})$}\\
+&= \sum_{v \in V(G)} \frac{1}{n - 1 - d(v) + 1} &\text{Since $\bar{d}(v) = n-1-d(v)$}\\
+&=\sum_{v \in V(G)} \frac{1}{n-d(v)}.
+\end{align*}
+Thus $\omega(G) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ as desired. $\blacksquare$
+\paragraph{Lemma 2.2}
+If $G$ is a graph on $n$ vertices then $\omega(G) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ if and only if $G$ is $\omega(G)$-partite.
+\paragraph{Proof of Lemma 2.2}
+Suppose $G$ is a graph on $n$ vertices. Then $\omega(G) = \alpha(\bar{G})$ so $\omega(G) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ if and only if $\alpha(\bar{G}) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$. But $\alpha(\bar{G}) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ if and only if $\alpha(\bar{G}) = \sum_{v \in V(G)} \frac{1}{\bar{d}(v) + 1}$. Then by $2a$, $\alpha(\bar{G}) = \sum_{v \in V(G)} \frac{1}{\bar{d}(v) + 1}$  if and only if $\bar{G}$ is a disjoint union of $\alpha(\bar{G})$ cliques. Now $\bar{G}$ is a disjoint union of $\alpha(\bar{G})$ cliques if and only if $G$ is $\alpha(\bar{G})$-partite. Since $\omega(G) = \alpha(\bar{G})$, $G$ is $\alpha(\bar{G})$-partite if and only if $G$ is $\omega(G)$-partite. Therefore $\omega(G) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ if and only if $G$ is $\omega(G)$-partite. $\blacksquare$
+\paragraph{}
+Let $G$ be an extremal graph on $n$ vertices such that $G$ is $K_r$ free. We will show that $G = T_{r-1}(n)$ (the Turan graph).
 \end{document}

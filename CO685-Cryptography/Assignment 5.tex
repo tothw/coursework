@@ -146,9 +146,37 @@ Suppose that Eve can solve the discrete logarithm in $E(\F_q)$. Then Eve can use
 \paragraph{}
 Now suppose instead that Eve can solve the discrete logarithm problem in $\F_q^*$. Since Eve has access to $l$ and $\phi$ she has access to the function $\hat{e}_l$ who's codomain is $\F_q^*$. Then Eve can use the public points $P^\text{Alice}, P^{\text{Tom}} \in E(\F_q)[l]$ to compute $\hat{e}_l(P^\text{Alice}, P^{\text{Tom}}) \in \F_q^*$. Since $P^{\text{Tom}} = sP$ we have that 
 \begin{align*}
-\hat{e}_l(P^\text{Alice}, P^{\text{Tom}}) &= \hat{e}_l(P^\text{Alice}, \phi(sP))\\
-&= \hat{e}_l(P^\text{Alice}, s\phi(P)) &\text{by property $(i)$ of $\phi$} \\
-&= \hat{e}_l(P^\text{Alice},\phi(P))^s. &\text{by bilinearity of $\hat{e}_l$}
+\hat{e}_l(P^\text{Alice}, P^{\text{Tom}}) &= e_l(P^\text{Alice}, \phi(sP))\\
+&= e_l(P^\text{Alice}, s\phi(P)) &\text{by property $(i)$ of $\phi$} \\
+&= e_l(P^\text{Alice},\phi(P))^s. &\text{by bilinearity of $e_l$}
 \end{align*}
 Thus Alice can solve the discrete logarith with inputs $\hat{e}_l(P^\text{Alice},\phi(P))$ (entirely computable with public information), and $\hat{e}_l(P^\text{Alice}, P^{\text{Tom}})$ to obtain $s$. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+Suppose that Eve knows how to solve the elliptic curve Diffie-Hellman problem in $E(\F_q)$. That is for any $P \in E(\F_q)$, Eve can find $n_1n_2P$ given $n_1P$ and $n_2P$. Let $(C_1, C_2)$ be any ciphertext. Let $r$ be a random number modulo $q-1$ such that $C_1 = rP$. Then we have that:
+\begin{align*}
+\hat{e}_l (Q^\text{Alice}, C_1) &= e_l(sP^\text{Alice}, \phi(rP)) \\
+&= e_l(sP^\text{Alice}, r\phi(P)) &\text{by property $(i)$ of $\phi$}\\
+&=e_l(P^\text{Alice}, \phi(P))^{sr} &\text{by bilinearity of $e_l$}\\
+&=e_l(P^\text{Alice},sr\phi(P)) &\text{by bilinearity of $e_l$}\\
+&=e_l(P^\text{Alice},\phi(srP)). &\text{by property $(i)$ of $\phi$}
+\end{align*}
+Since $P \in E(\F_q)$, and Eve knows $P$, $sP = P^\text{Tom}$, and $rP = C_1$, Eve can solve the elliptic curve Diffie-Hellman problem to obtain $srP$.
+\paragraph{}
+With $srP$ in hand, Eve can compute $e_l(P^\text{Alice},\phi(srP))$ and thus by equality Eve has the value of $\hat{e}_l (Q^\text{Alice}, C_1)$. Now Eve can decrypt by computing $C_2 \text{ xor } H_2(\hat{e}_l(Q^{\text{Alice}}, C_1))$. $\blacksquare$
+\subsection*{c}
+\paragraph{}
+Suppose that Eve knows how to solve the Diffie-Hellman problem in $\F_q^*$. Let $(C_1, C_2)$ be any ciphertext. Let $r$ be a random number modulo $q-1$ such that $C_1 = rP$. Then we have that:
+\begin{align*}
+\hat{e}_l(P^\text{Alice}, C_1) &= e_l(P^\text{Alice}, \phi(rP)) \\
+&= e_l(P^\text{Alice}, r\phi(P)) &\text{by property $(i)$ of $\phi$}\\
+&= e_l(P^\text{Alice}, \phi(P))^r &\text{by bilinearity of $e_l$}. \\
+\end{align*}
+We also have that:
+\begin{align*}
+\hat{e}_l(P^\text{Alice}, P^\text{Tom}) &= e_l(P^\text{Alice}, \phi(sP)) \\
+&= e_l(P^\text{Alice}, s\phi(P)) &\text{by property $(i)$ of $\phi$}\\
+&= e_l(P^\text{Alice}, \phi(P))^s &\text{by bilinearity of $e_l$}. \\
+\end{align*}
+Thus Alice can solve the Diffie-Hellman problem in $\F_q^*$ on the inputs $\hat{e}_l(P^\text{Alice}, P)$, $\hat{e}_l(P^\text{Alice}, P^\text{Tom})$, and $\hat{e}_l(P^\text{Alice}, C_1)$ to obtain $e_l(P^\text{Alice}, \phi(P))^{sr}$. By our previous calculation in $(b)$ this is equal to $\hat{e}_l(Q^\text{Alice},C_1)$. Now Eve can decrypt by computing $C_2 \text{ xor } H_2(\hat{e}_l(Q^{\text{Alice}}, C_1))$. $\blacksquare$
 \end{document}
