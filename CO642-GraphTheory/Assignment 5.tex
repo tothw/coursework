@@ -138,5 +138,9 @@ If $G$ is a graph on $n$ vertices then $\omega(G) = \sum_{v \in V(G)} \frac{1}{n
 \paragraph{Proof of Lemma 2.2}
 Suppose $G$ is a graph on $n$ vertices. Then $\omega(G) = \alpha(\bar{G})$ so $\omega(G) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ if and only if $\alpha(\bar{G}) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$. But $\alpha(\bar{G}) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ if and only if $\alpha(\bar{G}) = \sum_{v \in V(G)} \frac{1}{\bar{d}(v) + 1}$. Then by $2a$, $\alpha(\bar{G}) = \sum_{v \in V(G)} \frac{1}{\bar{d}(v) + 1}$  if and only if $\bar{G}$ is a disjoint union of $\alpha(\bar{G})$ cliques. Now $\bar{G}$ is a disjoint union of $\alpha(\bar{G})$ cliques if and only if $G$ is $\alpha(\bar{G})$-partite. Since $\omega(G) = \alpha(\bar{G})$, $G$ is $\alpha(\bar{G})$-partite if and only if $G$ is $\omega(G)$-partite. Therefore $\omega(G) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ if and only if $G$ is $\omega(G)$-partite. $\blacksquare$
 \paragraph{}
-Let $G$ be an extremal graph on $n$ vertices such that $G$ is $K_r$ free. We will show that $G = T_{r-1}(n)$ (the Turan graph).
+Let $G$ be an extremal graph on $n$ vertices such that $G$ is $K_r$ free. We may assume that $n \geq r$ as otherwise the problem is trivial (simply $G = K_n = T_{r-1}(n)$). We will show that $G = T_{r-1}(n)$ (the Turan graph).
+\paragraph{}
+Since $G$ is $K_r$ free, $\omega(G) \leq r-1$. Suppose for a contradiction that $\omega(G) = w \leq r-2$. Then consider the $K_w$ clique in $G$, $H$. There exists a vertex $v \in V(G)$ such that $v \not\in V(H)$ (as otherwise $H=G$ and thus $w =n < r-1$ which contradicts that $n \geq r$), and there exists $h \in V(H)$, $vh \not\in E(G)$ (as otherwise there is $K_{w+1}$ clique in $G$, which contradicts that $\omega(G) = w$). But then the graph $G' = G + vh$ is such that $\omega(G') \leq w+1. Since $w + 1 \leq r-1$, $G'$ is $K_r$ free. Now $G'$ is a graph on $n$ vertices, $G'$ is $K_r$ free, and $|E(G')| = |E(G)| + 1 > |E(G)|$ contradicting that $G$ is extremal. Thus $\omega(G) >r-2$, that is $\omega(G) \geq r-1$. Therefore $\omega(G) = r-1$.
+\paragraph{}
+
 \end{document}
