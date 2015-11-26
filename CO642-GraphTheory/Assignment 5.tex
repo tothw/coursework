@@ -137,10 +137,36 @@ Thus $\omega(G) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ as desired. $\blacksquare$
 If $G$ is a graph on $n$ vertices then $\omega(G) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ if and only if $G$ is $\omega(G)$-partite.
 \paragraph{Proof of Lemma 2.2}
 Suppose $G$ is a graph on $n$ vertices. Then $\omega(G) = \alpha(\bar{G})$ so $\omega(G) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ if and only if $\alpha(\bar{G}) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$. But $\alpha(\bar{G}) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ if and only if $\alpha(\bar{G}) = \sum_{v \in V(G)} \frac{1}{\bar{d}(v) + 1}$. Then by $2a$, $\alpha(\bar{G}) = \sum_{v \in V(G)} \frac{1}{\bar{d}(v) + 1}$  if and only if $\bar{G}$ is a disjoint union of $\alpha(\bar{G})$ cliques. Now $\bar{G}$ is a disjoint union of $\alpha(\bar{G})$ cliques if and only if $G$ is $\alpha(\bar{G})$-partite. Since $\omega(G) = \alpha(\bar{G})$, $G$ is $\alpha(\bar{G})$-partite if and only if $G$ is $\omega(G)$-partite. Therefore $\omega(G) = \sum_{v \in V(G)} \frac{1}{n-d(v)}$ if and only if $G$ is $\omega(G)$-partite. $\blacksquare$
+\paragraph{Lemma 2.3}
+Over all graphs $G$ such that $|V(G)| = n$ and $|E(G)|=m$, the sum $\sum_{v \in V(G)} \frac{1}{n-d(v)}$ is minimized when for all $v_1, v_2 \in V(G)$, $|d(v_1) - d(v_2)| \leq 1$.
+\paragraph{Proof of Lemma 2.3}
+Let $G$ be a graph such that $|V(G)| = n$ and $|E(G)|=m$. Suppose there exists $v_1, v_2 \in V(G)$, $|d(v_1) - d(v_2)| > 1$. We may assume without loss of generality (up to relabelling) that $d(v_1) - d(v_2) > 1$. Suppose for a contradiction that $\sum_{v \in V(G)} \frac{1}{n-d(v)}$ is minimal. By the pigeonhole principle, there exists a vertex $v_3 \in V(G)$ such that $v_1v_3 \in E(G)$ but $v_2v_3 \not\in E(G)$. Consider the graph $G' = G - v_1v_3 + v_2v_3$ (that is $G'$ is $G$ with edge $v_1v_3$ removed and edge $v_2v_3$ added). Let $d'$ denote the degree function for $G'$. Then for all $v \not\in \{v_1,v_2,v_3\}$, $d'(v) = d(v)$ as none of their edges were changed. Now $d'(v_3) = d(v_3) - 1 + 1 = d(v_3)$ (subtracting one for loss of $v_1v_3$ and adding one for addition of $v_2v_3$), and $d'(v_1) = d(v_1) - 1$ (as $v_1v_3$ was removed), and $d'(v_2) = d(v_2) + 1$ (as $v_2v_3$ was added). Then we have that:
+\begin{align*}
+\sum_{v \in V(G')} \frac{1}{n - d'(v)} &= \frac{1}{n - d'(v_1)} + \frac{1}{n-d'(v_2)} + \sum_{v\in V(G')\backslash \{v_1,v_2\}} \frac{1}{n - d'(v)} \\
+&=  \frac{1}{n - d(v_1) + 1} + \frac{1}{n-d(v_2) - 1} + \sum_{v\in V(G)\backslash \{v_1,v_2\}} \frac{1}{n - d(v)} \\
+&= \frac{n - d(v_2) -1 + n - d(v_1) + 1}{(n - d(v_1) + 1)(n-d(v_2) - 1} +  \sum_{v\in V(G)\backslash \{v_1,v_2\}} \frac{1}{n - d(v)} \\
+&= \frac{n - d(v_1) + n - d(v_2)}{(n-d(v_1))(n-d(v_2)) - n + d(v_1) + n - d(v_2) - 1} +  \sum_{v\in V(G)\backslash \{v_1,v_2\}} \frac{1}{n - d(v)} \\
+&=\frac{n - d(v_1) + n - d(v_2)}{(n-d(v_1))(n-d(v_2)) + d(v_1) - d(v_2) - 1} +  \sum_{v\in V(G)\backslash \{v_1,v_2\}} \frac{1}{n - d(v)} \\
+&<\frac{n - d(v_1) + n - d(v_2)}{(n-d(v_1))(n-d(v_2)) + 1 - 1} +  \sum_{v\in V(G)\backslash \{v_1,v_2\}} \frac{1}{n - d(v)} \\&(\text{since $d(v_1) - d(v_2) > 1$})\\
+&=\frac{n - d(v_1) + n - d(v_2)}{(n-d(v_1))(n-d(v_2))} +  \sum_{v\in V(G)\backslash \{v_1,v_2\}} \frac{1}{n - d(v)} \\
+&=\frac{1}{n- d(v_1)} + \frac{1}{n-d(v_2)}  +  \sum_{v\in V(G)\backslash \{v_1,v_2\}} \frac{1}{n - d(v)} \\
+&=\sum_{v\in V(G)} \frac{1}{n - d(v)}.
+\end{align*}
+Thus $\sum_{v \in V(G')} \frac{1}{n - d'(v)} < \sum_{v\in V(G)} \frac{1}{n - d(v)}$ contradicting the minimality of $\sum_{v\in V(G)} \frac{1}{n - d(v)}$ as $G$ and $G'$ are both graphs on $n$ vertices with $m$ edges. Therefore $\sum_{v\in V(G)} \frac{1}{n - d(v)}$ is minimized when $|d(v_1) - d(v_2)| \leq 1$. $\blacksquare$
 \paragraph{}
 Let $G$ be an extremal graph on $n$ vertices such that $G$ is $K_r$ free. We may assume that $n \geq r$ as otherwise the problem is trivial (simply $G = K_n = T_{r-1}(n)$). We will show that $G = T_{r-1}(n)$ (the Turan graph).
 \paragraph{}
-Since $G$ is $K_r$ free, $\omega(G) \leq r-1$. Suppose for a contradiction that $\omega(G) = w \leq r-2$. Then consider the $K_w$ clique in $G$, $H$. There exists a vertex $v \in V(G)$ such that $v \not\in V(H)$ (as otherwise $H=G$ and thus $w =n < r-1$ which contradicts that $n \geq r$), and there exists $h \in V(H)$, $vh \not\in E(G)$ (as otherwise there is $K_{w+1}$ clique in $G$, which contradicts that $\omega(G) = w$). But then the graph $G' = G + vh$ is such that $\omega(G') \leq w+1. Since $w + 1 \leq r-1$, $G'$ is $K_r$ free. Now $G'$ is a graph on $n$ vertices, $G'$ is $K_r$ free, and $|E(G')| = |E(G)| + 1 > |E(G)|$ contradicting that $G$ is extremal. Thus $\omega(G) >r-2$, that is $\omega(G) \geq r-1$. Therefore $\omega(G) = r-1$.
+Since $G$ is $K_r$ free, $\omega(G) \leq r-1$. Suppose for a contradiction that $\omega(G) = w \leq r-2$. Then consider the $K_w$ clique in $G$, $H$. There exists a vertex $v \in V(G)$ such that $v \not\in V(H)$ (as otherwise $H=G$ and thus $w =n < r-1$ which contradicts that $n \geq r$), and there exists $h \in V(H)$, $vh \not\in E(G)$ (as otherwise there is $K_{w+1}$ clique in $G$, which contradicts that $\omega(G) = w$). But then the graph $G' = G + vh$ is such that $\omega(G') \leq w+1$. Since $w + 1 \leq r-1$, $G'$ is $K_r$ free. Now $G'$ is a graph on $n$ vertices, $G'$ is $K_r$ free, and $|E(G')| = |E(G)| + 1 > |E(G)|$ contradicting that $G$ is extremal. Thus $\omega(G) >r-2$, that is $\omega(G) \geq r-1$. Therefore $\omega(G) = r-1$.
 \paragraph{}
-
+Since $T_{r-1}(n)$ is complete $(r-1)$-partite, $\omega(T_{r-1}(n)) = r-1 = \omega(G)$. For all $v \in V(T_{r-1}(n))$ let $d_T(v)$ denote the degree of $v$ in $T_{r-1}(n)$. Then since $T_{r-1}(n)$ is $\omega(T_{r-1}(n))$-partite, by Lemma $2.2$ we have that:
+$$
+\omega(T_{r-1}(n)) = \sum_{v \in V(T_{r-1}(n))}\frac{1}{n-d_T(v)}.
+$$
+But we also have that $\sum_{v \in V(G)} \frac{1}{n-d(v)}\leq \omega(G)$ and thus:
+\begin{align*}
+\sum_{v \in V(G)}\frac{1}{n-d(v)} &\leq \omega(G) \\
+&= r-1\\
+&=\omega(T_{r-1}(n)) \\
+&= \sum_{v \in V(T_{r-1}(n))} \frac{1}{n-d_T(v)}.
+\end{align*}
 \end{document}
