@@ -179,4 +179,17 @@ We also have that:
 &= e_l(P^\text{Alice}, \phi(P))^s &\text{by bilinearity of $e_l$}. \\
 \end{align*}
 Thus Alice can solve the Diffie-Hellman problem in $\F_q^*$ on the inputs $\hat{e}_l(P^\text{Alice}, P)$, $\hat{e}_l(P^\text{Alice}, P^\text{Tom})$, and $\hat{e}_l(P^\text{Alice}, C_1)$ to obtain $e_l(P^\text{Alice}, \phi(P))^{sr}$. By our previous calculation in $(b)$ this is equal to $\hat{e}_l(Q^\text{Alice},C_1)$. Now Eve can decrypt by computing $C_2 \text{ xor } H_2(\hat{e}_l(Q^{\text{Alice}}, C_1))$. $\blacksquare$
+\section*{Problem 3}
+\subsection*{a}
+\paragraph{}
+Consider the cryptosystem as described in the previous problem. Define the hash function $H_1: \text{IDs} \rightarrow E(\F_q)[l]$ as follows. Let $H' : \{0,1\}^* \rightarrow \{1,\dots, l-1\}$. To compute $H_1(ID)$ convert $ID$ to a binary string $\beta$, compute $H'(\beta) = m_\beta$, and output $m_\beta P$. This function is insecure when used in the cryptosystem as $H_1$ is public information, implicit in which is that $H'$ is public information. Notice that if $H'$ is not publicly published, but $H_1$ is, then access to $H'$ can be simulated by monitoring the execution of $H_1$ until it computes $H'(\beta) = m_\beta$ and extracting this value as if you had access to $H'$. Thus Eve can compute the binary representation of $\text{Alice}^\text{Pub} = \beta$, and use the function $H'$ to compute $H'(\beta) = m_\beta$ such that $P^\text{Alice} = m_\beta P$.
+\paragraph{}
+Let $(C_1,C_2)$ be any ciphertext sent to Alice. Then Eve can compute:
+\begin{align*}
+\hat{e}_l(P^\text{Tom}, C_1)^{m_\beta} &= e_l(sP, \phi(rP))^{m_\beta} \\
+&= e_l(m_\beta sP, \phi(rP)) \\
+&= \hat{e}_l(Q^\text{Alice}, C_1).
+\end{align*}
+Therefore  Eve can compute $C_2\text{ xor } H_2(\hat{e}_l(P^\text{Tom}, C_1)^{m_\beta})$ which is equal to $C_2\text{ xor } H_2(\hat{e}_l(Q^\text{Alice}, C_1))$ which is equal to $m$ by the decryption algorithm. Thus Eve can decrypt any ciphertext. $\blacksquare$
+\subsection*{b}
 \end{document}
