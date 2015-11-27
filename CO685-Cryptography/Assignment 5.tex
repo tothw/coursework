@@ -192,4 +192,8 @@ Let $(C_1,C_2)$ be any ciphertext sent to Alice. Then Eve can compute:
 \end{align*}
 Therefore  Eve can compute $C_2\text{ xor } H_2(\hat{e}_l(P^\text{Tom}, C_1)^{m_\beta})$ which is equal to $C_2\text{ xor } H_2(\hat{e}_l(Q^\text{Alice}, C_1))$ which is equal to $m$ by the decryption algorithm. Thus Eve can decrypt any ciphertext. $\blacksquare$
 \subsection*{b}
+\paragraph{}
+Modify the hash function $H_1$ from part $a$ as follows. Choose a random point $Q \in E(\F_q)[l]$ such that $Q \neq P$. Instead of outputting $m_\beta P$ as in the previous hash function, output $m_\beta Q$. A note should be made in the cryptosystem that when Tom chooses his secret, $s$, he should verify that $sP \neq Q$ to help prevent the previous attack.
+\paragraph{}
+Let $(C_1, C_2)$ be any ciphertext sent to Alice. For Eve to decrypt, it boils down to Eve being able to compute $\hat{e}_l(Q^\text{Alice}, C_1)$ without knowing $Q^\text{Alice}$. The information Eve has access to is $m, Q, mQ = P^\text{Alice}, P, sP=P^\text{Tom}$, and $rP = C_1$. Now $Q^\text{Alice} = smQ$, so $\hat{e}_l(Q^\text{Alice}, C_1) = \hat{e}_l(Q, P)^{smr}$. Now assuming Eve cannot solve ECDH, DLOG, BDH implies that her only computationally feasible option for computing $\hat{e}_l(Q,P)^{smr}$ is to compute the pairing of $\hat{e}_l(mQ, sP)^r$ or $\hat{e}_l(mQ, rP)^s$. But Eve knows neither $s$ nor $r$, and cannot find them without solving DLOG. Clearly the knowledge of $m$ does not help Eve, as computing $hat{e}_l(rP, sP)^m$ as in the previous attack gets Eve nowhere because $Q$ was excluded from the pairing. Thus this hash function doesn't emit the same attack as the previous hash function, and doesn't offer any clear new security vulnerabilities. $\blacksquare$
 \end{document}
