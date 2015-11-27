@@ -158,15 +158,33 @@ Let $G$ be an extremal graph on $n$ vertices such that $G$ is $K_r$ free. We may
 \paragraph{}
 Since $G$ is $K_r$ free, $\omega(G) \leq r-1$. Suppose for a contradiction that $\omega(G) = w \leq r-2$. Then consider the $K_w$ clique in $G$, $H$. There exists a vertex $v \in V(G)$ such that $v \not\in V(H)$ (as otherwise $H=G$ and thus $w =n < r-1$ which contradicts that $n \geq r$), and there exists $h \in V(H)$, $vh \not\in E(G)$ (as otherwise there is $K_{w+1}$ clique in $G$, which contradicts that $\omega(G) = w$). But then the graph $G' = G + vh$ is such that $\omega(G') \leq w+1$. Since $w + 1 \leq r-1$, $G'$ is $K_r$ free. Now $G'$ is a graph on $n$ vertices, $G'$ is $K_r$ free, and $|E(G')| = |E(G)| + 1 > |E(G)|$ contradicting that $G$ is extremal. Thus $\omega(G) >r-2$, that is $\omega(G) \geq r-1$. Therefore $\omega(G) = r-1$.
 \paragraph{}
-Since $T_{r-1}(n)$ is complete $(r-1)$-partite, $\omega(T_{r-1}(n)) = r-1 = \omega(G)$. For all $v \in V(T_{r-1}(n))$ let $d_T(v)$ denote the degree of $v$ in $T_{r-1}(n)$. Then since $T_{r-1}(n)$ is $\omega(T_{r-1}(n))$-partite, by Lemma $2.2$ we have that:
-$$
-\omega(T_{r-1}(n)) = \sum_{v \in V(T_{r-1}(n))}\frac{1}{n-d_T(v)}.
-$$
-But we also have that $\sum_{v \in V(G)} \frac{1}{n-d(v)}\leq \omega(G)$ and thus:
+Suppose there exists $v_1, v_2 \in V(G)$, such that $|d(v_1) - d(v_2)| > 1$. We may assume without loss of generality that $d(v_1) - d(v_2) > 1$. Consider the graph $G'$, obtained from $G$ by duplicating the vertex $v_1$ to create $v_1'$ (recall duplicating $v_1$ means creating a vertex adjacent to all neighbours of $v_1$), and removing $v_2$. That is, $G' = G + v_1' - v_2$. Let $d'$ be the degree function for $G'$. Then $d'(v_1') = d(v_1)$ and $d'(v_2) \leq d(v_2) + 1$ (the one is added for $v_1'$ in the case that $v_1$ is adjacent to $v_2$). Now $G'$ is a graph on $n$ vertices, and $G'$ is $K_r$ free by a proposition from the lecture notes which states that ``If $G$ is $K_r$-free and $v\in V(G)$ then the graph obtained by duplicating $v$ is $K_r$-free". Thus we have that:
 \begin{align*}
-\sum_{v \in V(G)}\frac{1}{n-d(v)} &\leq \omega(G) \\
-&= r-1\\
-&=\omega(T_{r-1}(n)) \\
-&= \sum_{v \in V(T_{r-1}(n))} \frac{1}{n-d_T(v)}.
+|E(G')| &= |E(G)| + d'(v_1) - d'(v_2) \\
+&\geq |E(G)| + d(v_1) - d(v_2) - 1 \\
+&> |E(G)| + d(v_2) + 1 - d(v_2) - 1 &\text{since $d(v_1) > d(v_2) +1$}\\
+&= |E(G)|.
 \end{align*}
+So $|E(G')| > |E(G)|$ contradicting that $G$ is extremal on $n$ vertices. Therefore, for all $v_1, v_2 \in V(G)$, $|d(v_1) - d(v_2)| \leq 1$.
+\paragraph{}
+Let $\Delta$ denote the max degree among vertices in $V(G)$. Then, since $|d(v_1) - d(v_2)| \leq 1$ for all $v_1, v_2 \in V(G)$, for all $v \in V(G)$ $\Delta - d(v) \leq 1$. Thus for all $v \in V(G)$, $d(v) = \Delta$ or $d(v) = \Delta - 1$. Let $V_1 = \{ v \in V(G) : d(v) = \Delta\}$, and let $V_2 = \{ v \in V(G) : d(v) = \Delta - 1\}$. Notice that $V_1 \cup V_2 = V$ and $V_1 \cap V_2 = \emptyset$. Now we have that:
+\begin{align}
+\sum_{v \in V(G)} \frac{1}{n-d(v)} &= \sum_{v \in V_1(G)} \frac{1}{n-\Delta} + \sum_{v \in V_2(G)} \frac{1}{n-\Delta + 1} \nonumber \\
+&= \frac{|V_1|}{n-\Delta} + \frac{|V_2|}{n - \Delta + 1} \nonumber \\
+&> \frac{|V_1|}{n - \Delta + 1} + \frac{|V_2|}{n-\Delta + 1} \nonumber \\
+&= \frac{n}{n-\Delta + 1}.
+\end{align}
+Suppose for a contradiction that $|E(G)| > |E(T_{r-1}(n)|$. Then by handshaking, $\sum_{v \in V(G)} d(v) > \sum_{v \in V(T_{r-1}(n))} d(v)$. Since $d(v) < \Delta$ for $v \in V(G)$ and $d(v) = n\floor{\frac{r-2}{r-1}}$ for $v \in V(T_{r-1}(n))$, this implies that $n\Delta > n^2\frac{r-2}{r-1}$, and hence $\Delta \geq n\frac{r-2}{r-1} + 1$. Rewriting this inequality we obtain that $\frac{1}{n-\Delta} \geq \frac{1}{n - n\frac{r-2}{r-1} -1}$. Thus by $(1)$ we have that:
+\begin{align*}
+\sum_{v \in V(G)} \frac{1}{n-d(v)} &> \frac{n}{n - n\frac{r-2}{r-1} - 1 + 1} \\
+&= \frac{n}{n\frac{1}{r-1}} \\
+&= r-1.
+\end{align*}
+Therefore $\sum_{v \in VG)} \frac{1}{n-d(v)} > r-1$, contradicting that $r-1 = \omega(G) \geq \sum_{v \in VG)} \frac{1}{n-d(v)}$. Thus $|E(G)| \leq |E(T_{r-1}(n)|$. But since $G$ is extremal this implies that $|E(G)|  = |E(T_{r-1}(n)|$.
+\paragraph{}
+Now $T_{r-1}(n)$ and $G$ are both graphs on $n$ vertices with an equivalent number of edges. Let $d_T(v)$ denote the degree of $v$ in $T_{r-1}(n)$. Then since for all $v_1, v_2 \in V(T_{r-1}(n))$, $|d(v_1) - d(v_2)| \leq 1$, by Lemma $2.3$:
+$$
+\sum_{v \in V(T_{r-1}(n))}\frac{1}{n - d_T(v)} \leq \sum_{v \in V(G)} \frac{1}{n-d(v)}.
+$$
+But since $T_{r-1}(n)$ is $r-1$-partite, by Lemma $2.2$ $\sum_{v \in V(T_{r-1}(n))}\frac{1}{n - d_T(v)} = r-1$, and hence $r-1 \leq \sum_{v \in V(G)} \frac{1}{n-d(v)}$. Also $\sum_{v \in V(G)} \frac{1}{n-d(v)} \leq r-1$ and thus $r-1 = \sum_{v \in V(G)} \frac{1}{n-d(v)}$. Therefore by Lemma $2.2$, $G$ is $r-1$-partite. By Proposition from the notes $T_{r-1}(n)$ is the unique graph with the most number of edges among $K_r$-free $r-1$-partite graphs, and therefore $G = T_{r-1}(n)$. $\blacksquare$
 \end{document}
