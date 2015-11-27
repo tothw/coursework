@@ -152,7 +152,7 @@ Let $G$ be a graph such that $|V(G)| = n$ and $|E(G)|=m$. Suppose there exists $
 &=\frac{1}{n- d(v_1)} + \frac{1}{n-d(v_2)}  +  \sum_{v\in V(G)\backslash \{v_1,v_2\}} \frac{1}{n - d(v)} \\
 &=\sum_{v\in V(G)} \frac{1}{n - d(v)}.
 \end{align*}
-Thus $\sum_{v \in V(G')} \frac{1}{n - d'(v)} < \sum_{v\in V(G)} \frac{1}{n - d(v)}$ contradicting the minimality of $\sum_{v\in V(G)} \frac{1}{n - d(v)}$ as $G$ and $G'$ are both graphs on $n$ vertices with $m$ edges. Therefore $\sum_{v\in V(G)} \frac{1}{n - d(v)}$ is minimized when $|d(v_1) - d(v_2)| \leq 1$. $\blacksquare$
+Thus $\sum_{v \in V(G')} \frac{1}{n - d'(v)} < \sum_{v\in V(G)} \frac{1}{n - d(v)}$ contradicting the minimality of $\sum_{v\in V(G)} \frac{1}{n - d(v)}$ as $G$ and $G'$ are both graphs on $n$ vertices with $m$ edges. Therefore $\sum_{v\in V(G)} \frac{1}{n - d(v)}$ is minimized when $|d(v_1) - d(v_2)| \leq 1$ for all $v_1, v_2 \in V(G)$. $\blacksquare$
 \paragraph{}
 Let $G$ be an extremal graph on $n$ vertices such that $G$ is $K_r$ free. We may assume that $n \geq r$ as otherwise the problem is trivial (simply $G = K_n = T_{r-1}(n)$). We will show that $G = T_{r-1}(n)$ (the Turan graph).
 \paragraph{}
