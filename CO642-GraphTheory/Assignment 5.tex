@@ -187,4 +187,30 @@ $$
 \sum_{v \in V(T_{r-1}(n))}\frac{1}{n - d_T(v)} \leq \sum_{v \in V(G)} \frac{1}{n-d(v)}.
 $$
 But since $T_{r-1}(n)$ is $r-1$-partite, by Lemma $2.2$ $\sum_{v \in V(T_{r-1}(n))}\frac{1}{n - d_T(v)} = r-1$, and hence $r-1 \leq \sum_{v \in V(G)} \frac{1}{n-d(v)}$. Also $\sum_{v \in V(G)} \frac{1}{n-d(v)} \leq r-1$ and thus $r-1 = \sum_{v \in V(G)} \frac{1}{n-d(v)}$. Therefore by Lemma $2.2$, $G$ is $r-1$-partite. By Proposition from the notes $T_{r-1}(n)$ is the unique graph with the most number of edges among $K_r$-free $r-1$-partite graphs, and therefore $G = T_{r-1}(n)$. $\blacksquare$
+
+\section*{3}
+\paragraph{}
+Let $\epsilon > 0$. For the $5$-cycle graph, by the graph removal lemma, there exists a $\delta > 0$ such that for every $n$ vertex graph $G$ either: 
+\begin{align}
+&G \text{ contains at least } \delta n^5 \text{ copies of the $5$-cycle} \\
+\text{or }&\text{there exists $F \subseteq E(G)$ such that $|F| \leq \epsilon n^2$, and $G - F$ is $5$-cycle free}.
+\end{align}
+\paragraph{}
+Choose $n_0 = max\{1, $. Let $A \subseteq \Z_5^n$, such that $n \geq n_0$ and $|A| \geq \epsilon 5^n$. Let $G$ be a graph constructed as follows:
+\begin{enumerate}
+\item $V(G) = V_1 \cup V_2 \cup V_3 \cup V_4 \cup V_5$, where $V_1, \dots, V_5$ are copies of $\Z_5^n$
+\item For $u \in V_1$, $v \in V_2$, $uv \in E(G)$ if and only if $v - u \in A$
+\item For $u \in V_2$, $v \in V_3$, $uv \in E(G)$ if and only if $v - u \in A$
+\item For $u \in V_3$, $v \in V_4$, $uv \in E(G)$ if and only if $v - u \in A$
+\item For $u \in V_4$, $v \in V_5$, $uv \in E(G)$ if and only if $v - u \in A$
+\item For $u \in V_5$, $v \in V_1$, $uv \in E(G)$ if and only if $v - u \in A$.
+\end{enumerate}
+\paragraph{}
+For the graph $H$ where $H$ is the $5$-cycle, by the graph removal lemma, there exists a $\delta$ such that
+\paragraph{}
+For $i = 1, \dots, 5$ let $v_i \in V_i$. Then $v_1, \dots, v_5$ form a $5$-cycle in $G$ if and only if there exists $a_i \in A$ such that $a_i = v_{i+1} - v_i \in A$ for $i = 1,\dots, 4$ and $a_5 = v_5 - v_1 \in A$. Now for such $a_i$, $\sum_{i=1}^5 a_i = 0$. Thus $5$-cycles in $G$ correspond precisely to sets of five elements in $\Z_5^n$ which sum to zero.
+\paragraph{}
+Now consider the trivial $5$-sums, that is those where $a,b,c,d,e \in \Z_5^n$ are such that $a+b+C+d+e=0$ but $a=b=c=d=e$. In $G$ these $5$-sums are represented by $5$-cycles of the form $u, u+a, u+2a, u+3a, u+4a$ for $u \in \Z_5^n$ and $a \in A$. All such are $5$-cycles are disjoint, as if two trivial $5$-cylces were to share an edge it would be immediate that they in fact share all edges and hence are equivalent $5$-cycles. Now $|V_1| = 5^n$. Thus there are more than $5^n \cdot \epsilon 5^n = \epsilon 5^{2n}$ trivial $5$-cycles in $G$. This count is attained by $|V_1| = 5^n$ ways to choose $u$, and $|A| > \epsilon 5^n$ ways to choose $a$. Since $n\geq n_0 \geq 1$, $\epsilon 5^{2n} \geq \epsilon n^2$. Thus there are strictly more than $\epsilon n^2$ trivial $5$-cycles in $G$.
+\paragraph{}
+Since there are more than $\epsilon n^2$ trivial $5$-cycles in $G$, all of which are disjoint, the size of any $F \subseteq E(G)$ such that $G-F$ is $5$-cycle free is greater than $\epsilon n^2$. Therefore $(3)$ does not hold, and thus $(2)$ holds. Therefore $G$ contains at least $\delta n^5$
 \end{document}
