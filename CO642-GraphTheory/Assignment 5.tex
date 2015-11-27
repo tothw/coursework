@@ -190,13 +190,13 @@ But since $T_{r-1}(n)$ is $r-1$-partite, by Lemma $2.2$ $\sum_{v \in V(T_{r-1}(n
 
 \section*{3}
 \paragraph{}
-Let $\epsilon > 0$. For the $5$-cycle graph, by the graph removal lemma, there exists a $\delta > 0$ such that for every $n$ vertex graph $G$ either: 
+Let $\epsilon > 0$. Let $\epsilon' = \epsilon/5^2 - 1$. For the $5$-cycle graph, by the graph removal lemma, there exists a $\delta > 0$ such that for every graph $G$ either: 
 \begin{align}
-&G \text{ contains at least } \delta n^5 \text{ copies of the $5$-cycle} \\
-\text{or }&\text{there exists $F \subseteq E(G)$ such that $|F| \leq \epsilon n^2$, and $G - F$ is $5$-cycle free}.
+&G \text{ contains at least } \delta |V(G)|^5 \text{ copies of the $5$-cycle} \\
+\text{or }&\text{there exists $F \subseteq E(G)$ such that $|F| \leq \epsilon' |V(G)|^2$, and $G - F$ is $5$-cycle free}.
 \end{align}
 \paragraph{}
-Choose $n_0 = max\{1, $. Let $A \subseteq \Z_5^n$, such that $n \geq n_0$ and $|A| \geq \epsilon 5^n$. Let $G$ be a graph constructed as follows:
+Choose $n_0 = max\{1,log_5(\delta^{-\frac{1}{5}})\} $. Let $A \subseteq \Z_5^n$, such that $n \geq n_0$ and $|A| \geq \epsilon 5^n$. Let $G$ be a graph constructed as follows:
 \begin{enumerate}
 \item $V(G) = V_1 \cup V_2 \cup V_3 \cup V_4 \cup V_5$, where $V_1, \dots, V_5$ are copies of $\Z_5^n$
 \item For $u \in V_1$, $v \in V_2$, $uv \in E(G)$ if and only if $v - u \in A$
@@ -210,7 +210,19 @@ For the graph $H$ where $H$ is the $5$-cycle, by the graph removal lemma, there 
 \paragraph{}
 For $i = 1, \dots, 5$ let $v_i \in V_i$. Then $v_1, \dots, v_5$ form a $5$-cycle in $G$ if and only if there exists $a_i \in A$ such that $a_i = v_{i+1} - v_i \in A$ for $i = 1,\dots, 4$ and $a_5 = v_5 - v_1 \in A$. Now for such $a_i$, $\sum_{i=1}^5 a_i = 0$. Thus $5$-cycles in $G$ correspond precisely to sets of five elements in $\Z_5^n$ which sum to zero.
 \paragraph{}
-Now consider the trivial $5$-sums, that is those where $a,b,c,d,e \in \Z_5^n$ are such that $a+b+C+d+e=0$ but $a=b=c=d=e$. In $G$ these $5$-sums are represented by $5$-cycles of the form $u, u+a, u+2a, u+3a, u+4a$ for $u \in \Z_5^n$ and $a \in A$. All such are $5$-cycles are disjoint, as if two trivial $5$-cylces were to share an edge it would be immediate that they in fact share all edges and hence are equivalent $5$-cycles. Now $|V_1| = 5^n$. Thus there are more than $5^n \cdot \epsilon 5^n = \epsilon 5^{2n}$ trivial $5$-cycles in $G$. This count is attained by $|V_1| = 5^n$ ways to choose $u$, and $|A| > \epsilon 5^n$ ways to choose $a$. Since $n\geq n_0 \geq 1$, $\epsilon 5^{2n} \geq \epsilon n^2$. Thus there are strictly more than $\epsilon n^2$ trivial $5$-cycles in $G$.
+Now consider the trivial $5$-sums, that is those where $a,b,c,d,e \in \Z_5^n$ are such that $a+b+C+d+e=0$ but $a=b=c=d=e$. In $G$ these $5$-sums are represented by $5$-cycles of the form $u, u+a, u+2a, u+3a, u+4a$ for $u \in \Z_5^n$ and $a \in A$. All such are $5$-cycles are disjoint, as if two trivial $5$-cylces were to share an edge it would be immediate that they in fact share all edges and hence are equivalent $5$-cycles. Now $|V_1| = 5^n$. So $|V(G)| = 5\cdot 5^n =5^{n+1}$. Thus there are more than $5^n \cdot \epsilon 5^n = \epsilon 5^{2n}$ trivial $5$-cycles in $G$. This count is attained by $|V_1| = 5^n$ ways to choose $u$, and $|A| > \epsilon 5^n$ ways to choose $a$. Since $n\geq n_0 \geq 1$ and $\epsilon > \epsilon'\cdot 5^2$, 
+\begin{align*}
+\epsilon 5^{2n} &> \epsilon' 5^2 \cdot 5^{2n} \\&= \epsilon' (5^{n+1})^2 \\&> \epsilon |V(G)|^2.
+\end{align*}
+Thus there are strictly more than $\epsilon' |V(G)|^2$ trivial $5$-cycles in $G$.
 \paragraph{}
-Since there are more than $\epsilon n^2$ trivial $5$-cycles in $G$, all of which are disjoint, the size of any $F \subseteq E(G)$ such that $G-F$ is $5$-cycle free is greater than $\epsilon n^2$. Therefore $(3)$ does not hold, and thus $(2)$ holds. Therefore $G$ contains at least $\delta n^5$
+Since there are strictly more than $\epsilon' |V(G)|^2$ trivial $5$-cycles in $G$, all of which are disjoint, the size of any $F \subseteq E(G)$ such that $G-F$ is $5$-cycle free is greater than $\epsilon' |V(G)|^2$. Therefore $(3)$ does not hold, and thus $(2)$ holds. Therefore $G$ contains at least $\delta |V(G)|^5$ cycles of length five. Now there are at most $5^{2n}$ trivial $5$-cycles in $G$ (realized when $A = \Z_5^n$), and thus the number of non trivial $5$-cycles is at least:
+\begin{align*}
+\delta |V(G)|^5 - 5^{2n} &= 5^5\delta (5^5n) - 5^{2n}\\
+&\geq 5^5 \delta 5^{log_5(\delta^{-5\frac{1}{5}})} - 5^{2n} &\text{since $n \geq n_0 \geq log_5(\delta^{-\frac{1}{5}})$} \\
+&= 5^5 \delta \delta^{-1} - 5^{2n} \\
+&\geq 5^5 - 5^2 &\text{ since $n \geq n_0 \geq 1$} \\
+&\geq 1.
+\end{align*}
+Thus $G$ contains a non-trivial $5$-cycle, and so there exist $a,b,c,d,e \in A$ such that $a+b+c+d+e = 0$ and it does not hold that $a=b=c=d=e$. Therefore for every $\epsilon > 0$ there exists $n_0$ such that for any $A \subseteq \Z_5^n$, $n\geq n_0$, $|A| \geq \epsilon 5^n$, there exists $a,b,c,d,e \in A$ such that $a+b+c+d+e=0$ and it does not hold that $a=b=c=d=e$.$\blacksquare$
 \end{document}
