@@ -225,4 +225,52 @@ Since there are strictly more than $\epsilon' |V(G)|^2$ trivial $5$-cycles in $G
 &\geq 1.
 \end{align*}
 Thus $G$ contains a non-trivial $5$-cycle, and so there exist $a,b,c,d,e \in A$ such that $a+b+c+d+e = 0$ and it does not hold that $a=b=c=d=e$. Therefore for every $\epsilon > 0$ there exists $n_0$ such that for any $A \subseteq \Z_5^n$, $n\geq n_0$, $|A| \geq \epsilon 5^n$, there exists $a,b,c,d,e \in A$ such that $a+b+c+d+e=0$ and it does not hold that $a=b=c=d=e$.$\blacksquare$
+
+\section*{4}
+
+\section*{5}
+
+\section*{6}
+\paragraph{}
+Let $G=(V,E)$ be the infinite complete graph. Let $(1,2,\dots)$ be an arbitrary ordering of the vertices of $G$. For $v,w \in V(G)$ we will say $v < w$ if $v$ appears before $w$ in the ordering. Let $\phi$ be an edge coloring of $G$ using $k$ colors. Consider the coloring of $[V]^4$, $\phi_V$ given as follows. For any $K \in [V]^4$ with $K = \{u,v,w,x\}$ where $u<v<w<x$ color $K$ as follows:
+\begin{enumerate}
+\item If $\phi(uv) = \phi(wx)$ then $\phi_V(K)=$ blue.
+\item Else if $\phi(vw)=\phi(uv)$ then $\phi_V(K)=$ green.
+\item Else if $\phi(uw) = \phi(vx)$ then $\phi_V(K)=$ yellow.
+\item Else $\phi_V(K)=$  red.
+\end{enumerate}
+Then by the Infinite Ramsey Theorem, $V$ has an infinite monochromatic subset, $X$.
+\paragraph{}
+Consider the case where $X$ is monochromatic blue. Let $u,v,w,x \in X$. We will show that $\phi(uv) = \phi(wx)$. Without loss of generality, up to relabelling, we may assume that $u<v$ and $w<x$. Since $X$ is infinite there exists $y,z \in X$ such that $y<z$, $v<y$, $x<y$. Then $\{u,v,y,z\} \subseteq X$ and $u<v<y<z$, so $\phi(uv) = \phi(yz)$ since $X$ is blue. Similarly $\{w,x,y,z\} \subseteq X$ and $w<x<y<z$, so $\phi(wx) = \phi(yz)$ since $X$ is blue. Therefore $\phi(uv)=\phi(yz)=\phi(wx)$. Thus for any $uv,wx \in E(G[X])$, $\phi(uv) = \phi(wx)$. Thus $G[X]$ is monochromatic. Thus for the remainder of the proof we may assume that $X$ is not monochromatic blue.
+\paragraph{}
+Suppose for a contradiction that $X$ is monochromatic green. Let $u,v,w,x \in X$ such that $u<v<w<x$. Since $X$ is infinite there exists $y,z \in X$ such that $x<y<z$. Now $\{u,v,w,z\} \subseteq X$ with $u<v<w<z$, so $\phi(uz) = \phi(vw)$ since $X$ is green. Further $\{u,x,y,z\} \subseteq X$ with $u<x<y<z$, so $\phi(uz) = \phi(xy)$ since $X$ is green. Therefore $\phi(vw) = \phi(uz) = \phi(xy)$. That is, $\{v,w,x,y\} \subseteq X$ with $v<w<x<y$ and $\phi(vw) = \phi(xy)$. Thus $\{v,w,x,y\}$ is colored blue, contradicting that $X$ is monochromatic green. Therefore $X$ is not monochromatic green.
+\paragraph{}
+Suppose for a contradiction that $X$ is monochromatic yellow. Let $u,v,w,x \in X$ such that $u<v<w<x$. Since $X$ is infinite there exists $y,z \in X$ such that $x<y<z$. Now $\{u,v,x,z\} \subseteq X$ with $u<v<x<z$, so $\phi(ux) = \phi(vz)$ since $X$ is yellow. Further $\{u,w,x,y\} \subseteq X$ with $u<w<x<y$, so $\phi(ux) = \phi(wy)$ since $X$ is yellow. Therefore $\phi(wy) = \phi(ux) = \phi(vz)$. That is, $\{v,w,y,z\} \subseteq X$ with $v<w<y<z$ and $\phi(vz) = \phi(wy)$. Thus $\{v,w,y,z\}$ is colored green, contradicting that $X$ is monochromatic yellow. Therefore $X$ is not monochromatic yellow.
+\paragraph{}
+Since $X$ is not monochromatic blue, green, or yellow, but $X$ is monochromatic, we have that $X$ is monochromatic red. Consider the coloring of $[X]^3$, $\phi_X$, given as follows. For any $K \in [X]^3$ with $K = \{u,v,w\}$ where $u<v<w$ color $K$ as follows:
+\begin{enumerate}
+\item If $\phi(uv) = \phi(vw)$ then $\phi_X(K)=$ blue.
+\item Else $\phi_X(K)=$ red.
+\end{enumerate}
+Then by the Infinite Ramsey Theorem, $X$ has an infinite monochromatic subset under $\phi_X$, $X_1$.
+\paragraph{}
+Suppose for a contradiction that $X_1$ is monochromatic blue under $\phi_X$. Let $u,v,w \in X_1$ such that $u<v<w$. Since $X_1$ is infinite there exists $x \in X_1$ such that $w<x$. Now $\{u,v,w\} \subseteq X_1$ with $u<v<w$, so $\phi(uv) = \phi(vw)$ since $X_1$ is blue under $\phi_X$. Similarly $\{v,w,x\} \subseteq X_1$ and $v<w<x$, so $\phi(vw) = \phi(wx)$ since $X_1$ is blue under $\phi_X$. That is, $\phi(uv) = \phi(vw) = \phi(wx)$. So $\{u,v,w,x\} \subseteq X_1$ with $u<v<w<x$, and $\phi(uv) = \phi(wx)$. Thus, as $X_1 \subseteq X$, $\{u,v,w,x\}$ is colored blue under $\phi_V$. Since $\{u,v,w,x\} \subseteq X$ this contradicts that $X$ is monochromatic red under $\phi_V$. Therefore $X_1$ is not monochromatic blue under $\phi_X$ and thus $X_1$ is monochromatic red under $\phi_X$.
+\paragraph{}
+Consider the coloring of $[X_1]^3$, $\phi_1$ given as follows. For any $K \in [X_1]^3$ with $K = \{u,v,w\}$ where $u<v<w$ color $K$ as follows:
+\begin{enumerate}
+\item If $\phi(uv) = \phi(uw)$ then $\phi_1(K)=$ blue.
+\item Else $\phi_1(K)=$  red.
+\end{enumerate}
+Then by the Infinite Ramsey Theorem, $X_1$ has an infinite monochromatic subset under $\phi_1$, $X_2$.
+\paragraph{}
+Also consider the coloring of $[X_2]^3$, $\phi_2$, given as follows. For any $K \in [X_2]^3$ with $K = \{u,v,w\}$ where $u<v<w$ color $K$ as follows:
+\begin{enumerate}
+\item If $\phi(uw) = \phi(vw)$ then $\phi_2(K)=$ blue.
+\item Else $\phi_2(K)=$ red.
+\end{enumerate}
+Then by the Infinite Ramsey Theorem, $X_2$ has an infinite monochromatic subset under $\phi_2$, $X_3$.
+\paragraph{}
+Consider the case where both $X_2$ is monochromatic blue under $\phi_1$ and $X_3$ is monochromatic blue under $\phi_2$. Then let $\{u,v,w\} \subseteq X_3$ such that $u<v<w$. Since $X_3$ is monochromatic blue under $\phi_2$, $\phi(uw) = \phi(vw)$. Since $X_3 \subseteq X_2$, and $X_2$ is monochromatic blue under $\phi_1$, $\phi(uv) = \phi(uw)$. Then $\phi(uv) = \phi(uw) = \phi(vw)$. Therefore $\{u,v,w\} \subseteq X_1$ such that $u<v<w$ and $\phi(uv) = \phi(vw)$, and thus $\{u,v,w\}$ is colored blue under $\phi_X$. Thus $\{u,v,w\}$ is a blue three element subset of $X_1$ contradicting that $X_1$ is monochromatic red under $\phi_X$. Thus either $X_2$ is monochromatic red under $\phi_1$ or $X_3$ is monochromatic red under $\phi_2$.
+\paragraph{}
+Consider the case where both $X_2$ is monochromatic red under $\phi_1$ and $X_3$ is monochromatic red under $\phi_2$.
 \end{document}
