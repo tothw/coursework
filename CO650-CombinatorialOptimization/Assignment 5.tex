@@ -114,4 +114,41 @@ $$
 \frac{u_{max}}{2^i} = \frac{u_{max}}{u_{max}} = 1.
 $$
 Thus the residual capacity of every $r-s$ dipath in the residual graph is $0$, and so there are no flow augmenting paths in the graph. Therefore the algorithm has found a max flow after this stage by Theorem $3.6$. This algorithm terminates after $O(log_2(u_{max}))$ stages each consisting of $O(m)$ augmentations. Therefore the algorithm terminates in polynomial time as $O(mlog_2(u_{max}))$ is polynomial in the size of the input since $log_2(u_{max})$ is the size of the binary representation of $u_{max}$. $\blacksquare$
+
+\section*{3}
+\paragraph{}
+Let $G=(V,E)$ be a network with source $r$ and sink $s$. Let $u \in (\R_+ \cup \{\infty\})^E$. Suppose there exists an arc $rv \in E$ such that $u_{rv} = \infty$. We may assume that $v \neq s$ as otherwise the maximum flow is unbounded. Let $x^*$ be a max flow on $G$. We claim that $f_{x^*}(s) = f_{x'}(s)$ where $x'$ is a finite max flow on $G'=G/rv$ with capacities $u' \in (\R_+ \cup \{\infty\})^{E\backslash\{rs\}}$.
+\paragraph{}
+To show this claim proceed by induction on the number of $\infty$ capacity arcs in $E$. Suppose there is only one $\infty$ capacity arc $rv$. Let $r'$ be the vertex of $G'$ resulting from contracting $rv$. This vertex is to be considered the source of $G'$. Since $v\neq s$, the sink $s$ remains the sink in $G'$. Since $G$ is connected and acyclic, $G'$ is connected and acyclic as the sets of graphs with these properties are closed under taking contractions. Since $G$ had only one $\infty$ capacity arc, $G'$ has no $\infty$ capacity edges. Therefore the min cut in $G'$ is finite valued, and thus by max-flow min-cut the max flow is finite valued. Let $x'$ be the max flow on $G'$. Let $R'$ be the min cut of $G'$. Then $u'(\delta(R')) = f_{x'}(s)$. Now $r' \in R'$ and $s \in \bar{R'}$. Let $R = R' \backslash\{r'\} \cup \{r,v\}$. Then $r \in R$ and $s \in \bar{R} = \bar{R'}$. So $R$ is an $rs$-cut in $G$ with $\delta(R) = \delta(R')$ and $u(\delta(R)) = u'(\delta(R')$. Since $R$ is an $rs$-cut, $f_{x^*}(s) \leq u(\delta(R))$ by max-flow min-cut. Suppose for a contradiction that $R$ is not a min cut of $G$. Let $R^*$ be a min cut of $G$. Then $u(\delta(R^*)) < u(\delta(R))$. Since $u(\delta(R))$ is finite, $u(\delta(R^*))$ is finite, and thus $rv \not\in \delta(R^*)$. But $r \in R^*$ (as $R^*$ is an $rs$-cut), so $v \in R^*$. Let $R'' = R^* \backslash \{r,v\} \cup \{r'\}$. Then $R''$ is an $r's$-cut in $G'$ and $\delta(R'') = \delta(R)$. But then:
+\begin{align*}
+u'(\delta(R'')) &= u(\delta(R^*)) \\
+&< u(\delta(R)) \\
+= u'(\delta(R')).
+\end{align*}
+This contradicts that $R'$ is a min cut in $G'$. Therefore $R$ is a min cut of $G$, and thus $f_{x*}(s) = u(\delta(R)) = u'(\delta(R')) = f_{x'}(s)$ as desired.
+\paragraph{}
+Now suppose for induction that for all graphs with at least one but less than $n$ arcs of $\infty$ capacity the claim holds. Let $n$ be the number of $\infty$ capacity $rv$ arcs of $G$. Let $rv$ be one such arc. Let $G'$, $r'$, $u'$ be as discussed previously. Let $x'$ be a max flow on $G'$. Now $G'$ has less than $n$ $\infty$ capacity arcs since $rv$ was contracted. Let $r'v' \in E(G')$ such that $u_{r'v'} = \infty$. Let $x''$ be a max flow on $G'/r'v'$. By the induction hypothesis $f_{x'}(s) = f_{x''}(s)$ which is finite. Therefore the min cut in $G'$ is finite valued, and thus by max-flow min-cut the max flow is finite valued. Let $R'$ be the min cut of $G'$. Then $u'(\delta(R')) = f_{x'}(s)$. Now $r' \in R'$ and $s \in \bar{R'}$. Let $R = R' \backslash\{r'\} \cup \{r,v\}$. Then $r \in R$ and $s \in \bar{R} = \bar{R'}$. So $R$ is an $rs$-cut in $G$ with $\delta(R) = \delta(R')$ and $u(\delta(R)) = u'(\delta(R')$. Since $R$ is an $rs$-cut, $f_{x^*}(s) \leq u(\delta(R))$ by max-flow min-cut. Suppose for a contradiction that $R$ is not a min cut of $G$. Let $R^*$ be a min cut of $G$. Then $u(\delta(R^*)) < u(\delta(R))$. Since $u(\delta(R))$ is finite, $u(\delta(R^*))$ is finite, and thus $rv \not\in \delta(R^*)$. But $r \in R^*$ (as $R^*$ is an $rs$-cut), so $v \in R^*$. Let $R'' = R^* \backslash \{r,v\} \cup \{r'\}$. Then $R''$ is an $r's$-cut in $G'$ and $\delta(R'') = \delta(R)$. But then:
+\begin{align*}
+u'(\delta(R'')) &= u(\delta(R^*)) \\
+&< u(\delta(R)) \\
+= u'(\delta(R')).
+\end{align*}
+This contradicts that $R'$ is a min cut in $G'$. Therefore $R$ is a min cut of $G$, and thus $f_{x*}(s) = u(\delta(R)) = u'(\delta(R')) = f_{x'}(s)$ as desired. So by the principle of mathematical induction the claim holds.
+\paragraph{}
+This claim gives rise to an algorithm for constructing a maximum flow when $\infty$ capacity arcs are present. Given $G$, $u$, $r$, $v$ the algorithm does the following:
+\begin{enumerate}
+\item If $G$ has $\infty$ capacity arc from $r$ to $s$ stop, problem is unbounded.\\
+\item If $G$ has no $\infty$ capacity arcs return max flow using a standard algorithm\\
+\item Else let $rv$ be an $\infty$ capacity arc.\\
+\item Call the algorithm recursively on $G' = G/rv$.\\
+\item Let $x'$ be the flow returned. Construct the max flow on $G$, $x^*$ as follows:\\
+\subitem For all outgoing arcs from $v$, $vu$, let $x^*{vu} = x'_{r'u}$.\\
+\subitem Set $x^*_{rv} = \sum_{a \in \delta^+(v)} x^*_{a}$.\\
+\subitem For all arcs $r'u$ such that $u$ is not head of an outgoing arc from $v$, let $x^*_{ru} = x'_{r'u}$,\\
+\subitem For all remaing arcs $uw$ set $x^*_{uw} = x'_{uw}$.
+\end{enumerate}
+\paragraph{}
+This algorithm constructs a flow on $G$ of the same value as a flow on the contracted graph $G'$, so by our claim, provided that the constructed flow is feasible, the constructed flow is maximal. Indeed the only vertex in the graph $G$ for which it is not clear that the flow passing through in $x^*$ and $x'$ is the same is $v$, but in the second step of constructing the flow it is set to be such, and hence since $x'$ is feasible so is $x^*$. Therefore this algorithm constructs a maximum flow for $G$. This algorithm runs in polynomial time because calling a standard max flow returns in polynomial time, contracting an edge is polynomial time, and building the new flow can be done in polynomial time by scanning the edge sets of $G$ and $G'$. $\blacksquare$
+
+\section*{4}
 \end{document}
