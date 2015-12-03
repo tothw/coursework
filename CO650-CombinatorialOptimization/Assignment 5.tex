@@ -197,6 +197,8 @@ Thus $\lambda(G,p,r) \geq \lambda(G,p,q)$. Similarly we have that
 Thus $\lambda(G,p,q) \geq \lambda(G,p,r)$. Combining inequalities we obtain that $\lambda(G,p,q) = \lambda(G,p,r)$ (the smallest two of $\lambda(G,p,q),\lambda(G,p,r),\lambda(G,q,r)$ are equal) as desired. $\blacksquare$
 
 \section*{6}
+\paragraph{Definition}
+Let $G$ be an undirected graph. Let $T_G$ be a Gomory-Hu tree for $G$.  For any edge $e \in E(T_G)$ let $C(e)$ (the cut in $G$ induced by $e$) denote the edges in $G$ between the two connected components of $T-e$.
 \paragraph{Lemma 6.1}
 Let $G=(V,E)$ be a graph. Let $T \subseteq V$, $|T|$ is even. Let $\delta(S)$ be a $T$-cut. Let $J$ be a $T$-join. Then $|J \cap \delta(S)|$ is odd. (Note: This is mentioned in the textbook without a complete proof)
 \paragraph{Proof of Lemma 6.1}
@@ -212,4 +214,20 @@ Therefore we have that $|J \cap \delta(S)|$ is odd. $\blacksquare$
 Let $G=(V,E)$ be a graph. Let $T \subseteq V$, $|T|$ is even. Let $\delta(S)$ be a $T$-cut. Let $J$ be a $T$-join. Then $J \cap \delta(S) \neq \emptyset$.
 \paragraph{Proof of Lemma 6.2}
 Since $|J \cap \delta(S)| \geq 0$, and by Lemma $6.1$ we have that $|J \cap \delta(S)|$ is odd so $|J \cap \delta(S)| \geq 1$ since $0$ is even. Therefore $J \cap \delta(S) \neq \emptyset$. $\blacksquare$
+\paragraph{Lemma 6.3}
+Let $G$ be an undirected graph. Let $T_G$ be a Gomory-Hu tree for $G$. Let $T \subseteq V(G)$ such that $|T|$ is even. Let $J = \{e \in E(T_G) : C(e) \text{ is a } T-\text{cut in } G\}$. Then $J$ is a $T$-join in $T_G$.
+\paragraph{Proof of Lemma 6.3}
+$\blacksquare$
+\paragraph{Theorem 6}
+If $G$ is an undirected graph with capacities $u \in \R_+^E$, $T\subseteq V$ such that $|T|$ is even, and $T_G$ is a Gomory-Hu tree for $G$ then there exists $e\in E(T_G)$ such that $C(e)$ is a $T$-cut in $G$ and $u(C(e))$ is minimal over all $T$-cuts in $G$.
+\paragraph{Proof of Theorem 6}
+Suppose that $G$ be an undirected graph with capacities $u \in \R_+^E$, $T\subseteq V$ such that $|T|$ is even, and $T_G$ is a Gomory-Hu tree for $G$. We may assume that $G$ is a complete graph, as otherwise we may add $0$-capacity edges to $G$ between non-adjacent vertices in order to complete $G$ without affecting the capacity of any cut in $G$. Notice that since $G$ is a complete graph, $T_G$ is a subgraph of $G$. Let $\delta(S)$ be a minimum $T$-cut in $G$. Let $J  = \{e \in E(T_G) : C(e) \text{ is a } T-\text{cut in } G\}$. By Lemma $6.3$, $J$ is a $T$-join of $T_G$. Since $T_G$ is a subgraph of $G$ we may invoke Lemma $6.2$ obtaining that $J \cap \delta(S) \neq \emptyset$. Let $e=uv \in J \cap \delta(S)$. Then, since $e \in J$, $C(e)$ is a $T$-cut in $G$. Since $e \in \delta(S)$, $\delta(S)$ separates $u$ and $v$. Therefore, by minimality of $\lambda(G, u,v) = f_e$ we have that
+\begin{align*}
+u(\delta(S)) &\geq \lambda(G,u,v) \\
+&= f_e \\
+&= u(C(e)).
+\end{align*}
+Thus, since $\delta(S)$ is a minimum $T$-cut in $G$, we have that $C(e)$ is a minimum $T$-cut in $G$. $\blacksquare$
+\paragraph{}
+Theorem $6$ gives rise to an algorithm for finding the minimum capacity $T$-cut. Let $n = |V(G)|$. To find the minimum capacity $T$-cut, simply compute the Gomory-Hu tree for $G$ (this can be done in $O(n^4)$ time), and return the minimum $T$-cut among cuts induced by edges in the Gomory-Hu tree. By Theorem $6$ this algorithm will in fact return a correct minimum capacity $T$-cut. For any edge in the Gomory-Hu tree, the cut induced by that edge can be verified to be a $T$-cut in $O(n^2)$ time by scanning the vertex set of the partitions of the cut and counting the number of vertices in $T$ (verifying that the count is odd). There are $O(n)$ edges to scan in the tree, so the entire process of finding the minimum $T$-cut once the tree is computed can be done in $O(n^3)$ time. Therefore the entire algorithm returns a minimum capacity $T$-cut in $G$ in $O(n^4)$ time. $\blacksquare$
 \end{document}
