@@ -183,20 +183,33 @@ Now let $v \in \bar{S}_{x_i}$. Suppose that $v \not\in \bar{S}_{x_{i-1}}$. Then 
 Let $k$ be the final iteration of the original algorithm after running from the state returned by the modified algorithm. Let $x^* = x_k$. By Theorem $4$, $S_{x^*} = S_x$. Notice that $x^*$ is a maximum flow, and thus is feasible. Now $S_x$ is an $r-s$ cut since $r \in S_x$ by Lemma $4.1$ and $s \in \bar{S}_x$ by definition. Let $v \in S_x$ and let $w \in \bar{S}_x$. Then $v \in S_{x^*}$ and $w \in \bar{S}_{x^*}$. Now $(v,w)$ is not an arc in $D'_{x^*}$, as otherwise the arc $(v,w)$ joined to the $(w,s)$ dipath in $D'_{x^*}$ is a $(v,s)$ dipath in $D'_{x^*}$ contradicting that $v \in S_{x^*}$. Since $(v,w)$ is not an arc in $D'_{x^*}$, $x^*_{vw} = u_{vw}$ and $x^*_{wv} = 0$. That is to say, since $x^*$ is feasible and $S_{x^*} = S_x$ is an $r-s$ cut, by Corollary $3.8$, $S_{x^*}$ is a minimum $r-s$ cut. Since $S_x = S_{x^*}$, $S_x$ is a min cut. Therefore the modified push-relabel algorithm returns a minimum cut as desired. $\blacksquare$
 
 \section*{5}
-\paragraph{Lemma 5.1}
-Let $G$ be an undirected graph with capacities $u \in R_+^E$. For all $p,q,r \in V(G)$, $\lambda(G, q,r) \geq min(\lambda(G,p,q), \lambda(G, p,r))$.
-\paragraph{Proof of Lemma 5.1}
-Let $R \subseteq V(G)$ such that $\delta(R)$ is a miniumum $q-r$ cut. That is $q \in R$, $r\in V(G) \backslash R$, and $u(\delta(R)) = \lambda(G,q,r)$. Since $\delta(R)$ is a cut in $G$, either $p \in R$ or $p \in V \backslash R$. Suppose $p \in R$. Then $\delta(R)$ is a $p-r$ cut as $p \in R$ and $r \in V \backslash R$, and hence $u(\delta(R)) \geq \lambda(G,p,r)$. Therefore $u(\delta(R)) \geq min(\lambda(G,p,q), \lambda(G,p,r))$. That is, $\lambda(G,q,r) \geq min(\lambda(G,p,q),\lambda(G,p,r))$ as desired. Now suppose that $p \in V\backslash R$. Then $\delta(R)$ is a $p-q$ cut as $q \in R$ and $p \in V\backslash R$, and hence $u(\delta(R)) \geq \lambda(G,p,q)$. Therefore $u(\delta(R)) \geq min(\lambda(G,p,q), \lambda(G,p,r))$. That is, $\lambda(G,q,r) \geq min(\lambda(G,p,q), \lambda(G,p,r))$ as desired. $\blacksquare$
 \paragraph{}
 Let $G$ be an undirected graph with capacities $u \in R_+^E$. Let $p,q,r \in V$. We may assume without loss of generality, up to relabelling, that $\lambda(G,p,q) \leq \lambda(G,p,r) \leq \lambda(G,q,r)$. So we have that 
 \begin{align*}
-\lambda(G,p,r) &\geq min(\lambda(G,p,q), \lambda(G,q,r)) &\text{by Lemma $5.1$}\\
+\lambda(G,p,r) &\geq min(\lambda(G,p,q), \lambda(G,q,r)) &\text{by Lemma $3.37$ of the textbook}\\
 &= \lambda(G,p,q). &\text{ since $\lambda(G,p,q) \leq \lambda(G,q,r)$}
 \end{align*} 
 Thus $\lambda(G,p,r) \geq \lambda(G,p,q)$. Similarly we have that
 \begin{align*}
-\lambda(G,p,q) &\geq min(\lambda(G,p,r), \lambda(G,q,r)) &\text{by Lemma $5.1$}\\
+\lambda(G,p,q) &\geq min(\lambda(G,p,r), \lambda(G,q,r)) &\text{by Lemma $3.37$}\\
 &= \lambda(G,p,r). &\text{since $\lambda(G,p,r) \leq \lambda(G,q,r)$}
 \end{align*}
 Thus $\lambda(G,p,q) \geq \lambda(G,p,r)$. Combining inequalities we obtain that $\lambda(G,p,q) = \lambda(G,p,r)$ (the smallest two of $\lambda(G,p,q),\lambda(G,p,r),\lambda(G,q,r)$ are equal) as desired. $\blacksquare$
+
+\section*{6}
+\paragraph{Lemma 6.1}
+Let $G=(V,E)$ be a graph. Let $T \subseteq V$, $|T|$ is even. Let $\delta(S)$ be a $T$-cut. Let $J$ be a $T$-join. Then $|J \cap \delta(S)|$ is odd. (Note: This is mentioned in the textbook without a complete proof)
+\paragraph{Proof of Lemma 6.1}
+Let $G'$ be a graph such that $G' = (S, \gamma(S) \cap J)$. Recall that $\gamma(S) = \{ uv \in E(G) : u, v \in S\}$. Let $d'$ be the degree function on vertices of $G'$. Let $D' = \{ v \in S : d'(v) \equiv 1 (\text{mod }2)\}$. Since $G'$ is a graph, $|D'|$ is even (this is a common graph theory fact, that the number of odd degree vertices in a graph is even). Now let $G''$ be a graph such that $G'' = (V, J)$. Let $d''$ be the degree function on vertices of $G''$. Since $\delta(S)$ is a $T$-cut, $|S \cap T| \equiv 1$ (mod $2$). Since $J$ is a $T$-join, $d''(v) \equiv 1$ (mod $2$) if and only if $v \in T$. Let $D'' = \{v \in S : d''(v) \equiv 1 (\text{mod }2)\}$. Then we have that $|D''|$ is odd. By a counting argument one can see that $|J \cap \delta(S)| = \sum_{v \in S} d''(v) - \sum_{v \in S} d'(v)$. One can see this by realizing that the first sum counts edges with at least one endpoint in $S$, while the second sum counts edges with two endpoints in $S$. The edges remaining uncounted are exactly the edges on the $S$-boundary, $\delta(S)$. Thus we have that
+\begin{align*}
+|J \cap \delta(S) &\equiv \sum_{v \in S} d''(v) - \sum_{v \in S} d'(v) &(\text{mod }2)\\
+&\equiv |D''| - |D'| &(\text{mod }2)\\
+&\equiv 1 - 0 &(\text{mod }2)\\
+&\equiv 1. &(\text{mod }2)
+\end{align*}
+Therefore we have that $|J \cap \delta(S)|$ is odd. $\blacksquare$
+\paragraph{Lemma 6.2}
+Let $G=(V,E)$ be a graph. Let $T \subseteq V$, $|T|$ is even. Let $\delta(S)$ be a $T$-cut. Let $J$ be a $T$-join. Then $J \cap \delta(S) \neq \emptyset$.
+\paragraph{Proof of Lemma 6.2}
+Since $|J \cap \delta(S)| \geq 0$, and by Lemma $6.1$ we have that $|J \cap \delta(S)|$ is odd so $|J \cap \delta(S)| \geq 1$ since $0$ is even. Therefore $J \cap \delta(S) \neq \emptyset$. $\blacksquare$
 \end{document}
