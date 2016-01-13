@@ -1,0 +1,185 @@
+%%%% Thanks to A. Gupta and R. Ravi for providing this template file.
+
+
+
+\documentclass[11pt]{article}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{xspace}
+\usepackage{theorem}
+\usepackage{color}
+\usepackage[pdftex]{graphicx}
+\usepackage{epsfig}
+\usepackage[ruled,algosection,vlined,linesnumbered]{algorithm2e}
+\usepackage{tikz}
+%\usepackage{layout}% if you want to see the layout parameters
+                     % and now use \layout command in the body
+
+% This is the stuff for normal spacing
+\makeatletter
+ \setlength{\textwidth}{6.5in}
+ \setlength{\oddsidemargin}{0in}
+ \setlength{\evensidemargin}{0in}
+ \setlength{\topmargin}{0.25in}
+ \setlength{\textheight}{8.25in}
+ \setlength{\headheight}{0pt}
+ \setlength{\headsep}{0pt}
+ \setlength{\marginparwidth}{59pt}
+
+ \setlength{\parindent}{0pt}
+ \setlength{\parskip}{5pt plus 1pt}
+ \setlength{\theorempreskipamount}{5pt plus 1pt}
+ \setlength{\theorempostskipamount}{0pt}
+ \setlength{\abovedisplayskip}{8pt plus 3pt minus 6pt}
+
+ \renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                   {2ex plus -1ex minus -.2ex}%
+                                   {1.3ex plus .2ex}%
+                                   {\normalfont\Large\bfseries}}%
+ \renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                     {1ex plus -1ex minus -.2ex}%
+                                     {1ex plus .2ex}%
+                                     {\normalfont\large\bfseries}}%
+ \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                     {1ex plus -1ex minus -.2ex}%
+                                     {1ex plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+ \renewcommand\paragraph{\@startsection{paragraph}{4}{0mm}%
+                                    {1ex \@plus1ex \@minus.2ex}%
+                                    {-1em}%
+                                    {\normalfont\normalsize\bfseries}}
+ \renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+                                       {2.0ex \@plus1ex \@minus .2ex}%
+                                       {-1em}%
+                                      {\normalfont\normalsize\bfseries}}
+\makeatother
+
+\newenvironment{proof}{{\bf Proof:  }}{\hfill\rule{2mm}{2mm}}
+\newenvironment{proofof}[1]{{\bf Proof of #1:  }}{\hfill\rule{2mm}{2mm}}
+\newenvironment{proofofnobox}[1]{{\bf#1:  }}{}\newenvironment{example}{{\bf Example:  }}{\hfill\rule{2mm}{2mm}}
+\renewcommand{\thesection}{\lecnum.\arabic{section}}
+
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+
+\newtheorem{fact}{Fact}[section]
+\newtheorem{lemma}[fact]{Lemma}
+\newtheorem{theorem}[fact]{Theorem}
+\newtheorem{definition}[fact]{Definition}
+\newtheorem{corollary}[fact]{Corollary}
+\newtheorem{proposition}[fact]{Proposition}
+\newtheorem{claim}[fact]{Claim}
+\newtheorem{exercise}[fact]{Exercise}
+\newtheorem{note}[fact]{Note}
+
+% math notation
+\newcommand{\R}{\ensuremath{\mathbb R}}
+\newcommand{\Z}{\ensuremath{\mathbb Z}}
+\newcommand{\N}{\ensuremath{\mathbb N}}
+\newcommand{\F}{\ensuremath{\mathcal F}}
+
+\newcommand{\size}[1]{\ensuremath{\left|#1\right|}}
+\newcommand{\ceil}[1]{\ensuremath{\left\lceil#1\right\rceil}}
+\newcommand{\floor}[1]{\ensuremath{\left\lfloor#1\right\rfloor}}
+
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\cone}{cone}
+\DeclareMathOperator{\aff}{aff}
+\DeclareMathOperator{\rec}{rec}
+\DeclareMathOperator{\lin}{lin}
+\DeclareMathOperator{\rank}{rank}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document begins here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\headings}[4]{
+{\bf CO 759: Topics in Integer Programming} \hfill {{\bf Lecturer:} #1}\\
+{{\bf Topic:} #2} \hfill {{\bf Date:} #3} \\
+{{\bf Scribe:} #4}\\
+\rule[0.1in]{\textwidth}{0.025in}
+%\thispagestyle{empty}
+}
+
+\begin{document}
+\headings{Ricardo Fukasawa}{Polyhedral Theory Continued}{Jan/12/2016}{William Justin Toth}
+\newcommand{\lecnum}{3}
+
+\section{Extreme Points, Vertices, Basic Feasible Solutions}
+\paragraph{Extreme Point} Let $P = \{ x : Ax \leq b \} \subseteq \R^n$, and let $\bar{x} \in P$. We say $\bar{x}$ is an $\textit{extreme point}$ of $P$ provided $$\not\exists\ x^1, x^2 \in P \backslash \{\bar{x}\} \text{ such that }\bar{x} = \frac{1}{2}(x^1 + x^2).$$
+\begin{note}
+An equivalent condition is to say that 
+$$\not\exists\ x^1, x^2 \in P \backslash \{\bar{x}\} \text{ such that }\bar{x} = \lambda x^1 + (1-\lambda)x^2 \text{ for some } \lambda \in (0,1).$$
+\end{note}
+\begin{proof}
+Let $P = \{x \in \R^n : Ax \leq b\}$. Let $\bar{x} \in P$.
+\paragraph{}
+Suppose that there exists $x^1, x^2 \in P\backslash\{x\}$ such that $\bar{x} = \frac{1}{2}(x^1 + x^2)$. Then taking $\lambda = \frac{1}{2} \in (0,1)$ gives that $\bar{x} = \lambda x^1 + (1-\lambda)x^2$ as desired.
+\paragraph{}
+Now suppose that there exists $x^1, x^2 \in P\backslash\{x\}$ such that $\bar{x} = \lambda x^1 + (1-\lambda)x^2$ for some $\lambda \in (0,1)$. We may assume that $\lambda \leq \frac{1}{2}$ without loss of generality (as otherwise we switch the labels $x^1$ and $x^2$ and proceed). Consider the vector:
+$$ a^1 = \frac{1}{2} \lambda x^1 + \frac{2-\lambda}{2} x^2.$$
+Since $\frac{1}{2} \lambda + \frac{2-\lambda}{2} = 1$ and $\frac{1}{2}\lambda, \frac{2-\lambda}{2} \geq 0$ we have that $a^1$ is a convex combination of $x^1$ and $x^2$. Since $P$ is a convex set we thus have that $a^1 \in P$. Additionally consider the vector:
+$$ a^2 = \frac{3}{2} \lambda x^1 + \frac{2-3\lambda}{2}x^2.$$
+Since $\frac{3}{2} \lambda + \frac{2-3\lambda}{2} = 1$ and $\frac{3}{2}\lambda, \frac{2-3\lambda}{2} \geq 0$ (recall we assume that $\lambda \leq \frac{1}{2}$) we have that $a^2$ is a convex combination of $x^1$ and $x^2$. Since $P$ is a convex set we thus have that $a^2 \in P$. Now we compute:
+\begin{align*}
+\frac{1}{2}(a^1 + a^2) &= \frac{1}{2}(\frac{1}{2}\lambda x^1 + \frac{2-\lambda}{2}x^2 + \frac{3}{2}\lambda x^1 + \frac{2-3\lambda}{2}x^2) \\
+&= \frac{1}{2}(2\lambda x^1 + \frac{4-4\lambda}{2}x^2) \\
+&=\lambda x^1 + (1-\lambda)x^2 \\
+&=\bar{x}.
+\end{align*}
+Thus there exists $a^1,a^2 \in P$ such that $\bar{x} = \frac{1}{2}(a^1 + a^2)$.
+\end{proof}
+\paragraph{Basic Feasible Solution} Let $P = \{ x : Ax \leq b \} \subseteq \R^n$, and let $\bar{x} \in P$. We say $\bar{x}$ is a $\textit{basic feasible solution}$ (BFS) provided $\bar{x}$ satisfies $n$ linearly independent constraints of $P$ at equality.
+\paragraph{Vertex} Let $P = \{ x : Ax \leq b \} \subseteq \R^n$, and let $\bar{x} \in P$. We say $\bar{x}$ is a $\textit{vertex}$ of $P$ provided  it is a dimension $0$ face of $P$.
+\begin{theorem}
+If $P \subseteq \R^n$ is a pointed polyhedron then the following are equivalent:
+\begin{enumerate}
+\item $\bar{x}$ is an extreme point of $P$,
+\item $\bar{x}$ is a vertex of $P$,
+\item $\bar{x}$ is a BFS,
+\item $\exists\ c:\bar{x}$ is the unique optimal solution to $max\{c^Tx : x \in P\}$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Omitted.
+\end{proof}
+\section{Extreme Rays/Edges}
+\paragraph{Edge} A face of dimension $1$ is called an \textit{edge}.
+\begin{note}
+\begin{itemize}
+\item In $\R^2$ edges and facets are equivalent, but not in higher dimensions.
+\item Any edge contains at most $2$ extreme points
+\item If edge $F$ contains $2$ extreme points, say $x^1$ and $x^2$ then
+$$F = \{ x : x = \lambda x^1 + (1-\lambda)x^2, \lambda \in [0,1]\}.$$
+\item If edge $F$ contains $1$ extreme points, say $x^1$, then there exists $r \in rec(P)$ (the recession cone of $P$) such that
+$$F = \{x : x = x^1 + \lambda r, \lambda \geq 0 \}.$$
+\item If $P$ is pointed then any edge of $P$ has at least $1$ extreme point.
+\end{itemize}
+\end{note}
+\paragraph{Extreme Ray} Let $C \subseteq \R^n$ be a pointed polyhedral cone. Then $r \in C$ is an \textit{extreme ray} of $C$ provided $r \neq 0$ and if $r = u_1 r^1 + u_2 r^2$ for some $u_1, u_2 \geq 0$ and $r^1, r^2 \in C$ then $r^1, r^2 \in cone(r)$.
+\begin{theorem}
+Let $C = \{x \in \R^n : Ax \leq 0 \}$ be a pointed polyhedral cone and let $\bar{r} \in C$ such that $\bar{r} \neq 0$. The following are equivalent:
+\begin{enumerate}
+\item $\bar{x}$ is an extreme ray of $C$,
+\item $\bar{r}$ satisfies $n-1$ linearly independent constraints of $C$ at equality,
+\item $\{0 + \lambda \bar{r} : \lambda \geq 0 \}$ is an edge of $C$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Omitted.
+\end{proof}
+\begin{note}
+For a polyhedron $P$ we say that $r$ is an extreme ray of $P$ provided it is an extreme ray of $rec(P)$.
+\end{note}
+\begin{note}
+Theorem $3.1.2$ and theorem $3.2.2$ implies that the number of extreme points and rays of a pointed polyhedron is finite (up to scalar multiplication).
+\end{note}
+\end{document}
+
+
+
+
