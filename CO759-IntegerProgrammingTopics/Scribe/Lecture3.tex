@@ -90,6 +90,7 @@
 \DeclareMathOperator{\rec}{rec}
 \DeclareMathOperator{\lin}{lin}
 \DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\proj}{proj}
 
 
 
@@ -111,74 +112,132 @@
 
 \section{Decomposition}
 \subsection{Extreme Points, Vertices, Basic Feasible Solutions}
-\paragraph{Extreme Point} Let $P = \{ x : Ax \leq b \} \subseteq \R^n$, and let $\bar{x} \in P$. We say $\bar{x}$ is an $\textit{extreme point}$ of $P$ provided $$\not\exists\ x^1, x^2 \in P \backslash \{\bar{x}\} \text{ such that }\bar{x} = \frac{1}{2}(x^1 + x^2).$$
+\paragraph{Extreme Point} Let $P = \{ x : Ax \leq b \} \subseteq \R^n$, and let $\bar{x} \in P$. We say $\bar{x}$ is an $\textit{extreme point}$ of $P$ if
+\begin{equation}\label{eqn1}
+\not\exists\ x^1, x^2 \in P \backslash \{\bar{x}\} \text{ such that }\bar{x} = \frac{1}{2}(x^1 + x^2).
+\end{equation}
+
 \begin{note}
-An equivalent condition is to say that 
-$$\not\exists\ x^1, x^2 \in P \backslash \{\bar{x}\} \text{ such that }\bar{x} = \lambda x^1 + (1-\lambda)x^2 \text{ for some } \lambda \in (0,1).$$
+Condition \ref{eqn1} is equivalent to
+\begin{equation}\label{eqn2}
+\not\exists\ x^1, x^2 \in P \backslash \{\bar{x}\} \text{ such that }\bar{x} = \lambda x^1 + (1-\lambda)x^2 \text{ for some } \lambda \in (0,1).
+\end{equation}
 \end{note}
+
 \begin{proof}
 Let $P = \{x \in \R^n : Ax \leq b\}$. Let $\bar{x} \in P$.
-\paragraph{}
-Suppose that there exists $x^1, x^2 \in P\backslash\{x\}$ such that $\bar{x} = \frac{1}{2}(x^1 + x^2)$. Then taking $\lambda = \frac{1}{2} \in (0,1)$ gives that $\bar{x} = \lambda x^1 + (1-\lambda)x^2$ as desired.
-\paragraph{}
-Now suppose that there exists $x^1, x^2 \in P\backslash\{x\}$ such that $\bar{x} = \lambda x^1 + (1-\lambda)x^2$ for some $\lambda \in (0,1)$. We may assume that $\lambda \leq \frac{1}{2}$ without loss of generality (as otherwise we switch the labels $x^1$ and $x^2$ and proceed). Consider the vector:
+
+\underline{\noindent ($\Rightarrow$: Condition \ref{eqn1} $\implies$ Condition \ref{eqn2})} \\
+Suppose that there exist $x^1, x^2 \in P\backslash\{x\}$ such that $\bar{x} = \frac{1}{2}(x^1 + x^2)$. Taking $\lambda = \frac{1}{2} \in (0,1)$ gives $\bar{x} = \lambda x^1 + (1-\lambda)x^2$ as desired. \\
+
+\noindent \underline{\noindent ($\Leftarrow$: Condition \ref{eqn2} $\implies$ Condition \ref{eqn1})} \\
+Now suppose that there exist $x^1, x^2 \in P\backslash\{x\}$ such that $\bar{x} = \lambda x^1 + (1-\lambda)x^2$ for some $\lambda \in (0,1)$.
+We may assume that $\lambda \leq \frac{1}{2}$ without loss of generality (as otherwise we switch the labels $x^1$ and $x^2$ and proceed). Consider the vector
 $$ a^1 = \frac{1}{2} \lambda x^1 + \frac{2-\lambda}{2} x^2.$$
-Since $\frac{1}{2} \lambda + \frac{2-\lambda}{2} = 1$ and $\frac{1}{2}\lambda, \frac{2-\lambda}{2} \geq 0$ we have that $a^1$ is a convex combination of $x^1$ and $x^2$. Since $P$ is a convex set we thus have that $a^1 \in P$. Additionally consider the vector:
+Since $\frac{1}{2} \lambda + \frac{2-\lambda}{2} = 1$ and $\frac{1}{2}\lambda, \frac{2-\lambda}{2} \geq 0$, $a^1$ is a convex combination of $x^1$ and $x^2$.
+Since $P$ is a convex set, $a^1 \in P$. Next consider the vector
 $$ a^2 = \frac{3}{2} \lambda x^1 + \frac{2-3\lambda}{2}x^2.$$
-Since $\frac{3}{2} \lambda + \frac{2-3\lambda}{2} = 1$ and $\frac{3}{2}\lambda, \frac{2-3\lambda}{2} \geq 0$ (recall we assume that $\lambda \leq \frac{1}{2}$) we have that $a^2$ is a convex combination of $x^1$ and $x^2$. Since $P$ is a convex set we thus have that $a^2 \in P$. Now we compute:
+Since $\frac{3}{2} \lambda + \frac{2-3\lambda}{2} = 1$ and $\frac{3}{2}\lambda, \frac{2-3\lambda}{2} \geq 0$ (recall we assume that $\lambda \leq \frac{1}{2}$) we have that $a^2$ is a convex combination of $x^1$ and $x^2$. Thus $a^2 \in P$ since $P$ is a convex set. Now we compute:
 \begin{align*}
 \frac{1}{2}(a^1 + a^2) &= \frac{1}{2}(\frac{1}{2}\lambda x^1 + \frac{2-\lambda}{2}x^2 + \frac{3}{2}\lambda x^1 + \frac{2-3\lambda}{2}x^2) \\
 &= \frac{1}{2}(2\lambda x^1 + \frac{4-4\lambda}{2}x^2) \\
 &=\lambda x^1 + (1-\lambda)x^2 \\
 &=\bar{x}.
 \end{align*}
-Thus there exists $a^1,a^2 \in P$ such that $\bar{x} = \frac{1}{2}(a^1 + a^2)$.
+Thus there exist $a^1,a^2 \in P$ such that $\bar{x} = \frac{1}{2}(a^1 + a^2)$.
 \end{proof}
-\paragraph{Basic Feasible Solution} Let $P = \{ x : Ax \leq b \} \subseteq \R^n$, and let $\bar{x} \in P$. We say $\bar{x}$ is a $\textit{basic feasible solution}$ (BFS) provided $\bar{x}$ satisfies $n$ linearly independent constraints of $P$ at equality.
-\paragraph{Vertex} Let $P = \{ x : Ax \leq b \} \subseteq \R^n$, and let $\bar{x} \in P$. We say $\bar{x}$ is a $\textit{vertex}$ of $P$ provided  it is a dimension $0$ face of $P$.
+\paragraph{Basic Feasible Solution} Let $P = \{ x : Ax \leq b \} \subseteq \R^n$, and let $\bar{x} \in P$. We say $\bar{x}$ is a $\textit{basic feasible solution}$ (BFS) if $\bar{x}$ satisfies $n$ linearly independent constraints of $P$ at equality.
+\paragraph{Vertex} Let $P = \{ x : Ax \leq b \} \subseteq \R^n$, and let $\bar{x} \in P$. We say $\bar{x}$ is a $\textit{vertex}$ of $P$ if it is a dimension zero face of $P$.
 \begin{theorem}
 If $P \subseteq \R^n$ is a pointed polyhedron then the following are equivalent:
 \begin{enumerate}
-\item $\bar{x}$ is an extreme point of $P$,
 \item $\bar{x}$ is a vertex of $P$,
-\item $\bar{x}$ is a BFS,
-\item $\exists\ c:\bar{x}$ is the unique optimal solution to $max\{c^Tx : x \in P\}$.
+\item $\exists\ c:\bar{x}$ is the unique optimal solution to $\max\{c^Tx : x \in P\}$,
+\item $\bar{x}$ is an extreme point of $P$,
+\item $\bar{x}$ is a BFS.
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-Omitted.
+Let $P = \{x \in \R^n : Ax \leq b\}$. Let $\bar{x} \in P$.
+
+\underline{\noindent ($1\implies 2$)}\\
+Suppose $\bar{x}$ is a vertex of $P$.  Let $c^Tx = \delta$ be the supporting hyperplane for $\bar{x}$. Then $c^Tx \leq \delta$ is a valid inequality for $P$. Since $\{\bar{x}\}$ is a dimension zero face of $P$ we have that $$\forall x'\neq \bar{x} \in P, c^Tx' < \delta.$$
+So $\bar{x}$ is the unique optimal solution to $\max\{c^Tx : x \in P \}$.
+
+\underline{\noindent ($2 \implies 3$)}\\
+Suppose there exist $c$ such that $\bar{x}$ is the unique optimal solution to $\max\{c^Tx : x \in P\}$. Suppose for a contradiction 
+$$\exists\ x^1, x^2 \in P \backslash \{\bar{x}\} \text{ such that }\bar{x} = \frac{1}{2}(x^1 + x^2).$$
+Then rearranging we have that 
+$$c^Tx^1 = 2c^T\bar{x} - c^Tx^2.$$
+Since $\bar{x}$ is the unique optimal solution to $\max\{c^Tx : x \in P\}$, $c^Tx^2 < c^T\bar{x}$. Thus we have the inequality
+\begin{align*}
+c^Tx^1 &> 2c^T\bar{x} - c^T\bar{x} \\
+&= c^T\bar{x}.
+\end{align*}
+This contradicts that $\bar{x}$ is the optimal solution.
+
+\underline{\noindent ($3 \implies 4$)} \\
+We proceed by contraposition. Suppose that $\bar{x}$ is not a basic feasible solution. That is, $\bar{x}$ does not have $n$ linearly independent constraints satisfied at equality. Let $a_1 x = b_1,\dots, a_k x = b_k$ be the constraints satisfied by $\bar{x}$ at equality. Then the system
+\begin{align*}
+a_1 x &= 0 \\
+&\dots \\
+a_k x &= 0
+\end{align*}
+has a solution $d \in \R^n$ such that $d \neq 0$. Now for a sufficiently small choice of $\epsilon > 0$ we have $x^1, x^2 \in P$ satisfying
+$$ x^1 = \bar{x} - \epsilon d \text{ and } x^2 = \bar{x} + \epsilon d. $$
+Then we compute
+\begin{align*}
+\frac{1}{2}(x^1 + x^2) &= \frac{1}{2}\bar{x} - \frac{1}{2}\epsilon d + \frac{1}{2}\bar{x} + \frac{1}{2}\epsilon d \\
+&= \bar{x}.
+\end{align*}
+Therefore $\bar{x}$ is not an extreme point of $P$.
+
+\underline{\noindent ($4 \implies 1$)} \\
+Suppose $\bar{x}$ is a basic feasible solution. Let $a_1 x = b_1,\dots, a_n x = b_n$ be the linearly independent constraints satisfied by $\bar{x}$ at equality. We claim that $\bar{x}$ is the unique point in $P$ satisfying this specific set of constraints at equality. Indeed, let $A_=$ be the matrix with rows $a_1, \dots, a_n$, and let $b_=$ be the vector with entries $b_1, \dots, b_n$ respectively. Since $A_=$ is a $n \times n$ matrix of rank $n$ it is invertible. We know from linear algebra that this inverse is unique. Therefore we have that
+$$\bar{x} = A_=^{-1} b_=$$
+indicating that $\bar{x}$ is unique. Now let 
+$$ c^T = \sum_{i=1}^n a_i.$$
+Let $$\delta = \sum_{i=1}^n b_i.$$ Then for all $x \in P$ we have that
+\begin{align*}
+c^Tx &= \sum_{i=1}^n a_i x\\
+&\leq \sum_{i=1}^n b_i \\
+&= \delta.
+\end{align*}
+Notice that equality holds if and only if $\forall i \in [n], a_i x = b_i$, which uniquely holds for $\bar{x}$. Thus
+$$ P \cap \{x : c^Tx = \delta \} = \{\bar{x}\},$$
+and therefore $\bar{x}$ is a vertex.
 \end{proof}
 \paragraph{}
 In the figure below, $\bar{x}$ is an extreme point/vertex/BFS, and $a^1$ and $a^2$ label the lines corresponding to the $2$ linear inequalities satisfied at equality. The points $x^1, x^2$ demonstrate the geometric interpretation of the extreme point definition.
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture} 
+\begin{tikzpicture}
 \draw [fill=lightgray] (4,1.5) node[right]{$\bar{x}$} -- node[left]{$a^2$}(3,0) -- (1,0) -- (0,1.5) -- (1,3) -- (3,3) -- node[left]{$a^1$}(4,1.5);
 \draw [dashed] (4, 2) node[above]{$x^1$} -- (4,1) node[below]{$x^2$};
 \end{tikzpicture}
-\caption{A polytope with extreme point/vertex/BFS $\bar{x}$} 
+\caption{A polytope with extreme point/vertex/BFS $\bar{x}$}
 \end{figure}
 \subsection{Extreme Rays/Edges}
 \paragraph{Edge} A face of dimension $1$ is called an \textit{edge}.
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture} 
+\begin{tikzpicture}
 \draw [fill=lightgray](3,0) -- (1,0) -- (0,1.5) -- (1,3) -- (3,3) -- (4,1.5);
 \draw [line width = 1mm]  (4,1.5) node[right]{$x^1$} -- node[left]{edge}(3,0) node[right]{$x^2$};
 \end{tikzpicture}
-\caption{An edge containing two extreme points $x^1$ and $x^2$} 
+\caption{An edge containing two extreme points $x^1$ and $x^2$}
 \end{figure}
 \begin{note}
 \begin{itemize}
 \item In $\R^2$ edges and facets are equivalent, but not in higher dimensions.
-\item Any edge contains at most $2$ extreme points
-\item If edge $F$ contains $2$ extreme points, say $x^1$ and $x^2$ then
+\item Any edge contains at most two extreme points
+\item If edge $F$ contains two extreme points, say $x^1$ and $x^2$, then
 $$F = \{ x : x = \lambda x^1 + (1-\lambda)x^2, \lambda \in [0,1]\}.$$
-\item If edge $F$ contains $1$ extreme points, say $x^1$, then there exists $r \in rec(P)$ (the recession cone of $P$) such that
+\item If edge $F$ contains one extreme point, say $x^1$, then there exists $r \in \rec(P)$ (the recession cone of $P$) such that
 $$F = \{x : x = x^1 + \lambda r, \lambda \geq 0 \}.$$
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture} 
+\begin{tikzpicture}
 \draw[fill=lightgray] (2,3) -- (0,1) -- (-0.5, 0.25) -- (0,0) -- (4,0);
 \draw[->] (-4,0) --(-1,3);
 \draw (-2,1)node[]{C};
@@ -186,12 +245,13 @@ $$F = \{x : x = x^1 + \lambda r, \lambda \geq 0 \}.$$
 \draw[->, line width= 1mm] (0,0) node[below]{$x^1$} -- node[above]{edge} (4,0);
 \draw[->] (0,1) -- (2,3);
 \end{tikzpicture}
-\caption{On the left the the recession cone of the polyhedra pictured on the right} 
+\caption{On the left the the recession cone of the polyhedra pictured on the right}
 \end{figure}
-\item If $P$ is pointed then any edge of $P$ has at least $1$ extreme point.
+\item If $P$ is pointed then any edge of $P$ has at least one extreme point.
 \end{itemize}
 \end{note}
-\paragraph{Extreme Ray} Let $C \subseteq \R^n$ be a pointed polyhedral cone. Then $r \in C$ is an \textit{extreme ray} of $C$ provided $r \neq 0$ and if $r = u_1 r^1 + u_2 r^2$ for some $u_1, u_2 \geq 0$ and $r^1, r^2 \in C$ then $r^1, r^2 \in cone(r)$.
+\paragraph{Extreme Ray} Let $C \subseteq \R^n$ be a pointed polyhedral cone.
+Then $r \in C$ is an \textit{extreme ray} of $C$ provided $r \neq 0$ and if $r = u_1 r^1 + u_2 r^2$ for some $u_1, u_2 \geq 0$ and $r^1, r^2 \in C$ then $r^1, r^2 \in \cone(r)$.
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}
@@ -215,28 +275,29 @@ Let $C = \{x \in \R^n : Ax \leq 0 \}$ be a pointed polyhedral cone and let $\bar
 Omitted.
 \end{proof}
 \begin{note}
-For a polyhedron $P$ we say that $r$ is an extreme ray of $P$ provided it is an extreme ray of $rec(P)$.
+For a polyhedron $P$ we say that $r$ is an extreme ray of $P$ if it is an extreme ray of $\rec(P)$.
 \end{note}
 \begin{note}
-Theorem $3.1.2$ and theorem $3.2.2$ implies that the number of extreme points and extreme rays (up to scalar multiplication) of a pointed polyhedron is finite. This follows from the finiteness of the number of inequalities describing a polyhedron and the finiteness of the number of inequalities an extreme point/ray can satisfy at equality.
+Theorem $3.1.2$ and Theorem $3.2.2$ imply that the number of extreme points and extreme rays (up to scalar multiplication) of a pointed polyhedron is finite. This follows from the finiteness of the number of inequalities describing a polyhedron and the finiteness of the number of inequalities an extreme point/ray can satisfy at equality.
 \end{note}
 \subsection{Decomposition Theorem}
 \begin{theorem}
-Let $P \subseteq \R^n$ be a pointed polyhedron such that $P \neq \emptyset$. Let $x^1, \dots, x^p$ be the extreme points of $P$. Let $r^1, \dots, r^q$ be the extreme rays of $P$. Then $P = conv(x^1,\dots,x^p) + cone(r^1,\dots,r^q)$.
+Let $P \subseteq \R^n$ be a pointed polyhedron such that $P \neq \emptyset$. Let $x^1, \dots, x^p$ be the extreme points of $P$.
+Let $r^1, \dots, r^q$ be the extreme rays of $P$. Then $P = \conv(x^1,\dots,x^p) + \cone(r^1,\dots,r^q)$.
 \end{theorem}
 \begin{proof}
 Omitted.
 \end{proof}
 \begin{note}
-A polyhedron can now be described in two ways, either the ``outer description" $P = \{x: Ax \leq b\}$ or the ``inner description" $P = conv(x^1,\dots,x^p) + cone(r^1,\dots,r^q)$.
+A polyhedron can now be described in two ways: either the ``outer description" $P = \{x: Ax \leq b\}$, or the ``inner description" $P = \conv(x^1,\dots,x^p) + \cone(r^1,\dots,r^q)$.
 \end{note}
 \section{Projections}
 \paragraph{Orthogonal Projection}
 Let $S \subseteq \R^{n+p}$. The \textit{orthogonal projection} of $S$ onto $\R^n \times \{0\}$ is defined by
-$$proj_x(S) := \{ x \in \R^n : \exists z \in \R^p, (x,z) \in S \}.$$
+$$\proj_x(S) := \{ x \in \R^n : \exists z \in \R^p, (x,z) \in S \}.$$
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture} 
+\begin{tikzpicture}
 \draw[->] (0,0) -- (0,5) node[above]{$z$};
 \draw[->] (0,0) -- (5,2.5) node[right]{$x_1$};
 \draw[->] (0,0) -- (5, -2,5) node[right]{$x_2$};
@@ -254,41 +315,46 @@ $$proj_x(S) := \{ x \in \R^n : \exists z \in \R^p, (x,z) \in S \}.$$
 \end{figure}
 \subsection{Fourier-Motzkin Elimination}
 \paragraph{}
-Let $A$ be an $m \times n$ matrix with entries in $\R$. Let $a_i$ denote the $i^{th}$ row of $A$. Let $d, b \in \R^m$. Suppose we have a polyhedron $P = \{(x,z) \in \R^n \times \R : Ax + dz \leq b \}$. We aim to find $proj_x(P)$.
+Let $A$ be an $m \times n$ matrix with entries in $\R$. Let $a_i$ denote the $i^{th}$ row of $A$. Let $d, b \in \R^m$.
+Suppose we have a polyhedron $P = \{(x,z) \in \R^n \times \R : Ax + dz \leq b \}$. We aim to find $\proj_x(P)$.
 \paragraph{}
-We denote the set of indices of rows for which $d_i >0$ by $R^+$. That is:
+We denote the set of indices of rows for which $d_i >0$ by $R^+$. That is,
 $$R^+ = \{ i \in [m] : d_i > 0 \}.$$
-Similarly we define the set $R^-$ to be the set of indices for which $d_i < 0$. That is:
+Similarly we define the set $R^-$ to be the set of indices for which $d_i < 0$. That is,
 $$R^- = \{ i \in [m] : d_i < 0 \}.$$
-Notice that for any $i \in R^+$ we have that $a_i x + d_i z \leq b_i$ if and only if $z \leq \frac{-a_i}{d_i}x + \frac{b_i}{d_i}$. Also notice that similarly for any $i \in R^-$ we have that $a_i x + d_i z \leq b_i$ if and only if $z \geq \frac{-a_i}{d_i}x + \frac{b_i}{d_i}$. Therefore we can describle $proj_x(P)$ as follows:
-$$proj_x(P) = \{x \in \R^n : \forall i \in R^+, \forall j \in R^-, \frac{-a_j}{d_j}x + \frac{b_j}{d_j} \leq \frac{-a_i}{d_i}x + \frac{b_i}{d_i}, \textit{ and } \forall k \in [m] \backslash (R^+ \cup R^-), a_k x \leq b_k \}.$$
+Notice that for any $i \in R^+$, $a_i x + d_i z \leq b_i$ if and only if $z \leq \frac{-a_i}{d_i}x + \frac{b_i}{d_i}$.
+Similarly, for any $i \in R^-$, $a_i x + d_i z \leq b_i$ if and only if $z \geq \frac{-a_i}{d_i}x + \frac{b_i}{d_i}$.
+Therefore we can describe $\proj_x(P)$ as follows:
+$$\proj_x(P) = \{x \in \R^n : \forall i \in R^+, \forall j \in R^-, \frac{-a_j}{d_j}x + \frac{b_j}{d_j} \leq \frac{-a_i}{d_i}x + \frac{b_i}{d_i}, \textit{ and } \forall k \in [m] \backslash (R^+ \cup R^-), a_k x \leq b_k \}.$$
+\begin{proof}
+For convenience let $$M = \{x \in \R^n : \forall i \in R^+, \forall j \in R^-, \frac{-a_j}{d_j}x + \frac{b_j}{d_j} \leq \frac{-a_i}{d_i}x + \frac{b_i}{d_i}, \textit{ and } \forall k \in [m] \backslash (R^+ \cup R^-), a_k x \leq b_k \}.$$
+It is clear from the preceeding discussion that $proj_x(P) \subseteq M$. We will complete the proof by showing the reverse inclusion. Let $x \in M$. Let
+$$l = \max\{\frac{-a_j}{d_j}x + \frac{b_j}{d_j} : j \in R^-\} \text{ and } u = \min\{\frac{-a_i}{d_i}x + \frac{b_i}{d_i}: i \in R^+\}.$$
+If $R^- = \emptyset$ let $l = -\infty$, and if $R^+ = \emptyset$ let $u = \infty$. Thus by construction, since $x \in M$, $l \leq u$. Choose $z$ satisfying $l \leq z \leq u$. Then $(x,z) \in P$ and hence $ x \in proj_x(P)$ as desired.
+\end{proof}
 \paragraph{Example}
-Consider the "diamond" polytope, $$P = \{(x,z) \in \R \times \R:  x+z \leq 1,\ -x+z \leq 1,\ x-z \leq 1,\ -x-z \leq 1\}.$$
-We aim to find $proj_x(P)$. First we rewrite the inequalities describing $P$:
+Consider the ``diamond" polytope, $$P = \{(x,z) \in \R \times \R:  x+z \leq 1,\ -x+z \leq 1,\ x-z \leq 1,\ -x-z \leq 1\}.$$
+We aim to find $\proj_x(P)$. First we rewrite the inequalities describing $P$:
 \begin{align}
-z &\leq 1 - x \\
-z &\leq 1 + x \\
-z &\geq x - 1 \\
-z &\geq -x-1.
-\end{align} 
-Then we can describe $proj_x(P)$ by pairing $(3.2.1)$ with $(3.2.3)$ and $(3.2.4)$, and also pairing $(3.2.2)$ with $(3.2.3)$ and $(3.2.4)$. More concretely we have that:
+z &\leq 1 - x \label{proj1} \\
+z &\leq 1 + x \label{proj2} \\
+z &\geq x - 1 \label{proj3} \\
+z &\geq -x-1  \label{proj4}.
+\end{align}
+Then we can describe $\proj_x(P)$ by pairing (\ref{proj1}) with (\ref{proj3}) and (\ref{proj4}), and also pairing (\ref{proj2}) with (\ref{proj3}) and (\ref{proj4}). More concretely, we have
 \begin{align*}
-proj_x(P) &=  \left \{ \begin{tabular}{ccc} &$x-1 \leq 1-x$ \\
+\proj_x(P) &=  \left \{ \begin{tabular}{ccc} &$x-1 \leq 1-x$ \\
 $x \in \R^n : $&$x-1 \leq 1+x$ \\
 &$-x-1 \leq 1-x$ \\
 &$-x-1 \leq 1+x$
  \end{tabular} \right \}\\
 &= \{x \in \R : x \leq 1,\ x \geq - 1\}\\
-&= \{ x \in [-1,1]\}.
+&= \{x \in \R :  x \in [-1,1]\}.
 \end{align*}
 \begin{note}
-For projecting $P \subseteq \R^{n+p}$ onto $\R^n \times \{0\}$ simply repeat Fourier-Motzkin elimination for each variable to be projected out.
+For projecting $P \subseteq \R^{n+p}$ onto $\R^n \times \{0\}$, simply repeat Fourier-Motzkin elimination for each variable to be projected out.
 \end{note}
 \begin{note}
-This algorithm shows that $proj_x(P)$ is a polyhedron.
+This algorithm shows that $\proj_x(P)$ is a polyhedron.
 \end{note}
 \end{document}
-
-
-
-
