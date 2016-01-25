@@ -180,7 +180,41 @@ x_{ij} = 0 &\implies z_{ij} = 0 &\text{for all $(i,j) \in M \times W$},
 which is immediate from the fact that if $i \in S_M(x)$ then $x_{ij} = 0$ ensures that $j \not\in \{w^*(x,i), w_*(x,i)\}$. The following claim is a consequence of $(18)$ and $(4)$ taken together:
 \begin{align}
 z_{ij} &= 0 &\text{for all $(i,j) \in (M \times W) \backslash A$}.
-\paragraph{}
-
 \end{align}
+\paragraph{}
+We need one final claim before moving to the conclusion of the proof:
+\begin{align}
+&\sum_{j >_m w} x_{mj} + \sum_{i >_w m} x_{iw} + x_{mw} = 1 \nonumber\\&\implies \sum_{j >_m w} z_{mj} + \sum_{i >_w m} z_{iw} + z_{mw} = 1 &\text{for all $(m,w) \in A$}.
+\end{align}
+This claim will be established by considering three distinct cases.
+\subparagraph{Case 1}
+Suppose that $m \not\in S_M(x)$ or $m \in S_M(x)$ and $w \geq_m w^*(x,m)$. Then by $(11)$ and $(12)$ we have
+\begin{align}
+\sum_{j >_m w} (z^*)_{mj} = \sum_{j >_m w} (z_*)_{mj} = 0.
+\end{align}
+Further by Lemma $2$, $w \in S_W(x)$ and $m \leq_w m_*(x,w) \leq_w m^*(x,w)$. Therefore by $(14)$ and $(15)$
+\begin{align}
+\sum_{i >_w m} (z^*)_{iw} + (z^*)_{mw} = \sum_{i >_w m} (z_*)_{iw} + (z_*)_{iw} = 1.
+\end{align}
+Thus $(21)$ and $(22)$ taken together give the desired result.
+\subparagraph{Case 2}
+Suppose that $w \not\in S_W(x)$ or $w \in S_W(x)$ and $m \geq_w m^*(x,w)$. This case follows similarly to case $1$ but invokes Lemma $3$ instead of Lemma $2$.
+\subparagraph{Case 3}
+Suppose that $m \in S_M(x)$, $w \in S_W(x)$, $w <_m w^*(x,m)$, and $m <_w m^*(x,w)$. Since $m \in S_M(x)$ and $w <_m w^*(x,m)$, we have that $\sum_{j >_m w} (z^*)_{mj} = 1$ and $(z^*)_{mw} = 0$ by definition. By the hypothesis of claim $(20)$ the converse of $(6)$ holds true, so since $m \in S_M(x)$, $w \in S_W(x)$, and $w <_m w^*(x,m)$ we have that $m >_w m_*(x,w)$. Therefore by $(14)$, $\sum_{i >_w m} (z^*)_{iw} = 0$. Thus we have
+\begin{align}
+\sum_{j >_m w} (z^*)_{mj} + \sum_{i >_w m} (z^*)_{iw} + (z^*)_{mw}  = 1.
+\end{align}
+A symmetric argument establishes that
+\begin{align}
+\sum_{j >_m w} (z_*)_{mj} + \sum_{i >_w m} (z_*)_{iw} + (z_*)_{mw}  = 1.
+\end{align}
+Therefore by $(23)$ and $(24)$
+$$\sum_{j >_m w} z_{mj} + \sum_{i >_w m} z_{iw} + z_{mw}  = 0$$
+as desired.
+\paragraph{}
+By $(16) - (20)$ there exist $\epsilon > 0$ such that $x + \epsilon z, x - \epsilon z$ satisfy $(1) - (5)$. But we have that
+$$ x = \frac{1}{2}(x - \epsilon z + x + \epsilon z), $$
+and so since $x$ is an extreme point we conclude that
+$$ x - \epsilon z = x = x + \epsilon z. $$
+That is $z = 0$ or equivalently $z^* = z_*$. Therefore for all $m \in S_M(x)$, $w^*(x,m) = w_*(x,m)$ from which integrality follows (by an earlier remark). $\blacksquare$
 \end{document}
