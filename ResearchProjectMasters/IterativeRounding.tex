@@ -56,48 +56,121 @@ Let $P = \{x : Ax \geq b, x \geq 0\}$. Let $x$ be an extreme point of $P$ such t
 Since $x > 0$, $A_x^= = A^=$. Therefore by Lemma $1$, $A^=$ has linearly independent columns. Therefore the rank of $A^=$ is equal to the number of variables, and hence any maximal number of linearly independent tight constraints of the forms $A_ix = b_i$ for some row $i$ of $A$ equals the number of variables. $\blacksquare$
 \section{Stable Matching LP Forumlation}
 \paragraph{Defintions}
-Let $G = (M \cup W, E)$ be a stable marriage instance. Let $m \in M$, define $\delta_m^>(w) = \{mj \in E: j >_m w, j \in W\}$. For $w \in W$, define $\delta_w^>(m)$ similarly. Note we can also define similar sets for relations like $=, \geq, <$ etc.
+Let $G = (V, E)$ be a bipartite graph with $V = V_1 \dot\cup V_2$. We may weight the edges $e \in E$ with weights $c_e$. If we assign for each vertex a list of preferences with respect to that vertex's neighbours then we have a (weighted) stable marriage instance. Let $v,w \in V$, define $\delta_v^>(w) = \{vj \in \delta(v): j \text{ is strictly preferred to } w \text{ by } v\}$. Note we can also define similar sets for relations like $=, \geq, <$ etc. We may order the elements of the neighbourhood of $v$ with respect to the $>$ relation. Let $n^*(v)$ ($n_*(v)$) denote the most (least respectively) preferred elements of the neighbourhood of $v$.
 \paragraph{LP formulation}
 Let $LP_S(G)$ denote the following linear program:
 \begin{align*}
 \max\ c^Tx \\
-\text{s.t.} \sum_{e\in \delta(v)} x_e &\leq 1 &\forall v \in M\cup W\\
-\sum_{e \in \delta_m^>(w)} x_e + \sum_{e \in \delta_w^>(m)} x_e + x_{mw} &\geq 1 &\forall mw \in E \\
+\text{s.t.} \sum_{e\in \delta(v)} x_e &\leq 1 &\forall v \in V\\
+\sum_{e \in \delta_v^>(w)} x_e + \sum_{e \in \delta_w^>(v)} x_e + x_{vw} &\geq 1 &\forall vw \in E \\
 x_e &\geq 0 &\forall e \in E.
 \end{align*}
+It is not difficult to show that integral extreme point solutions to $LP_S(G)$ are equivalent to characteristic vectors of stable matchings of $G$.
 \paragraph{Lemma 2}
-Let $x$ be an extreme point solution to $LP_S(G)$ such that $x>0$. Then there exists $V \subseteq M \cup W$ and $T \subset E$ such that the following hold:
+Let $x$ be an extreme point solution to $LP_S(G)$ such that $x>0$. Then there exists $W \subseteq V$ and $T \subseteq E$ such that the following hold:
 \begin{enumerate}
-\item $\sum_{e\in \delta(v)} x_e = 1$, $\forall v \in V$.
-\item $\sum_{e \in \delta_m^>(w)} x_e + \sum_{e \in \delta_w^>(m)} x_e + x_{mw} = 1$, $\forall mw \in T$.
-\item The vectors in $\{\chi(\delta(v)) : v \in V\}$ together with the vectors in $\{\chi(\delta_m^>(w)) + \chi(\delta_w^>(m)) + \chi(mw) : mw \in T\}$ are all linearly independent.
-\item $|V| + |T| = |E|$.
+\item $\sum_{e\in \delta(v)} x_e = 1$, $\forall v \in W$.
+\item $\sum_{e \in \delta_v^>(w)} x_e + \sum_{e \in \delta_w^>(v)} x_e + x_{vw} = 1$, $\forall vw \in T$.
+\item The vectors in $\{\chi(\delta(v)) : v \in W\}$ together with the vectors in $\{\chi(\delta_v^>(w)) + \chi(\delta_w^>(v)) + \chi(vw) : vw \in T\}$ are all linearly independent.
+\item $|W| + |T| = |E|$.
+\end{enumerate}
 \paragraph{Proof}
 Immediate from Rank Lemma. $\blacksquare$
 \paragraph{Lemma 3}
+Let $x$ be an extreme point solution of $LP_S(G)$ such that $0 < x < 1$. Let $W \subseteq V$, and $T \subseteq E$ be sets that together satisfy $1-4$ of Lemma $2$. If $W$ and $T$ are chosen so that $|W|$ is maximized then for any $v \in V$ if $w = n^*(v)$ then $vw \not\in T$.
+\paragraph{Proof}
+Let $v \in V$, let $w = n^*(v)$ and suppose for a contradiction that $vw \in T$. Then 
+$$\sum_{e \in \delta_w^>(v)} x_e + \sum_{e \in \delta_v^>(w)} x_e + x_{vw} = 1. $$
+Since $w = n^*(v)$, $\delta_v^>(w) = \emptyset$ (also notice $\chi(\delta_v^>(w)) = 0$). Therefore in fact we have that
+$$\sum_{e \in \delta_w^\geq(v)} x_e = 1.$$
+Since $\sum_{e \in \delta(w)} x_e \leq 1$ and $\delta(w) = \delta_w^\geq(v) \dot\cup \delta_w^<(v)$, $$\sum_{e \in \delta_w^<(v)} x_e = 0. $$
+Therefore, since $x_e > 0$ for each $e \in \delta_w^<(v)$, $$\chi(\delta_w^<(v)) = 0.$$
+Then we have that
+\begin{align*}
+\chi(\delta(w)) &= \chi(\delta_w^\geq(v)) + \chi(\delta_w^<v(v)) \\
+&= \chi(\delta_w^\geq(v)) \\
+&= \chi(\delta_w^>(v)) + \chi(\delta_v^>(v)) + \chi(vw).
+\end{align*}
+So if $w \in W$ this contradicts condition $3$ of Lemma $2$, the linear independence. But if $w \not\in W$ then by the equivalence just demonstrated the sets $W' = W \cup \{w\}$ and $T' = T \backslash \{vw\}$ also satisfy $1-4$ of Lemma $2$ yet $|W'| > |W|$ contradicting the maximality of $|W|$. $\blacksquare$
+\paragraph{Lemma 4}
 Let $x$ be an extreme point solution of $LP_S(G)$. Then there exists $e \in E$ such that $x_e = 0$ or $x_e = 1$.
 \paragraph{Proof}
-Suppose for contradiction that $0 < x_e < 1$ for all $e \in E$. By Lemma $2$ there exists $V, T$ satisfying properties $1-4$ of Lemma $2$. Choose such $V$ and $T$ so that $|V|$ is maximized. First notice that
+Suppose for contradiction that $0 < x_e < 1$ for all $e \in E$. By Lemma $2$ there exists $W, T$ satisfying properties $1-4$ of Lemma $2$. Choose such $W$ and $T$ so that $|W|$ is maximized. First notice that
 $$d_E(v) \geq 2 $$
-for all $v \in V$. This follows since $\sum_{e \in \delta(v)} x_e = 1$ and $x_e < 1$ for each $e \in \delta(v)$.
+for all $v \in W$. This follows since $\sum_{e \in \delta(v)} x_e = 1$ and $x_e < 1$ for each $e \in \delta(v)$.
 \paragraph{}
-Let $w$ be the element of $W$ least preferred by $m$ such that $mw \in E$. We claim that $mw \not\in T$. Suppose for a contradiction that $mw \in T$. Then we would have:
-$$  \sum_{e \in \delta_m^>(w)} x_e + \sum_{e \in \delta_w^>(m)} x_e + x_{mw} = 1. $$
-But since $w$ is the least favourite of $m$, $\delta_m^>(w) \cup mw = \delta(m)$. Therefore
-$$\sum_{e \in \delta_w^>(m)} x_e + x_{mw} = \sum_{e \in \delta(m)} x_e = 1 \text{ since $m \in V$}. $$
-So we have that $$ \sum_{e \in \delta_w^>(m)} x_e = 0. $$ That is $\delta_w^>(m) = \emptyset$ since $x_e > 0$ for $e \in E$. Then $$\chi(\delta_w^>(m)) = 0.$$
+Let $v \in V$. Let $w = n_*(v)$. We claim that $vw \not\in T$. Suppose for a contradiction that $vw \in T$. Then we would have:
+$$  \sum_{e \in \delta_v^>(w)} x_e + \sum_{e \in \delta_w^>(v)} x_e + x_{vw} = 1. $$
+But since $w=n^*(v)$, $\delta_v^<(w) = \emptyset$ (also notice that $\chi(\delta_v^<(w)) = 0$). Thus $\delta_v^\geq(w) = \delta(m)$. Therefore
+$$\sum_{e \in \delta_w^>(v)} x_e + x_{vw} = \sum_{e \in \delta(v)} x_e = 1 \text{ since $v \in W$}. $$
+So we have that $$ \sum_{e \in \delta_w^>(v)} x_e = 0. $$ That is $\delta_w^>(v) = \emptyset$ since $x_e > 0$ for $e \in E$. Then $$\chi(\delta_w^>(v)) = 0.$$
 Therefore
 \begin{align*}
-\chi(\delta_m^>(w)) + \chi(\delta_w^>(m)) + \chi(mw) &= \chi(\delta_m^>(w)) + \chi(mw) \\
-&= \chi(\delta(m)).
-\end{enumerate}
-Since $m \in V$ this tell us that condition $3$ of Lemma $2$ is violated, a contradiction. Therefore $mw \not\in T$.
-\paragraph{}
-Now let $w$ be the element of $W$ most preferred by $m$ such that $mw \in E$. We claim that $mw \not\in T$. Suppose for a contradiction that $mw \in T$. Then we have that $\delta_m^>(w) = \emptyset$. So then
-\begin{align*}
-1 &= \sum_{e \in \delta_m^>(w)} x_e + \sum_{e \in \delta_w^>(m)} x_e + x_{mw} \\
- &= \sum_{e \in \delta_w^>(m)} x_e + x_{mw} \\
-&= \sum_{e \in \delta_w^\geq(m)} x_e.
+\chi(\delta_v^>(w)) + \chi(\delta_w^>(v)) + \chi(vw) &= \chi(\delta_v^>(w)) + \chi(vw) \\
+&= \chi(\delta(v)).
 \end{align*}
-If $w \in V$ then $\sum_{e \in \delta(w)} x_e = 1$ and therefore $\sum_{e \in \delta_w^<(w)} = 0$.
+Since $v \in W$ this tells us that condition $3$ of Lemma $2$ is violated, a contradiction. Therefore $vw \not\in T$.
+\paragraph{}
+Now for any $v \in V$, by Lemma $3$, $vn^*(v) \not\in T$. Since $d_E(v) \geq 2$ implies that $n^*(v) \neq n_*(v)$ we thus have that $d_{E\backslash T}(v) \geq 2$ for all $v \in W$.
+\paragraph{}
+We are now ready to give a fractional token counting argument to obtain the desired contradiction. To each $e \in E$ we will distribute one token. The tokens will be redistributed to elements of $W$ and $T$ such that each element receives one token. In showing that some fractional token remains with an edge $e \in E$ after redistributing we conclude that $|W| + |T| \neq |E|$, contradicting condition $4$ of Lemma $2$.
+\paragraph{}
+Redistribute the tokens according to the following rules. For any $e=vw \in E$ do:
+\begin{enumerate}
+\item If $e \in T$ then $e$ keeps its token,
+\item otherwise:
+\subitem if $v \in W$ then $e$ gives $\frac{1}{2}$ token to $v$,
+\subitem if $w \in W$ then $e$ give $\frac{1}{2}$ token to $w$.
+\end{enumerate}
+Then after redistribution by rule $1$ every $e \in T$ has a token. Let $v \in W$. By our previous arguments $d_{E\backslash T}(v) \geq 2$. So there exist at least two edges which each give $\frac{1}{2}$ token to $v$. Therefore $v$ has at least one token after redistribution. It remains to show that there is an edge not in $T$ still holding some token fraction after redistribution.
+\paragraph{}
+We claim that there exist $v \in V\backslash W$. Suppose not, that is $W = V = V_1 \dot\cup V_2$. Then
+\begin{align*}
+\sum_{v \in V_1} \chi(\delta(v)) &= \chi(\delta(V_1)) \\
+&= \chi(\delta(V_2)) &\text{since $G$ is bipartite} \\
+&= \sum_{v \in V_2} \chi(\delta(v)).
+\end{align*}
+Since $V_1, V_2 \subseteq W$ this contradicts Lemma $2$ part $3$. Therefore there exists $v \in V \backslash W$. Let $w = n^*(v)$. Let $e = vw \in E$. By Lemma $3$, $e \not \in T$. Since $v \not\in W$, $e$ keeps at least $\frac{1}{2}$ token. Therefore $|E| > |W| + |T|$ contradicting condition $4$ of Lemma $2$. $\blacksquare$
+\section{Iterative Algorithm}
+\paragraph{}
+In this section we will show an iterative method which solves the weighted stable marriage problem, and in doing so prove that the extreme points of $LP_S(G)$ are integral. 
+
+\begin{algorithm} \begin{algorithmic}[1]
+\Procedure{Iterative Stable Matching Algorithm}{}
+\State Initialize $M \gets \emptyset$.
+\While{$E(G) \neq \emptyset$}
+\State Find an extereme point optimal solution $x$ to $LP_S(G)$.
+\State Remove every edge $e$ from $G$ where $x_e = 0$.
+\If{$\exists e=vw \in E$ with $x_e = 1$}
+\State $M \gets M \cup \{e\}$
+\State $\forall u \in N(v)$ (the neighbourhood of $v$) such that $v$ prefers $u$ to $w$ remove every edge in $\delta_u^<(v)$ from $G$
+\State $\forall u \in N(w)$ such that $w$ prefers $u$ to $v$ remove every edge in $\delta_u^<(w)$ from $G$.
+\State $G \gets G - v - w$.
+\EndIf
+\EndWhile
+\State \Return $M$
+\EndProcedure
+\end{algorithmic} \end{algorithm}
+
+\paragraph{Lemma 5}
+If the above algorithm finds in every iteration an edge $e$ such that $x_e = 0$ in step $5$ or an edge $e$ with $x_e = 1$ in step $6$ then it returns a stable matching $M$ of weight at least the optimal solution to $LP_S(G)$.
+\paragraph{Proof}
+Proceed by induction on the number of iterations of the algorithm. In the base case the algorithm runs for exactly one iteration and the result is trivial.
+\paragraph{}
+Now consider the inductive case. Suppose the algorithm finds an edge $e$ with $x_e = 0$ in step $5$. The residual problem is to find a stable matching in $G' = G - e$. Let $x_r$ be the residual solution, that is $x$ restricted to $E \backslash \{e\}$. Notice that $x_r$ is a feasible solution to $LP_S(G')$. By the inductive hypothesis, the algorithm returns a stable matching $M' \subseteq E(G')$ with weight at least that of the optimal solution to $LP_S(G')$. Since $c(M') \geq c^T_rx_r = c^Tx$ the result holds in this case.
+Now suppose the algorithm finds an edge $e=vw$ with $x_e = 1$ in step $6$. The residual problem in this case is to find a stable matching that contains $e$. Consider the residual graph built by the algorithm:
+$$ G' = (G\backslash(\bigcup_{uv \in \delta_v^>(w)}\delta_u^<(v) \cup \bigcup_{uw \in \delta_w^>(v)} \delta_u^<(w) ))- v - w.$$
+The algorithm will return a matching $M'$ of weight at least the optimal solution to $LP_S(G')$. Let $x_r$ be the solution $x$ restricted to $E(G')$. Notice that each entry removed from $x$ to obtain $x_r$ with the exception of $x_e$ is $0$ (otherwise $x$ is not feasible). Then $x_r$ is a feasible solution to $LP_S(G')$. So $c(M') \geq c^T_rx_r$. 
+\paragraph{}
+The matching returned by the algorithm is $M = M' \cup \{e\}$. We claim this matching is stable. Indeed there is no blocking pair among vertices of edges in $M'$ since $M'$ is a stable matching on $G'$. The only possible blocking pair would be $v$ or $w$ paired with a vertex endpoint of an edge in $M'$. Say without loss of generality $(v, u)$ is such a pair. Then $v$ prefers $u$ to $w$ and $u$ prefers $v$ to their partner, say $y$. But then $uv \in \delta_v^>(w)$ and $uy \in \delta_u^<(v)$ so $uy$ is not an edge in $G'$, and hence cannot be an edge in $M'$. Therefore the matching $M$ is stable. So we have
+\begin{align*}
+c(M) &= c(M') + c_e \\
+&\geq c^T_rx_r + c_e &\text{since $c(M') \geq c^T_rx_r$}\\
+&= c^Tx &\text{since $x_e = 1$}
+\end{align*} 
+and thus the weight of the stable matching $M$ returned by the algorithm is at least the weight of the optimal solution to $LP_S(G)$. $\blacksquare$
+\paragraph{Theorem}
+$LP_S(G)$ is integral.
+\paragraph{Proof}
+Let $x$ be an extreme point of $LP_S(G)$. Suppose that $x$ is not integral. Choose weight function $c$ such that $x$ is the unique optimal solution to $LP_S(G)$ with objective function $c$. By Lemma $5$ the above algorithm returns a stable matching $M$ such that $c(M) \geq c^Tx$. The characteristic vector of this stable matching, call it $x'$, is an integral feasible solution to $LP_S(G)$. Since $c^Tx' \geq c^Tx$, $x'$ is an optimal solution to $LP_S(G)$. Since $x$ is not integral, $x \neq x'$. Therefore $x$ is not the unique optimal solution to $LP_S(G)$, a contradiction. So $LP_S(G)$ is integral. $\blacksquare$
 \end{document}
