@@ -99,10 +99,10 @@ Suppose for contradiction that $0 < x_e < 1$ for all $e \in E$. By Lemma $2$ the
 $$d_E(v) \geq 2 $$
 for all $v \in W$. This follows since $\sum_{e \in \delta(v)} x_e = 1$ and $x_e < 1$ for each $e \in \delta(v)$.
 \paragraph{}
-Let $v \in V$. Let $w = n_*(v)$. We claim that $vw \not\in T$. Suppose for a contradiction that $vw \in T$. Then we would have:
+Let $v \in W$. Let $w = n_*(v)$. We claim that $vw \not\in T$. Suppose for a contradiction that $vw \in T$. Then we would have:
 $$  \sum_{e \in \delta_v^>(w)} x_e + \sum_{e \in \delta_w^>(v)} x_e + x_{vw} = 1. $$
-But since $w=n^*(v)$, $\delta_v^<(w) = \emptyset$ (also notice that $\chi(\delta_v^<(w)) = 0$). Thus $\delta_v^\geq(w) = \delta(m)$. Therefore
-$$\sum_{e \in \delta_w^>(v)} x_e + x_{vw} = \sum_{e \in \delta(v)} x_e = 1 \text{ since $v \in W$}. $$
+But since $w=n_*(v)$, $\delta_v^<(w) = \emptyset$ (also notice that $\chi(\delta_v^<(w)) = 0$). Thus $\delta_v^\geq(w) = \delta(v)$. Therefore
+$$\sum_{e \in \delta_v^>(w)} x_e + x_{vw} = \sum_{e \in \delta(v)} x_e = 1 \text{ since $v \in W$}. $$
 So we have that $$ \sum_{e \in \delta_w^>(v)} x_e = 0. $$ That is $\delta_w^>(v) = \emptyset$ since $x_e > 0$ for $e \in E$. Then $$\chi(\delta_w^>(v)) = 0.$$
 Therefore
 \begin{align*}
