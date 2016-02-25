@@ -241,25 +241,27 @@ Also define $S(x) = \{ v \in V : x(\delta(v)) > 0 \}$.
 \begin{frame}
 \frametitle{Integral Points are Stable}
 Let $x$ be the incidence vector of a matching on $G$. Then $x$ is stable if and only if $x$ is feasible for $LP_{SM}(G)$.\\
-Proof: Since $x$ is integral, $x$ is infeasible if and only if there exists $vw \in E$ such that $$ x(\delta^{>w}(v)) = x(\delta^{>v}(w)) = x_{vw} = 0. $$
+$\textbf{Proof Idea:}$ Since $x$ is integral, $x$ is infeasible if and only if there exists $vw \in E$ such that $$ x(\delta^{>w}(v)) = x(\delta^{>v}(w)) = x_{vw} = 0. $$
 Such a $vw$ is a blocking pair. $\blacksquare$
 \end{frame}
 
 \begin{frame}
 \frametitle{Lemma 1}
-Let $x$ be feasible for $LP_{SM}(G)$ and let $vw \in E$. Then $$ vw \not\in S(x) \text{ or } (vw \in S(x) \text{ and } w \geq_v n^*(x,v)) $$ implies that $$ x(\delta(w)) = 1 \text{ and } v \leq_w n_*(x,w). $$\\
-Note:\\
-If $x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = 1$ then the converse of Lemma $1$ holds as well.
+Let $x$ be feasible for $LP_{SM}(G)$ and let $vw \in E$. Then $$ v \not\in S(x) \text{ or } (vw \in S(x) \text{ and } w \geq_v n^*(x,v)) $$ implies that $$ x(\delta(w)) = 1 \text{ and } v \leq_w n_*(x,w). $$\\
+$\textbf{Proof Idea:}$ In either case $x(\delta^{>w}(v)) = 0$. So $$1 \leq x(\delta^{>w}(x)) + x(\delta^{>v}(w)) + x_{vw} = x(\delta^{\geq v}(w)) \leq 1. \blacksquare$$\\
+$\textbf{Note:}$ If $x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = 1$ then the converse of Lemma $1$ holds as well.
 \end{frame}
 
 \begin{frame}
 \frametitle{Lemma 2}
-Let $x$ be feasible for $LP_{SM}(G)$ and let $vw \in E$. Then $$vw \in S(x) \text{ and } w = n^*(x,v)$$ if and only if $$x(\delta(w)) = 1 \text{ and } v = n_*(x,w). $$
+Let $x$ be feasible for $LP_{SM}(G)$ and let $vw \in E$. Then $$v \in S(x) \text{ and } w = n^*(x,v)$$ if and only if $$x(\delta(w)) = 1 \text{ and } v = n_*(x,w). $$\\
+$\textbf{Proof Idea:}$ Similar to previous with equality holding throughout. $\blacksquare$
 \end{frame}
 
 \begin{frame}
 \frametitle{Lemma 3}
-Let $x$ be feasible for $LP_{SM}(G)$. Then $$ v \in S(x) $$ if and only if $$x(\delta(v)) = 1.$$
+Let $x$ be feasible for $LP_{SM}(G)$. Then $$ v \in S(x) $$ if and only if $$x(\delta(v)) = 1.$$ \\
+$\textbf{Proof Idea:}$ We establish a bijection between $S(x)$ and $F(x) = \{v \in V : x(\delta(v)) = 1\}$. Clearly $F(x) \subseteq S(x)$ so it is enough to show a one-to-one (injective) map. In fact, $n^*(x,\cdot)$ is such a map. If $n^*(x,v_1) = w = n^*(x,v_2)$ then by Lemma $2$ $v_1 = n_*(x,w) = v_2$. $\blacksquare$
 \end{frame}
 
 \subsection{Rothblum's Original Proof}
@@ -288,6 +290,32 @@ Now suppose that we have an extreme point solution $x$ to $LP_{SM}(G)$. Rothblum
 
 \begin{frame}
 \frametitle{Proof of Integrality - Definition of $z$}
+Define the vectors $z^*$, $z_*$, and $z$ as follows:
+\begin{align*}
+(z^*)_{vw} &= \begin{cases}
+	1, &\text{if $v\in S(x) \cap V_0$ and $w = n^*(x,v)$} \\
+	0, &\text{otherwise}
+\end{cases} 
+\\
+\uncover<2->{(z_*)_{vw} &= \begin{cases}
+	1, &\text{if $v\in S(x) \cap V_0$ and $w = n_*(x,v)$} \\
+	0, &\text{otherwise}
+\end{cases}}
+\\
+\uncover<3->{z_{vw} &= (z^*)_{vw} - (z_*)_{vw}.}
+\end{align*}
+\uncover<4->{By invoking our Lemmas, $z^*$ and $z_*$ are equivalently:
+\begin{align*}
+(z^*)_{vw} &= \begin{cases}
+	1, &\text{if $w\in S(x) \cap V_1$ and $v = n_*(x,w)$} \\
+	0, &\text{otherwise}
+\end{cases} 
+\\
+(z_*)_{vw} &= \begin{cases}
+	1, &\text{if $w\in S(x) \cap V_1$ and $v = n^*(x,w)$} \\
+	0, &\text{otherwise}
+\end{cases}
+\end{align*}}
 \end{frame}
 
 \section{An Iterative Rounding Proof?}
