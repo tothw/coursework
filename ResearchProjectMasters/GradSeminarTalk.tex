@@ -318,13 +318,115 @@ Define the vectors $z^*$, $z_*$, and $z$ as follows:
 \end{align*}}
 \end{frame}
 
+\begin{frame}
+\frametitle{Proof of Integrality - Showing $x \pm \epsilon z$ is Feasible}
+We claim that $z$ satisfies the following:
+\begin{itemize}
+\item<2-> If $x(\delta(v)) = 1$ then $z(\delta(v)) = 0$ for all $v \in V$.
+\item<3-> If $x_e = 0$ then $z_e = 0$ for all $e \in E$.
+\item<4-> If $x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = 1$ then $z(\delta^{>w}(v)) + z(\delta^{>v}(w)) + z_{vw} = 0$.
+\end{itemize}
+\uncover<5->{That is to say $z$ is in the null space of the matrix of constraints tight at $x$. Thus we can choose $\epsilon > 0$ such that $x \pm \epsilon z$ is feasible for $LP_{SM}(G)$}. \\
+\uncover<6->{Since $x$ is an extreme point this means $z = 0$. That is, $z^* = z_*$. So each $v \in V$ that is matched has one non-zero incident edge. Further by our Lemmas each such $v$ satisfies $x(\delta(v)) = 1$ and therefore $x$ is integral. $\blacksquare$}
+\end{frame}
+
 \section{An Iterative Rounding Proof?}
 \subsection{Extreme Point Characterization}
+\begin{frame}
+Recall: $LP_{SM}(G)$:
+\begin{align*}
+&\text{maximize} &\sum_{e \in E} c_e x_e \\
+&\text{subject to} &x(\delta(v)) &\leq 1, &\forall v \in V\\
+& &x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} &\geq 1, &\forall vw \in E\\
+& &x_e &\geq 0, &\forall e \in E
+\end{align*}
+We ask if there exists an Iterative Rounding based proof of integrality?\\
+Recall Iterative Rounding: \\Characterize tight constraints $\Rightarrow$ Iterative Algorithm $\Rightarrow$ Analysis.
+\end{frame}
+
+\begin{frame}
+\frametitle{Extreme Point Characterization}
+Let $x$ be an extreme point solution to $LP_{SM}(G)$ such that $x>0$. Then there exists $W \subseteq V$ and $T \subseteq E$ such that the following hold:
+\begin{enumerate}
+\item $x(\delta(v)) = 1$, $\forall v \in W$.
+\item $x(\delta^{>w}(v))+ x(\delta^{>v}(w) + x_{vw} = 1$, $\forall vw \in T$.
+\item The vectors in $\{\chi(\delta(v)) : v \in W\}$ together with the vectors in $\{\chi(\delta_v^>(w)) + \chi(\delta_w^>(v)) + \chi(vw) : vw \in T\}$ are all linearly independent.
+\item $|W| + |T| = |E|$.
+\end{enumerate}
+$\textbf{Proof:}$ Immediate from Rank Lemma (The maximal number of linearly independent tight constraints at an extreme point is equal to the number of variables). $\blacksquare$
+\end{frame}
 \subsection{Finding a $0$ or $1$}
+\begin{frame}
+\frametitle{Finding a $0$ or $1$ - Choose $W$ and $T$}
+Suppose for a contradiction we have an extreme point solution of $LP_{SM}(G)$, $x$, such that $0 < x < 1$. We may choose $W \subseteq V$ and $T \subseteq E$ corresponding to a maximal set of linearly independent tight constraints such that $|W| + |T| = |E|$. Choose the pair $(W,T)$ which  maximizes $|W|$.\\
+\uncover<2->{
+As before, for any $v \in W$, $d(v) \geq 2$.\\
+$\textbf{Proof Idea:}$ $x(\delta(v)) = 1$ and $x_e < 1$ for each $e \in \delta(v)$ so $d(v) \geq 2$. }
+\end{frame}
+\begin{frame}
+\frametitle{Finding a $0$ or $1$ - degree of $v \in W$}
+The following claims show that each tight vertex $v \in W$ has two adjacent edges not in $T$:
+\begin{itemize}
+\item<2-> Let $v \in W$.  Let $w = n_*(v)$. Then $vw \not\in T$. \\
+$\textbf{Proof Idea:}$ If $vw$ in $T$ then since $\delta^{\geq w}(v) = \delta(v)$ we have that $\chi(\delta^{>w}(v)) + \chi(\delta^{>v}(w)) + \chi(vw) = \chi(\delta(v))$ this contradicts the linear independence of the constraints chosen.
+\item<3-> Let $v \in V$. Let $w = n^*(v)$. Then $vw \not\in T$. \\
+$\textbf{Proof Idea:}$ If $vw \in T$ then $x(\delta^{\geq v}(w)) = 1$. So $\chi(\delta^{\geq v}(w)) = \chi(\delta(w))$ and $\chi(\delta^{>w}(v)) + \chi(\delta^{>v}(w)) + \chi(vw) = \chi(\delta(w)).$ If $w \in W$ this contradicts linear independence. Otherwise this contradicts the maximality of $W$.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Finding a $0$ or $1$ - Token argument}
+Give each edge in $E$ a token and have them distribute tokens to the tight constraints as follows for any $vw \in E$:
+\begin{enumerate}
+\item If $vw \in T$ have $vw$ give itself token.
+\item Otherwise if $v \in W$ have $vw$ give $\frac{1}{2}$ token to $v$, and if $w \in W$ have $vw$ give $\frac{1}{2}$ token to $w$.
+\end{enumerate}
+\begin{itemize}
+\item<2-> Clearly each edge does not give away more than it has, and each edge in $T$ receives a token.
+\item<3-> Each vertex in $W$ receives a token since there are at least two adjacent edges not in $T$. 
+\item<4-> As in the bipartite matching argument, we can find $v \not\in W$ and the edge $vn^*(v)$ does not give away all of its token. 
+\end{itemize}
+\uncover<4->{A contradiction.$\blacksquare$}
+\end{frame}
 \subsection{Algorithm?}
+\begin{frame}
+\frametitle{Iterative Algorithm}
+\begin{enumerate}
+\item Input bipartite stable matching instance $G$
+\item Set matching $M$ to $\emptyset$
+\item While $E \neq \emptyset$
+\begin{enumerate}
+\item Find extreme point optimal solution $x$ to $LP_M(G)$.
+\item For each $e=vw \in E$ such that $x_e = 1$ add $e$ to $M$ and remove vertices $v,w$ from $G$.
+\item For each $e \in E$ such that $x_e = 0$ remove $e$ from $G$.
+\end{enumerate}
+\item Output $M$
+\end{enumerate}
+\uncover<2->{But this doesn't work!\\ $LP_{SM}(G-e)$ loses the stability constraint for $e$ so the stable matching returned by the algorithm on $G-e$, $M'$, is not necessarily such that $M' \cup \{e\}$ is a stable matching on $G$}
+\end{frame}
+\begin{frame}
+\frametitle{Can We Fix The Algorithm? - Edges of value $1$}
+When we find $x_{vw} = 1$ we can be clever and do the following:
+\begin{enumerate}
+\item $\forall u \in N(v)$ (the neighbourhood of $v$) such that $v$ prefers $u$ to $w$ remove every edge in $\delta_u^<(v)$ from $G$
+\item $\forall u \in N(w)$ such that $w$ prefers $u$ to $v$ remove every edge in $\delta_u^<(w)$ from $G$.
+\item Remove $v, w$ from $G$.
+\end{enumerate}
+It can be shown that this ensures the matching returned on the residual graph plus edge $vw$ is a stable matching on $G$.\end{frame}
+\begin{frame}
+\frametitle{Can We Fix The Algorithm? - Edges of value $0$}
+Unfortunately it is not clear what to do in the case where edges of value $0$ are found.\\
+Questions to think about:
+\begin{itemize}
+\item Can we guarantee an edge of value $1$ to avoid this?
+\item Is there a clever set of edges to remove alongside a $0$ edge to ensure the algorithm works?
+\end{itemize}
+\end{frame}
 \section{References}
 \begin{frame}
 \frametitle{References}
-TODO: Rothblum, Lap Chi Lau
+\begin{enumerate}
+\item Rothblum, Uriel G. "Characterization of stable matchings as extreme points of a polytope." $\textit{Mathematical Programming}$ 54.1-3 (1992): 57-67.
+\item Lau, Lap Chi, Ramamoorthi Ravi, and Mohit Singh. $\textit{Iterative methods in combinatorial optimization}$. Vol. 46. Cambridge University Press, 2011
+\end{enumerate}
 \end{frame}
 \end{document}
