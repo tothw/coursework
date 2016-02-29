@@ -126,40 +126,61 @@ where $\chi(\delta(v))$ denotes the incidence vector of $\delta(v)$.}
 \frametitle{Correctness - Finding $0$ or $1$}
 \begin{itemize}
 \item<1-> Suppose for contradiction we have an extreme point solution $x$ such that $0 < x < 1$
-\item<2-> By our characterization we may find $W \subseteq V$ of size $|E|$ corresponding to a set of tight linearly independent constraints.
-\item<3-> Give a token to each edge $vw$. Then have it give $\frac{1}{2}$ token to $v$ if $v \in W$ and have it give $\frac{1}{2}$ token to $w$ if $w \in W$. 
-\item<4->Remains to show that after redistribution each constraint in $W$ has at least $1$ token and some edge has a remaining fractional token.
+\item<2-> Choose $W \subseteq V$ with $|W| = |E|$ corresponding to a set of tight linearly independent constraints.
+\item<3-> Will show $|E| > |W|$ by a Token Argument to obtain contradiction.
 \end{itemize}
 \end{frame}
+
 \begin{frame}
 \frametitle{Correctness - Finding $0$ or $1$ Token Argument}
 \begin{itemize}
-\item<1-> Clearly each edge does not give away more tokens than it has
-\item<2-> For any $v \in W$, $x(\delta(v)) = 1$, and since $x_e < 1$ for each $e \in \delta(v)$ we have that the degree of $v$, $d(v)$, is at least $2$.
-\item<3-> Thus each tight constraint receives at least $1$ token.
-\item<4-> Since $\sum_{v \in V_0} \chi(\delta(v)) = \sum_{v \in V_1} \chi(\delta(v))$ by bipartiteness, there is a vertex $v \not\in W$ (otherwise constraints in $W$ are not linearly independent).
-\item<5-> Any edge incident on said $v$ does not give away all its tokens. So $|E| > |W|$, a contradiction.
+\item Give each edge a token.
+\item Redistribute tokens to tight constraints.
+\item Show after redistribution that all constraints have token and some edge has leftover.
+\end{itemize}
+\uncover<2->{We will redistribute according to the following rule:\\
+\begin{enumerate}
+\item Give a token to each edge $vw$. Then have it give $\frac{1}{2}$ token to $v$ if $v \in W$ and have it give $\frac{1}{2}$ token to $w$ if $w \in W$. 
+\end{enumerate}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Correctness - Finding $0$ or $1$ Counting Tokens}
+\begin{itemize}
+\item<1->Each edge gives away $\leq 1$ token.
+\item<2-> For any $v \in W$, $x(\delta(v)) = 1$ and each $x_e < 1$ implies $d(v) \geq 2$.
+\item<3-> Each tight constraint receives $\geq 2 \cdot \frac{1}{2} = 1$ tokens.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Correctness - Finding $0$ or $1$ Token Leftover}
+\begin{itemize}
+\item<1-> Since $G$ is bipartite: $\sum_{v \in V_0} \chi(\delta(v)) = \sum_{v \in V_1} \chi(\delta(v))$.
+\item<2-> So there exists $v \not\in W$ (otherwise constraints in $W$ are not linearly independent).
+\item<3-> Any $e \in \delta(v)$ does not give away all its tokens.
+\item<4-> So $|E| > |W|$, a contradiction.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Correctness - Optimality}
+Let $M$ be matching returned. Let $x$ be optimal extreme point solution to $LP_M(G)$. Show $c(M) \geq c^Tx$ by induction on number of iterations of algorithm.
 \begin{itemize}
-\item<1-> We will show the algorithm returns a matching of cost at least that of the optimal solution to $LP_M(G)$ by induction on the number of iterations of the algorithm.
-\item<2-> If the algorithm fixes $x_{vw} = 1$ during an iteration then the residual problem is to find a matching $M'$ on $G'=G-v-w$. Then $M' \cup \{vw\}$ is the matching returned by the algorithm.
-\item<3-> The vector $x' = x$ restricted to the edges of $G'$ is feasible for $LP_M(G')$.
-\item<4-> Therefore $c(M' \cup \{vw\}) = c(M') + c_{vw} \geq c(x') + c_{vw} = c(x)$,
-\item<5-> The case for fixing $x_{vw} = 0$ is similar.
+\item<1-> If algorithm fixes $x_{vw} = 1$ during iteration then residual problem is: find a matching $M'$ on $G'=G-v-w$. Algorithm returns $M' \cup \{vw\}$.
+\item<2-> $x' = x$ restricted to edges of $G'$ is feasible for $LP_M(G')$.
+\item<3-> So $c(M' \cup \{vw\}) = c(M') + c_{vw} \geq c(x') + c_{vw} = c(x)$,
+\item<4-> The case for fixing $x_{vw} = 0$ is similar.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{What do we get from this?}
-With such an algorithm in hand, integrality of the polytope in question is immediate:
+Correct algorithm implies integrality of polytope:
 \begin{itemize}
-\item  It is known from Linear Programming theory that for any extreme point there is a cost vector $c$ for which that extreme point is the unique optimal solution
-\item If we had a fractional extreme point, and ran the algorithm with the cost vector for which it is supposedly unique we would obtain an integral solution of equivalent cost
-\item Since the integral solution is feasible and clearly not equal to a fractional solution this contradictions uniqueness
+\item  From Linear Programming theory:  for extreme point $x$, there is a cost vector $c$, $x$ is unique optimal solution.
+\item If $x$ is fractional, and we ran the algorithm with cost $c$ we would obtain an integral solution, $x^{Int}$ of equivalent cost.
+\item Since $x^{Int}$ is feasible and $x^{Int} \neq x$ this contradicts uniqueness.
 \end{itemize}
 \end{frame}
 
@@ -167,17 +188,17 @@ With such an algorithm in hand, integrality of the polytope in question is immed
 \subsection{Problem Formulation}
 \begin{frame}
 \frametitle{Stable Matching Problem}
-\begin{itemize} \item As before consider a weighted bipartite graph $G$. But now each vertex ranks their neighbours in order of preference. \item So for any two neighbours $w_1, w_2$ of $v$ we write $w_1 >_v w_2$ to denote that $v$ prefers $w_1$ to $w_2$. \item For any neighbour $w$ of $v$ we let $\delta^{>w}(v) = \{vw' \in E : w' >_v w\}$. \item Let $n^*(v)$ ($n_*(v)$ respectively) denote the most (least respectively) preferred neighbour of $v$. \end{itemize} We aim to find a max weight stable matching.
+\begin{itemize} \item As before consider a weighted bipartite graph $G$. \item Now each vertex ranks their neighbours in order of preference. \item Write $w_1 >_v w_2$ to denote that $v$ prefers $w_1$ to $w_2$. \item For any neighbour $w$ of $v$ we let $\delta^{>w}(v) = \{vw' \in E : w' >_v w\}$. \item Let $n^*(v)$ ($n_*(v)$ respectively) be most (least respectively) preferred neighbour of $v$. \end{itemize} We aim to find a max weight stable matching.
 \end{frame}
 
 \begin{frame}
 \frametitle{Stability}
 A matching $M$ on $G$ is said to be stable if there does not exist $vw \in E$ (called a blocking pair) for which any of the following holds:
 \begin{enumerate}
-\item Both $v$ and $w$ have matches and $M(v) <_v w$ and $M(w) <_w v$ \\
-\item $v$ has a match but not $w$ and $M(v) <_v w$\\
-\item $w$ has a match but not $v$ and $M(w) <_w v$\\
-\item Both $v$ and $w$ have no matches
+\item Both $v$ and $w$ have matches and $M(v) <_v w$ and $M(w) <_w v$.
+\item $v$ has a match but not $w$ and $M(v) <_v w$.
+\item $w$ has a match but not $v$ and $M(w) <_w v$.
+\item Both $v$ and $w$ have no matches.
 \end{enumerate}
 \end{frame}
 
@@ -213,7 +234,7 @@ Let $LP_{SM}(G)$ be defined as follows:
 & &x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} &\geq 1, &\forall vw \in E\\
 & &x_e &\geq 0, &\forall e \in E
 \end{align*}
-For any $v \in V$, similar to $n^*(v)$ we will let $n^*(x,v)$ ($n_*(x,v)$ respectively) denote the most (least respectively) preferred neighbour of $v$ such that $x_{vn^*(x,v)} > 0$ ($x_{vn_*(x,v)} > 0$ respectively). \\
+Let $n^*(x,v)$ ($n_*(x,v)$ respectively) be most (least respectively) preferred neighbour of $v$ such that $x_{vn^*(x,v)} > 0$ ($x_{vn_*(x,v)} > 0$ respectively). \\
 Also define $S(x) = \{ v \in V : x(\delta(v)) > 0 \}$.
 \end{frame}
 
@@ -227,9 +248,9 @@ Such a $vw$ is a blocking pair. $\blacksquare$
 
 \begin{frame}
 \frametitle{Lemma 1}
-Let $x$ be feasible for $LP_{SM}(G)$ and let $vw \in E$. Then $$ v \not\in S(x) \text{ or } (vw \in S(x) \text{ and } w \geq_v n^*(x,v)) $$ implies that $$ x(\delta(w)) = 1 \text{ and } v \leq_w n_*(x,w). $$\\
+Let $x$ be feasible for $LP_{SM}(G)$ and let $vw \in E$. Then $$ v \not\in S(x) \text{ or } (vw \in S(x) \text{ and } w \geq_v n^*(x,v)) $$ $\implies$ $$ x(\delta(w)) = 1 \text{ and } v \leq_w n_*(x,w). $$\\
 $\textbf{Proof Idea:}$ In either case $x(\delta^{>w}(v)) = 0$. So $$1 \leq x(\delta^{>w}(x)) + x(\delta^{>v}(w)) + x_{vw} = x(\delta^{\geq v}(w)) \leq 1. \blacksquare$$\\
-$\textbf{Note:}$ If $x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = 1$ then the converse of Lemma $1$ holds as well.
+$\textbf{Note:}$ If $x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = 1$ then converse holds as well.
 \end{frame}
 
 \begin{frame}
@@ -241,7 +262,12 @@ $\textbf{Proof Idea:}$ Similar to previous with equality holding throughout. $\b
 \begin{frame}
 \frametitle{Lemma 3}
 Let $x$ be feasible for $LP_{SM}(G)$. Then $$ v \in S(x) $$ if and only if $$x(\delta(v)) = 1.$$ \\
-$\textbf{Proof Idea:}$ We establish a bijection between $S(x)$ and $F(x) = \{v \in V : x(\delta(v)) = 1\}$. Clearly $F(x) \subseteq S(x)$ so it is enough to show a one-to-one (injective) map. In fact, $n^*(x,\cdot)$ is such a map. If $n^*(x,v_1) = w = n^*(x,v_2)$ then by Lemma $2$ $v_1 = n_*(x,w) = v_2$. $\blacksquare$
+$\textbf{Proof Idea:}$
+\begin{itemize}
+\item By previous Lemmas $n(x,\cdot) : S(x) \rightarrow F(x) = \{v \in S(x) : x(\delta(v)) = 1 \}$.
+\item If $n^*(x,v_1) = w = n^*(x,v_2)$ then by Lemma $2$ $v_1 = n_*(x,w) = v_2$
+\item So $n(x,\cdot)$ is injective. $\blacksquare$
+\end{itemize}
 \end{frame}
 
 \subsection{Rothblum's Original Proof}
@@ -254,17 +280,19 @@ Rothblum showed that the extreme points of  $LP_{SM}(G)$:
 & &x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} &\geq 1, &\forall vw \in E\\
 & &x_e &\geq 0, &\forall e \in E
 \end{align*}
-are integral.\\
-One direction is easy. If we have an integral feasible solution of $LP_{SM}(G)$ then it is extreme since the solutions of $LP_{SM}(G)$ are contained in the solutions of $LP_M(G)$ which we have already shown has integral extreme point solutions.
+are exactly its integral points.\\
+$(\implies)$ If $x$ integral optimal solution to $LP_{SM}(G)$ then $x$ is extreme since the solutions of $LP_{SM}(G)$ are contained in the solutions of $LP_M(G)$.
 \end{frame}
 
 \begin{frame}
 \frametitle{Proof of Integrality - Strategy}
-Now suppose that we have an extreme point solution $x$ to $LP_{SM}(G)$. Rothblum uses a convex combination argument to achieve integrality. 
+$(\impliedby)$ Suppose $x$ is extreme point of $LP_{SM}(G)$. Rothblum uses a convex combination argument: 
 \begin{itemize}
-\item Recall that $x$ is an extreme point if and only if there does not exist $x^1 \neq x^2$ feasible solutions such that $x = \frac{1}{2}(x^1 + x^2)$.
-\item Rothblum elegantly defines a vector $z$ such that $z = 0$ implies that for all $v \in V$, $n^*(x,v) = n_*(x,v)$ and thus $x$ is integral (each $x(\delta(v)) = 1$ or $0$ and there is at most one non-zero edge incident to each $v$).
-\item Rothblum then shows $x = \frac{1}{2}(x + \epsilon z  + x - \epsilon z)$ for sufficiently small $\epsilon$ and by extremality of $x$ the proof is complete.
+\item $x$ is extreme $\iff$ there does not exist $x^1 \neq x^2$ feasible such that $x = \frac{1}{2}(x^1 + x^2)$.
+\item Define vector $z$ such that $z = 0$ $\implies$ $n^*(x,v) = n_*(x,v)$ for all $v$.
+\item Which would imply $x$ is integral.
+\item Rothblum then shows $x \pm \epsilon z$ feasible for sufficiently small $\epsilon$.
+\item By extremality of $x$ proof is complete.
 \end{itemize}
 \end{frame}
 
@@ -306,8 +334,8 @@ We claim that $z$ satisfies the following:
 \item<3-> If $x_e = 0$ then $z_e = 0$ for all $e \in E$.
 \item<4-> If $x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = 1$ then $z(\delta^{>w}(v)) + z(\delta^{>v}(w)) + z_{vw} = 0$.
 \end{itemize}
-\uncover<5->{That is to say $z$ is in the null space of the matrix of constraints tight at $x$. Thus we can choose $\epsilon > 0$ such that $x \pm \epsilon z$ is feasible for $LP_{SM}(G)$}. \\
-\uncover<6->{Since $x$ is an extreme point this means $z = 0$. That is, $z^* = z_*$. So each $v \in V$ that is matched has one non-zero incident edge. Further by our Lemmas each such $v$ satisfies $x(\delta(v)) = 1$ and therefore $x$ is integral. $\blacksquare$}
+\uncover<5->{Thus we can choose $\epsilon > 0$ such that $x \pm \epsilon z$ is feasible for $LP_{SM}(G)$}. \\
+\uncover<6->{Since $x$ is an extreme point this means $z = 0$. That is, $z^* = z_*$ and therefore $x$ is integral. $\blacksquare$}
 \end{frame}
 
 \section{An Iterative Rounding Proof?}
@@ -320,7 +348,7 @@ Recall: $LP_{SM}(G)$:
 & &x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} &\geq 1, &\forall vw \in E\\
 & &x_e &\geq 0, &\forall e \in E
 \end{align*}
-We ask if there exists an Iterative Rounding based proof of integrality?\\
+Is there an Iterative Rounding proof of integrality?\\
 Recall Iterative Rounding: \\Characterize tight constraints $\Rightarrow$ Iterative Algorithm $\Rightarrow$ Analysis.
 \end{frame}
 
@@ -333,29 +361,54 @@ Let $x$ be an extreme point solution to $LP_{SM}(G)$ such that $x>0$. Then there
 \item The vectors in $\{\chi(\delta(v)) : v \in W\}$ together with the vectors in $\{\chi(\delta_v^>(w)) + \chi(\delta_w^>(v)) + \chi(vw) : vw \in T\}$ are all linearly independent.
 \item $|W| + |T| = |E|$.
 \end{enumerate}
-$\textbf{Proof:}$ Immediate from Rank Lemma (The maximal number of linearly independent tight constraints at an extreme point is equal to the number of edges). $\blacksquare$
 \end{frame}
+
 \subsection{Finding a $0$ or $1$}
+
 \begin{frame}
 \frametitle{Finding a $0$ or $1$ - Choose $W$ and $T$}
-Suppose for a contradiction we have an extreme point solution of $LP_{SM}(G)$, $x$, such that $0 < x < 1$. We may choose $W \subseteq V$ and $T \subseteq E$ corresponding to a maximal set of linearly independent tight constraints such that $|W| + |T| = |E|$. Choose the pair $(W,T)$ which  maximizes $|W|$.\\
-\uncover<2->{
-As before, for any $v \in W$, $d(v) \geq 2$.\\
-$\textbf{Proof Idea:}$ $x(\delta(v)) = 1$ and $x_e < 1$ for each $e \in \delta(v)$ so $d(v) \geq 2$. }
-\end{frame}
-\begin{frame}
-\frametitle{Finding a $0$ or $1$ - degree of $v \in W$}
-The following claims show that each tight vertex $v \in W$ has two adjacent edges not in $T$:
 \begin{itemize}
-\item<2-> Let $v \in W$.  Let $w = n_*(v)$. Then $vw \not\in T$. \\
-$\textbf{Proof Idea:}$ If $vw$ in $T$ then since $\delta^{\geq w}(v) = \delta(v)$ we have that $\chi(\delta^{>w}(v)) + \chi(\delta^{>v}(w)) + \chi(vw) = \chi(\delta(v))$ this contradicts the linear independence of the constraints chosen.
-\item<3-> Let $v \in V$. Let $w = n^*(v)$. Then $vw \not\in T$. \\
-$\textbf{Proof Idea:}$ If $vw \in T$ then $x(\delta^{\geq v}(w)) = 1$. So $\chi(\delta^{\geq v}(w)) = \chi(\delta(w))$ and $\chi(\delta^{>w}(v)) + \chi(\delta^{>v}(w)) + \chi(vw) = \chi(\delta(w)).$ If $w \in W$ this contradicts linear independence. Otherwise this contradicts the maximality of $W$.
+\item Suppose for a contradiction we have an extreme point solution of $LP_{SM}(G)$, $x$, such that $0 < x < 1$. 
+\item There are $W \subseteq V$ and $T \subseteq E$ corresponding to a maximal set of linearly independent tight constraints such that $|W| + |T| = |E|$
+\item Choose the pair $(W,T)$ which  maximizes $|W|$
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Finding a $0$ or $1$ - $vn_*(v) \not\in T$}
+Let $v \in W$.  Let $w = n_*(v)$. Then $vw \not\in T$.\\
+$\textbf{Proof Idea:}$
+\begin{itemize}
+\item<2-> If $vw$ in $T$ then $x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = 1 = x(\delta(v))$.
+\item<3-> Since $\delta^{\geq w}(v) = \delta(v)$, we have $x(\delta^{>v}(w)) = 0$.
+\item<4-> Therefore $\chi(\delta^{>w}(v)) + \chi(\delta^{>v}(w)) + \chi(vw) = \chi(\delta(v))$. This contradicts the linear independence of the constraints chosen.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Finding a $0$ or $1$ - $vn^*(v) \not\in T$}
+ Let $v \in V$. Let $w = n^*(v)$. Then $vw \not\in T$.\\
+ $\textbf{Proof Idea:}$
+\begin{itemize}
+\item<2-> If $vw \in T$ then $x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = 1$.
+\item<3-> Since $x(\delta^{>w}(v)) = 0$ we have $x(\delta^{\geq v}(w)) = 1$.
+\item<4-> So $\chi(\delta^{\geq v}(w)) = \chi(\delta(w))$ and $\chi(\delta^{>w}(v)) + \chi(\delta^{>v}(w)) + \chi(vw) = \chi(\delta(w)).$
+\item<5-> If $w \in W$ this contradicts linear independence. Otherwise this contradicts the maximality of $W$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Finding a $0$ or $1$ - Degree Lower Bound}
+\begin{itemize}
+\item As before, for any $v \in W$, $d(v) \geq 2$.
+\item $\textbf{Proof Idea:}$ $x(\delta(v)) = 1$ and $x_e < 1$ for each $e \in \delta(v)$ so $d(v) \geq 2$. 
+\item Since $vn^*(v)$ and $vn_*(v)$ are not in $T$ each vertex in $W$ has two incident edges not in $T$.
+\end{itemize}
+\end{frame}
+
 \begin{frame}
 \frametitle{Finding a $0$ or $1$ - Token argument}
-Give each edge in $E$ a token and have them distribute tokens to the tight constraints as follows for any $vw \in E$:
+Give each edge in $E$ a token. Redistribute tokens as follows for any $vw \in E$:
 \begin{enumerate}
 \item If $vw \in T$ have $vw$ give itself token.
 \item Otherwise if $v \in W$ have $vw$ give $\frac{1}{2}$ token to $v$, and if $w \in W$ have $vw$ give $\frac{1}{2}$ token to $w$.
@@ -381,7 +434,7 @@ Give each edge in $E$ a token and have them distribute tokens to the tight const
 \end{enumerate}
 \item Output $M$
 \end{enumerate}
-\uncover<2->{But this doesn't work!\\ $LP_{SM}(G-e)$ loses the stability constraint for $e$ so the stable matching returned by the algorithm on $G-e$, $M'$, is not necessarily such that $M' \cup \{e\}$ is a stable matching on $G$}
+\uncover<2->{But this doesn't work!\\ $LP_{SM}(G-e)$ loses stability constraint for $e$. So stable matching returned by algorithm on $G-e$, $M'$, comes with no guarantee that $M' \cup \{e\}$ is a stable matching on $G$}
 \end{frame}
 \begin{frame}
 \frametitle{Can We Fix The Algorithm? - Edges of value $1$}
