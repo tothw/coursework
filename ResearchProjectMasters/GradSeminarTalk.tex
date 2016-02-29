@@ -231,7 +231,7 @@ Let $LP_{SM}(G)$ be defined as follows:
 \begin{align*}
 &\text{maximize} &\sum_{e \in E} c_e x_e \\
 &\text{subject to} &x(\delta(v)) &\leq 1, &\forall v \in V\\
-& &x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} &\geq 1, &\forall vw \in E\\
+& &\alert{x(\delta^{>w}(v))} \alert{+ x(\delta^{>v}(w)) + x_{vw}} &\alert{\geq 1,} &\alert{\forall vw \in E}\\
 & &x_e &\geq 0, &\forall e \in E
 \end{align*}
 Let $n^*(x,v)$ ($n_*(x,v)$ respectively) be most (least respectively) preferred neighbour of $v$ such that $x_{vn^*(x,v)} > 0$ ($x_{vn_*(x,v)} > 0$ respectively). \\
@@ -334,7 +334,7 @@ We claim that $z$ satisfies the following:
 \item<3-> If $x_e = 0$ then $z_e = 0$ for all $e \in E$.
 \item<4-> If $x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = 1$ then $z(\delta^{>w}(v)) + z(\delta^{>v}(w)) + z_{vw} = 0$.
 \end{itemize}
-\uncover<5->{Thus we can choose $\epsilon > 0$ such that $x \pm \epsilon z$ is feasible for $LP_{SM}(G)$}. \\
+\uncover<5->{Thus we can choose $\epsilon > 0$ such that $x \pm \epsilon z$ is feasible for $LP_{SM}(G)$.} \\
 \uncover<6->{Since $x$ is an extreme point this means $z = 0$. That is, $z^* = z_*$ and therefore $x$ is integral. $\blacksquare$}
 \end{frame}
 
