@@ -58,7 +58,7 @@
 Let $G=(V, E)$ be a bipartite graph with bipartition $V = V_0 \dot\cup V_1$. 
 \begin{itemize}
 \item For each $e \in E$, assign a cost $c_e$
-\item $M \subseteq E$ if a matching if $\delta(v) \cap M \leq 1$ for all $v \in V$
+\item $M \subseteq E$ is a matching if $\delta(v) \cap M \leq 1$ for all $v \in V$
 \item $M(v)$ denotes the vertex $v$ is matched to under $M$
 \item Problem: Find a matching $M$ maximizing $\sum_{e\in M} c_e$.
 \end{itemize}
@@ -140,7 +140,7 @@ where $\chi(\delta(v))$ denotes the incidence vector of $\delta(v)$.}
 \end{itemize}
 \uncover<2->{We will redistribute according to the following rule:\\
 \begin{enumerate}
-\item Give a token to each edge $vw$. Then have it give $\frac{1}{2}$ token to $v$ if $v \in W$ and have it give $\frac{1}{2}$ token to $w$ if $w \in W$. 
+\item Each edge $vw$ gives $\frac{1}{2}$ token to $v$ if $v \in W$ and gives $\frac{1}{2}$ token to $w$ if $w \in W$. 
 \end{enumerate}}
 \end{frame}
 
@@ -188,7 +188,7 @@ Correct algorithm implies integrality of polytope:
 \subsection{Problem Formulation}
 \begin{frame}
 \frametitle{Stable Matching Problem}
-\begin{itemize} \item As before consider a weighted bipartite graph $G$. \item Now each vertex ranks their neighbours in order of preference. \item Write $w_1 >_v w_2$ to denote that $v$ prefers $w_1$ to $w_2$. \item For any neighbour $w$ of $v$ we let $\delta^{>w}(v) = \{vw' \in E : w' >_v w\}$. \item Let $n^*(v)$ ($n_*(v)$ respectively) be most (least respectively) preferred neighbour of $v$. \end{itemize} We aim to find a max weight stable matching.
+\begin{itemize} \item As before consider a weighted bipartite graph $G$. \item Now each vertex ranks their neighbours in order of preference. \item Write $w_1 >_v w_2$ to denote that $v$ prefers $w_1$ to $w_2$. \item For any neighbour $w$ of $v$ let $\delta^{>w}(v) = \{vw' \in E : w' >_v w\}$. \item Let $n^*(v)$ ($n_*(v)$ respectively) be most (least respectively) preferred neighbour of $v$. \end{itemize} We aim to find a max weight stable matching.
 \end{frame}
 
 \begin{frame}
