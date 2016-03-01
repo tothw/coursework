@@ -248,7 +248,7 @@ Such a $vw$ is a blocking pair. $\blacksquare$
 
 \begin{frame}
 \frametitle{Lemma 1}
-Let $x$ be feasible for $LP_{SM}(G)$ and let $vw \in E$. Then $$ v \not\in S(x) \text{ or } (vw \in S(x) \text{ and } w \geq_v n^*(x,v)) $$ $\implies$ $$ x(\delta(w)) = 1 \text{ and } v \leq_w n_*(x,w). $$\\
+Let $x$ be feasible for $LP_{SM}(G)$ and let $vw \in E$. Then $$ v \not\in S(x) \text{ or } (v \in S(x) \text{ and } w \geq_v n^*(x,v)) $$ $\implies$ $$ x(\delta(w)) = 1 \text{ and } v \leq_w n_*(x,w). $$\\
 $\textbf{Proof Idea:}$ In either case $x(\delta^{>w}(v)) = 0$. So $$1 \leq x(\delta^{>w}(x)) + x(\delta^{>v}(w)) + x_{vw} = x(\delta^{\geq v}(w)) \leq 1. \blacksquare$$\\
 $\textbf{Note:}$ If $x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = 1$ then converse holds as well.
 \end{frame}
@@ -266,7 +266,7 @@ $\textbf{Proof Idea:}$
 \begin{itemize}
 \item By previous Lemmas $n(x,\cdot) : S(x) \rightarrow F(x) = \{v \in S(x) : x(\delta(v)) = 1 \}$.
 \item If $n^*(x,v_1) = w = n^*(x,v_2)$ then by Lemma $2$ $v_1 = n_*(x,w) = v_2$
-\item So $n(x,\cdot)$ is injective. $\blacksquare$
+\item So $n^*(x,\cdot)$ is injective. $\blacksquare$
 \end{itemize}
 \end{frame}
 
@@ -354,12 +354,12 @@ Recall Iterative Rounding: \\Characterize tight constraints $\Rightarrow$ Iterat
 
 \begin{frame}
 \frametitle{Extreme Point Characterization}
-Let $x$ be an extreme point solution to $LP_{SM}(G)$ such that $x>0$. Then there exists $W \subseteq V$ and $T \subseteq E$ such that the following hold:
+Let $x$ be an extreme point solution to $LP_{SM}(G)$ such that $x>0$. Then there exists $W \subseteq V$ and \alert{$T \subseteq E$} such that the following hold:
 \begin{enumerate}
 \item $x(\delta(v)) = 1$, $\forall v \in W$.
-\item $x(\delta^{>w}(v))+ x(\delta^{>v}(w) + x_{vw} = 1$, $\forall vw \in T$.
-\item The vectors in $\{\chi(\delta(v)) : v \in W\}$ together with the vectors in $\{\chi(\delta_v^>(w)) + \chi(\delta_w^>(v)) + \chi(vw) : vw \in T\}$ are all linearly independent.
-\item $|W| + |T| = |E|$.
+\item\alert<1->{ $x(\delta^{>w}(v))+ x(\delta^{>v}(w) + x_{vw} = 1$, $\forall vw \in T$.}
+\item The vectors in $\{\chi(\delta(v)) : v \in W\}$ together with the vectors in \alert<1->{$\{\chi(\delta_v^>(w)) + \chi(\delta_w^>(v)) + \chi(vw) : vw \in T\}$} are all linearly independent.
+\item $|W| \alert{+ |T|} = |E|$.
 \end{enumerate}
 \end{frame}
 
