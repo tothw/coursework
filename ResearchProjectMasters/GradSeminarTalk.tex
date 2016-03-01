@@ -95,19 +95,6 @@ Where $x(\delta(v)) = \sum_{e \in \delta(v)} x_e$.
 
 \subsection{Integrality by Iterative Rounding}
 \begin{frame}
-\frametitle{Characterize Extreme Point Solution}
-$\textbf{Rank Lemma:}$ The maximal number of linearly independent tight constraints at an extreme point is equal to the dimension of the polytope.\\
-\uncover<2->{$\implies$\\
-Let $x$ be an extreme point of $LP_M(G)$ such that $0<x<1$. Then there exists a set $W \subseteq V$ such that:
-\begin{enumerate}
-\item $|W| = |E|$
-\item $x(\delta(v)) = 1$ for all $v \in W$
-\item $\{\chi(\delta(v)) : v \in W \}$ is linearly independent
-\end{enumerate}
-where $\chi(\delta(v))$ denotes the incidence vector of $\delta(v)$.}
-\end{frame}
-
-\begin{frame}
 \frametitle{Iterative Algorithm}
 \begin{enumerate}
 \item Input bipartite matching instance $G$
@@ -120,6 +107,19 @@ where $\chi(\delta(v))$ denotes the incidence vector of $\delta(v)$.}
 \end{enumerate}
 \item Output $M$
 \end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Characterize Extreme Point Solution}
+$\textbf{Rank Lemma:}$ The maximal number of linearly independent tight constraints at an extreme point is equal to the dimension of the polytope.\\
+\uncover<2->{$\implies$\\
+Let $x$ be an extreme point of $LP_M(G)$ such that $0<x<1$. Then there exists a set $W \subseteq V$ such that:
+\begin{enumerate}
+\item $|W| = |E|$
+\item $x(\delta(v)) = 1$ for all $v \in W$
+\item $\{\chi(\delta(v)) : v \in W \}$ is linearly independent
+\end{enumerate}
+where $\chi(\delta(v))$ denotes the incidence vector of $\delta(v)$.}
 \end{frame}
 
 \begin{frame}
