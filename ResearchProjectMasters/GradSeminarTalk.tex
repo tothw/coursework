@@ -279,13 +279,12 @@ Rothblum showed that the extreme points of  $LP_{SM}(G)$:
 & &x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} &\geq 1, &\forall vw \in E\\
 & &x_e &\geq 0, &\forall e \in E
 \end{align*}
-are exactly its integral points.\\
-$(\implies)$ If $x$ integral optimal solution to $LP_{SM}(G)$ then $x$ is extreme since the solutions of $LP_{SM}(G)$ are contained in the solutions of $LP_M(G)$.
+are integral.
 \end{frame}
 
 \begin{frame}
 \frametitle{Proof of Integrality - Strategy}
-$(\impliedby)$ Suppose $x$ is extreme point of $LP_{SM}(G)$. Rothblum uses a convex combination argument: 
+Let $x$ be an extreme point of $LP_{SM}(G)$. Rothblum uses a convex combination argument: 
 \begin{itemize}
 \item $x$ is extreme $\iff$ there does not exist $x^1 \neq x^2$ feasible such that $x = \frac{1}{2}(x^1 + x^2)$.
 \item Define vector $z$ such that $z = 0$ $\implies$ $n^*(x,v) = n_*(x,v)$ for all $v$.
