@@ -439,8 +439,8 @@ Give each edge in $E$ a token. Redistribute tokens as follows for any $vw \in E$
 \frametitle{Can We Fix The Algorithm? - Edges of value $1$}
 When we find $x_{vw} = 1$ we can be clever and do the following:
 \begin{enumerate}
-\item $\forall u \in N(v)$ (the neighbourhood of $v$) such that $v$ prefers $u$ to $w$ remove every edge in $\delta_u^<(v)$ from $G$
-\item $\forall u \in N(w)$ such that $w$ prefers $u$ to $v$ remove every edge in $\delta_u^<(w)$ from $G$.
+\item $\forall u \in N(v)$ (the neighbourhood of $v$) such that $v$ prefers $u$ to $w$ remove every edge in $\delta^{<v}(u)$ from $G$
+\item Do similarly for $w$.
 \item Remove $v, w$ from $G$.
 \end{enumerate}
 It can be shown that this ensures the matching returned on the residual graph plus edge $vw$ is a stable matching on $G$.\end{frame}
