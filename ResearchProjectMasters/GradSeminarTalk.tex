@@ -248,14 +248,13 @@ Such a $vw$ is a blocking pair. $\blacksquare$
 
 \begin{frame}
 \frametitle{Lemma 1}
-Let $x$ be feasible for $LP_{SM}(G)$ and let $vw \in E$. Then $$ v \not\in S(x) \text{ or } (v \in S(x) \text{ and } w \geq_v n^*(x,v)) $$ $\implies$ $$ x(\delta(w)) = 1 \text{ and } v \leq_w n_*(x,w). $$\\
-$\textbf{Proof Idea:}$ In either case $x(\delta^{>w}(v)) = 0$. So $$1 \leq x(\delta^{>w}(x)) + x(\delta^{>v}(w)) + x_{vw} = x(\delta^{\geq v}(w)) \leq 1. \blacksquare$$\\
-$\textbf{Note:}$ If $x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = 1$ then converse holds as well.
+Let $x$ be feasible for $LP_{SM}(G)$ and let $vw \in E$. Then $$ v \in S(x) \text{ and } w \geq_v n^*(x,v)) $$ $\implies$ $$ x(\delta(w)) = 1 \text{ and } v \leq_w n_*(x,w). $$\\
+$\textbf{Proof Idea:}$ Notice $x(\delta^{>w}(v)) = 0$. So $$1 \leq x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = x(\delta^{\geq v}(w)) \leq 1. \blacksquare$$\\
 \end{frame}
 
 \begin{frame}
 \frametitle{Lemma 2}
-Let $x$ be feasible for $LP_{SM}(G)$ and let $vw \in E$. Then $$v \in S(x) \text{ and } w = n^*(x,v)$$ if and only if $$x(\delta(w)) = 1 \text{ and } v = n_*(x,w). $$\\
+Let $x$ be feasible for $LP_{SM}(G)$ and let $vw \in E$. Then $$v \in S(x) \text{ and } \alert{w = n^*(x,v)}$$ \alert{if and only if} $$x(\delta(w)) = 1 \text{ and } \alert{v = n_*(x,w)}. $$\\
 $\textbf{Proof Idea:}$ Similar to previous with equality holding throughout. $\blacksquare$
 \end{frame}
 
@@ -264,7 +263,7 @@ $\textbf{Proof Idea:}$ Similar to previous with equality holding throughout. $\b
 Let $x$ be feasible for $LP_{SM}(G)$. Then $$ v \in S(x) $$ if and only if $$x(\delta(v)) = 1.$$ \\
 $\textbf{Proof Idea:}$
 \begin{itemize}
-\item By previous Lemmas $n(x,\cdot) : S(x) \rightarrow F(x) = \{v \in S(x) : x(\delta(v)) = 1 \}$.
+\item By previous Lemmas $n^*(x,\cdot) : S(x) \rightarrow F(x) = \{v \in S(x) : x(\delta(v)) = 1 \}$.
 \item If $n^*(x,v_1) = w = n^*(x,v_2)$ then by Lemma $2$ $v_1 = n_*(x,w) = v_2$
 \item So $n^*(x,\cdot)$ is injective. $\blacksquare$
 \end{itemize}
