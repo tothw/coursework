@@ -103,6 +103,8 @@ We desire to prove this polytope is integral. Note that it is clear the integral
 \paragraph{}
 Consider the inductive case. Let $x$ be an extreme point of $Q(G)$. We have already shown (by token/charging argument) that there exists $e=vw \in E(G)$ such that $x_e = 0$ or $x_e = 1$. 
 \paragraph{}
+In the case $x_e = 1$, Kostya notes that we want a concise way to delete from $G$ the vertices $v,w$ and the residual vector from $x$ should be a vertex of $Q(G-\{v,w\})$. I haven't treated this yet.
+\paragraph{}
 Consider the case $x_e = 0$. If $x$ is fractional then the residual vector, $z$, acquired by restricting $x$ to $\R^{E\backslash\{e\}}$, is fractional. Notice that $z \in Q(G-e)$. Further it is not difficult to show that $x$ satisfies:
 $$x(\delta^{>w}(v))+ x(\delta^{>v}(w)) + x_{vw} = 1$$
 and so $z$ lies on an edge of $Q(G-e)$ (the hyperplane above intersects this edge) . Let $M_1$ and $M_2$ be the stable matchings given by the extreme points of $Q(G-e)$ which describe the edge that $z$ lies on.
@@ -112,4 +114,51 @@ $$ |M_1 \cap(\delta^{>w}(v) \cup \delta^{>v}(w))| = 2 $$
 and 
 $$ |M_2 \cap(\{vw\} \cup \delta^{>w}(v) \cup \delta^{>v}(w))| = 0.$$
 To see this notice that if $|M_1 \cap(\delta^{>w}(v) \cup \delta^{>v}(w))| = 1$ then $M_1$ would satisfy $$x(\delta^{>w}(v))+ x(\delta^{>v}(w)) + x_{vw} = 1$$ and $z$ would be the incidence vector of $M_1$, contradicting that $z$ is fractional. Similar for $M_2$.
+\paragraph{}
+From Lemma $1.3$, $M_1 \triangle M_2$ is a collection of cycles which can be partitioned into two sets $J_1$ and $J_2$ as follows. Let $J_1$ contain the cycles whose vertices in $V_0$ prefer $M_1$ to $M_2$, and let $J_2$ contain the cycles whose vertices in $V_1$ prefer $M_1$ to $M_2$. Since $|M_1 \cap(\delta^{>w}(v) \cup \delta^{>v}(w))| = 2$, neither $J_1$ nor $J_2$ are empty. Therefore $M_1 \triangle J_1$ and $M_2 \triangle J_2$ are distinct matchings from $M_1$ and $M_2$.
+\paragraph{}
+Further it can be seen that
+$$  \chi(M_1) + \chi(M_2) = \chi(M_1 \triangle J_1) + \chi(M_2 \triangle J_2). $$
+To see this let $f \in E$. Either $f \in M_1\backslash M_2$, $f\in M_2\backslash M_1$, or $f \in M_1 \cap M_2$.
+\paragraph{} In the case $f \in M_1\backslash M_2$, $f$ appears once on the left hand side. Also $f$ is contained in one of $J_1$ or $J_2$ as $f \not\in M_2$. Therefore $f$ appears only once on the right hand side.
+\paragraph{} In the case $f \in M_2 \backslash M_1$, $f$ appears once on the left hand side. Again $f$ is contained in one of $J_1$ or $J_2$ resulting in it appearing once on the right hand side.
+\paragraph{} In the case $f \in M_1 \cap M_2$, $f$ appears twice on the left hand side. But now, $f$ appears in neither $J_1$ nor $J_2$ so $f$ still appears twice on the right hand side. Therefore the equation holds.
+\paragraph{} Provided that $M_1 \triangle J_1$ and $M_1 \triangle J_2$ are stable this equation contradicts that $M_1$ and $M_2$ are described by extreme points defining at edge of $Q(G-e)$. We will show that next. $\blacksquare$
+\begin{lemma}
+$M_1 \triangle J_1$ is a stable matching of $G-e$.
+\end{lemma}
+\begin{proof}
+\paragraph{}
+Suppose for a contradiction the pair $ab$ blocks $M_1 \triangle J_1$ for $a \in V_0$ and $b \in V_1$. Let $M(v)$ denote the match of any $v \in V$ under $M_1 \triangle J_1$. Notice that
+$$
+M(v)=
+\begin{cases}
+M_1(v), \text{ if $vM_1(v) \not\in J_1$}\\
+M_2(v), \text{ otherwise.}
+\end{cases}
+$$
+Then $ab$ is a blocking pair means:
+$$ b >_a M(a) \text{ and } a >_b M(b). $$
+Now either $ab \in M_1$ or $ab \not\in M_1$.
+\paragraph{}
+Consider the case that $ab \in M_1$. Then $ab \in J_1$, as otherwise $ab$ is matched in $M_1 \triangle J_1$. So then
+$$ b=M_1(a) >_a M_2(a).$$
+Thus by the stability of $M_2$,
+$$ M_2(b) >_b a. $$
+But $M(b) = M_2(b)$, and so we have $M(b) >_b M(b)$, a contradiction.
+\paragraph{}
+Now consider the case where $ab \not\in M_1$. Then $ab \not\in J_1$. So then
+$$ M_1(a) >_a M_2(a)$$.
+By the stability of $M_1$, either
+$$ M_1(a) >_a b \text{ or } M_1(b) >_b a. $$
+First suppose that $M_1(a) >_a b$. Then $M(a) = M_2(a)$. Now if $ab \in M_2$ then $M_2(a) = b$, a contradiction, so $ab \not \in M_2$. By the stability of $M_2$ either
+$$ M_2(a) >_a b \text{ or } M_2(b) >_b a. $$
+If $M_2(a) >_a b$ then $M_2(a) >_a M(a) = M_2(a)$, a contradiction. So $M_2(b) >_b a$. Therefore $M(b) = M_1(b)$. Thus we see that
+$$bM_1(b) \not\in J_1. $$
+Since $M_1(b) \neq M_2(b)$ (otherwise $M_2(b) >_b M_2(b)$, a contradiction) this is only possible if
+$$ M_2(M_1(b)) >_{M_1(b)} b. $$
+But then on the cycle containing $b$, $b$ prefers $M_2$ to $M_1$ and $M_1(b)$ prefers $M_2$ to $M_1$, contradicting Lemma $1.3$ in that they must disagree.
+\paragraph{}
+The case for $M_1(b) >_b a$ follows similarly (should I write it out for sake of completeness?).
+\end{proof}
 \end{document}
