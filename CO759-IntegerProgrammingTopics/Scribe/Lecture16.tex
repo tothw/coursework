@@ -85,7 +85,7 @@
 \newcommand{\ceil}[1]{\ensuremath{\left\lceil#1\right\rceil}}
 \newcommand{\floor}[1]{\ensuremath{\left\lfloor#1\right\rfloor}}
 
-
+\DeclareMathOperator{\orb}{orb}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -114,7 +114,7 @@ The setting for this discussion is as follows. Let $P_I = \{x \in \{0,1\}^n : Ax
 If we interpret our integer programming problem as modeling some combinatorial problem then fixing $x_j = 0$ is effectively just dropping corresponding object $j$ from solution. This does not gain much, particularly in the face of symmetry, where other variables may take on the role of $x_j$. That is to say, if $x_k \sim x_j$ then fixing $x_j = 0$ does not change much since we have equivalence.
 \paragraph{}
 Notice there is nothing in the general Branch and Bound procedure forcing us to choose the disjunction $x_j = 0$ or $x_j = 1$ for branching. Any disjunction will do. So let's choose one that better exploits the symmetry. Consider the disjunction
-$$ \sum_{k \in orb(j, \tilde{G})} x_k \leq 0 \text{ or } \sum_{k \in orb(j, \tilde{G})} x_k \geq 1. $$
+$$ \sum_{k \in \orb(j, \tilde{G})} x_k \leq 0 \text{ or } \sum_{k \in \orb(j, \tilde{G})} x_k \geq 1. $$
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
@@ -122,15 +122,15 @@ $$ \sum_{k \in orb(j, \tilde{G})} x_k \leq 0 \text{ or } \sum_{k \in orb(j, \til
 \node[shape=circle, draw=black](B) at (-1,-1){};
 \node[shape=circle, draw=black](C) at (1,-1){};
 
-\path[-] (A) edge node[left] { $\sum_{k \in orb(j, \tilde{G})} x_k \leq 0$}  (B);
-\path[-] (A) edge node[right] { $\sum_{k \in orb(j, \tilde{G})} x_k \geq 1$}  (C);
+\path[-] (A) edge node[left] { $\sum_{k \in \orb(j, \tilde{G})} x_k \leq 0$}  (B);
+\path[-] (A) edge node[right] { $\sum_{k \in \orb(j, \tilde{G})} x_k \geq 1$}  (C);
 \end{tikzpicture}
 \caption{The Branch and Bound tree with disjunction under consideration}
 \end{figure}
-\begin{note} The condition $\sum_{k \in orb(j, \tilde{G})} x_k \leq 0$ is equivalent to saying $x_k = 0$ for all $k \in orb(j, \tilde{G})$.
+\begin{note} The condition $\sum_{k \in \orb(j, \tilde{G})} x_k \leq 0$ is equivalent to saying $x_k = 0$ for all $k \in \orb(j, \tilde{G})$.
 \end{note}
 \paragraph{}
-Another way to interpret $\sum_{k \in orb(j, \tilde{G})} x_k \geq 1$ is to create one branch fixing each $x_k = 1$ for $k \in orb(j, \tilde{G})$. 
+Another way to interpret $\sum_{k \in \orb(j, \tilde{G})} x_k \geq 1$ is to create one branch fixing each $x_k = 1$ for $k \in \orb(j, \tilde{G})$. 
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
@@ -138,12 +138,12 @@ Another way to interpret $\sum_{k \in orb(j, \tilde{G})} x_k \geq 1$ is to creat
 \node[shape=circle, draw=black](B) at (-1,-1){};
 \node[shape=circle, draw=black](C) at (1,-1){};
 \node[shape=circle, draw=black](D) at (5,-1){};
-\path[-] (A) edge node[left] { $\sum_{k \in orb(j, \tilde{G})} x_k \leq 0$}  (B);
+\path[-] (A) edge node[left] { $\sum_{k \in \orb(j, \tilde{G})} x_k \leq 0$}  (B);
 \path[-] (A) edge node[right] { $x_{k_1} = 1$}  (C);
 \path[-] (A) edge node[right]{$x_{k_l} = 1$} (D);
 \path[dashed](C) edge node[below]{$k_1, \dots, k_l$}(D);
 \end{tikzpicture}
-\caption{The Branch and Bound tree fixing each $x_k = 1$ for $k \in \{k_1, \dots, k_l\} = orb(j, \tilde{G})$}
+\caption{The Branch and Bound tree fixing each $x_k = 1$ for $k \in \{k_1, \dots, k_l\} = \orb(j, \tilde{G})$}
 \end{figure}
 \paragraph{}
 But this approach would potentially lead to many branches. Fortunately since
@@ -156,7 +156,7 @@ branching on each $x_{k_i}$ is equivalent, and we need only branch on $x_j$. Doi
 \node[shape=circle, draw=black](B) at (-1,-1){};
 \node[shape=circle, draw=black](C) at (1,-1){};
 
-\path[-] (A) edge node[left] { $x_k = 0$ for all $k \in orb(j, \tilde{G})$}  (B);
+\path[-] (A) edge node[left] { $x_k = 0$ for all $k \in \orb(j, \tilde{G})$}  (B);
 \path[-] (A) edge node[right] {$x_j = 1$}  (C);
 \end{tikzpicture}
 \caption{The Branch and Bound tree with orbital branching at $x_j$}
@@ -294,7 +294,7 @@ But if we use orbital branching we obtain the much smaller subproblem:
 \path[-] (3) edge (4);
 \path[-] (1) edge (4);
 \end{tikzpicture}
-\caption{Subproblem for orbital branching $x_k = 0$ for all $k \in orb(5,\tilde{G})$}
+\caption{Subproblem for orbital branching $x_k = 0$ for all $k \in \orb(5,\tilde{G})$}
 \end{figure}
 This shows the benefits obtained using an orbital branching strategy.
 \section{Lattices and Basis Reduction}
@@ -326,7 +326,7 @@ The theroem that follows tells us what types of transformations are permitted to
 \begin{theorem}
 Let $B = \begin{bmatrix} b_1 & \dots & b_d \end{bmatrix}$ be a full rank basis of $n$ dimensional lattice $\mathcal{L}$. Then the following hold:
 \begin{enumerate}
-\item If $U \in \Z^{d \times d}$ is unimodular (recall unimodular means $|det(U)| = 1$) then $\bar{B} =BU$ is a basis of $\mathcal{L}$.
+\item If $U \in \Z^{d \times d}$ is unimodular (recall unimodular means $|\det(U)| = 1$) then $\bar{B} =BU$ is a basis of $\mathcal{L}$.
 \item If $\bar{B}$ is a full rank basis of $\mathcal{L}$ then there exists unimodular $U \in Z^{d \times d}$ such that $\bar{B} = BU$.
 \end{enumerate}
 \end{theorem}
@@ -339,7 +339,7 @@ x \in \mathcal{L}(B) &\iff x = Bv &\text{for some $v \in \Z^d$}\\
 &\iff x = \bar{B}(U^{-1}v) \\
 &\iff x \in \mathcal{L}(\bar{B}) &\text{since $U^{-1}v \in \Z^d$}.
 \end{align*}
-Notice that $U \in Z^{d \times d}$ and $|det(U)| = 1$ so $U^{-1} \in Z^{d \times d}$, and thus $U^{-1}v\in \Z^d$.
+Notice that $U \in Z^{d \times d}$ and $|\det(U)| = 1$ so $U^{-1} \in Z^{d \times d}$, and thus $U^{-1}v\in \Z^d$.
 \paragraph{(2)}
 Let $\bar{B} = \begin{bmatrix} \bar{b_1}& \dots & \bar{b_d} \end{bmatrix}$. As $\mathcal{L}(B) = \mathcal{L}(\bar{B})$, we have that $\bar{b_j} \in \mathcal{L}(B)$ for all $j \in [d]$. Therefore for all $j \in [d]$:
 $$\exists u^j\text{, } \bar{b_j} = Bu^j.$$
@@ -348,9 +348,9 @@ $$ \bar{B} = \begin{bmatrix} \bar{b_1}& \dots & \bar{b_d} \end{bmatrix} = B \beg
 So,
 \begin{align*}
 \bar{B} = BU &\implies B^{-1}\bar{B} = U \\
-&\implies det(B^{-1}\bar{B}) = det(U) \\
-&\implies \frac{det(\bar{B})}{det(B))} = det(U) \\
-&\implies det(U) \neq 0.
+&\implies \det(B^{-1}\bar{B}) = \det(U) \\
+&\implies \frac{\det(\bar{B})}{\det(B))} = \det(U) \\
+&\implies \det(U) \neq 0.
 \end{align*}
 Similarly, by observing that $b_j \in \mathcal{L}(\bar(B))$ for all $j \in [d]$ we may obtain $\bar{U} \in Z^{d \times d}$ such that
 $$B = \bar{B}\bar{U}.$$
@@ -360,17 +360,17 @@ B = \bar{B}\bar{U} &\implies \bar{B}^{-1}B = \bar{U} \\
 &\implies (B^{-1} \bar{B})^{-1} = \bar{U} \\
 &\implies U^{-1} = \bar{U} \\
 &\implies U\bar{U} = I \\
-&\implies |det(U)| = 1 &\text{ as $U, \bar{U} \in \Z^{d\times d}$}.
+&\implies |\det(U)| = 1 &\text{ as $U, \bar{U} \in \Z^{d\times d}$}.
 \end{align*}
 \end{proof}
 \begin{note}
 The previous theorem is still true if $B$ and $\bar{B}$ are not full rank $(n \neq d)$ but this complicates the proof.
 \end{note}
 \begin{corollary}
-If $d= n$ and $B, B'$ are bases of $\mathcal{L}$ then $|det(B)| = |det(B')|$.
+If $d= n$ and $B, B'$ are bases of $\mathcal{L}$ then $|\det(B)| = |\det(B')|$.
 \end{corollary}
 \begin{proof}
-There exists unimodular $U$ such that $B = B'U$, and thus $$|det(B)| = |det(B')det(U)| = |det(B')|$$.
+There exists unimodular $U$ such that $B = B'U$, and thus $$|\det(B)| = |\det(B')\det(U)| = |\det(B')|$$.
 \end{proof}
 \begin{note}
 From this corollary it makes sense to discuss the determinant of a full rank lattice.
@@ -380,13 +380,13 @@ If Figure $16.2.8$ below matrices $B = \begin{bmatrix} b_1 & b_2 \end{bmatrix}$ 
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
-\draw[fill=lightgray] (0,0) -- (0,3) -- node[above]{$|det(B)| = det\mathcal{L}$} (3,3) -- (3,0);
+\draw[fill=lightgray] (0,0) -- (0,3) -- node[above]{$|\det(B)| = \det\mathcal{L}$} (3,3) -- (3,0);
 \draw[->] (0,0) -- (0,5);
 \draw[->] (0,0) -- (5,0);
 \draw[->, line width= 1mm] (0,0) -- node[left]{$b_2$} (0,3);
 \draw[->, line width= 1mm] (0,0) -- node[below]{$b_1$} (3,0);
 
-\draw[fill=lightgray] (7,0) -- (7,3) -- (10,6) -- node[right]{$|det(B')| = det\mathcal{L}$}(10,3);
+\draw[fill=lightgray] (7,0) -- (7,3) -- (10,6) -- node[right]{$|\det(B')| = \det\mathcal{L}$}(10,3);
 \draw[->] (7,0) -- (7,5);
 \draw[->] (7,0) -- (12,0);
 \draw[->, line width= 1mm] (7,0) -- node[left]{$b_2'$} (7,3);
@@ -419,7 +419,38 @@ $$ A = \begin{bmatrix} B & 0 \end{bmatrix}.$$
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-TODO
+\paragraph{(1)}
+We proceed by induction on the dimensions of $A$. In the base case, $A$ a scalar, the result is trivial. In the inductive case we will aim to show a sequence of the allowed operations will transform $A$ into a matrix of the form:
+\begin{align*}
+\begin{bmatrix}
+\alpha & 0\\
+x & \bar{A}
+\end{bmatrix}
+\end{align*}
+for some $\alpha \in \Z$ such that $\alpha \geq 0$, $x \in \Z^{m-1}$, and $\bar{A} \in \Z^{m-1 \times n-1}$ of full row rank. After doing so the result follows by induction.
+\paragraph{}
+By a sequence of column exchanges (orders the columns) and multiplications of columns by $-1$ (so entries become nonnegative) we can transform $A$ such that
+$$a_{1,1} \geq \dots \geq a_{1,n} \geq 0.$$
+Let $k = \text{max}\{j \in [n]: a_{1,j} > 0 \}$. Such a $k$ exists since $A$ being full row rank implies $a_{1,1} > 0$. If $k = 1$ then $A$ has been transformed into the desired form and we are done by induction.
+\paragraph{}
+If $k > 1$ then by applying operations of adding integer multiples of one column to another column we may compute the matrix $A'$ from $A$ such that (let $a_j$ denote column $j$ of $A$):
+$$A' = \begin{bmatrix}
+a_1 - \floor{\frac{a_{1,1}}{a_{1,2}}}a_2, &\dots, & a_{k-1} - \floor{\frac{a_{1,k-1}}{a_{1,k}}}a_k, &a_k, &\dots, &a_n
+\end{bmatrix}
+$$
+Repeat the entire above process on $A'$.
+\paragraph{}
+To show this construction terminates consider what happens after the columns of $A'$ (derived from $A$) have been reordered to satisfy
+$$a'_{1,1} \geq \dots \geq a'_{1,n} \geq 0 $$
+during some iteration. Notice only the first $k$ columns are changed, and each $a'_{1,j} \leq a_{1,j}$, so we know that $\text{max}\{j : a'_{1,j} > 0 \} \leq k$. Then,
+\begin{align*}
+\sum_{j=1}^{k} a'_{1,j} &\leq \sum_{j = 1}^{k}(a_{1,j} - a_{1,j+1}) +a_{1,k} \\
+&= a_{1,1} \\
+&< \sum_{j=1}^k a_{1,j}.
+\end{align*} 
+Since the sums above are strictly decreasing, after a finite number of operations this process will terminate. At which point the resulting matrix will be in the desired form, and by induction the result holds.
+\paragraph{(2)}
+Each legal operation corresponds to multiplying $A$ by some unimodular matrix. Therefore the desired matrix $U$ can be computed by multiplying the unimodular matrices corresponding to the operations applied to $A$ in the proof of part $(a)$ in the order they were applied (the product of unimodular matrices in unimodular).
 \end{proof}
 \begin{note}
 The constructive nature of the proof shows a method for computing $U$ in polynomial time
