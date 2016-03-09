@@ -102,7 +102,7 @@
 
 \begin{document}
 \headings{Ricardo Fukasawa}{Orbital Branching, Lattices and Basis Reduction}{Mar/3/2016}{William Justin Toth}
-\newcommand{\lecnum}{0}
+\newcommand{\lecnum}{16}
 
 \section{Orbital Branching}
 
@@ -321,7 +321,7 @@ B_2 = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix},
 B_3 = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}.
 \end{align*}
 Then $\mathcal{L}(B_1) = \mathcal{L}(B_2) = \Z^2$. So lattices can have multiple different bases. That is, some transformations are permitted to a basis of lattice to obtain another basis. But notice that not all transformations are permitted. For instance $B_3 = 2B_1$ but $\mathcal{L}(B^3) \neq \Z^2$. In fact $$\mathcal{L}(B_3) = \{x \in \Z^2: x_1,x_2 \equiv 0 \text{(mod $2$)} \}.$$
-The theroem that follows tells us what types of transformations are permitted to a lattice basis to obtain antoher basis.
+The theorem that follows tells us what types of transformations are permitted to a lattice basis to obtain another basis.
 \end{example}
 \begin{theorem}
 Let $B = \begin{bmatrix} b_1 & \dots & b_d \end{bmatrix}$ be a full rank basis of $n$ dimensional lattice $\mathcal{L}$. Then the following hold:
@@ -420,7 +420,7 @@ $$ A = \begin{bmatrix} B & 0 \end{bmatrix}.$$
 \end{theorem}
 \begin{proof}
 \paragraph{(1)}
-We proceed by induction on the dimensions of $A$. In the base case, $A$ a scalar, the result is trivial. In the inductive case we will aim to show a sequence of the allowed operations will transform $A$ into a matrix of the form:
+We proceed by induction on the dimensions of $A$. In the base case, where $A$ is a scalar, the result is trivial. In the inductive case we will aim to show a sequence of the allowed operations will transform $A$ into a matrix of the form:
 \begin{align*}
 \begin{bmatrix}
 \alpha & 0\\
