@@ -84,7 +84,86 @@ x(\delta(v)) &\leq 1 &\forall v \in V\\
 x(\delta^{>w}(v))+ x(\delta^{>v}(w)) + x_{vw} &\geq 1 &\forall vw \in E \\
 x_e &\geq 0 &\forall e \in E.
 \end{align*}
-We desire to prove this polytope is integral. Note that it is clear the integral points of $Q(G)$ describe stable matchings of $G$. The argument proceeds by induction on $|E|$. Notice in the base case $|E| = 1$, it is immediate that $Q(G) = \{1\}$.
+\subsection{Finding a $0$ or $1$}
+
+\begin{lemma}
+Let $x$ be an extreme point solution to $LP_S(G)$ such that $x>0$. Then there exists $W \subseteq V$ and $T \subseteq E$ such that the following hold:
+\begin{enumerate}
+\item $\sum_{e\in \delta(v)} x_e = 1$, $\forall v \in W$.
+\item $\sum_{e \in \delta_v^>(w)} x_e + \sum_{e \in \delta_w^>(v)} x_e + x_{vw} = 1$, $\forall vw \in T$.
+\item The vectors in $\{\chi(\delta(v)) : v \in W\}$ together with the vectors in $\{\chi(\delta_v^>(w)) + \chi(\delta_w^>(v)) + \chi(vw) : vw \in T\}$ are all linearly independent.
+\item $|W| + |T| = |E|$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Immediate from Rank Lemma. 
+\end{proof}
+\begin{lemma}
+Let $x$ be an extreme point solution of $LP_S(G)$ such that $0 < x < 1$. Let $W \subseteq V$, and $T \subseteq E$ be sets that together satisfy $1-4$ of Lemma $2$. If $W$ and $T$ are chosen so that $|W|$ is maximized then for any $v \in V$ if $w = n^*(v)$ then $vw \not\in T$.
+\end{lemma}
+\begin{proof}
+Let $v \in V$, let $w = n^*(v)$ and suppose for a contradiction that $vw \in T$. Then 
+$$\sum_{e \in \delta_w^>(v)} x_e + \sum_{e \in \delta_v^>(w)} x_e + x_{vw} = 1. $$
+Since $w = n^*(v)$, $\delta_v^>(w) = \emptyset$ (also notice $\chi(\delta_v^>(w)) = 0$). Therefore in fact we have that
+$$\sum_{e \in \delta_w^\geq(v)} x_e = 1.$$
+Since $\sum_{e \in \delta(w)} x_e \leq 1$ and $\delta(w) = \delta_w^\geq(v) \dot\cup \delta_w^<(v)$, $$\sum_{e \in \delta_w^<(v)} x_e = 0. $$
+Therefore, since $x_e > 0$ for each $e \in \delta_w^<(v)$, $$\chi(\delta_w^<(v)) = 0.$$
+Then we have that
+\begin{align*}
+\chi(\delta(w)) &= \chi(\delta_w^\geq(v)) + \chi(\delta_w^<v(v)) \\
+&= \chi(\delta_w^\geq(v)) \\
+&= \chi(\delta_w^>(v)) + \chi(\delta_v^>(v)) + \chi(vw).
+\end{align*}
+So if $w \in W$ this contradicts condition $3$ of Lemma $2$, the linear independence. But if $w \not\in W$ then by the equivalence just demonstrated the sets $W' = W \cup \{w\}$ and $T' = T \backslash \{vw\}$ also satisfy $1-4$ of Lemma $2$ yet $|W'| > |W|$ contradicting the maximality of $|W|$. 
+\end{proof}
+\begin{lemma}
+Let $x$ be an extreme point solution of $LP_S(G)$. Then there exists $e \in E$ such that $x_e = 0$ or $x_e = 1$.
+\end{lemma}
+\begin{proof}
+Suppose for contradiction that $0 < x_e < 1$ for all $e \in E$. By Lemma $2$ there exists $W, T$ satisfying properties $1-4$ of Lemma $2$. Choose such $W$ and $T$ so that $|W|$ is maximized. First notice that
+$$d_E(v) \geq 2 $$
+for all $v \in W$. This follows since $\sum_{e \in \delta(v)} x_e = 1$ and $x_e < 1$ for each $e \in \delta(v)$.
+\paragraph{}
+Let $v \in W$. Let $w = n_*(v)$. We claim that $vw \not\in T$. Suppose for a contradiction that $vw \in T$. Then we would have:
+$$  \sum_{e \in \delta_v^>(w)} x_e + \sum_{e \in \delta_w^>(v)} x_e + x_{vw} = 1. $$
+But since $w=n_*(v)$, $\delta_v^<(w) = \emptyset$ (also notice that $\chi(\delta_v^<(w)) = 0$). Thus $\delta_v^\geq(w) = \delta(v)$. Therefore
+$$\sum_{e \in \delta_v^>(w)} x_e + x_{vw} = \sum_{e \in \delta(v)} x_e = 1 \text{ since $v \in W$}. $$
+So we have that $$ \sum_{e \in \delta_w^>(v)} x_e = 0. $$ That is $\delta_w^>(v) = \emptyset$ since $x_e > 0$ for $e \in E$. Then $$\chi(\delta_w^>(v)) = 0.$$
+Therefore
+\begin{align*}
+\chi(\delta_v^>(w)) + \chi(\delta_w^>(v)) + \chi(vw) &= \chi(\delta_v^>(w)) + \chi(vw) \\
+&= \chi(\delta(v)).
+\end{align*}
+Since $v \in W$ this tells us that condition $3$ of Lemma $2$ is violated, a contradiction. Therefore $vw \not\in T$.
+\paragraph{}
+Now for any $v \in V$, by Lemma $3$, $vn^*(v) \not\in T$. Since $d_E(v) \geq 2$ implies that $n^*(v) \neq n_*(v)$ we thus have that $d_{E\backslash T}(v) \geq 2$ for all $v \in W$.
+\paragraph{}
+We are now ready to give a fractional token counting argument to obtain the desired contradiction. To each $e \in E$ we will distribute one token. The tokens will be redistributed to elements of $W$ and $T$ such that each element receives one token. In showing that some fractional token remains with an edge $e \in E$ after redistributing we conclude that $|W| + |T| \neq |E|$, contradicting condition $4$ of Lemma $2$.
+\paragraph{}
+Redistribute the tokens according to the following rules. For any $e=vw \in E$ do:
+\begin{enumerate}
+\item If $e \in T$ then $e$ keeps its token,
+\item otherwise:
+\subitem if $v \in W$ then $e$ gives $\frac{1}{2}$ token to $v$,
+\subitem if $w \in W$ then $e$ give $\frac{1}{2}$ token to $w$.
+\end{enumerate}
+Then after redistribution by rule $1$ every $e \in T$ has a token. Let $v \in W$. By our previous arguments $d_{E\backslash T}(v) \geq 2$. So there exist at least two edges which each give $\frac{1}{2}$ token to $v$. Therefore $v$ has at least one token after redistribution. It remains to show that there is an edge not in $T$ still holding some token fraction after redistribution.
+\paragraph{}
+We claim that there exist $v \in V\backslash W$. Suppose not, that is $W = V = V_1 \dot\cup V_2$. Then
+\begin{align*}
+\sum_{v \in V_1} \chi(\delta(v)) &= \chi(\delta(V_1)) \\
+&= \chi(\delta(V_2)) &\text{since $G$ is bipartite} \\
+&= \sum_{v \in V_2} \chi(\delta(v)).
+\end{align*}
+Since $V_1, V_2 \subseteq W$ this contradicts Lemma $2$ part $3$. Therefore there exists $v \in V \backslash W$. Let $w = n^*(v)$. Let $e = vw \in E$. By Lemma $3$, $e \not \in T$. Since $v \not\in W$, $e$ keeps at least $\frac{1}{2}$ token. Therefore $|E| > |W| + |T|$ contradicting condition $4$ of Lemma $2$. 
+\end{proof}
+
+\subsection{Proof of Integrality}
+\begin{theorem}
+$Q(G)$ is integral.
+\end{theorem}
+\begin{proof}
+Note that it is clear the integral points of $Q(G)$ describe stable matchings of $G$. The argument proceeds by induction on $|E|$. Notice in the base case $|E| = 1$, it is immediate that $Q(G) = \{1\}$.
 \paragraph{}
 Consider the inductive case. Let $x$ be an extreme point of $Q(G)$. We have already shown (by token/charging argument) that there exists $e=vw \in E(G)$ such that $x_e = 0$ or $x_e = 1$. 
 \paragraph{}
@@ -111,5 +190,5 @@ Further it can be seen that
 \paragraph{}By Lemma $1.2$, $M_1 \triangle J_1$ and $M_1 \triangle J_2$ are stable. This contradicts that $M_1$ and $M_2$ are described by extreme points defining at edge of $Q(G-e)$.
 \paragraph{}
 In the case $x_e = 1$, if there exists $e' \in \delta(v) \cup \delta(w) \backslash \{e\}$ then $x_{e'} = 0$ and so we may obtain a contradiction by removing $e'$ as we did in the $x_e = 0$ case. Otherwise let $z$ be the vector acquired by restricting $x$ to $\R^{E \backslash \{e\}}$. Notice $z \in Q(G - v - w)$. If $z$ is not a vertex then there exists $z^1, z^2 \in Q(G-v-w)$ such that $z = \frac{1}{2}(z^1 + z^2)$. Now $z^1,z^2$ can be extended to vectors $x^1, x^2 \in \R^{E}$ by setting $x^1_e=x^2_e = 1$. Then $x^1,x^2 \in Q(G)$ and $x = \frac{1}{2}(x^1 + x^2)$, contradicting that $x$ is a vertex of $Q(G)$. Therefore $z$ is a vertex of $Q(G-v-w)$, thus integral, and so $x$ is integral.
- $\blacksquare$
+\end{proof}
 \end{document}
