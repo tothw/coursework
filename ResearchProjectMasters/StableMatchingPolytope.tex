@@ -88,8 +88,6 @@ We desire to prove this polytope is integral. Note that it is clear the integral
 \paragraph{}
 Consider the inductive case. Let $x$ be an extreme point of $Q(G)$. We have already shown (by token/charging argument) that there exists $e=vw \in E(G)$ such that $x_e = 0$ or $x_e = 1$. 
 \paragraph{}
-In the case $x_e = 1$, Kostya notes that we want a concise way to delete from $G$ the vertices $v,w$ and the residual vector from $x$ should be a vertex of $Q(G-\{v,w\})$. I haven't treated this yet.
-\paragraph{}
 Consider the case $x_e = 0$. If $x$ is fractional then the residual vector, $z$, acquired by restricting $x$ to $\R^{E\backslash\{e\}}$, is fractional. Notice that $z \in Q(G-e)$. Further it is not difficult to show that $x$ satisfies:
 $$x(\delta^{>w}(v))+ x(\delta^{>v}(w)) + x_{vw} = 1$$
 and so $z$ lies on an edge of $Q(G-e)$ (the hyperplane above intersects this edge) . Let $M_1$ and $M_2$ be the stable matchings given by the extreme points of $Q(G-e)$ which describe the edge that $z$ lies on.
@@ -110,5 +108,8 @@ Further it can be seen that
 &= \chi(M_1 \triangle M_2) + 2\chi(M_1 \cap M_2) \\
 &=\chi(M_1) + \chi(M_2).
 \end{align*}
-\paragraph{}By Lemma $1.2$, $M_1 \triangle J_1$ and $M_1 \triangle J_2$ are stable. This contradicts that $M_1$ and $M_2$ are described by extreme points defining at edge of $Q(G-e)$. $\blacksquare$
+\paragraph{}By Lemma $1.2$, $M_1 \triangle J_1$ and $M_1 \triangle J_2$ are stable. This contradicts that $M_1$ and $M_2$ are described by extreme points defining at edge of $Q(G-e)$.
+\paragraph{}
+In the case $x_e = 1$, if there exists $e' \in \delta(v) \cup \delta(w) \backslash \{e\}$ then $x_{e'} = 0$ and so we may obtain a contradiction by removing $e'$ as we did in the $x_e = 0$ case. Otherwise let $z$ be the vector acquired by restricting $x$ to $\R^{E \backslash \{e\}}$. Notice $z \in Q(G - v - w)$. If $z$ is not a vertex then there exists $z^1, z^2 \in Q(G-v-w)$ such that $z = \frac{1}{2}(z^1 + z^2)$. Now $z^1,z^2$ can be extended to vectors $x^1, x^2 \in \R^{E}$ by setting $x^1_e=x^2_e = 1$. Then $x^1,x^2 \in Q(G)$ and $x = \frac{1}{2}(x^1 + x^2)$, contradicting that $x$ is a vertex of $Q(G)$. Therefore $z$ is a vertex of $Q(G-v-w)$, thus integral, and so $x$ is integral.
+ $\blacksquare$
 \end{document}
