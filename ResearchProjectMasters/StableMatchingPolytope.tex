@@ -50,14 +50,19 @@
 
 \raggedbottom
 
-\rhead{William Justin Toth : Stable Matching Polytope}
+\title{An Inductive Proof of Integrality for the Stable Matching Polytope}
+\date{March 10, 2016}
+\author{Justin Toth\\ Combinatorics and Optimization, University of Waterloo}
+
+%\rhead{William Justin Toth : Stable Matching Polytope}
 \renewcommand{\headrulewidth}{1pt} %heading underlined
 %\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
 
 \begin{document}
+\maketitle
 \section{Stable Matching Alternating Paths}
 \paragraph{}
-Let $G = (V, E)$ be a bipartite graph with $V = V_0 \dot\cup V_1$. We may weight the edges $e \in E$ with weights $c_e$. If we assign for each vertex a list of preferences with respect to that vertex's neighbours then we have a (weighted) stable marriage instance. Let $v,w \in V$, define $\delta^{>w}(v) = \{vj \in \delta(v): j \text{ is strictly preferred to } w \text{ by } v\}$. Note we can also define similar sets for relations like $=, \geq, <$ etc. We may order the elements of the neighbourhood of $v$ with respect to the $>$ relation. Let $n^*(v)$ ($n_*(v)$) denote the most (least respectively) preferred elements of the neighbourhood of $v$.
+Let $G = (V, E)$ be a bipartite graph with $V = V_0 \dot\cup V_1$. We may weight the edges $e \in E$ with weights $c_e$. If we assign for each vertex a list of preferences with respect to that vertex's neighbours then we have a (weighted) stable marriage instance. Let $v,w \in V$, define $\delta^{>w}(v) = \{vj \in \delta(v): j \text{ is strictly preferred to } w \text{ by } v\}$. Also define $ \delta^{\geq w}(v), \delta^{<w}(v),$ etc, similarly. We may order the elements of the neighbourhood of $v$ with respect to the $>$ relation. Let $n^*(v)$ ($n_*(v)$) denote the most (least respectively) preferred elements of the neighbourhood of $v$.
  Let $M_1$ and $M_2$ be two stable matchings on $G$. Let $M_i(v)$ denote the vertex such that $vM_i(v) \in M_i$ for $i=1,2$.
 \begin{lemma}
 Let $C$ be a connected component of the subgraph of $G$ with edge set $M_1 \triangle M_2$. Then either all vertices in $V(C) \cap V_0$ prefer $M_1$ to $M_2$ and all vertices in $V(C) \cap V_1$ prefer $M_2$ to $M_1$, or vice versa.
@@ -65,8 +70,7 @@ Let $C$ be a connected component of the subgraph of $G$ with edge set $M_1 \tria
 \begin{proof}
 If $C$ is a path let $v$ be an end vertex of $C$, otherwise let $v$ be an arbitrary vertex of $C$. We may assume without loss of generality that $v \in V_0$ and $M_1(v) >_v M_2(v)$. Let $w = M_1(v)$. Then $w \in V(C)$. If $M_1(w) >_w M_2(w)$ then $vw$ blocks $M_2$. So $M_2(w) >_w M_1(w)$. Let $u=M_2(w)$. Then $u \in V(C)$. If $M_2(u) >_u M_1(u)$ then $uw$ blocks $M_1$. So $M_1(u) >_u M_2(u)$. This local structure can be extended forward to hit all edges in the connected component.
 \end{proof}
-\paragraph{}
-Notice this proof above also show that every connected component is a cycle (the graph is finite and so the described process must terminate which is only possible by returning to the start vertex).
+
 \begin{lemma}
 $M_1 \triangle J_1$ and $M_1 \triangle J_2$ are stable matchings.
 \end{lemma}
@@ -98,7 +102,7 @@ Let $x$ be an extreme point solution to $Q(G)$ such that $x>0$. Then there exist
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-Immediate from Rank Lemma. 
+Immediate from Rank Lemma \cite{lau2011iterative}. 
 \end{proof}
 \begin{lemma}
 Let $x$ be an extreme point solution of $Q(G)$ such that $0 < x < 1$. Let $W \subseteq V$, and $T \subseteq E$ be sets that together satisfy $1-4$ of Lemma $2.1$. If $W$ and $T$ are chosen so that $|W|$ is maximized then for any $v \in V$ if $w = n^*(v)$ then $vw \not\in T$.
@@ -106,7 +110,7 @@ Let $x$ be an extreme point solution of $Q(G)$ such that $0 < x < 1$. Let $W \su
 \begin{proof}
 Let $v \in V$, let $w = n^*(v)$ and suppose for a contradiction that $vw \in T$. Then 
 $$x(\delta^{>v}(w)) + x(\delta^{>w}(v)) + x_{vw} = 1. $$
-Since $w = n^*(v)$, $x(\delta^{>w}(v)) = \emptyset$ (also notice $\chi(\delta^{>w}(v)) = 0$). Therefore in fact we have that
+Since $w = n^*(v)$, $\chi(\delta^{>w}(v)) = 0$. Therefore we have
 $$x(\delta^{\geq v}(w)) = 1.$$
 Since $x(\delta(w)) \leq 1$ and $\delta(w) = \delta^{\geq v}(w) \dot\cup \delta^{< v}(w)$, $$x(\delta^{<v}(w) = 0. $$
 Therefore, since $x_e > 0$ for each $e \in \delta^{< v}(w)$, $$\chi(\delta^{< v}(w)) = 0.$$
@@ -124,32 +128,26 @@ Let $x$ be an extreme point solution of $Q(G)$. Then there exists $e \in E$ such
 \begin{proof}
 Suppose for contradiction that $0 < x_e < 1$ for all $e \in E$. By Lemma $2.1$ there exists $W, T$ satisfying properties $1-4$ of Lemma $2.1$. Choose such $W$ and $T$ so that $|W|$ is maximized. First notice that
 $$d_E(v) \geq 2 $$
-for all $v \in W$. This follows since $\sum_{e \in \delta(v)} x_e = 1$ and $x_e < 1$ for each $e \in \delta(v)$.
+for all $v \in W$. This follows since $x(\delta(v)) = 1$ and $x_e < 1$ for each $e \in \delta(v)$.
 \paragraph{}
 Let $v \in W$. Let $w = n_*(v)$. We claim that $vw \not\in T$. Suppose for a contradiction that $vw \in T$. Then we would have:
-$$  \sum_{e \in \delta_v^>(w)} x_e + \sum_{e \in \delta_w^>(v)} x_e + x_{vw} = 1. $$
-But since $w=n_*(v)$, $\delta_v^<(w) = \emptyset$ (also notice that $\chi(\delta_v^<(w)) = 0$). Thus $\delta_v^\geq(w) = \delta(v)$. Therefore
-$$\sum_{e \in \delta_v^>(w)} x_e + x_{vw} = \sum_{e \in \delta(v)} x_e = 1 \text{ since $v \in W$}. $$
-So we have that $$ \sum_{e \in \delta_w^>(v)} x_e = 0. $$ That is $\delta_w^>(v) = \emptyset$ since $x_e > 0$ for $e \in E$. Then $$\chi(\delta_w^>(v)) = 0.$$
-Therefore
-\begin{align*}
-\chi(\delta_v^>(w)) + \chi(\delta_w^>(v)) + \chi(vw) &= \chi(\delta_v^>(w)) + \chi(vw) \\
-&= \chi(\delta(v)).
-\end{align*}
-Since $v \in W$ this tells us that condition $3$ of Lemma $2$ is violated, a contradiction. Therefore $vw \not\in T$.
+$$  x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw} = 1. $$
+But since $w=n_*(v)$, $\chi(\delta^{<w}(v)) = 0$. Thus $\delta^{\geq w}(v) = \delta(v)$. Therefore
+$$x(\delta^{>w}(v)) + x_{vw} = x(\delta(v)) = 1 \text{ since $v \in W$}. $$
+So we have that $ x(\delta^{>v}(w)) = 0 $. That is $\chi(\delta^{>v}(w)) = 0.$
+Therefore $$ \chi(\delta^{>w}(v)) + \chi(\delta^{>v}(w)) + \chi(vw) = \chi(\delta^{>w}(v)) + \chi(vw) = \chi(\delta(v)). $$
+Since $v \in W$ this tells us that condition $3$ of Lemma $2.1$ is violated, a contradiction. Therefore $vw \not\in T$.
 \paragraph{}
-Now for any $v \in V$, by Lemma $3$, $vn^*(v) \not\in T$. Since $d_E(v) \geq 2$ implies that $n^*(v) \neq n_*(v)$ we thus have that $d_{E\backslash T}(v) \geq 2$ for all $v \in W$.
+Now for any $v \in V$, by Lemma $2.2$, $vn^*(v) \not\in T$. Since $d_E(v) \geq 2$ implies that $n^*(v) \neq n_*(v)$ we thus have that $d_{E\backslash T}(v) \geq 2$ for all $v \in W$.
 \paragraph{}
-We are now ready to give a fractional token counting argument to obtain the desired contradiction. To each $e \in E$ we will distribute one token. The tokens will be redistributed to elements of $W$ and $T$ such that each element receives one token. In showing that some fractional token remains with an edge $e \in E$ after redistributing we conclude that $|W| + |T| \neq |E|$, contradicting condition $4$ of Lemma $2$.
-\paragraph{}
-Redistribute the tokens according to the following rules. For any $e=vw \in E$ do:
+We are now ready to give a fractional token counting argument to obtain the desired contradiction. To each $e \in E$ we will distribute one token. Redistribute the tokens according to the following rules. For any $e=vw \in E$ do:
 \begin{enumerate}
 \item If $e \in T$ then $e$ keeps its token,
 \item otherwise:
 \subitem if $v \in W$ then $e$ gives $\frac{1}{2}$ token to $v$,
 \subitem if $w \in W$ then $e$ give $\frac{1}{2}$ token to $w$.
 \end{enumerate}
-Then after redistribution by rule $1$ every $e \in T$ has a token. Let $v \in W$. By our previous arguments $d_{E\backslash T}(v) \geq 2$. So there exist at least two edges which each give $\frac{1}{2}$ token to $v$. Therefore $v$ has at least one token after redistribution. It remains to show that there is an edge not in $T$ still holding some token fraction after redistribution.
+Then after redistribution by rule $1$ every $e \in T$ has a token. Let $v \in W$. By our previous arguments $d_{E\backslash T}(v) \geq 2$. So there exist at least two edges which each give $\frac{1}{2}$ token to $v$. Therefore $v$ has at least one token after redistribution.
 \paragraph{}
 We claim that there exist $v \in V\backslash W$. Suppose not, that is $W = V = V_0 \dot\cup V_1$. Then
 \begin{align*}
@@ -157,7 +155,7 @@ We claim that there exist $v \in V\backslash W$. Suppose not, that is $W = V = V
 &= \chi(\delta(V_1)) &\text{since $G$ is bipartite} \\
 &= \sum_{v \in V_1} \chi(\delta(v)).
 \end{align*}
-Since $V_0, V_1 \subseteq W$ this contradicts Lemma $2$ part $3$. Therefore there exists $v \in V \backslash W$. Let $w = n^*(v)$. Let $e = vw \in E$. By Lemma $3$, $e \not \in T$. Since $v \not\in W$, $e$ keeps at least $\frac{1}{2}$ token. Therefore $|E| > |W| + |T|$ contradicting condition $4$ of Lemma $2$. 
+Since $V_0, V_1 \subseteq W$ this contradicts Lemma $2.1$ part $3$. Therefore there exists $v \in V \backslash W$. Let $w = n^*(v)$. Let $e = vw \in E$. By Lemma $2.2$, $e \not \in T$. Since $v \not\in W$, $e$ keeps at least $\frac{1}{2}$ token. Therefore $|E| > |W| + |T|$ contradicting condition $4$ of Lemma $2.1$. 
 \end{proof}
 
 \subsection{Proof of Integrality}
@@ -165,7 +163,7 @@ Since $V_0, V_1 \subseteq W$ this contradicts Lemma $2$ part $3$. Therefore ther
 $Q(G)$ is integral.
 \end{theorem}
 \begin{proof}
-Note that it is clear the integral points of $Q(G)$ describe stable matchings of $G$. The argument proceeds by induction on $|E|$. Notice in the base case $|E| = 1$, it is immediate that $Q(G) = \{1\}$.
+Note that it is clear the integral points of $Q(G)$ describe stable matchings of $G$\cite{rothblum1992characterization}. The argument proceeds by induction on $|E|$. Notice in the base case $|E| = 1$, it is immediate that $Q(G) = \{1\}$.
 \paragraph{}
 Consider the inductive case. Let $x$ be an extreme point of $Q(G)$. We have already shown (by token/charging argument) that there exists $e=vw \in E(G)$ such that $x_e = 0$ or $x_e = 1$. 
 \paragraph{}
@@ -193,4 +191,6 @@ Further it can be seen that
 \paragraph{}
 In the case $x_e = 1$, if there exists $e' \in \delta(v) \cup \delta(w) \backslash \{e\}$ then $x_{e'} = 0$ and so we may obtain a contradiction by removing $e'$ as we did in the $x_e = 0$ case. Otherwise let $z$ be the vector acquired by restricting $x$ to $\R^{E \backslash \{e\}}$. Notice $z \in Q(G - v - w)$. If $z$ is not a vertex then there exists $z^1, z^2 \in Q(G-v-w)$ such that $z = \frac{1}{2}(z^1 + z^2)$. Now $z^1,z^2$ can be extended to vectors $x^1, x^2 \in \R^{E}$ by setting $x^1_e=x^2_e = 1$. Then $x^1,x^2 \in Q(G)$ and $x = \frac{1}{2}(x^1 + x^2)$, contradicting that $x$ is a vertex of $Q(G)$. Therefore $z$ is a vertex of $Q(G-v-w)$, thus integral, and so $x$ is integral.
 \end{proof}
+\bibliographystyle{../alpha}
+\bibliography{StableMatchingPolytopeReferences}
 \end{document}
