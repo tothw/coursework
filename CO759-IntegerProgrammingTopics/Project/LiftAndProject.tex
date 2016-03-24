@@ -156,7 +156,7 @@ Therefore $\alert{\proj_x(\hat{M}(P)) \subseteq P}$.
 \begin{frame}
 \frametitle{Lemma: $\hat{M(P)}$ is an extended LP formulation of $P^{IP}$}
 $\textbf{Proof Continued:}$ Now let $\alert{\bar{x} \in P}$. Define $$\alert{\bar{y}=(x_i x_j : i \in I, j \in \{1, \dots, n\})}.$$
-Then the values of $\alert{\bar{M}}$ inequalities left hand sides are equal to:
+Then the values of $\alert{\hat{M}}$ inequalities left hand sides are equal to:
 $$\alert{\bar{x}_i (b^\ell - (a^\ell)^T \bar{x})} \text{ and } \alert{(1-\bar{x}_i )(b^\ell - (a^\ell)^T \bar{x})}.$$
 These are clearly non-negative as $\alert{\bar{x}}$ satisfies $\alert{0 \leq \bar{x} \leq 1}$ and $\alert{A \bar{x} \leq b}$.\\
 Therefore $\alert{\proj_x(\hat{M}(P)) = P}$.
@@ -185,6 +185,31 @@ Thus $\alert{x_i = 0} \implies \alert{y_{ij} = 0}$ and $\alert{x_i = 1} \implies
 $$\alert{y_{ii} = x_i}$$
 \end{frame}
 
+\begin{frame}
+\frametitle{New operator - Strengthening Lov\'asz-Shrijver}
+Previous Lemma suggests that $\alert{M(P)}$ is obtained from $\alert{\hat{M}(P)}$ by adding one split cut for each $\alert{S_i}$, $\alert{i \in I}$.\\\ \\
+What is instead we added all $0$-$1$ split cuts?\\
+We'd obtain the new operator:
+$$\alert{\tilde{N}(P) = \proj_x(S(\hat{M}(P)))}$$
+Notice our Lemma gives $\alert{S(\hat{M}(P)) \subseteq M(P)}$ which implies:
+$$\alert{\tilde{N}(P) \subseteq N(P)}$$
+\end{frame}
+
+\begin{frame}
+\frametitle{Theorem: $S(\hat{M}(P)) \subseteq M(S(P))$}
+Says new operator's strengthened extension of $\alert{P}$ is stronger than Lov\'asz-Schrijver's of $0$-$1$ split closure of $\alert{P}$.
+\\$\textbf{Proof Idea:}$ Observe that $$\alert{M(S(P)) = \hat{M}(S(P)) \cap \{(x,y):y_{ii} = x_i, \forall i \in I\}}$$
+Lemma implies $$\alert{S(\hat{M}(P)) \subseteq \{(x,y):y_{ii}=x_i, \forall i \in I \}}$$  and it is easy to see from straightforward computation that $$\alert{S(\hat{M}(P)) \subseteq \hat{M}(S(P))}.$$ 
+\end{frame}
+
+\begin{frame}
+\frametitle{Some Corollaries}
+Consequences of $\textbf{Theorem:}$ $\alert{S(\hat{M}(P)) \subseteq M(S(P))}$:
+\begin{itemize}
+\item By projecting onto space of $\alert{x}$ variables: $$\alert{\tilde{N}(P) \subseteq N(S(P))}$$
+\item Since $\alert{N(S(P)) \subseteq S(S(P))}$ new operator obtains convex hull in half the steps: $$\alert{(\tilde{N})^{\ceil{\frac{n_1}{2}}}(P) = \conv(P^{IP})}$$
+\end{itemize}
+\end{frame}
 %ENDS HERE
 %STOP SCROLLING
 %PLEASE SEE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
