@@ -210,6 +210,60 @@ Consequences of $\textbf{Theorem:}$ $\alert{S(\hat{M}(P)) \subseteq M(S(P))}$:
 \item Since $\alert{N(S(P)) \subseteq S(S(P))}$ new operator obtains convex hull in half the steps: $$\alert{(\tilde{N})^{\ceil{\frac{n_1}{2}}}(P) = \conv(P^{IP})}$$
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Sherali-Adams level $k$ operator - Lift Step}
+Define $\alert{PSA^k(P)}$ by, for each inequality $\alert{b^\ell - (a^\ell)^Tx \geq 0}:$
+$$\alert{\prod_{i \in J_1} x_i \prod_{j \in J_2} (1 - x_j) (b^\ell - (a^\ell)^Tx) \geq 0}$$
+for all $\alert{(J_1, J_2)}$ "pairs of order $k$".\\
+$\textbf{pair of order k:}$ $\alert{J_1, J_2 \subseteq I}$, $\alert{|J_1 \cup J_2| = k}$, and $\alert{J_1 \cap J_2 = \emptyset}$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sherali-Adams level $k$ operator - Lift Step cont'd}
+Let $\alert{\mathcal{T}}$ be set of tuples with $\alert{\leq k+1}$ indices. Then $\alert{\exists T(J_1,J_2,\ell) \subseteq \mathcal{T}}$, we may rewrite:
+$$\alert{\prod_{i \in J_1} x_i \prod_{j \in J_2} (1 - x_j) (b^\ell - (a^\ell)^Tx) \geq 0}$$
+as
+$$ \alert{\beta - \sum_{S \in T(J_1, J_2,\ell)} (\alpha_S \prod_{j=1}^{|S|} x_{S_j}) \geq 0}$$
+which can be linearized to obtain $\alert{ESA^k(P)}$:
+$$\alert{\beta -\sum_{S \in T(J_1, J_2,\ell)} \alpha_S y_S \geq 0} $$
+$\text{ for all } \alert{\ell \in L},\ \alert{(J_1, J_2)} \text{ pairs of order } \alert{k}$
+\end{frame}
+
+\begin{frame}
+\frametitle{Sherali-Adams level $k$ operator - Strengthen and Project Steps}
+For $\alert{S \in \mathcal{T}}$ let $\alert{[S]}$ be tuple of unique elements of $\alert{S}$ in same order.\\
+$\textbf{Example:}$ For $\alert{k=2}$, $\alert{S = (1,1,2)}$ gives $\alert{[S] = (1,2)}$.\\
+To strengthen create $\alert{LSA^k(P)}$ by adding to $\alert{ESA^k(P)}:$
+$$\alert{y_S = y_{[S]} \quad} \text{for all } \alert{S \in \mathcal{T}}$$
+$\textbf{Sherali-Adams operator:}$ $\alert{SA^k(P)}$ given by $\textit{projecting}$ $\alert{ESA^k(P)}$ onto the space of variables $\alert{y_{(1)} ,\dots y_{(n)}}$. Notice each $\alert{y_{(i)} = x_i}$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sherali-Adams example}
+For $\alert{k=1}$, $\alert{SA^k(P)}$ is simply $\alert{N(P)}$, so let's consider $\alert{k=2}$.\\
+First $\alert{PSA^2(P)}\textbf{:}$
+\alert{\begin{align*}
+x_ix_j(b^\ell -(a^\ell)^Tx \geq 0,&\ &\forall i<j \in I, \ell \in L \\
+x_i(1-x_j)(b^\ell -(a^\ell)^Tx \geq 0,&\ &\forall i\neq j \in I, \ell \in L \\
+(1-x_i)(1-x_j)(b^\ell -(a^\ell)^Tx \geq 0,&\ &\forall i<j \in I, \ell \in L \\
+\end{align*}}
+Second obtain $\alert{ESA^2(P)}$ by replacing each $\alert{x_ix_jx_k}$ with $\alert{y_{(i,j,k)}}$, $\alert{x_ix_j}$ with $\alert{y_{(i,j)}}$, and $\alert{x_i}$ with $\alert{y_{(i)}}$.\\
+Then obtain $\alert{LSA^2(P)}$ by replacing each $\alert{y_{(i,i,k)}}$ and $\alert{y_{(i,k,k)}}$ with $\alert{y_{(i,k)}}$, and $\alert{y_{(i,i)}}$ with $\alert{y_{(i)}}$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Some Lemmas}
+The following observations about the Sherali-Adams operator are analogous to those we observed regarding Lovasz-Schrijver:\\
+\begin{itemize}
+\item$\textbf{Lemma 1:}$ For any $\alert{k \geq 1}$, $\alert{ESA^k(P)}$ is an extended LP formulation of $\alert{P^{IP}}$.
+\item$\textbf{Lemma 2:}$ For any $\alert{S \in \mathcal{T}}$, $\alert{y_S = y_{[S]}}$ is a $0$-$1$ split cut for $\alert{ESA^k(P)}$.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Comparing new operator to level-2 Sherali-Adams}
+$\textbf{Theorem:}$ $\alert{SA^2(P) \subseteq \tilde{N}(P)}$
+\end{frame}
 %ENDS HERE
 %STOP SCROLLING
 %PLEASE SEE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
