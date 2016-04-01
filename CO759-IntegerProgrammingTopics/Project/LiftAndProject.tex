@@ -262,8 +262,55 @@ The following observations about the Sherali-Adams operator are analogous to tho
 \end{frame}
 \begin{frame}
 \frametitle{Comparing new operator to level-2 Sherali-Adams}
-$\textbf{Theorem:}$ $\alert{SA^2(P) \subseteq \tilde{N}(P)}$
+$\textbf{Theorem:}$ $\alert{SA^2(P) \subseteq \tilde{N}(P)}$\\
+$\textbf{Proof Sketch:}$
+\begin{itemize}
+\item Recall: $\alert{\hat{M}(P)}$ defined on variables $\alert{x = (x_i : i \in I)}$ and $\alert{y = (y_{ij}: i \in I, j \in J)}$
+\item So $\alert{M(\hat{M}(P))}$ defined on variables $\alert{v_{i,jk}}$ (representing products $\alert{x_iy_{jk}}$) in addition to $\alert{x's}$ and $\alert{y's}$
+\item Since $\alert{\proj_{(x,y)}(M(\hat{M}(P))) \subseteq S(\hat{M}(P))}$ we have $\alert{\proj_x (M(\hat{M}(P))) \subseteq \proj_x (S(\hat{M}(P))) = \tilde{N}(P)}$.
+\end{itemize}
+(So just need to show $\alert{SA^2(P) \subseteq \proj_x(M(\hat{M}(P)))}$)
 \end{frame}
+
+\begin{frame}
+\frametitle{Proof continued - show $\alert{SA^2(P) \subseteq \proj_x(M(\hat{M}(P)))}$}
+\begin{itemize}
+\item Let $\alert{\hat{x} \in SA^2(P)}$. Then $\alert{\exists \hat{y} = (\hat{y}_S : S \in \mathcal{T}) \in LSA^2(P)}$ such that each $\alert{\hat{x}_i = \hat{y}_{(i)}}$.
+\item Construct $\alert{(\tilde{x},\tilde{y},\tilde{z}) \in M(\hat{M}(P))}$ as follows:
+\begin{itemize}
+\item $\alert{\tilde{x}_i = \hat{y}_{(i)} = \hat{x}_i}$
+\item $\alert{\tilde{y}_{ij} = \hat{y}_{(p,q)}}$ where $\alert{p \leq q}$ and $\alert{\{p,q\} = \{i,j\}}$
+\item $\alert{\tilde{v}_{i,jk} = \hat{y}_{(p,q,r)}}$ were $\alert{p \leq q \leq r}$ and $\alert{\{p,q,r\} = \{i,j,k\}}$
+\end{itemize}
+\item Finish showing $\alert{(\tilde{x},\tilde{y}, \tilde{v}) \in M(\hat{M}(P))}$ by case analysis on types of inequalities defining $\alert{M(\hat{M}(P))}$
+\end{itemize}
+$\blacksquare$
+\end{frame}
+
+\begin{frame}
+\frametitle{Application to Stable Set Polytope}
+$\textit{Stable set polytope}$ of graph $\alert{G = (V,E)}$ is convex hull of incidence vectors of independent sets:
+$$\alert{STAB(G) = \conv(\{x \in \{0,1\}^{|V|} : x_i + x_j \leq 1,\ \forall \{i,j\} \in E\})}$$
+Linear programming relaxation is called $\textit{fractional stable set polytope}$:
+$$\alert{FSTAB(G) = \{x \in \R^{|V|} : x_i + x_j \leq 1,\ \forall \{i,j\} \in E;\ 0 \leq x_i \leq 1,\ \forall i \in V\}}$$
+\end{frame}
+
+\begin{frame}
+\frametitle{Application to Stable Set Polytope}
+From our previous results we have a hierarchy of relaxations:
+$$\alert{STAB(G) \subseteq SA^2(P) \subseteq \tilde{N}(P) \subseteq N^2(P) \subseteq N(P) \subseteq P = FSTAB(G)}$$
+with $\alert{\tilde{N}(P) \subseteq N^2(P)}$ following from $\alert{\tilde{N}(P) \subseteq N(S(P))}$.\\
+\ \\
+$\textbf{Lemma:}$ If $\alert{G = K_n}$ and $\alert{P = FSTAB(G)}$, then $\alert{SA^2(P) = N^2(P)}$.\\
+\ \\
+In other words the containment bounds on the new operator $\alert{\tilde{N}}$ are tight.
+\end{frame}
+
+\begin{frame}
+\frametitle{Application to Stable Set Polytope}
+But can we also demonstrate cases where the containment $\alert{SA^2(P) \subseteq \tilde{N}(P) \subseteq N^2(P)}$ is strict?
+\end{frame}
+
 %ENDS HERE
 %STOP SCROLLING
 %PLEASE SEE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
