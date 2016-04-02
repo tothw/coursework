@@ -296,7 +296,7 @@ $$\alert{FSTAB(G) = \{x \in \R^{|V|} : x_i + x_j \leq 1,\ \forall \{i,j\} \in E;
 \end{frame}
 
 \begin{frame}
-\frametitle{Application to Stable Set Polytope}
+\frametitle{Stable Set Polytope shows bounds are tight}
 From our previous results we have a hierarchy of relaxations:
 $$\alert{STAB(G) \subseteq SA^2(P) \subseteq \tilde{N}(P) \subseteq N^2(P) \subseteq N(P) \subseteq P = FSTAB(G)}$$
 with $\alert{\tilde{N}(P) \subseteq N^2(P)}$ following from $\alert{\tilde{N}(P) \subseteq N(S(P))}$.\\
@@ -307,10 +307,28 @@ In other words the containment bounds on the new operator $\alert{\tilde{N}}$ ar
 \end{frame}
 
 \begin{frame}
-\frametitle{Application to Stable Set Polytope}
-But can we also demonstrate cases where the containment $\alert{SA^2(P) \subseteq \tilde{N}(P) \subseteq N^2(P)}$ is strict?
+\frametitle{A question}
+But can we also demonstrate cases where the containment $\alert{SA^2(P) \subseteq \tilde{N}(P) \subseteq N^2(P)}$ is strict?\\\ \\
+$\textbf{Answer:}$ Yes we can! We can do this via some computational experiments.\\\ \\
+But first we will need to be able to optimize over the polyhedra our operators give us.
 \end{frame}
 
+\begin{frame}
+\frametitle{Stable Set Polytope - Optimizing over Extended Formulations}
+$\textbf{Theorem:}$(Balas) For $0$-$1$ split closure $\alert{S(P)}$ there is an extended formulation polynomial in the size of the encoding of $\alert{P}$.\\
+$\textbf{Theorem:}$ (Lov\'asz and Schrijver) For $\alert{P = FSTAB(G)}$, $$\alert{N(P) = S(P) = P \cap \{x \in \R^{|V|} : \sum_{i \in C} x_i \leq \frac{|C|-1}{2},\ \forall C \in \mathcal{O}\mathcal{C}\}}$$
+where $\alert{\mathcal{O}\mathcal{C}}$ is the set of all odd cycles in $\alert{G}$.
+\begin{itemize}
+\item Can write $\alert{\hat{M}(P)}$ explicitly, first result then says we can optimize over $\alert{S(\hat{M}(P))}$. Use this for $\alert{\tilde{N}(P)}$
+\item $2$nd result lets us write $\alert{M(N(P))}$ explicity. Use that for $\alert{N^2(P)}$
+\item (Ostrowski) In special cases like $\alert{FSTAB}$ we can optimize over $\alert{SA^k(P)}$ for $\alert{k\leq 3}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Stable Set Polytope - Experimental Procedure}
+
+\end{frame}
 %ENDS HERE
 %STOP SCROLLING
 %PLEASE SEE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
