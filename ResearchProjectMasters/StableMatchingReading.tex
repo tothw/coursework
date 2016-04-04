@@ -1,0 +1,210 @@
+\documentclass{article}
+%\usepackage[margin=1in, bottom=1in, top=1in]{geometry} %1 inch margins
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+\usepackage{theorem}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%Theorem
+\newtheorem{fact}{Fact}[section]
+\newtheorem{lemma}[fact]{Lemma}
+\newtheorem{theorem}[fact]{Theorem}
+\newtheorem{definition}[fact]{Definition}
+\newtheorem{corollary}[fact]{Corollary}
+\newtheorem{proposition}[fact]{Proposition}
+\newtheorem{claim}[fact]{Claim}
+\newtheorem{exercise}[fact]{Exercise}
+\newtheorem{note}[fact]{Note}
+\newtheorem{problem}[fact]{Problem}
+\newenvironment{proof}{{\bf Proof:  }}{\hfill\rule{2mm}{2mm}}
+%Macros
+\newcommand{\A}{\mathbb{A}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}} \newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+ 
+\newcommand{\cA}{\mathcal{A}} \newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}} \newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}} \newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}} \newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}} \newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}} \newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}} \newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}} \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}} \newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}} \newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}} \newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}} \newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}} \newcommand{\cZ}{\mathcal{Z}}
+
+
+\begin{document}
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for the associated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for the associated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for the associated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%%
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{<author name>}
+%% \address[label1]{<address>}
+%% \address[label2]{<address>}
+
+\title{Notes From Reading on Stable Matchings}
+\author{Justin Toth} 
+\maketitle
+\section{Encyclopedia of Algorithms}
+\subsection{Stable Marriage}
+This article \cite{irving2008stable} discusses classical results about Stable Marriage.
+\begin{problem}
+Stable Marriage (SM). Given a set of $2n$ participants ($n$ men and $n$ women), wherein each participant has a preference list that is a total order over the participants of the opposite gender find a matching between men and women that contains no blocking pair (a solution is called a Stable Matching).
+\end{problem}
+\begin{definition}
+Blocking Pair. A pair $(m,w)$ such that $w >_m M(m)$ and $ m >_w M(w)$.
+\end{definition}
+\begin{problem}
+Stable Marriage with Incomplete lists (SMI). Relax SM to allow unequal number of men and women, and relax the requirement that each participant rank all members of the opposite gender. The implication of leaving someone off your list is that they are an unacceptable match to you.
+\end{problem}
+\begin{problem}
+Hospitals/Residents (HR). Relax SMI to allow many-to-one matchings.
+\end{problem}
+\begin{theorem}
+For every instance of SM or SMI there is at least one stable matching.
+\end{theorem}
+\begin{proof}
+Gale-Shaply deferred acceptance algorithm \cite{gale1962college}. Note this algorithm has complexity $O(a)$ where $a$ is the total length of all the preference lists. In this case of SM this means an $O(n^2)$ algorithm. Also note this yields a man-optimal stable matching if men take the "proposer" role.
+\end{proof}
+\begin{theorem}
+In an instance of SMI, all stable matchigns have the same size and match exactly the same subsets of men and women.
+\end{theorem}
+\begin{problem}
+Stable Marriage with Ties [and Incomplete Lists] (SMT[I]). Relax to allow ties in the preference lists. There are three difference notions of stablity in this case: weak, strong and super stability respectively. They depend on whether a blocking pair requires both members to improve, at least one memeber improve with other no worse off, or neither be no worse off respectively.  
+\end{problem}
+\begin{theorem}
+For a given instance of SMT or SMTI:
+\begin{itemize}
+\item A weakly stable matching is guaranteed to exist, and can be found in $O(n^2)$ ($O(a)$ respectively) time;
+\item A super-stable matching need not exist, but if one does then it can be found in $O(n^2)$ ($O(a)$ respectively) time;
+\item A strongly stable matching need not exist, but if one does then in can be found in $O(n^3)$ ($O(na)$ respectively) time.
+\end{itemize}
+\end{theorem}
+\begin{theorem}
+Finding a Maximum Cardinality Weakly Stable Matching in the presence of Ties is NP-hard.
+\end{theorem}
+\begin{problem}
+Stable Roomates (SR). Relax that the underlying graph for Stable Marriage needs to be bipartite.
+\end{problem}
+\begin{theorem}
+There exists a $O(n^2)$ time algorithm for deciding whether a SR instance has a stable matching and if so finding it.
+\end{theorem}
+\begin{theorem}
+For a given instance of SRT or SRTI:
+\item A weakly stable matching need not exist and it is NP-complete to decide if one does;
+\item A super-stable matching need not exist, but if one does then it can be found in $O(n^2)$ ($O(a)$ respectively) time;
+\item A strongly stable matching need not exist, but if one does then it can be found in $O(n^4)$ ($O(a^2)$ respectively) time.
+\end{theorem}
+
+\subsection{Stable Marriage With Ties and Incomplete Lists}
+
+This article \cite{iwama2008stable} discusses complexity/hardness results about Stable Marriage variants with ties/incomplete lists.
+
+\begin{definition}
+Approximation Ratio of Approximation Algorithm $T$. Defined as: $\max\{opt(x)/T(x)\}$ over all instances $x$ of size $N$, where $opt(x)$ is the optimal solution value, and $T(x)$ is the value returned by $T$.
+\end{definition}
+\begin{theorem}
+MAX SMTI is NP-hard, and cannot be approximated within $21/19 - \epsilon$ for any $\epsilon > 0$, unless $P = NP$.
+\end{theorem}
+\begin{theorem}
+There is a polynomial-time approximation algorithm for MAX SMTI, with approximation ratio $15/8$.
+\end{theorem}
+\begin{theorem}
+There is a polynomial-time randomized approximation algorithm for MAX SMTI whose expected approximation ratio is $10/7$ for special case instances where ties appear only on one side, and the length of each tie is two.
+\end{theorem}
+\begin{theorem}
+There is a polynomial-time randomized approximation algorithm for MAX SMTI whose expected approximation ratio is $7/4$ for special case instances where the length of each tie is two.
+\end{theorem}
+\begin{theorem}
+There is a polynomial time approximation algorithm for MAX SMTI whose approximation ratio is $2/(1 + L^{-2})$ if ties appear on only one side and the length of each ties is at most $L$. There is also an approximation algorithm for MAX SMTI with ration $13/7$ if the length of each tie is two.
+\end{theorem}
+The following concern the boundary of P vs NP.
+\begin{problem}
+$(p,q)$-MAX SMTI. MAX SMTI where each man's preference list includes at most $p$ women, and each woman's includes at most $q$ men.
+\end{problem}
+\begin{theorem}
+$(2,\infty)$-MAX SMTI is solvable in $O(n^{\frac{3}{2}}log n)$ time.
+\end{theorem}
+\begin{theorem}
+$(3,4)$-MAX SMTI is NP-hard and cannot be approximated within some constant $\delta > 1$ unless $P=NP$.
+\end{theorem}
+\begin{theorem}
+$(3,3)$-MAX SMTI is NP-hard (Manlove).
+\end{theorem}
+
+\subsection{Optimal Stable Marriage}
+This article \cite{irving2008optimal} concerns different notions of optimalty in stable marriage, and algorithms and complexity of solving optimization problems over stable marriage instances.
+\begin{definition}
+Different notions of optimality:
+\begin{itemize}
+\item man(woman)-optimal: Each man (women resp.) has the best possible partner. Note: It turns out that man (woman resp.)-optimal implies woman(man resp.)-pessimal.
+\item Let $r(m,w)$ denote the rank or $w$ in $m$'s preference list. Define $r(w,m)$ similarly. A stable matching $M$ is egalitarian if $\sum_m  r(m, M(m)) + \sum_w (w, M(w))$ is minimized.
+\item A stable matching $M$ is minimum regret if $\max\{r(p,M(p))\}$ over all persons $p$ is minimized.
+\item A stable matching is rank-maximal(or lexicographically maximal) if the largest number of people have their first choice partner, and subject to that, the largest number of people have their second choice partner, and so on.
+\item A stable matching is sex-equal if $|\sum_m r(m, M(m)) - \sum_w r(w, M(w))|$ is minimized.
+\end{itemize}
+\end{definition}
+\begin{theorem}
+For an instance of SM:
+\begin{itemize}
+\item A minimum regret stable matching can be found in $O(n^2)$ time
+\item An egalitarian stable matching can be found in $O(n^3)$ time
+\item A rank-maximal stable matching can be found in $O(n^{3.5})$ time
+\item Finding a sex-equal stable matching is NP-hard.
+\end{itemize}
+\end{theorem}
+\begin{problem}
+Weighted Stable Marriage (WSM). A Stable Marriage problem where the edges of the underlying graph are weighted. Let $wt(m,w)$ denote the weight of edge $(m,w)$. Let $M$ be a stable matching. Then $M$ is optimal if $$\sum_m wt(m,M(m)) + \sum_w wt(w, M(w))$$ is minimized. Also $M$ is balanced if $$\max(\sum_m wt(m, M(m)), \sum_w wt(w,M(w)))$$ is minimized.
+\end{problem}
+\begin{theorem}
+For an instance of WSM:
+\begin{itemize}
+\item An optimal stable matching can be found in $$O(\min(n,\sqrt{K})n^2log(K/n^2 + 2))$$ time, where $K$ is the weight of an optimal solution.
+\item Finding a balanced stable matching is NP-hard but can be approximated within a factor of $2$ in $O(n^2)$ time.
+\end{itemize}
+\end{theorem}
+\begin{theorem}
+\item All stable pairs (pairs in at least one stable matching) can be enumerated in $O(n^2)$ time.
+\item All stable matchings can be enumerated in $O(n^2 + kn)$ time, where $k$ is the number of such matchings.
+\end{theorem}
+\begin{theorem}
+For an instance of SR:
+\begin{itemize}
+\item A minimum regret stable matching can be found in $O(n^2)$ time.
+\item It is NP-hard to find an egalitarian stable matching, but it can be approximated in polynomial time within a factor of $\alpha$ if and only if minimum vertex cover can be approximated within $\alpha$.
+\item If it NP-hard to find an optimal stable matching, but it can be approximated within a factor of $2$ in $O(n^2)$ time.
+\end{itemize}
+\end{theorem}
+\bibliographystyle{plain}
+\bibliography{StableMatchingPolytopeReferences}
+\end{document}
