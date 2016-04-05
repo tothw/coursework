@@ -205,6 +205,50 @@ For an instance of SR:
 \item If it NP-hard to find an optimal stable matching, but it can be approximated within a factor of $2$ in $O(n^2)$ time.
 \end{itemize}
 \end{theorem}
+
+\section{The geometry of fractional stable matching and its applications}
+This article \cite{teo1998geometry} provides an LP formulation of SR and gives a $2$-approximation algorithm.
+
+\begin{theorem}
+Let $X_1, \dots, X_\ell$ be $\ell$ distinct SM solutions. Assign each man the woman whose rank is $k$ among the $\ell$ possible matches given. Do similarly for women assigning them the $\ell +1 -k$ ranked man. The resulting assignment is a stable matching.
+\end{theorem}
+ \begin{note}
+ When $\ell$ is odd and equal to the total number of SM solutions, and $k = (\ell + 1)/2$ this is particularly interesting. It says there is a solution where each person receives their "median" partner among all possible mates. They say it is open to determine if such a media solution can be computed in polynomial time
+ \end{note}
+
+TODO write out the many interesting results in this paper.
+
+\section{Polyhedral Aspects of Stable Marriage}
+This article \cite{eirinakis2013polyhedral} explores some aspects of the stable marriage polytope. Using the Extended Gale Shapely Algorithm (EGS) one can identify nonstable pairs (pairs which do not participate in at least one stable marriage). Not all nonstable pairs can be removed without altering the solution set, but the ones identified by EGS can, yielding a smaller problem instance with the same solution set.  The resulting preference lists are deemed minimal.
+\begin{theorem}
+A nonstable pair is removable if and only if it is identified by the EGS algorithm.
+\end{theorem}
+\begin{note}
+They study the rotation poset graph, and it's transitive reduction to achieve this. Need to learn more about this concept.
+\end{note}
+\begin{note}
+EGS is just typical Gale-Shapley but when an $(m,w)$ pair is assigned, remove every pair $(m',w)$ where $m >_w m'$ and identify the pair as nonstable.
+\end{note}
+\begin{theorem}
+There is an $O(n^2)$ time algorithm to produce minimal preference lists, and the associate reduced nonremoval set of nonstable pairs.
+\end{theorem}
+\begin{theorem}
+They provide a minimal description of the stable matching polytope. TODO write it down here.
+\end{theorem}
+\begin{theorem}
+They also provide a set of inequalities that are facet-defining.
+\end{theorem}
+\begin{theorem}
+Corollary 7 in the paper says that any minimal description contains certain numbers of certain types of inequalities.
+\end{theorem}
+\begin{theorem}
+The dimension of the stable matching polytope $= |R(S)|$ where $R(S)$ is the number of rotations of stable matching instance $S$.
+\end{theorem}
+\section{Diameter of Stable Matching Polytope - From One Stable Marriage to the Next: How Long Is the Way?}
+This article \cite{eirinakis2014one} gives an upper bound on the diameter of the stable matching polytope.
+\begin{theorem}
+The diameter of the stable matching polytope is at most $\floor{\frac{\min\{|M|,|W|\}}{2}}$.
+\end{theorem}
 \bibliographystyle{plain}
 \bibliography{StableMatchingPolytopeReferences}
 \end{document}
