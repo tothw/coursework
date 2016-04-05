@@ -327,6 +327,26 @@ where $\alert{\mathcal{O}\mathcal{C}}$ is the set of all odd cycles in $\alert{G
 
 \begin{frame}
 \frametitle{Stable Set Polytope - Experimental Procedure}
+We compare the strength of relaxations $\alert{SA^2(P)}$, $\alert{\tilde{N}(P)}$, $\alert{N^2(P)}$, and $\alert{N(P)}$ for $\alert{STAB(G)}$ for randomly generated graphs $\alert{G}$.\\\ \\
+For each relaxation $\alert{R}$ we measure the gap closed as:
+$$ \alert{100 \frac{(z_{LP} - z_{R})}{(z_{LP} - z_{IP})}}$$
+where $\alert{z_R = \max\{c^Tx:x \in R\}}$.\\\ \\
+IBM ILGO Cplex 12.4 is used as the LP/MILP solver.
+\end{frame}
+
+\begin{frame}
+\frametitle{Stable Set Polytope - Experimental Procedure}
+Tests done on randomly generated instances as follows:
+\begin{itemize}
+\item Graphs are generated randomly with number of vertices $\alert{|V| \in \{20,30,40,50\}}$ and average density $\alert{D \in \{0.25,0.50,0.75\}}$. 
+\item For each $\alert{(D,|V|)}$ pair $\alert{5}$ graphs are generated
+\item For each graph, $\alert{5}$ different objective functions with coefficients randomly chosen from $\alert{\{0,1,\dots,10\}}$ are generated
+\item That is $\alert{25}$ instances for each $\alert{(D,|V|)}$ pair are solved.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Stable Set Polytope - Experimental Results}
 
 \end{frame}
 %ENDS HERE
