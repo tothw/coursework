@@ -347,7 +347,25 @@ Tests done on randomly generated instances as follows:
 
 \begin{frame}
 \frametitle{Stable Set Polytope - Experimental Results}
+\centering
+Average difference in gap closed percentages:
 
+\begin{tabular}{c c | c c c c c}
+\hline
+\rule{0pt}{4ex}$D$ &$|V|$ & $N$ & $N^2 - N$ & $\tilde{N} - N^2$ & $SA^2 - \tilde{N}$ & Remaining \\ \hline
+0.25 & 20 & 100 & 0 & 0 & 0 & 0 \\ 
+ & 30 & 97.5086 & 2.4914 & 0 & 0 & 0 \\ 
+& 40 & 89.4596 & \alert{10.3762} & \alert{0.0843} & \alert{0.0003 }& 0.0796 \\ 
+& 50 & 80.55.25 & \alert{18.3314} & \alert{0.0862} & \alert{0.0001} & 1.0299 \\ \hline
+0.5 & 20 & 80.2491 & 19.3807 & 0.0073 & 0 & 0.3628 \\
+& 30 & 66.7573 & 27.8776 & 0 & 0 & 5.4542 \\
+& 40 & 58.3730 & 29.1865 & 0 & 0 & 12.4404 \\
+& 50 & 51.8947 & 25.9474 & 0 & 0 & 22.1579 \\ \hline
+0.75 & 20 & 61.2747 & 27.8776 & 0 & 0 & 10.8476 \\
+& 30 & 50.4497 & 25.2249 & 0 & 0 & 24.3254 \\
+& 40 & 46.3941 & 23.1971 & 0 & 0 & 30.4088 \\
+& 50 & 43.9074 & 21.9537 & 0 & 0 & 34.1389 \\ \hline
+\end{tabular}
 \end{frame}
 %ENDS HERE
 %STOP SCROLLING
