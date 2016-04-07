@@ -136,7 +136,7 @@ Let $\alert{(a^\ell)^Tx \leq b^\ell}$, $\alert{\ell \in L = \{1, \dots, m\}}$ be
 \end{frame}
 \begin{frame}
 \frametitle{Lov\'asz-Schrijver operator - Lift step cont'd}
-We linearize each  quadratic term $\alert{x_{ij}}$ by replacing with variable $\alert{y_{ij}}$.\\
+We linearize each  quadratic term $\alert{x_{i}x_{j}}$ by replacing with variable $\alert{y_{ij}}$.\\
 Let $\alert{\hat{M}(P)}$ be the set obtained after the Lift step, it satisfies:
 \begin{align*}
 \alert{b^\ell x_i - \sum_{j=1}^n a_j^\ell y_{ij} \geq 0}, &\text{ for all } \alert{i \in I,\ \ell \in L} \\
@@ -146,7 +146,7 @@ Let $\alert{\hat{M}(P)}$ be the set obtained after the Lift step, it satisfies:
 \end{frame}
 
 \begin{frame}
-\frametitle{Lemma: $\hat{M(P)}$ is an extended LP formulation of $P^{IP}$}
+\frametitle{Lemma: $\hat{M}(P)$ is an extended LP formulation of $P^{IP}$}
 $\textbf{Proof Idea:}$ Fix $\alert{i, \ell}$. Adding inequalities:
 $$\alert{b^\ell x_i - \sum_{j=1}^n a_j^l y_{ij} \geq 0} \text{ and } \alert{b^\ell -\sum_{j=1}^n a_j^\ell x_j - b^\ell x_i + \sum_{j=1}^n a_j^\ell y_{ij} \geq 0},$$
 We obtain that $$\alert{b^\ell -(a^\ell)^Tx \geq 0}.$$
@@ -154,12 +154,12 @@ Therefore $\alert{\proj_x(\hat{M}(P)) \subseteq P}$.
 \end{frame}
 
 \begin{frame}
-\frametitle{Lemma: $\hat{M(P)}$ is an extended LP formulation of $P^{IP}$}
+\frametitle{Lemma: $\hat{M}(P)$ is an extended LP formulation of $P^{IP}$}
 $\textbf{Proof Continued:}$ Now let $\alert{\bar{x} \in P}$. Define $$\alert{\bar{y}=(x_i x_j : i \in I, j \in \{1, \dots, n\})}.$$
 Then the values of $\alert{\hat{M}}$ inequalities left hand sides are equal to:
 $$\alert{\bar{x}_i (b^\ell - (a^\ell)^T \bar{x})} \text{ and } \alert{(1-\bar{x}_i )(b^\ell - (a^\ell)^T \bar{x})}.$$
 These are clearly non-negative as $\alert{\bar{x}}$ satisfies $\alert{0 \leq \bar{x} \leq 1}$ and $\alert{A \bar{x} \leq b}$.\\
-Therefore $\alert{\proj_x(\hat{M}(P)) = P}$.
+Therefore $\alert{\proj_x(\hat{M}(P)) = P}$.\\$\blacksquare$
 \end{frame}
 
 \begin{frame}
@@ -182,13 +182,13 @@ $\textbf{Proof Idea:}$ From our quadratic inequalities, the $\textit{McCormick I
 \alert{(1-x_i)(1-x_j) \geq 0} & \rightarrow \alert{1 - x_i - x_j + y_{ij}  \geq 0}
 \end{align*}
 Thus $\alert{x_i = 0} \implies \alert{y_{ij} = 0}$ and $\alert{x_i = 1} \implies \alert{y_{ij} = x_j}$. So if $\alert{x_i = 0}$ or $\alert{x_i = 1}$ then
-$$\alert{y_{ii} = x_i}$$
+$$\alert{y_{ii} = x_i}$$ \\$\blacksquare$
 \end{frame}
 
 \begin{frame}
 \frametitle{New operator - Strengthening Lov\'asz-Shrijver}
 Previous Lemma suggests that $\alert{M(P)}$ is obtained from $\alert{\hat{M}(P)}$ by adding one split cut for each $\alert{S_i}$, $\alert{i \in I}$.\\\ \\
-What is instead we added all $0$-$1$ split cuts?\\
+What if instead we added all $0$-$1$ split cuts?\\
 We'd obtain the new operator:
 $$\alert{\tilde{N}(P) = \proj_x(S(\hat{M}(P)))}$$
 Notice our Lemma gives $\alert{S(\hat{M}(P)) \subseteq M(P)}$ which implies:
@@ -215,7 +215,7 @@ Consequences of $\textbf{Theorem:}$ $\alert{S(\hat{M}(P)) \subseteq M(S(P))}$:
 \frametitle{Sherali-Adams level $k$ operator - Lift Step}
 Define $\alert{PSA^k(P)}$ by, for each inequality $\alert{b^\ell - (a^\ell)^Tx \geq 0}:$
 $$\alert{\prod_{i \in J_1} x_i \prod_{j \in J_2} (1 - x_j) (b^\ell - (a^\ell)^Tx) \geq 0}$$
-for all $\alert{(J_1, J_2)}$ "pairs of order $k$".\\
+for all $\alert{(J_1, J_2)}$ ``pairs of order $k$".\\
 $\textbf{pair of order k:}$ $\alert{J_1, J_2 \subseteq I}$, $\alert{|J_1 \cup J_2| = k}$, and $\alert{J_1 \cap J_2 = \emptyset}$.
 \end{frame}
 
@@ -381,13 +381,14 @@ Average difference in gap closed percentages:
 \frametitle{Suggestions for Future Work}
 Theoretical:
 \begin{itemize}
-\item What happens if we apply this idea to other lift-and-project operators? Say we tried $\alert{\tilde{SA}^2(P) = \proj_x (S(ESA^2(P)))}$ for instance?
-\item How do the operators compare in terms of computational complexity instead of relative strength?
+\item What if we apply this idea to other lift-and-project operators? Maybe $\alert{\tilde{SA}^2(P) = \proj_x (S(ESA^2(P)))}$?
+\item (Authors:) How do operators compare in terms of computational complexity instead of relative strength?
+\item Can we make theoretical guarantees on bounds of ``gap closed"?
 \end{itemize}
 Practical:
 \begin{itemize}
-\item The entire theory was built in a $0$-$1$ MIP setting. It would make sense to see experiments on MIP problems instead of pure IP problems like $\alert{STAB}$.
-\item It would be interesting to investigage efficient methods for optimizing over $\alert{S(P)}$ and use those to build a more sophisticated implementation of $\alert{\tilde{N(P)}}$.
+\item Theory was built in a $0$-$1$ MIP setting, so try experiments on MIP problems instead of $\alert{STAB}$ (pure IP). Possibly even use real-world data instead of randomly generated instances.
+\item (Authors:) It would be interesting to investigage efficient methods for optimizing over $\alert{S(P)}$ and use those to build a more sophisticated implementation of $\alert{\tilde{N}(P)}$.
 \end{itemize}
 \end{frame}
 
