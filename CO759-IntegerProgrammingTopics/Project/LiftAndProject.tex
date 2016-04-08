@@ -199,7 +199,19 @@ $$\alert{\tilde{N}(P) \subseteq N(P)}$$
 \frametitle{Theorem: $S(\hat{M}(P)) \subseteq M(S(P))$}
 Says new operator's strengthened extension of $\alert{P}$ is stronger than Lov\'asz-Schrijver's of $0$-$1$ split closure of $\alert{P}$.
 \\$\textbf{Proof Idea:}$ Observe that $$\alert{M(S(P)) = \hat{M}(S(P)) \cap \{(x,y):y_{ii} = x_i, \forall i \in I\}}$$
-Lemma implies $$\alert{S(\hat{M}(P)) \subseteq \{(x,y):y_{ii}=x_i, \forall i \in I \}}$$  and it is easy to see from straightforward computation that $$\alert{S(\hat{M}(P)) \subseteq \hat{M}(S(P))}.$$ 
+Lemma implies $$\alert{S(\hat{M}(P)) \subseteq \{(x,y):y_{ii}=x_i, \forall i \in I \}}$$  and so it remains to show that $$\alert{S(\hat{M}(P)) \subseteq \hat{M}(S(P))}.$$ 
+\end{frame}
+
+\begin{frame}
+\frametitle{Proof Continued - Show $S(\hat{M}(P)) \subseteq \hat{M}(S(P))$}
+The process is detailed, but here are the milestones:
+\begin{enumerate}
+\item Let $\alert{S(P) = \{ x \in \R^n : (c^k)^T x \leq d^k, k \in K \}}$. Then for each $\alert{k \in K}$ there exists $\alert{t \in I}$ such that $\alert{(c^k)^T x \leq d^k}$ is valid for $\alert{\conv(P \backslash S_t)}$.
+\item Use that $\alert{(c^k)^T x \leq d^k}$ is valid for $\alert{P \cap \{x:x_t = 0\}}$ and $\alert{P \cap \{x:x_t=1\}}$ to derive inequalities valid for $\alert{P}$ in terms of $\alert{(c^k)^T x}$, $\alert{d^k}$, and scalar multiples of $\alert{x_t}$ and $\alert{(1-x_t)}$.
+\item Lift these inequalities by applying $\alert{\hat{M}}$ obtaining inequalities valid for $\alert{\hat{M}(P)}$.
+\item Use definition of $\alert{S(P)}$ from $(1)$ to write $\alert{\hat{M}(P)}$ explicitly.
+\item Show using $(3)$ that each inequality in $(4)$ is valid for $\alert{S(\hat{M}(P))}$ by checking cases $\alert{x_t = 0}$ and $\alert{x_t = 1}$.\\$\blacksquare$
+\end{enumerate}
 \end{frame}
 
 \begin{frame}
