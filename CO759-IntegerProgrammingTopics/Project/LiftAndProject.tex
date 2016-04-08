@@ -78,7 +78,7 @@ A central question in Integer Programming: Find a better approximation of $\aler
 \frametitle{One approach}
 We can define a hierarchy of relaxations $\alert{H^1, \dots, H^{n_1}}$ of $\alert{P^{IP}}$ such that
 $$\alert{P \supseteq H^1 \supseteq \dots \supseteq H^{n_1} = \conv(P^{IP})}.$$
-Two examples we will discuss: Lov\'asz-Schrijver and Sherali-Adams.\\
+Two examples we will discuss: Lov\'asz-Schrijver and Sherali-Adams.\\\ \\
 $\textbf{New contribution:}$ An operator which obtains $\alert{\conv(P^{IP})}$ in $\alert{\ceil{\frac{n_1}{2}}}$ steps instead of $\alert{n_1}$.
 \end{frame}
 
@@ -109,8 +109,8 @@ Define $\alert{S^k(P)}$ as follows:
 \begin{itemize}
 \item $\alert{S^0(P) = P}$,
 \item $\alert{S^k(P) = S(S^{k-1}(P))}$ for $\alert{k \geq 1}$.
-\end{itemize}
-Theorem (Balas): $\alert{S^{n_1}(P) = \conv(P^{IP})}$.
+\end{itemize}\ \\\ \\
+$\textbf{Theorem}$ (Balas): $\alert{S^{n_1}(P) = \conv(P^{IP})}$.
 \end{frame}
 
 \section{Lov\'asz-Schrijver}
@@ -127,8 +127,8 @@ All Lift-and-Project operators are based on a common scheme:
 
 \begin{frame}
 \frametitle{Lov\'asz-Schrijver operator - Lift step}
-Let $\alert{(a^\ell)^Tx \leq b^\ell}$, $\alert{\ell \in L = \{1, \dots, m\}}$ be the inequalities in $\alert{Ax \leq b}$. Going forward we assume $\alert{0 \leq x_i \leq 1}$ is included in $\alert{Ax \leq b}$ for each $\alert{i \in I = \{1,\dots,n_1\}}$.
-\\ We start with the quadratic inequalities:
+Let $\alert{(a^\ell)^Tx \leq b^\ell}$, $\alert{\ell \in L = \{1, \dots, m\}}$ be the inequalities in $\alert{Ax \leq b}$. \\\ \\Going forward we assume $\alert{0 \leq x_i \leq 1}$ is included in $\alert{Ax \leq b}$ for each $\alert{i \in I = \{1,\dots,n_1\}}$.
+\\\ \\ We start with the quadratic inequalities:
 \begin{align*}
 \alert{x_i(b^\ell - (a^\ell)^Tx) \geq 0}, &\text{ for all } \alert{i\in I,\ \ell \in L} \\
 \alert{(1-x_i)(b^\ell - (a^\ell)^Tx) \geq 0}, &\text{ for all }\alert{ i\in I,\ \ell \in L} \\
@@ -156,7 +156,7 @@ Therefore $\alert{\proj_x(\hat{M}(P)) \subseteq P}$.
 \begin{frame}
 \frametitle{Lemma: $\hat{M}(P)$ is an extended LP formulation of $P^{IP}$}
 $\textbf{Proof Continued:}$ Now let $\alert{\bar{x} \in P}$. Define $$\alert{\bar{y}=(x_i x_j : i \in I, j \in \{1, \dots, n\})}.$$
-Then the values of $\alert{\hat{M}}$ inequalities left hand sides are equal to:
+When we substitute $\alert{(\bar{x},\bar{y})}$ into $\alert{\hat{M}}$ inequalities, left hand sides recover quadratic inequalities:
 $$\alert{\bar{x}_i (b^\ell - (a^\ell)^T \bar{x})} \text{ and } \alert{(1-\bar{x}_i )(b^\ell - (a^\ell)^T \bar{x})}.$$
 These are clearly non-negative as $\alert{\bar{x}}$ satisfies $\alert{0 \leq \bar{x} \leq 1}$ and $\alert{A \bar{x} \leq b}$.\\
 Therefore $\alert{\proj_x(\hat{M}(P)) = P}$.\\$\blacksquare$
@@ -174,7 +174,7 @@ $$\alert{\bar{x}_i^2 = \bar{x}_i}$$
 
 \begin{frame}
 \frametitle{Lemma: For any $i\in I$, $y_{ii} = x_{i}$ is valid for $S(\hat{M}(P))$} 
-$\textbf{Proof Idea:}$ From our quadratic inequalities, the $\textit{McCormick Inequalities}$ are valid for $\alert{\hat{M}(P)}$:
+$\textbf{Proof Idea:}$ Let $\alert{(x,y) \in \conv(\hat{M}(P) \backslash S_i) \subseteq S(P)}$.\\ From our quadratic inequalities, the $\textit{McCormick Inequalities}$ are valid for $\alert{\hat{M}(P)}$:
 \begin{align*}
 \alert{x_i x_j \geq 0} & \rightarrow \alert{y_{ij} \geq 0} \\
 \alert{x_i(1-x_j)\geq 0} & \rightarrow \alert{x_i \geq y_{ij}} \\
@@ -182,7 +182,7 @@ $\textbf{Proof Idea:}$ From our quadratic inequalities, the $\textit{McCormick I
 \alert{(1-x_i)(1-x_j) \geq 0} & \rightarrow \alert{1 - x_i - x_j + y_{ij}  \geq 0}
 \end{align*}
 Thus $\alert{x_i = 0} \implies \alert{y_{ij} = 0}$ and $\alert{x_i = 1} \implies \alert{y_{ij} = x_j}$. So if $\alert{x_i = 0}$ or $\alert{x_i = 1}$ then
-$$\alert{y_{ii} = x_i}$$ \\$\blacksquare$
+$$\alert{y_{ii} = x_i}.$$ \\$\blacksquare$
 \end{frame}
 
 \begin{frame}
@@ -209,7 +209,7 @@ The process is detailed, but here are the milestones:
 \item Let $\alert{S(P) = \{ x \in \R^n : (c^k)^T x \leq d^k, k \in K \}}$. Then for each $\alert{k \in K}$ there exists $\alert{t \in I}$ such that $\alert{(c^k)^T x \leq d^k}$ is valid for $\alert{\conv(P \backslash S_t)}$.
 \item Use that $\alert{(c^k)^T x \leq d^k}$ is valid for $\alert{P \cap \{x:x_t = 0\}}$ and $\alert{P \cap \{x:x_t=1\}}$ to derive inequalities valid for $\alert{P}$ in terms of $\alert{(c^k)^T x}$, $\alert{d^k}$, and scalar multiples of $\alert{x_t}$ and $\alert{(1-x_t)}$.
 \item Lift these inequalities by applying $\alert{\hat{M}}$ obtaining inequalities valid for $\alert{\hat{M}(P)}$.
-\item Use definition of $\alert{S(P)}$ from $(1)$ to write $\alert{\hat{M}(P)}$ explicitly.
+\item Use definition of $\alert{S(P)}$ from $(1)$ to write $\alert{\hat{M}(S(P))}$ explicitly.
 \item Show using $(3)$ that each inequality in $(4)$ is valid for $\alert{S(\hat{M}(P))}$ by checking cases $\alert{x_t = 0}$ and $\alert{x_t = 1}$.\\$\blacksquare$
 \end{enumerate}
 \end{frame}
@@ -227,7 +227,7 @@ Consequences of $\textbf{Theorem:}$ $\alert{S(\hat{M}(P)) \subseteq M(S(P))}$:
 \frametitle{Sherali-Adams level $k$ operator - Lift Step}
 Define $\alert{PSA^k(P)}$ by, for each inequality $\alert{b^\ell - (a^\ell)^Tx \geq 0}:$
 $$\alert{\prod_{i \in J_1} x_i \prod_{j \in J_2} (1 - x_j) (b^\ell - (a^\ell)^Tx) \geq 0}$$
-for all $\alert{(J_1, J_2)}$ ``pairs of order $k$".\\
+for all $\alert{(J_1, J_2)}$ ``pairs of order $k$".\\\ \\
 $\textbf{pair of order k:}$ $\alert{J_1, J_2 \subseteq I}$, $\alert{|J_1 \cup J_2| = k}$, and $\alert{J_1 \cap J_2 = \emptyset}$.
 \end{frame}
 
@@ -248,7 +248,7 @@ For $\alert{S \in \mathcal{T}}$ let $\alert{[S]}$ be tuple of unique elements of
 $\textbf{Example:}$ For $\alert{k=2}$, $\alert{S = (1,1,2)}$ gives $\alert{[S] = (1,2)}$.\\
 To strengthen create $\alert{LSA^k(P)}$ by adding to $\alert{ESA^k(P)}:$
 $$\alert{y_S = y_{[S]} \quad} \text{for all } \alert{S \in \mathcal{T}}$$
-$\textbf{Sherali-Adams operator:}$ $\alert{SA^k(P)}$ given by $\textit{projecting}$ $\alert{ESA^k(P)}$ onto the space of variables $\alert{y_{(1)} ,\dots y_{(n)}}$. Notice each $\alert{y_{(i)} = x_i}$.
+$\textbf{Sherali-Adams operator:}$ $\alert{SA^k(P)}$ given by $\textit{projecting}$ $\alert{LSA^k(P)}$ onto the space of variables $\alert{y_{(1)} ,\dots y_{(n)}}$. Notice each $\alert{y_{(i)} = x_i}$.
 \end{frame}
 
 \begin{frame}
