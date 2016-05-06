@@ -129,7 +129,28 @@ Therefore $\nu(AB) \leq \nu(A) \nu(B)$ as desired.$\blacksquare$
 \section{}
 \paragraph{}
 Suppose $M \succcurlyeq 0$ and $x^TMx=0$. Since $M$ is positive semidefinite, there exists a matrix $B$ such that
-$$M = B^TNB.$$
+$$M = B^TB.$$
 Therefore $$0 = x^TMx = x^TB^TBx = (Bx)^T(Bx) = ||Bx||_2^2$$
-and thus $Bx = 0$.
+and thus, as the $2$-norm of $Bx$ is zero, $Bx = 0$. Since $M = B^TB$, we may conclude that $$Mx = B^T(Bx) = B^T0 = 0.$$$\blacksquare$
+
+\section{}
+\subsection{}
+\paragraph{}
+Let $A$ and $B$ be $n \times n$ matrices. Suppose that $A$ is positive definite and $B$ is positive semidefinite. Let $x \in \R^n$, such that $x \neq 0$. Then
+\begin{align*}
+x^T(A + B)x &= x^TAx + x^TBx \\
+&\geq x^TAx +0 &\text{since $B$ is positive semidefinite}\\
+&> 0. &\text{since $A$ is positive definite and $x\neq 0$}\end{align*}
+Therefore $A+B$ is positive definite. $\blacksquare$
+\subsection{}
+\paragraph{}
+Let $B$ be an $n \times n$, $01$-matrix. Suppose that there exist positive integers $n$ and $\lambda$ such that
+$$BB^T = nI + \lambda J.$$
+Let $x \in \R^n$ such that $x\neq 0$. Then 
+\begin{align*}
+x^T BB^T x &= x^T(nx + \lambda Jx) \\
+&=\sum_{i=1}^n x_i(nx_i + \lambda \sum_{j=1}^n x_j) &\text{as each $(Jx)_i$ is equal to $\sum_{j=1}^n x_j$} \\
+&= n\sum_{i=1}^n x_i^2 + \lambda (\sum_{i=1}^n x_i)^2.
+\end{align*}
+Observe that $\sum_{i=1}^n x_i^2 > 0$. This follows since $x \neq 0$ implies there is at least one $x_i \neq 0$. Thus $n \sum_{i=1}^n x_i^2 >0$ as $n >0$. We also have $\lambda (\sum_{i=1}^n x_i)^2 \geq 0$ as $\lambda >0$ and $(\sum_{i=1}^n x_i))^2 \geq 0$. Therefore we may conclude that $x^TBB^Tx >0$ for any $x \neq 0$. That is, $BB^T$ is positive definite. Since $BB^T$ is positive definite it is non-singular, and hence its rows are linearly independent. $\blacksquare$
 \end{document}

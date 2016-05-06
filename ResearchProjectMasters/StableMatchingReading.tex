@@ -209,14 +209,48 @@ For an instance of SR:
 \section{The geometry of fractional stable matching and its applications}
 This article \cite{teo1998geometry} provides an LP formulation of SR and gives a $2$-approximation algorithm.
 
+\begin{lemma}
+Consider the stable marriage polytope formulation by Vande Vate, $P_{SM}$. If $x \in P_{SM}$ and $x_{ij} >0$ then $x(\delta^{<j}(i)) + x(\delta^{<i}(j)) + x_{ij} = 1$ (constraint is tight). Note proof is by complementary slackness.
+\end{lemma}
+
 \begin{theorem}
 Let $X_1, \dots, X_\ell$ be $\ell$ distinct SM solutions. Assign each man the woman whose rank is $k$ among the $\ell$ possible matches given. Do similarly for women assigning them the $\ell +1 -k$ ranked man. The resulting assignment is a stable matching.
 \end{theorem}
  \begin{note}
  When $\ell$ is odd and equal to the total number of SM solutions, and $k = (\ell + 1)/2$ this is particularly interesting. It says there is a solution where each person receives their "median" partner among all possible mates. They say it is open to determine if such a media solution can be computed in polynomial time
  \end{note}
+\begin{definition}
+Fractional Stable Matching (FSM). Consider the following linear formulation for (SR):
+\begin{align*}
+x(\delta(i)) &= 1, &\forall i \\
+x(\delta^{<i}(j)) + x(\delta^{<j}(i)) + x_{ij} &\leq 1, &\forall ij \\
+x_{ij} &\geq 0, &\forall ij.
+\end{align*}
+\end{definition}
 
-TODO write out the many interesting results in this paper.
+\begin{note}
+The inequality $$S(i,j,k) = \frac{1}{2}(x(\delta^{\leq i}(j)) + x(\delta^{\leq j}(k))) \leq \frac{1}{2} $$ is valid for (FSM) by combining stability inequalities. This can be extended to an odd cycle version: Suppose $i_0, i_1, \dots, i_C$ for $C$ even are such that $i_k$ prefers $i_{k+1}$ to $i_{k-1}$, where indices taken mod $(C+1)$. Then summing previous inequality we have:
+$$\sum_{k=0}^C S(i_{k-1},i_{k},i_{k+1}) \leq \frac{C+1}{2}.$$
+Now, since LHS is integral, we can obtain a stronger inequality by rounding down the RHS. Thus we obtain improved formulation ($P_{SR}$):
+\begin{align*}
+x(\delta(i)) &= 1, &\forall i \\
+x(\delta^{<i}(j)) + x(\delta^{<j}(i)) + x_{ij} &\leq 1, &\forall ij \\
+x_{ij} &\geq 0, &\forall ij\\
+\sum_{k=0}^C S(i_{k-1},i_{k},i_{k+1}) &\leq \floor{\frac{C+1}{2}}, &\forall \text{cycles } C: \forall k=0,\dots,C\ i_{k-1} <_{i_k} i_{k+1}.
+\end{align*}
+\end{note}
+
+\begin{lemma}
+Separation for ($P_{SR}$) can be solved in polynomial time
+\end{lemma}
+
+\begin{theorem}
+($P_{SR}$) is feasible if and only if the corresponding stable roommates problem is feasible.
+\end{theorem}
+
+\begin{note}
+The paper is concluded by showing a $2$-approximation algorithm for (MAX-SR) using a randomized rounding scheme on solutions of ($P_{SR}$) provided that the cost function satisfies some specific conditions.
+\end{note}
 
 \section{Polyhedral Aspects of Stable Marriage}
 This article \cite{eirinakis2013polyhedral} explores some aspects of the stable marriage polytope. Using the Extended Gale Shapely Algorithm (EGS) one can identify nonstable pairs (pairs which do not participate in at least one stable marriage). Not all nonstable pairs can be removed without altering the solution set, but the ones identified by EGS can, yielding a smaller problem instance with the same solution set.  The resulting preference lists are deemed minimal.
@@ -230,20 +264,67 @@ They study the rotation poset graph, and it's transitive reduction to achieve th
 EGS is just typical Gale-Shapley but when an $(m,w)$ pair is assigned, remove every pair $(m',w)$ where $m >_w m'$ and identify the pair as nonstable.
 \end{note}
 \begin{theorem}
-There is an $O(n^2)$ time algorithm to produce minimal preference lists, and the associate reduced nonremoval set of nonstable pairs.
+There is an $O(n^2)$ time algorithm to produce minimal preference lists, and the associated reduced nonremoval set of nonstable pairs (RNRS).
+\label{theorem:rnrs}
 \end{theorem}
+\begin{definition}
+Let $D = \{(m,w) \in M \times W : w \text{ appears in } P(m) \text{ and $m$ appears in } P(w)\}$. Let $D^* = \{(m,w) \in D : (m,w) \text{ is not identified as nonstable by EGS}\}$.
+\end{definition}
 \begin{theorem}
-They provide a minimal description of the stable matching polytope. TODO write it down here.
+Ratier in "On the stable matching polytope (subsection 4.1)" showed that the following completely describes the stable matching polytope:
+\begin{align}
+\sum_{w' \in P(m)} x_{mw'} &= 1, &\forall m : \exists (m,w) \in D^*\\
+\sum_{m' \in P(w)} x_{m'w} &=1, &\forall w: \exists (m,w) \in D^* \\
+x_{mw} + \sum_{w' >_m w} x_{mw'} + \sum_{m'>_w m} x_{m'w} &\geq 1, &\forall (m,w) \in D^* \backslash(\mu_0 \cup \mu_z) \\
+x_{mw} &\geq 0, &\forall (m,w) \in D^* \\
+x_{mw} &= 0, &\forall (m,w) \in D\backslash D*
+\end{align}
+where $\mu_0$ and $\mu_z$ denote respectively the man and woman optimal stable matchings.
 \end{theorem}
+\begin{definition}
+Let $D_f = \mu_0 \cap \mu_z$ (fixed pairs, appear in every stable matching). Let $D_s$ contain all other stable pairs (stable pairs not in $D_f$). Let $\hat{D}_s = D \backslash (D_s \cup D_f)$ (nonstable pairs). Let $\hat{D}^-_s \subseteq \hat{D}_s$ denote a RNRS (can be found with theorem \ref{theorem:rnrs}).
+\end{definition}
 \begin{theorem}
-They also provide a set of inequalities that are facet-defining.
-\end{theorem}
-\begin{theorem}
-Corollary 7 in the paper says that any minimal description contains certain numbers of certain types of inequalities.
+For any choice of RNRS, the stable matching polytope can be written as:
+\begin{align}
+x_{mw} + \sum_{w' >_m w} x_{mw'} + \sum_{m' >_w m} x_{m'w} &= 1, &\forall (m,w) \in D_s \\
+x_{mw} &= 1, &\forall (m,w) \in D_f \\
+x_{mw} &= 0, &\forall (m,w) \in \hat{D}_s \\
+\sum_{w' >_m w} x_{mw'} + \sum_{m' >_w m} x_{m'w} &\geq 1, &\forall (m,w) \in \hat{D}^-_s \\
+x_{mw} &\geq 0, &\forall (m,w) \in D_s
+\end{align}
 \end{theorem}
 \begin{theorem}
 The dimension of the stable matching polytope $= |R(S)|$ where $R(S)$ is the number of rotations of stable matching instance $S$.
 \end{theorem}
+
+A theory regarding minimal descriptions of the stable matching polytope follows:
+
+\begin{lemma}
+The equation system for the stable matching polytope is given by $(6)$-$(8)$. Furthermore a minimal equation system is defined by $(6)$-$(8)$ after removing one equality $(6)$ corresponding to a pair that belongs to (or is produced by the elimination of) rotation $\rho$ for each $\rho \in R(S)$.
+\end{lemma}
+\begin{theorem}
+Inequalities $(10)$ are facet-defining if and only if the corresponding stable pair $(m,w)$ either:
+\begin{enumerate}
+\item belongs to a rotation exposed in $\mu_0$
+\item or, is produced by eliminating a rotation that produces $\mu_z$
+\item or, creates an arc in the "transitive reduction" of the rotation poset graph
+\end{enumerate}
+If multiple pairs satisfy the same condition of among $1$-$3$ then corresponding inequalities define the same facet.
+\end{theorem}
+\begin{theorem}
+Inequalities $(9)$ are facet-defining for the stable matching polytope.
+\end{theorem}
+
+\begin{theorem}
+Any minimal description of the stable matching polytope includes:
+\begin{enumerate}
+\item $|D| - |V_G|$ equalities among $(6)$-$(8)$
+\item and, $|A_{G^-}| + |\{\rho \in R(S) : \delta^-_\rho = 0\}| + | \{ \rho \in R(S) : \delta^+_\rho = 0\}|$ inequalities among $(9)$-$(10)$.
+\end{enumerate}
+where $G$ is the rotation poset graph ($\textbf{TODO}$ define?), $G^-$ is its transitive reduction, and $\delta^-_\rho$ ($\delta^+_\rho$ respectively) denote the number of arcs of $A_{G^-}$ entering (leaving respectively) node $\rho$.
+\end{theorem}
+
 \section{Diameter of Stable Matching Polytope - From One Stable Marriage to the Next: How Long Is the Way?}
 This article \cite{eirinakis2014one} gives an upper bound on the diameter of the stable matching polytope.
 \begin{theorem}
