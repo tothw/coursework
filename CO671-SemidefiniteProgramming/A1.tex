@@ -43,7 +43,7 @@
 %\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
 
 \begin{document}
-\section{1}
+\section{}
 \paragraph{}
 Suppose $||\cdot||$ is a norm on $\R^n$ and let $\cM$ denote the space of real $n \times n$ matrices. Consider the function $$\nu(A) = \max_{||x||=1} ||Ax||.$$
 We will show it is well defined and a norm on the space of matrices.
@@ -113,4 +113,23 @@ Finally we have the triangle inequality. Let $A,B \in \cM$. Then
 &= \nu(A) + \nu(B).
 \end{align*}
 So $\nu(A+B) \leq \nu(A) + \nu(B)$. Therefore $\nu$ satisfies the triangle inequality, and so is a norm. $\blacksquare$
+
+\section{}
+\paragraph{}
+Let $|| \cdot ||$ be a norm on $\R^n$ and let $\nu$ be an induced norm on the space $\cM$ of real $n \times n$ matrices. Let $A, B \in \cM$. Then
+\begin{align*}
+\nu(AB) &= \max_{||x|| = 1} ||ABx|| \\
+&= \max_{||x|| = 1} ||A\frac{Bx}{||Bx||}||\cdot ||Bx||\\
+&\leq \max_{||x|| = 1} \max_{||v|| = 1} ||Av|| \cdot ||Bx||\\
+&= \max_{||v|| =1} ||Av||\cdot \max_{||x|| = 1} ||Bx|| \\
+&=\nu(A) \nu(B).
+\end{align*}
+Therefore $\nu(AB) \leq \nu(A) \nu(B)$ as desired.$\blacksquare$
+
+\section{}
+\paragraph{}
+Suppose $M \succcurlyeq 0$ and $x^TMx=0$. Since $M$ is positive semidefinite, there exists a matrix $B$ such that
+$$M = B^TNB.$$
+Therefore $$0 = x^TMx = x^TB^TBx = (Bx)^T(Bx) = ||Bx||_2^2$$
+and thus $Bx = 0$.
 \end{document}
