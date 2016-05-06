@@ -1,0 +1,116 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{article}
+\usepackage[margin=1in, bottom=1in, top=1in]{geometry} %1 inch margins
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%Macros
+\newcommand{\A}{\mathbb{A}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}} \newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+ 
+\newcommand{\cA}{\mathcal{A}} \newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}} \newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}} \newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}} \newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}} \newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}} \newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}} \newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}} \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}} \newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}} \newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}} \newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}} \newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}} \newcommand{\cZ}{\mathcal{Z}}
+
+%Page style
+\pagestyle{fancy}
+
+\listfiles
+
+\raggedbottom
+
+\rhead{William Justin Toth 671 Assignment 1} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{1pt} %heading underlined
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section{1}
+\paragraph{}
+Suppose $||\cdot||$ is a norm on $\R^n$ and let $\cM$ denote the space of real $n \times n$ matrices. Consider the function $$\nu(A) = \max_{||x||=1} ||Ax||.$$
+We will show it is well defined and a norm on the space of matrices.
+\paragraph{}
+To show $\nu(A)$ is well defined we will demonstrate that $\nu(A)$ optimizes a continuous function over a compact set. Then, since any continuous function optimized over a compact set attains its maximum at a point in the set, we may conclude that $\nu(A)$ indeed is a function. Let $U = \{x \in \R^n: ||x|| = 1\}$, let $A\in \cM$ and let $f(x) = ||Ax||$ for any $x \in \R^n$. The set $U$ is bounded as by definition for any $x \in U$, $||x|| \leq 1$. Consider the complement of $U$, $\bar{U} = \{x \in \R^n: ||x|| \neq 1\}$. Let $a \in \bar{U}$.
+\subparagraph{}
+If $||a|| < 1$ then choose $\epsilon = 1 - ||a||$. Let $x \in \{x \in \R^n: ||x-a|| < \epsilon\}$. Then we have that
+\begin{align*}
+||x|| &= ||x-a + a|| \\
+&\leq ||x-a|| + ||a|| \\
+&< \epsilon + ||a|| \\
+&= 1 - ||a|| + ||a|| \\
+&= 1.
+\end{align*} 
+Since $||x|| \neq 1$, $x\in \bar{U}$.
+\subparagraph{}
+If $||a|| > 1$ then choose $\epsilon = ||a|| - 1$. Let $x \in \{x \in \R^n: ||x-a|| < \epsilon\}$. Then we have that
+\begin{align*}
+||x|| &\geq ||a|| - ||x-a|| \\
+&> ||a|| - \epsilon \\
+&= ||a|| -(||a|| - 1) \\
+&= 1.
+\end{align*}
+Since $||x|| \neq 1$, $x \in \bar{U}$. So in either case, $\bar{U}$ is open and therefore $U$ is closed. 
+Since $U$ is a closed, bounded subset of $\R^n$, $U$ is compact.
+\paragraph{}
+Now we demonstrate that $f$ is continuous. Let $y \in \R^n$. Let $\epsilon > 0 $. Choose $\delta = \epsilon$. Let $x \in \R^n$ and suppose that $||x - y|| < \delta = \epsilon$. Then we have that
+\begin{align*}
+|f(x) - f(y)| &= |f(x - y + y) - f(y)| \\
+&\leq |f(x-y) + f(y) -f(y)| &\text{by triangle inequality applied to $f$}\\
+&= f(x-y) \\
+&= ||x-y|| \\
+&< \epsilon.
+\end{align*}
+Therefore $f$ is continuous and we have shown that $\nu$ is well defined.
+\paragraph{}
+Now we will show that $\nu$ is a norm. To show this we will demonstrate that $\nu$ is everywhere non-negative and equals $0$ only at the $0$ vector, $\nu$ is absolute scalable, and $\nu$ satisfies the triangle inequality.
+\subparagraph{}
+First observe that
+$$\nu(A) = \max_{||x||=1} ||Ax|| \geq \max_{||x||=1} 0 = 0.$$
+So $\nu(A) \geq 0$ for any $A$. Now let $A \in \cM$ and suppose that $\nu(A) = 0$. That is,
+$$0 = \max_{||x|| = 1} ||Ax||.$$
+Since $\nu(A)$ is non-negative this implies that $||Ax|| = 0$ for any $x \in U$.
+We will show $A$ is the $0$ matrix by showing its product with every non-zero $z \in \R^n$ is $0$. We will let $x = \frac{z}{||z||}$ be the normalization of $z$. We have that
+\begin{align*}
+||Az|| &= ||(||z||)\frac{Az}{||z||}|| \\
+&=(|\frac{1}{||z||}|) ||A\frac{z}{||z||}|| \\
+&= (|\frac{1}{||z||}|)||Ax|| \\
+&= 0 &\text{since $x \in U$}.
+\end{align*}
+Therefore $||Az|| = 0$ for any non-zero $z \in \R^n$. Since $||\cdot||$ is norm, this implies $Az = 0$ for every $z \in \R^n$. That is to say $A=0$.
+\subparagraph{}
+Now we consider absolute scalability. Let $c \in \R$ and let $A \in \cM$. Then
+\begin{align*}
+\nu(cA) &= \max_{||x||=1} ||cAx|| \\
+&= \max_{||x||=1} |c|\cdot||Ax|| &\text{since $||\cdot||$ is a norm}\\
+&= |c| \max_{||x||=1} ||Ax|| \\
+&= |c| \nu(A)
+\end{align*}
+as desired.
+\subparagraph{}
+Finally we have the triangle inequality. Let $A,B \in \cM$. Then
+\begin{align*}
+\nu(A + B) &= \max_{||x||=1} ||(A+B)x|| \\
+&\leq \max_{||x||=1} (||Ax|| + ||Bx||) &\text{since $||\cdot||$ is a norm}\\
+&= \max_{||x||=1} ||Ax|| + \max_{||x||=1} ||Bx|| \\
+&= \nu(A) + \nu(B).
+\end{align*}
+So $\nu(A+B) \leq \nu(A) + \nu(B)$. Therefore $\nu$ satisfies the triangle inequality, and so is a norm. $\blacksquare$
+\end{document}
