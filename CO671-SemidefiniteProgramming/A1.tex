@@ -49,7 +49,7 @@
 Suppose $||\cdot||$ is a norm on $\R^n$ and let $\cM$ denote the space of real $n \times n$ matrices. Consider the function $$\nu(A) = \max_{||x||=1} ||Ax||.$$
 We will show it is well defined and a norm on the space of matrices.
 \paragraph{}
-To show $\nu(A)$ is well defined we will demonstrate that $\nu(A)$ optimizes a continuous function over a compact set. Then, since any continuous function optimized over a compact set attains its maximum at a point in the set, we may conclude that $\nu(A)$ indeed is a function. Let $U = \{x \in \R^n: ||x|| = 1\}$, let $A\in \cM$ and let $f(x) = ||Ax||$ for any $x \in \R^n$. The set $U$ is bounded as by definition for any $x \in U$, $||x|| \leq 1$. Consider the complement of $U$, $\bar{U} = \{x \in \R^n: ||x|| \neq 1\}$. Let $a \in \bar{U}$.
+To show $\nu(A)$ is well defined we will demonstrate that $\nu(A)$ optimizes a continuous function over a compact set. Then, since any continuous function optimized over a compact set attains its maximum at a point in the set, we may conclude that $\nu(A)$ indeed is a function. Let $U = \{x \in \R^n: ||x|| = 1\}$, let $A\in \cM$ and let $f(x) = ||Ax||$ for any $x \in \R^n$. The set $U$ is bounded as by definition for any $x \in U$, $||x|| \leq 1$. Consider the complement of $U$, $$U^c = \R^n \backslash U = \{x \in \R^n: ||x|| \neq 1\}.$$ Let $a \in U^c$.
 \subparagraph{}
 If $||a|| < 1$ then choose $\epsilon = 1 - ||a||$. Let $x \in \{x \in \R^n: ||x-a|| < \epsilon\}$. Then we have that
 \begin{align*}
@@ -59,7 +59,7 @@ If $||a|| < 1$ then choose $\epsilon = 1 - ||a||$. Let $x \in \{x \in \R^n: ||x-
 &= 1 - ||a|| + ||a|| \\
 &= 1.
 \end{align*} 
-Since $||x|| \neq 1$, $x\in \bar{U}$.
+Since $||x|| \neq 1$, $x\in U^c$.
 \subparagraph{}
 If $||a|| > 1$ then choose $\epsilon = ||a|| - 1$. Let $x \in \{x \in \R^n: ||x-a|| < \epsilon\}$. Then we have that
 \begin{align*}
@@ -68,7 +68,7 @@ If $||a|| > 1$ then choose $\epsilon = ||a|| - 1$. Let $x \in \{x \in \R^n: ||x-
 &= ||a|| -(||a|| - 1) \\
 &= 1.
 \end{align*}
-Since $||x|| \neq 1$, $x \in \bar{U}$. So in either case, $\bar{U}$ is open and therefore $U$ is closed. 
+Since $||x|| \neq 1$, $x \in U^c$. So in either case, $U^c$ is open and therefore $U$ is closed. 
 Since $U$ is a closed, bounded subset of $\R^n$, $U$ is compact.
 \paragraph{}
 Now we demonstrate that $f$ is continuous. Let $y \in \R^n$. Let $\epsilon > 0 $. Choose $\delta = \epsilon$. Let $x \in \R^n$ and suppose that $||x - y|| < \delta = \epsilon$. Then we have that
@@ -90,9 +90,9 @@ $$0 = \max_{||x|| = 1} ||Ax||.$$
 Since $\nu(A)$ is non-negative this implies that $||Ax|| = 0$ for any $x \in U$.
 We will show $A$ is the $0$ matrix by showing its product with every non-zero $z \in \R^n$ is $0$. We will let $x = \frac{z}{||z||}$ be the normalization of $z$. We have that
 \begin{align*}
-||Az|| &= ||(||z||)\frac{Az}{||z||}|| \\
-&=(|\frac{1}{||z||}|) ||A\frac{z}{||z||}|| \\
-&= (|\frac{1}{||z||}|)||Ax|| \\
+||Az|| &= ||(||z||)\cdot \frac{Az}{||z||}|| \\
+&=||z|| \cdot ||A\frac{z}{||z||}|| \\
+&= ||z||\cdot ||Ax|| \\
 &= 0 &\text{since $x \in U$}.
 \end{align*}
 Therefore $||Az|| = 0$ for any non-zero $z \in \R^n$. Since $||\cdot||$ is norm, this implies $Az = 0$ for every $z \in \R^n$. That is to say $A=0$.
@@ -153,11 +153,20 @@ x^T BB^T x &= x^T(nx + \lambda Jx) \\
 &=\sum_{i=1}^n x_i(nx_i + \lambda \sum_{j=1}^n x_j) &\text{as each $(Jx)_i$ is equal to $\sum_{j=1}^n x_j$} \\
 &= n\sum_{i=1}^n x_i^2 + \lambda (\sum_{i=1}^n x_i)^2.
 \end{align*}
-Observe that $\sum_{i=1}^n x_i^2 > 0$. This follows since $x \neq 0$ implies there is at least one $x_i \neq 0$. Thus $n \sum_{i=1}^n x_i^2 >0$ as $n >0$. We also have $\lambda (\sum_{i=1}^n x_i)^2 \geq 0$ as $\lambda >0$ and $(\sum_{i=1}^n x_i))^2 \geq 0$. Therefore we may conclude that $x^TBB^Tx >0$ for any $x \neq 0$. That is, $BB^T$ is positive definite. Since $BB^T$ is positive definite it is non-singular, and hence its rows are linearly independent. $\blacksquare$
+Observe that $\sum_{i=1}^n x_i^2 > 0$. This follows since $x \neq 0$ implies there is at least one $x_i \neq 0$. Thus $n \sum_{i=1}^n x_i^2 >0$ as $n >0$. We also have $\lambda (\sum_{i=1}^n x_i)^2 \geq 0$ as $\lambda >0$ and $(\sum_{i=1}^n x_i))^2 \geq 0$. Therefore we may conclude that $x^TBB^Tx >0$ for any $x \neq 0$. That is, $BB^T$ is positive definite.
+\paragraph{}
+Since $BB^T$ is positive definite it is non-singular. Therefore,
+\begin{align*}
+&\det(BB^T) \neq 0 \\
+\implies &\det(B)\det(B^T) \neq 0 \\
+\implies &\det(B)^2 \neq 0 \\
+\implies &\det(B) \neq 0. 
+\end{align*}
+Thus $B$ is non-singular, and so the rows or $B$ are linearly independent. $\blacksquare$
 
 \section{}
 \paragraph{}
-Let $V \subseteq \R^n$ be an inner product space. Let $x_1, \dots, x_d$ be elements of $V$. Let $G$ be the $d \times d$ matrix given by $$ G_{i,j} = \left \langle x_i, x_j \rangle \right.$$ Let $y \in V$. Let $||\cdot ||$ be the norm induced by $\langle \cdot,\cdot \rangle$. Then we have that
+Let $V$ be a real inner product space of dimension $n$. Let $x_1, \dots, x_d$ be elements of $V$. Let $G$ be the $d \times d$ matrix given by $$ G_{i,j} = \left \langle x_i, x_j \rangle \right.$$ Let $y \in V$. Let $||\cdot ||$ be the norm induced by $\langle \cdot,\cdot \rangle$. Then we have that
 \begin{align*}
 y^TGy &= \sum_{i=1}^n\sum_{j=1}^n \langle x_i,x_j \rangle y_i y_j \\
 &= \sum_{i=1}^n \sum_{j = 1}^n  \langle x_i y_i, x_j y_j \rangle  &\text{by linearity of real inner product in each element} \\
@@ -167,7 +176,7 @@ y^TGy &= \sum_{i=1}^n\sum_{j=1}^n \langle x_i,x_j \rangle y_i y_j \\
 \end{align*}
 Therefore $G$ is positive semidefinite.
 \paragraph{}
-Now, by (\ref{eq:norm}), $y^TGy = 0$ if and only if
-$$\sum_{i=1}^n x_i y_i = 0.$$
-If we assume that $y \neq 0$ then by definition this is possible if and only if $x_1, \dots, x_d$ are linearly independent. Therefore $G$ is positive definite if and only if $x_1, \dots, x_d$ are linearly independent. $\blacksquare$
+Now, by (\ref{eq:norm}), there exists $y\neq 0$ such that $y^TGy = 0$ if and only if
+\begin{equation}\sum_{i=1}^n x_i y_i = 0. \label{eq:li}\end{equation}
+So by definition of linear dependence  (\ref{eq:li}) holds if and only if $x_1, \dots, x_d$ are linearly dependent. Therefore $G$ is positive definite if and only if $x_1, \dots, x_d$ are linearly independent. $\blacksquare$
 \end{document}
