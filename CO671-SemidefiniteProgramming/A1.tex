@@ -31,6 +31,7 @@
 \newcommand{\cW}{\mathcal{W}} \newcommand{\cX}{\mathcal{X}}
 \newcommand{\cY}{\mathcal{Y}} \newcommand{\cZ}{\mathcal{Z}}
 
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 %Page style
 \pagestyle{fancy}
 
@@ -153,4 +154,20 @@ x^T BB^T x &= x^T(nx + \lambda Jx) \\
 &= n\sum_{i=1}^n x_i^2 + \lambda (\sum_{i=1}^n x_i)^2.
 \end{align*}
 Observe that $\sum_{i=1}^n x_i^2 > 0$. This follows since $x \neq 0$ implies there is at least one $x_i \neq 0$. Thus $n \sum_{i=1}^n x_i^2 >0$ as $n >0$. We also have $\lambda (\sum_{i=1}^n x_i)^2 \geq 0$ as $\lambda >0$ and $(\sum_{i=1}^n x_i))^2 \geq 0$. Therefore we may conclude that $x^TBB^Tx >0$ for any $x \neq 0$. That is, $BB^T$ is positive definite. Since $BB^T$ is positive definite it is non-singular, and hence its rows are linearly independent. $\blacksquare$
+
+\section{}
+\paragraph{}
+Let $V \subseteq \R^n$ be an inner product space. Let $x_1, \dots, x_d$ be elements of $V$. Let $G$ be the $d \times d$ matrix given by $$ G_{i,j} = \left \langle x_i, x_j \rangle \right.$$ Let $y \in V$. Let $||\cdot ||$ be the norm induced by $\langle \cdot,\cdot \rangle$. Then we have that
+\begin{align*}
+y^TGy &= \sum_{i=1}^n\sum_{j=1}^n \langle x_i,x_j \rangle y_i y_j \\
+&= \sum_{i=1}^n \sum_{j = 1}^n  \langle x_i y_i, x_j y_j \rangle  &\text{by linearity of real inner product in each element} \\
+&= \langle \sum_{i=1}^n x_i y_i, \sum_{j=1}^n x_j y_j \rangle &\text{again by linearity} \\
+&= ||\sum_{i=1}^n x_i y_i ||^2 \numberthis\label{eq:norm}\\
+&\geq 0.
+\end{align*}
+Therefore $G$ is positive semidefinite.
+\paragraph{}
+Now, by (\ref{eq:norm}), $y^TGy = 0$ if and only if
+$$\sum_{i=1}^n x_i y_i = 0.$$
+If we assume that $y \neq 0$ then by definition this is possible if and only if $x_1, \dots, x_d$ are linearly independent. Therefore $G$ is positive definite if and only if $x_1, \dots, x_d$ are linearly independent. $\blacksquare$
 \end{document}
