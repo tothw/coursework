@@ -1,0 +1,77 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{article}
+\usepackage[margin=1in, bottom=1in, top=1in]{geometry} %1 inch margins
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%Macros
+\newcommand{\A}{\mathbb{A}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}} \newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+ 
+\newcommand{\cA}{\mathcal{A}} \newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}} \newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}} \newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}} \newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}} \newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}} \newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}} \newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}} \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}} \newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}} \newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}} \newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}} \newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}} \newcommand{\cZ}{\mathcal{Z}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+%Page style
+\pagestyle{fancy}
+
+\listfiles
+
+\raggedbottom
+
+\rhead{William Justin Toth 671 A2} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{1pt} %heading underlined
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{6}
+\paragraph{}
+Let $A, B \succcurlyeq 0$. Then there exist $X, Y$ such that $$A = X^TX$$ and $$B = Y^TY.$$
+Then we have that
+\begin{align*}
+A \otimes B &= X^TX \otimes Y^TY \\
+&= (X^T \otimes Y^T)(X \otimes Y) \\
+&= (X \otimes Y)^T(X \otimes Y).
+\end{align*}
+Therefore  there exist $W = X \otimes Y$ such that $$A \otimes B = W^TW.$$
+and hence $A \otimes B \succcurlyeq 0$. $\blacksquare$
+\section*{7}
+\paragraph{}
+Let $A, X, B$ be matrices such that $AXB^T$ is defined. Suppose $A$ is  of order $m \times n$, $X$ of order $n \times p$, and $B$ of order $q \times p$. Think of the rows of $B \otimes A$ as $q$ sequential blocks of $m$ rows. Consider the $i^\text{th}$ block of rows $(B \otimes A)vec(X)$:
+\begin{equation}\begin{bmatrix} b_{i1} A & \cdots & b_{ip}A \end{bmatrix}
+\begin{bmatrix}
+x_1 \\ \vdots \\ x_p
+\end{bmatrix} \label{eq:iblock}\end{equation}
+where $x_1, \dots, x_p$ are the column vectors of $X$ (that is, $X = \begin{bmatrix} x_1 & \cdots & x_p\end{bmatrix}$). Then (\ref{eq:iblock}) is equal to
+\begin{equation} \sum_{j=1}^p b_{ij}Ax_j.  \label{eq:tensorsum}\end{equation}
+\paragraph{}
+Observe that the $i^\text{th}$ block of $m$ rows of $vec(AXB^T)$ is equal to the $i^\text{th}$ column of $AXB^T$. Thus we need to show that (\ref{eq:tensorsum}) is equal to the $i^\text{th}$ column of $AXB^T$. Let $b_i^T$ denote the $i^{th}$ row of $B$. Then we have that
+\begin{align*}
+(AXB^T)_i &= (A\begin{bmatrix} x_1 & \cdots & x_p\end{bmatrix}B^T)_i \\
+&=(\begin{bmatrix} Ax_1 &\cdots & Ax_p \end{bmatrix} B^T)_i \\
+&= \begin{bmatrix} Ax_1 &\cdots & Ax_p \end{bmatrix} b_i \\
+&= \sum_{j=1}^p b_{ij}Ax_j \\
+&= (\ref{eq:tensorsum}). 
+\end{align*}
+Therefore $vec(AXB^T) = (B \otimes A)vec(X)$ as desired. $\blacksquare$
+\end{document}
