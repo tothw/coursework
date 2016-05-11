@@ -74,4 +74,35 @@ Observe that the $i^\text{th}$ block of $m$ rows of $vec(AXB^T)$ is equal to the
 &= (\ref{eq:tensorsum}). 
 \end{align*}
 Therefore $vec(AXB^T) = (B \otimes A)vec(X)$ as desired. $\blacksquare$
+\section*{8}
+\paragraph{Lemma 8.1}
+Let $A$ be a $m\times n$ matrices and $B$ be an $n \times n$ nonsingular matrix. Then $rk(AB) = rk(A)$.
+\paragraph{Proof of Lemma 8.1}
+Since rank is equivalent to the dimension of the column space we will show that $col(AB) = col(A)$. Indeed, since $col(B) = \R^n$ we have that
+\begin{align*}
+col(AB) = \{ABx : x \in \R^n\} = \{Ax : x \in \R^n\} = col(A).
+\end{align*}
+Therefore $rk(AB) = rk(A)$.$\blacksquare$
+\paragraph{Note}
+We similarly have $rk(AB) = rk(B)$ for nonsingular $A$. The proof simply changes to reasoning about the transpose.
+\paragraph{Lemma 8.2}
+Let $A,B$ be nonsingular matrices. Then $A \otimes B$ is nonsingular.
+\paragraph{Proof of Lemma 8.2}
+We demonstrate that $A^{-1} \otimes B^{-1}$ is the inverse of $A \otimes B$ to obtain the result:
+$$(A \otimes B)(A^{-1} \otimes B^{-1}) = (AA^{-1} \otimes BB^{-1}) = (I \otimes I) = I $$
+where we use $I$ to mean the identity of the appropriate order which should be clear by context. $\blacksquare$
+\paragraph{Problem 8}
+Let $A$ be a matrix of rank $r$ and let $B$ be a matrix of rank $q$. Our goal is to reduce the proof to the case of diagonal matrices for which the result is more clearly true. Let $U_AD_AV_A^*$ be the singular value decomposition of $A$. Let $U_BD_BV_B^*$ be the singular value decomposition of $B$. Then by Lemma $8.1$,
+$$rk(A) = rk(D_A) \quad \text{and} \quad rk(B) = rk(D_B).$$ 
+Now we see that
+\begin{align*}
+rk(A\otimes B) &= rk(U_AD_AV_A^* \otimes U_BD_BV_B^*) \\
+&= rk((U_A \otimes U_B)(D_A \otimes D_B)(V_A^* \otimes V_B^*)) \\
+&= rk(D_A \otimes D_B).
+\end{align*}
+The last equality follows from three observations. First $U_A$ and $U_B$ are nonsingular implies $U_A \otimes U_B$ is nonsingular by Lemma $8.2$. Second, similarly $V_A^* \otimes V_B^*$ is nonsingular. Finally those two observations come together with two applications of Lemma $8.1$ to obtain the last equality.
+\paragraph{}
+Therefore the problem is reduced to the question:
+$$rk(D_A \otimes D_B) = rk(D_A)rk(D_B) $$
+for diagonal matrices $D_A$ and $D_B$. But this is obvious, as $D_A \otimes D_B$ is a diagonal matrix with diagonal entries of the form $d_Ad_B$ for $d_A$ on the diagonal of $D_A$ and $d_B$ on the diagonal of $D_B$. There are $rk(D_A)$ nonzero $d_A$ and $rk(D_B)$ nonzero $d_B$ and thus $rk(D_A)rk(D_B)$ nonzero diagonal entries of $D_A \otimes D_B$. Since $D_A \otimes D_B$ is diagonal we have $rk(D_A \otimes D_B) = rk(D_A)rk(D_B)$ and hence $rk(A \otimes B) = rk(A)rk(B)$. $\blacksquare$
 \end{document}
