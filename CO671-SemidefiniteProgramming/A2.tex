@@ -105,4 +105,27 @@ The last equality follows from three observations. First $U_A$ and $U_B$ are non
 Therefore the problem is reduced to the question:
 $$rk(D_A \otimes D_B) = rk(D_A)rk(D_B) $$
 for diagonal matrices $D_A$ and $D_B$. But this is obvious, as $D_A \otimes D_B$ is a diagonal matrix with diagonal entries of the form $d_Ad_B$ for $d_A$ on the diagonal of $D_A$ and $d_B$ on the diagonal of $D_B$. There are $rk(D_A)$ nonzero $d_A$ and $rk(D_B)$ nonzero $d_B$ and thus $rk(D_A)rk(D_B)$ nonzero diagonal entries of $D_A \otimes D_B$. Since $D_A \otimes D_B$ is diagonal we have $rk(D_A \otimes D_B) = rk(D_A)rk(D_B)$ and hence $rk(A \otimes B) = rk(A)rk(B)$. $\blacksquare$
+\section*{9}
+Let $x_1, \dots, x_n$ be a set of unit vectors in $\R^d$ such that for some scalar $\alpha$ with $0 \leq \alpha < 1$ we have $|\langle x_i, x_j \rangle | = \alpha$ whenever $i \neq j$. Let $P_i = x_i x_i^T$ for each $i$. Let $G$ be the matrix of the matrices $P_i$ with inner product $\langle P_i, P_j \rangle = tr(P_i^T P_j)$. Consider an entry of $G$, $G_{ij}$:
+\begin{align*}
+G_{ij} &= tr(P_i^T P_j) \\
+&= tr(x_i x_i^T x_j x_j^T) \\
+&= tr(x_i \langle x_i, x_j \rangle x_j^T) \\
+&= \langle x_i, x_j \rangle tr(x_i x_j^T) \\
+&= \langle x_i, x_j \rangle \sum_{k=1}^d (x_i)_d (x_j)_d \\
+&= \langle x_i, x_j \rangle ^2\\
+&= \begin{cases}
+1, \text{if $i=j$}\\
+\alpha, \text{if $i \neq j$}
+\end{cases}. \numberthis \label{eq:onealpha}
+\end{align*}
+Let $y \in \R^n$ such that $y \neq 0$. Then we have that
+\begin{align*}
+y^TGy &= \sum_{i} \sum_{j} G_{ij} y_i y_j\\
+&= \sum_{i} G_{ii} y_i^2 + \sum_{i \neq j} G_{ij} y_i y_j \\
+&= \sum_{i} y_i^2 + \sum_{i \neq j} \alpha y_i y_j &\text{by (\ref{eq:onealpha})}\\
+&\geq \sum_{i} y_i^2 +0 &\text{since $\alpha \geq 0$ and $y_i y_j \geq 0$ for any $i,j$} \\
+&> 0. &\text{since $y\neq0$}
+\end{align*}
+Therefore $G$ is positive definite. By problem $5$ of Assignment $1$ this implies $P_1, \dots, P_n$ are linearly independent in the vector space $V$ where $V$ denotes the space of real symmetric $d \times d$ matrices. But by a basic fact of linear algebra, the dimension of $V$ is $d+1 \choose 2$ (to see this, observe that $\{e_ie_j^T + e_je_i^T : i \leq j \in \{1,\dots,d\}\}$ forms a basis of $V$ of size $\sum_{k=1}^d k = $$d+1\choose 2$). Thus for $P_1, \dots, P_n$ to be linearly independent there must be at most $d+1 \choose 2$ of them. That is to say $n \leq $$d+1 \choose 2$. $\blacksquare$
 \end{document}
