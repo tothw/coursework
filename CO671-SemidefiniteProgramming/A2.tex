@@ -128,4 +128,20 @@ y^TGy &= \sum_{i} \sum_{j} G_{ij} y_i y_j\\
 &> 0. &\text{since $y\neq0$}
 \end{align*}
 Therefore $G$ is positive definite. By problem $5$ of Assignment $1$ this implies $P_1, \dots, P_n$ are linearly independent in the vector space $V$ where $V$ denotes the space of real symmetric $d \times d$ matrices. But by a basic fact of linear algebra, the dimension of $V$ is $d+1 \choose 2$ (to see this, observe that $\{e_ie_j^T + e_je_i^T : i \leq j \in \{1,\dots,d\}\}$ forms a basis of $V$ of size $\sum_{k=1}^d k = $$d+1\choose 2$). Thus for $P_1, \dots, P_n$ to be linearly independent there must be at most $d+1 \choose 2$ of them. That is to say $n \leq $$d+1 \choose 2$. $\blacksquare$
+\section*{10}
+\paragraph{}
+Let $A \succcurlyeq 0$ and let $x,y$ be vectors for which $(x+ty)^TA(x+ty)$ is defined. We aim to characterize $t$ for which
+\begin{equation}(x+ty)^TA(x+ty) = 0\label{eq:goal}.\end{equation} Observe the following:
+\begin{align*}
+(x+ty)^TA(x+ty) &= x^TAx + x^TAty + ty^TAx + t^2y^TAy \\
+&= x^TAx + t(x^TAy + y^TAx) + t^2y^TAy. \numberthis \label{eq:quad}
+\end{align*}
+If we let $a,b,c$ be scalars such that $a = y^TAy$, $b=x^TAy + y^TAx$, and $c = x^TAx$ then (\ref{eq:quad}) is equal to
+$$at^2 + bt + c.$$
+Thus we must resolve when $at^2 + bt +c =0$. This is a simple matter of high school algebra. We describe the cases below for completeness.
+\paragraph{Case $a \neq 0$}
+If $a \neq 0$ then we may apply the quadratic formula. If $b^2-4ac <0$ then (\ref{eq:goal}) never holds Otherwise (\ref{eq:goal}) holds when
+$$t = \frac{-b \pm \sqrt{b^2-4ac}}{2a}.$$
+\paragraph{Case $a = 0$}
+If $a = 0$ we are solving a linear equation. If $b \neq 0$ then (\ref{eq:goal}) holds when $$t = \frac{-c}{b}.$$ Otherwise, if $b = 0$, (\ref{eq:goal}) holds for all $t$ provided $c=0$ and never holds when $c\neq 0$.$\blacksquare$
 \end{document}
