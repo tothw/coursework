@@ -1,0 +1,97 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{article}
+\usepackage[margin=1in, bottom=1in, top=1in]{geometry} %1 inch margins
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%Macros
+\newcommand{\A}{\mathbb{A}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}} \newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+ 
+\newcommand{\cA}{\mathcal{A}} \newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}} \newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}} \newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}} \newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}} \newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}} \newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}} \newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}} \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}} \newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}} \newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}} \newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}} \newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}} \newcommand{\cZ}{\mathcal{Z}}
+
+%Page style
+\pagestyle{fancy}
+
+\listfiles
+
+\raggedbottom
+
+\rhead{MATH 128 Tutorial - Monday May 16} %CHANGE DATE as appropriate
+\renewcommand{\headrulewidth}{1pt} %heading underlined
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{Trigonometric Substitution}
+\paragraph{Problem}
+Solve the following integral using a trigonometric substitution:
+$$\int \frac{\sqrt{16-x^2}}{x^2}dx.$$
+\paragraph{Solution}
+Let $x = 4\sin\theta$ with $-\frac{\pi}2 \leq \theta \leq \frac{\pi}{2}$ (so that $\sin\theta \geq 0$). Then $dx = 4\cos\theta d\theta$. Applying the substitution we have: 
+\begin{align*}
+\int \frac{\sqrt{16-x^2}}{x^2}dx &= \int\frac{\sqrt{16-4^2\sin^2\theta}}{16\sin^2\theta}\cdot 4\cos\theta d\theta \\
+&=\int\frac{4\cos\theta}{16\sin^2\theta} \cdot 4\cos\theta d\theta \\
+&=\int\frac{16\cos^2\theta}{16\sin^2\theta}d\theta\\
+&=\int\cot^2\theta d\theta \\
+&=\int(\csc^2\theta - 1) d\theta \\
+&= -\cot\theta - \theta + c.
+\end{align*}
+We want the solution in terms of $x$ so we draw the triangle \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+So we have $$\cot\theta = \frac{\sqrt{16-x^2}}{x}$$ and $$\theta = \frac{\sin^{-1}\theta}{4}.$$
+Therefore our final solution is
+$$-\frac{\sqrt{16-x^2}}{x} - \frac{\sin^{-1}\theta}{4} + c.$$
+\section*{7.4}
+\paragraph{Problem 47}
+Make a substitution to express the integrand as a rational function and then evaluate the integral:
+$$\int\frac{e^{2x}}{e^{2x} + 3e^x + 2}dx.$$
+Let $u = e^x$. Then $du = e^xdx$. Observe that $e^{2x} = e^xe^x = (e^x)^2$. Thus substituting into our integral we have:
+$$\int \frac{u}{u^2 + 3u + 2}du
+ = \int\frac{u}{(u+2)(u+1)}du.$$
+ Now to apply partial fractions we need:
+ $$\frac{u}{(u+2)(u+1)} = \frac{A}{u+2} + \frac{B}{u+1}.$$
+ That is, $$u = Au +A +Bu + 2B.$$
+ So $$A+B =1 \quad \text{and} \quad 2B + A = 0$$
+ Simplifying we get
+ $$A = -2B$$
+ and
+ $$-2B + B = 1 \implies B = -1$$
+ and hence
+ $$A = 2.$$
+ Substituting back into our integral we get:
+ $$\int(\frac{2}{u+2} + \frac{-1}{u+1})du$$
+ Which is equal to
+ $$2\ln|u+2| -\ln|u+1| + c.$$
+ In terms of $x$ we have:
+ $$2\ln|e^x + 2| -\ln|e^x+1| +c.$$
+ \section*{7.5}
+ \paragraph{Problem 18}
+ Solve the definite integral
+ $$\int_{1}^{4} \frac{e^{\sqrt{t}}}{\sqrt{t}}dt.$$
+ We use the rationalizing substitution $x = t^\frac{1}{2}.$ Then $dx = \frac{1}{2}t^\frac{-1}{2}dt$, and $x^2 = t$. Thus substituting into our integral we have
+ $$\int_{x^2=1}^{x^2=4} e^x \cdot 2dx.$$
+ Simplifying we obtain:
+ $$2\int_{x=1}^{x=2} e^x dx.$$
+ Which gives as final solution:
+ $$2(e^2 - e).$$
+ \end{document}
