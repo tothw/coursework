@@ -116,16 +116,17 @@ G_{ij} &= tr(P_i^T P_j) \\
 &= \langle x_i, x_j \rangle ^2\\
 &= \begin{cases}
 1, \text{if $i=j$}\\
-\alpha, \text{if $i \neq j$}
+\alpha^2, \text{if $i \neq j$}
 \end{cases}. \numberthis \label{eq:onealpha}
 \end{align*}
 Let $y \in \R^n$ such that $y \neq 0$. Then we have that
 \begin{align*}
 y^TGy &= \sum_{i} \sum_{j} G_{ij} y_i y_j\\
-&= \sum_{i} G_{ii} y_i^2 + \sum_{i \neq j} G_{ij} y_i y_j \\
-&= \sum_{i} y_i^2 + \sum_{i \neq j} \alpha y_i y_j &\text{by (\ref{eq:onealpha})}\\
-&\geq \sum_{i} y_i^2 +0 &\text{since $\alpha \geq 0$ and $y_i y_j \geq 0$ for any $i,j$} \\
-&> 0. &\text{since $y\neq0$}
+&= \sum_{i} [y_i^2 + \alpha^2(\sum_{j \neq i} y_iy_j)] &\text{by (\ref{eq:onealpha})}\\
+&= (1-\alpha^2)\sum_{i}y_i^2 + \alpha^2\sum_i\sum_j y_iy_j \\
+&=(1-\alpha^2)\sum_i y_i^2 + \alpha^2 \begin{bmatrix}1 & \cdots & 1 \end{bmatrix}yy^T\begin{bmatrix}1\\\vdots\\1\end{bmatrix} \\
+&\geq (1-\alpha^2)\sum_i y_i^2 &\text{since $yy^T \succcurlyeq 0$} \\
+&> 0. &\text{since $1-\alpha^2\geq 0$ and $\sum_i y_i^2 >0$ as $y \neq 0$}
 \end{align*}
 Therefore $G$ is positive definite. By problem $5$ of Assignment $1$ this implies $P_1, \dots, P_n$ are linearly independent in the vector space $V$ where $V$ denotes the space of real symmetric $d \times d$ matrices. But by a basic fact of linear algebra, the dimension of $V$ is $d+1 \choose 2$ (to see this, observe that $\{e_ie_j^T + e_je_i^T : i \leq j \in \{1,\dots,d\}\}$ forms a basis of $V$ of size $\sum_{k=1}^d k = $$d+1\choose 2$). Thus for $P_1, \dots, P_n$ to be linearly independent there must be at most $d+1 \choose 2$ of them. That is to say $n \leq $$d+1 \choose 2$. $\blacksquare$
 \section*{10}
