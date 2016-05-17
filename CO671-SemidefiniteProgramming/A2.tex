@@ -132,17 +132,7 @@ Therefore $G$ is positive definite. By problem $5$ of Assignment $1$ this implie
 \section*{10}
 \paragraph{}
 Let $A \succcurlyeq 0$ and let $x,y$ be vectors for which $(x+ty)^TA(x+ty)$ is defined. We aim to characterize $t$ for which
-\begin{equation}(x+ty)^TA(x+ty) = 0\label{eq:goal}.\end{equation} Observe the following:
-\begin{align*}
-(x+ty)^TA(x+ty) &= x^TAx + x^TAty + ty^TAx + t^2y^TAy \\
-&= x^TAx + t(x^TAy + y^TAx) + t^2y^TAy. \numberthis \label{eq:quad}
-\end{align*}
-If we let $a,b,c$ be scalars such that $a = y^TAy$, $b=x^TAy + y^TAx$, and $c = x^TAx$ then (\ref{eq:quad}) is equal to
-$$at^2 + bt + c.$$
-Thus we must resolve when $at^2 + bt +c =0$. This is a simple matter of high school algebra. We describe the cases below for completeness.
-\paragraph{Case $a \neq 0$}
-If $a \neq 0$ then we may apply the quadratic formula. If $b^2-4ac <0$ then (\ref{eq:goal}) never holds Otherwise (\ref{eq:goal}) holds when
-$$t = \frac{-b \pm \sqrt{b^2-4ac}}{2a}.$$
-\paragraph{Case $a = 0$}
-If $a = 0$ we are solving a linear equation. If $b \neq 0$ then (\ref{eq:goal}) holds when $$t = \frac{-c}{b}.$$ Otherwise, if $b = 0$, (\ref{eq:goal}) holds for all $t$ provided $c=0$ and never holds when $c\neq 0$.$\blacksquare$
+\begin{equation}(x+ty)^TA(x+ty) = 0\label{eq:goal}.\end{equation} By problem $3$ $(x+ty)^TA(x+ty) = 0$ if and only if $$A(x+ty)=0.$$
+Rearranging we have $$Ax = -tAy.$$
+Therefore $(x+ty)^TA(x+ty) = 0$ if and only if $Ax$ and $Ay$ are collinear and $t$ satisfies $Ax = -tAy$. $\blacksquare$
 \end{document}
