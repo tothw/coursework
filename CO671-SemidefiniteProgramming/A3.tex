@@ -45,7 +45,34 @@
 
 \begin{document}
 \section*{11}
-Let $A, B$ be symmetric matrices of rank $1$ such that there does not exist scalar $\alpha$ for which $A = \alpha B$. Since $A$ and $B$ are rank $1$ symmetric matrices there exists $a, b$ such that $$A = aa^T \quad \text{and}\quad B = bb^T.$$
-Then $A + B = aa^T + bb^T$. Suppose for a contradiction that $A+B$ is rank $1$. Since $A$ and $B$ are symmetric, $A+B$ is symmetric. Thus there exists $c$ such that
-$$A+B = cc^T.$$
+\paragraph{}
+Let $A, B$ be $n \times n$ symmetric matrices of rank $1$ such $A$ is not a scalar multiple of $B$. Since $A$ and $B$ are rank $1$ symmetric matrices there exists $a, b \in \R^n$ such that $$A = aa^T \quad \text{and}\quad B = bb^T.$$
+We will show that $\{a,b\}$ is a basis for the column space of $A+B$ and thus $rk(A+B) = 2 > 1$ as desired.
+\paragraph{}
+First observe that $a$ and $b$ are linearly independent. To see this, suppose that there exists $t$ for which $a = tb$. Then we have that $$A = aa^T = t^2bb^T = t^2B.$$
+Which contradicts that $A$ is not a scalar multiple of $B$.
+\paragraph{}
+Now to show that $span\{a,b\} = col(A+B)$. We claim that for any $\alpha a + \beta b \in span \{a,b\}$ there exists $x \in \R^n$ such that $\alpha = a^Tx$ and $\beta = b^Tx$. Consider the system
+\begin{equation} \begin{bmatrix} a^T \\b^T\end{bmatrix} x = \begin{bmatrix}\alpha \\ \beta\end{bmatrix}. \label{sys:star}\end{equation}
+If (\ref{sys:star}) has no solutions then $a$ and $b$ are collinear. This contradicts that $a$ and $b$ are linearly independent. Thus (\ref{sys:star}) has a solution, and hence the claim holds. Now using the claim we may obtain that $span\{a,b\} = col(A+B)$ as follows. Let $\alpha a + \beta b \in span\{a,b\}$. Then there exists $x \in \R^n$ such that $$\alpha a + \beta b = aa^Tx + bb^Tx + (A+B)x.$$
+Therefore $\alpha a + \beta b \in col(A+B)$. So $span\{a,b\} \subseteq col(A+B)$. Now let $(A+B)x \in col(A+B)$. Then $$(A+B)x = (a^Tx)a + (b^Tx)b$$
+and so $(A+B)x \in span\{a,b\}.$ Therefore $span\{a,b\} = col(A+B)$, so we may conclude that $\{a,b\}$ is a basis for $col(A+B)$ and hence $rk(A+B) > 1$. $\blacksquare$
+\section*{12}
+\paragraph{}
+Let $A$ and $B$ be $n \times n$ positive semidefinite matrices. We aim to show that the Schur product
+$A \circ B$ is positive semidefinite. We will proceed by a series of claims. The first claim will show that $A\circ B$ is a principle submatrix of $A \otimes B$. Then we will show that any principle submatrix of of a positive semidefinite matrix is positive semidefinite. From there, since we know by problem $6$ that $A \otimes B$ is positive semidefinite we can conclude that $A \circ B$ is positive semidefinite.
+\paragraph{Claim 1}
+We claim that $A \circ B$ is a principle submatrix of $A \otimes B$. Formally, there exists $I \subseteq \{1, \dots, n\}$ such that $(A\otimes B)_I = A\circ B$. As a matter of notation, for any matrix $M$ by $M_I$ we mean the submatrix of $M$ consisting of rows indexed by $I$ and columns indexed by $I$. Observe that, by definition:
+\begin{align*}
+(A \circ B)_{i,j} &= A_{i,j}B_{i,j} \\
+&= (A \otimes B)_{n(i-1) + i, n(j-1) + j} \\
+&= (A \otimes B)_{(n+1)i -n, (n+1)j - n}.
+\end{align*}
+Thus if we let $I = \{(n+1)i - n: i \in \{1, \dots, n\}\}$ then $$A\circ B = (A\otimes B)_{I,I}.$$ So $A \circ B$ is a principle submatrix of $A\otimes B$ and the claim holds.
+\paragraph{Claim 2}
+Now we claim that any principle submatrix of a positive semidefinite matrix is positive semidefinite. Let $M$ be an $n \times n$ positive semidefinite matrix. Let $I \subseteq \{1,\dots, n\}$. Since $M$ is positive semidefinite $M$ is a Gram matrix. Let $m_1, \dots, m_n$ be the vectors describing the Gram matrix $M$. That is to say,
+$$M_{i,j} = \langle m_i,m_j\rangle.$$
+Then we have that $M_I$ is a Gram matrix formed by vectors $m \in \{m_i : i \in I\}$. Since Gram matrices are positive semidefinite, $M_I$ is positive semidefinite and the claim holds.
+\paragraph{Finishing the problem}
+Thus we have by problem $6$ that $A \otimes B$ is positive semidefinite as $A$ and $B$ are positive semidefinite. Now by Claim $1$ $A \circ B$ is principle submatrix of $A\otimes B$, and since $A \otimes B$ is positive semidefinite by Claim $2$ $A \circ B$ is positive semidefinite as desired. $\blacksquare$
 \end{document}
