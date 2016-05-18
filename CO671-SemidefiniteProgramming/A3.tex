@@ -32,6 +32,8 @@
 \newcommand{\cY}{\mathcal{Y}} \newcommand{\cZ}{\mathcal{Z}}
 
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\DeclareMathOperator{\conv}{conv}
 %Page style
 \pagestyle{fancy}
 
@@ -75,4 +77,27 @@ $$M_{i,j} = \langle m_i,m_j\rangle.$$
 Then we have that $M_I$ is a Gram matrix formed by vectors $m \in \{m_i : i \in I\}$. Since Gram matrices are positive semidefinite, $M_I$ is positive semidefinite and the claim holds.
 \paragraph{Finishing the problem}
 Thus we have by problem $6$ that $A \otimes B$ is positive semidefinite as $A$ and $B$ are positive semidefinite. Now by Claim $1$ $A \circ B$ is principle submatrix of $A\otimes B$, and since $A \otimes B$ is positive semidefinite by Claim $2$ $A \circ B$ is positive semidefinite as desired. $\blacksquare$
+\section*{13}
+\paragraph{}
+Let $S$ be a subspace of a real vector space of dimension $d$. Let $\conv(S)$ denote the convex hull of $S$. Let $x \in \conv(S)$. Then $x$ is a convex combination of vectors in $S$. Let $k$ be the minimum natural number for which
+$$\sum_{i=1}^k a_i x_i = x$$
+where $\sum_{i=1}a_i = 1$, each $a_i \geq 0$, and each $x_i \in S$. Suppose for a contradiction that $k > d+1$. Then $k-1 >d$ and since the dimension of $S$ is $d$, the vectors
+$$x_2 - x_1, \dots, x_k -x_1$$
+are linearly dependent. Then there exists $\lambda_2, \dots, \lambda_k$ not all zero for which
+$$0 = \sum_{i=2}^k \lambda_i (x_i-x_1) = \sum_{i=2}^k \lambda_i x_i - \sum_{i=2}\lambda_i x_1.$$
+So if we let $\lambda_1 = -\sum_{i=2}^k\lambda_i$ then
+$$ \sum_{i=1}^k \lambda_i x_i = 0 \quad\text{and}\quad \sum_{i=1}^k \lambda_i = 0.$$
+Notice that $\sum_{i=1}^k \lambda_i = 0$ yet not all $\lambda_i$ are zero, so there exists $\lambda_i >0$. Now for any scalar $\alpha$ we have that
+$$x = \sum_{i=1}^k a_i x_i + \alpha \sum_{i=1}^k \lambda_i x_i = \sum_{i=1}^k (a_i - \alpha\lambda_i)x_i.$$
+In particular we may choose
+$$\alpha = \min\{\frac{a_i}{\lambda_i} : \lambda_i >0\}.$$
+Since there exists $\lambda_i >0$ this choice of $\alpha$ is well defined. Let $i$ denote the index of the minimizing $\lambda_i$. Furthermore for any $j \in \{1, \dots, k\}$ we have
+\begin{align*}
+a_j - \alpha \lambda_j &= a_j - \frac{a_I}{\lambda_i} \lambda_i \\
+&\geq a_j - \frac{a_j}{\lambda_j}\lambda_j \\
+&= 0.
+\end{align*}
+In particular $a_i - \alpha \lambda_i = 0$. Also observe that $$\sum_{j=1}^k (a_j - \alpha \lambda_j) = \sum_{j=1}^k a_j - \alpha \sum_{j=1}^k \lambda_j = 1.$$
+Therefore $$x = \sum_{j=1}^{i-1} (a_j - \alpha \lambda_j)x_j + \sum_{j=i+1}^{k} (a_j - \alpha \lambda_j)x_j.$$
+That is, $x$ is a convex combination of $x_1, \dots, x_{i-1}, x_{i+1}, \dots, x_k$. So $x$ can be written as a convex combination of $k-1$ vectors and this contradicts the minimality of $k$. Thus $k \leq d+1$ as desired. $\blacksquare$
 \end{document}
