@@ -57,7 +57,7 @@ Therefore  there exist $W = X \otimes Y$ such that $$A \otimes B = W^TW.$$
 and hence $A \otimes B \succcurlyeq 0$. $\blacksquare$
 \section*{7}
 \paragraph{}
-Let $A, X, B$ be matrices such that $AXB^T$ is defined. Suppose $A$ is  of order $m \times n$, $X$ of order $n \times p$, and $B$ of order $q \times p$. Think of the rows of $B \otimes A$ as $q$ sequential blocks of $m$ rows. Consider the $i^\text{th}$ block of rows $(B \otimes A)vec(X)$:
+Let $A, X, B$ be matrices such that $AXB^T$ is defined. Suppose $A$ is  of order $m \times n$, $X$ of order $n \times p$, and $B$ of order $q \times p$. Think of the rows of $B \otimes A$ as $q$ sequential blocks of $m$ rows. Consider the $i^\text{th}$ block of rows of $(B \otimes A)vec(X)$:
 \begin{equation}\begin{bmatrix} b_{i1} A & \cdots & b_{ip}A \end{bmatrix}
 \begin{bmatrix}
 x_1 \\ \vdots \\ x_p
@@ -76,7 +76,7 @@ Observe that the $i^\text{th}$ block of $m$ rows of $vec(AXB^T)$ is equal to the
 Therefore $vec(AXB^T) = (B \otimes A)vec(X)$ as desired. $\blacksquare$
 \section*{8}
 \paragraph{Lemma 8.1}
-Let $A$ be a $m\times n$ matrices and $B$ be an $n \times n$ nonsingular matrix. Then $rk(AB) = rk(A)$.
+Let $A$ be a $m\times n$ matrix and $B$ be an $n \times n$ nonsingular matrix. Then $rk(AB) = rk(A)$.
 \paragraph{Proof of Lemma 8.1}
 Since rank is equivalent to the dimension of the column space we will show that $col(AB) = col(A)$. Indeed, since $col(B) = \R^n$ we have that
 \begin{align*}
@@ -104,7 +104,7 @@ The last equality follows from three observations. First $U_A$ and $U_B$ are non
 \paragraph{}
 Therefore the problem is reduced to the question:
 $$rk(D_A \otimes D_B) = rk(D_A)rk(D_B) $$
-for diagonal matrices $D_A$ and $D_B$. But this is obvious, as $D_A \otimes D_B$ is a diagonal matrix with diagonal entries of the form $d_Ad_B$ for $d_A$ on the diagonal of $D_A$ and $d_B$ on the diagonal of $D_B$. There are $rk(D_A)$ nonzero $d_A$ and $rk(D_B)$ nonzero $d_B$ and thus $rk(D_A)rk(D_B)$ nonzero diagonal entries of $D_A \otimes D_B$. Since $D_A \otimes D_B$ is diagonal we have $rk(D_A \otimes D_B) = rk(D_A)rk(D_B)$ and hence $rk(A \otimes B) = rk(A)rk(B)$. $\blacksquare$
+for diagonal matrices $D_A$ and $D_B$. But this is obvious, as $D_A \otimes D_B$ is a diagonal matrix with diagonal entries of the form $d_Ad_B$ for $d_A$ on the diagonal of $D_A$ and $d_B$ on the diagonal of $D_B$. There are $rk(D_A)$ nonzero $d_A$ and $rk(D_B)$ nonzero $d_B$ and thus $rk(D_A)rk(D_B)$ nonzero diagonal entries of $D_A \otimes D_B$. Since $D_A \otimes D_B$ is diagonal we need only count its nonzero diagonal entries to determine its rank and hence we have $rk(D_A \otimes D_B) = rk(D_A)rk(D_B)$. Therefore $rk(A \otimes B) = rk(A)rk(B)$. $\blacksquare$
 \section*{9}
 Let $x_1, \dots, x_n$ be a set of unit vectors in $\R^d$ such that for some scalar $\alpha$ with $0 \leq \alpha < 1$ we have $|\langle x_i, x_j \rangle | = \alpha$ whenever $i \neq j$. Let $P_i = x_i x_i^T$ for each $i$. Let $G$ be the matrix of the matrices $P_i$ with inner product $\langle P_i, P_j \rangle = tr(P_i^T P_j)$. Consider an entry of $G$, $G_{ij}$:
 \begin{align*}
