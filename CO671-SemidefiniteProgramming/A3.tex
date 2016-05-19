@@ -100,4 +100,25 @@ a_j - \alpha \lambda_j &= a_j - \frac{a_I}{\lambda_i} \lambda_i \\
 In particular $a_i - \alpha \lambda_i = 0$. Also observe that $$\sum_{j=1}^k (a_j - \alpha \lambda_j) = \sum_{j=1}^k a_j - \alpha \sum_{j=1}^k \lambda_j = 1.$$
 Therefore $$x = \sum_{j=1}^{i-1} (a_j - \alpha \lambda_j)x_j + \sum_{j=i+1}^{k} (a_j - \alpha \lambda_j)x_j.$$
 That is, $x$ is a convex combination of $x_1, \dots, x_{i-1}, x_{i+1}, \dots, x_k$. So $x$ can be written as a convex combination of $k-1$ vectors and this contradicts the minimality of $k$. Thus $k \leq d+1$ as desired. $\blacksquare$
+\section*{14}
+Let $A$ and $B$ be convex sets. Let $A+B$ denote their Minkowski sum, defined by:
+$$A+B = \{x+y : x\in A\text{ and } y\in B \}.$$
+Let $z_1, \dots, z_n \in A+B$ and let $\alpha_1, \dots, \alpha_n$ be scalars such that each $\alpha_i \geq 0$ and $\sum_{i=1}^n \alpha_i = 1$. By the definition of $A+B$, for each $z_i$ there exists $x_i \in A$ and $y_i \in B$ such that $$z_i = x_i + y_i.$$
+Since $A$ is convex observe that
+\begin{equation}
+\sum_{i=1}^n \alpha_i x_i \in A
+\label{eq:convA}
+\end{equation}
+and similarly since $B$ is convex
+\begin{equation}
+\sum_{i=1}^n \alpha_i y_i \in B.
+\label{eq:convB}
+\end{equation}
+Let $a = \sum_{i=1}^n \alpha_i x_i$ and let $b = \sum_{i=1}^n \alpha_i y_i$. By (\ref{eq:convA}) $a\in A$ and by (\ref{eq:convB}) $b \in B$. Now we have that
+\begin{align*}
+\sum_{i=1}^n \alpha_i z_i &= \sum_{i=1}^n \alpha_i(x_i + y_i) \\
+&= \sum_{i=1}^n \alpha_i x_i + \sum_{i=1}^n \alpha_i y_i \\
+&= a + b.
+\end{align*}
+Hence we may conclude that $\sum_{i=1}^n \alpha_i z_i \in A + B$, and therefore $A+B$ is convex. $\blacksquare$
 \end{document}
