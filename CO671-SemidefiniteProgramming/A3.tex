@@ -121,4 +121,24 @@ Let $a = \sum_{i=1}^n \alpha_i x_i$ and let $b = \sum_{i=1}^n \alpha_i y_i$. By 
 &= a + b.
 \end{align*}
 Hence we may conclude that $\sum_{i=1}^n \alpha_i z_i \in A + B$, and therefore $A+B$ is convex. $\blacksquare$
+\section*{15}
+Let $f$ be a non-constant complex polynomial of degree $n$. Then there exists $z_1, \dots, z_n$ and $a \in \C$ such that we may write $f$ as:
+$$f(z) = a\Pi_{i=1}^n(z-z_i).$$
+Then the derivative of $f$, denoted $f'$, is
+$$f'(z) = a\sum_{i=1}^n \Pi_{j\neq i} (z-z_j). $$
+So the ratio $\frac{f'}{f}$ is given by:
+$$ \frac{f'}{f}(z) = \frac{a\sum_{i=1}^n \Pi_{j\neq i} (z-z_j)}{a\Pi_{i=1}^n(z-z_i)} = \sum_{i=1}^n \frac{1}{z-z_i}.$$
+Let $z_0$ be a root of $f'$. If $z_0$ is a root of $f$ then it is trivially contained in the convex hull of the roots of $f$. So we may assume that $z_0$ is not a root of $f$. That is, $f(z_0) \neq 0$. Therefore we have
+$$ 0 = \frac{f'}{f}(z_0) = \sum_{i=1}^n\frac{1}{z_0-z_i}.$$
+Multiplying each $i^\text{th}$ term by $1 = \overline{z_0-z_i}/\overline{z_0-z_i}$. we obtain
+$$ 0 = \sum_{i=1}^n\frac{\overline{z_0 - z_i}}{|z_0-z_i|^2}.$$
+Using the basic fact of complex variables that $\overline{z_0-z_i} = \overline{z_0}-\overline{z_i}$ we may rewrite this as
+$$\sum_{i=1}^n \frac{\overline{z_i}}{|z_0-z_i|^2} = \sum_{i=1}^n\frac{\overline{z_0}}{|z_0-z_i|^2}.$$
+Taking complex conjugates gives
+$$\sum_{i=1}^n \frac{1}{|z_0-z_i|^2}z_i = (\sum_{i=1}^n \frac{1}{|z_0-z_i|^2}) z_0.$$
+Therefore if we let $q = \sum_{i=1}^n \frac{1}{|z_0-z_i|^2}$ and let each $\alpha_i = \frac{1}{q|z_0-z_i|^2}$ then
+$$ \sum_{i=1}^n \alpha_i z_i = z_0.$$
+So $z_0$ is a linear combination of the zeros of $f$. To see this combination is in fact convex observe that each $\alpha_i \geq 0$ and that:
+$$\sum_{i=1}^n \alpha_i = \frac{1}{q} \sum_{i=1}^n \frac{1}{|z_0 - z_i|^2} = \frac{1}{q}\cdot q = 1.$$
+Hence $z_0$ is contained in the convex hull of the roots of $f$. $\blacksquare$
 \end{document}
