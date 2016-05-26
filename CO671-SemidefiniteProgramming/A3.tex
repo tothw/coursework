@@ -156,4 +156,29 @@ $$x_0 = \frac{-1}{\alpha_0}y_0 + \sum_{i=1}^e \frac{\alpha_i}{\alpha_0} x_i$$
 and further that
 $$\frac{-1}{\alpha_0} + \sum_{i=1}^e \frac{\alpha_i}{\alpha_0} = \frac{1}{\alpha_0}(-1+\sum_{i=1}^e \alpha_i) = \frac{1}{\alpha_0}\alpha_0 = 1.$$
 Therefore $x_0$ is an affine combination of $\{y_0, x_1, \dots, x_e\}$. Since each vector in $\{x_0, \dots, x_e\}$, which spans $A$, can be obtained from affine combinations of vectors in $\{y_0, x_1, \dots, x_e\}$ 
+\paragraph{}
+Now for induction let $k>0$ and suppose the claim holds for smaller $k$. That is, $\{y_0, \dots, y_{k-1}, x_k, \dots, x_e\}$ spans $A$. So $y_k$ can be written as an affine combination of $y_0, \dots, y_{k-1}, x_k, \dots, x_e$. That is there exists $\alpha_0, \dots, \alpha_e$ satisfying
+$$ y_k = \sum_{i=0}^{k-1} \alpha_iy_i + \sum_{i=k}^e \alpha_ix_i \quad \text{and}\quad \sum_{i=0}^e \alpha_i=1.$$
+If each $\alpha_i = 0$ for $i \geq k$ then $y_k$ is an affine combination of $y_0, \dots, y_{k-1}$, which contradicts the affine independence of $\{y_0, \dots, y_{e+1}\}$. So without loss of generality $\alpha_k \neq 0$ and hence we may write $x_k$ as an affine combination of $y_0, \dots, y_k, x_{k+1}, \dots, x_e$,
+$$x_k = \frac{1}{\alpha_k}y_k+\sum_{i=0}^{k-1} \frac{-\alpha_{i}}{\alpha_k}y_i + \sum_{i=k+1}^e \frac{-\alpha_i}{\alpha_k}x_i \quad\text{and}\quad \frac{1}{\alpha_k} + \sum_{i=0}^{k-1} \frac{\alpha_i}{\alpha_k} + \sum_{i=k+1}^e \frac{-\alpha_i}{\alpha_k} = \frac{1 - 1 +\alpha_k}{\alpha_k} = 1.$$
+Therefore $\{y_0, \dots, y_k, x_{k+1}, \dots, x_e\}$ affinely spans $A$ as desired.
+\paragraph{}
+So with $k=e$ we conclude that $\{y_0, \dots, y_e\}$ affinely spans $A$. But this contradicts that $\{y_0, \dots, y_{e+1}\}$ is affinely independent. Hence our assumption that the affine dimension of $A$ is greater than $e$ was false. Therefore the affine dimension of $A$ is $e$. $\blacksquare$
+\section*{17}
+\paragraph{Lemma 17}
+Suppose $f$ is a continuous function and $x$ is such that $f(x) > 0$. Then there exists $\epsilon > 0$ such that for every $y \in B_\epsilon(x) = \{y : ||y-x|| < \epsilon\}$, $f(y) \geq 0$.
+\paragraph{Proof of Lemma 17}
+Suppose for contradiction that for every $\epsilon > 0$ there exists $y \in B_\epsilon(x)$ for which $f(y) < 0$. Choose $\epsilon = \frac{1}{2}||f(x)||$. By continuity there exists $\delta > 0$ such that for any $y \in B_\delta(x)$,
+$$||f(x) - f(y)|| < \epsilon = \frac{1}{2}||f(x)||.$$
+Now since $||f(x)|| - ||f(y)|| \leq ||f(x) - f(y)||$ we have that
+$$ \frac{1}{2}||f(x)|| < ||f(y)||.$$
+But by our assumption for contradiction there exists $y \in B_\delta(x)$
+
+\paragraph{}
+Let $x_0, \dots, x_e$ be affinely independent points in $\R^e$. We proceed by induction to show the claim that for any $k \in \{0, \dots, e\}$, the convex hull of $x_0, \dots, x_k$ has a nonempty relative interior. When $k=e$ this is equivalent to the desired result. For the base case, when $k=0$, the claim holds trivially.
+\paragraph{}
+Now consider $k >0$ and suppose the claim holds for all smaller $k$. By induction there exists $x$ in the relative interior of the convex hull of $x_0, \dots, x_{k-1}$. Let $$y = \frac{1}{2} x_k + \frac{1}{2}x$$. Since $x$ is in the convex hull of $x_0, \dots, x_{k-1}$ there exists $\alpha_0, \dots, \alpha_{k-1} \geq 0$ satisfying
+$$\sum_{i=0}^{k-1} \alpha_i x_i = x \quad\text{and}\quad \sum_{i=0}^{k-1}\alpha_i = 1.$$
+Thus letting $\beta_i = \frac{\alpha_i}{2}$ for $i \in \{0, \dots, k-1\}$ and $\beta_k = \frac{1}{2}$ we obtain that each $\beta_i \geq 0$ and $$\sum_{i=0}^k \beta_i x_i = y \quad \text{and}\quad \sum_{i=0}^k \beta_i =\frac{1}{2}+ \sum_{i=0}^{k-1}\frac{\alpha_i}{2} = \frac{1}{2} + \frac{1}{2} =1,$$
+and hence $y$ is in the convex hull of $x_0, \dots, x_k$.
 \end{document}
