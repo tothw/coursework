@@ -165,20 +165,11 @@ Therefore $\{y_0, \dots, y_k, x_{k+1}, \dots, x_e\}$ affinely spans $A$ as desir
 \paragraph{}
 So with $k=e$ we conclude that $\{y_0, \dots, y_e\}$ affinely spans $A$. But this contradicts that $\{y_0, \dots, y_{e+1}\}$ is affinely independent. Hence our assumption that the affine dimension of $A$ is greater than $e$ was false. Therefore the affine dimension of $A$ is $e$. $\blacksquare$
 \section*{17}
-\paragraph{Lemma 17}
-Suppose $f$ is a continuous function and $x$ is such that $f(x) > 0$. Then there exists $\epsilon > 0$ such that for every $y \in B_\epsilon(x) = \{y : ||y-x|| < \epsilon\}$, $f(y) \geq 0$.
-\paragraph{Proof of Lemma 17}
-Suppose for contradiction that for every $\epsilon > 0$ there exists $y \in B_\epsilon(x)$ for which $f(y) < 0$. Choose $\epsilon = \frac{1}{2}||f(x)||$. By continuity there exists $\delta > 0$ such that for any $y \in B_\delta(x)$,
-$$||f(x) - f(y)|| < \epsilon = \frac{1}{2}||f(x)||.$$
-Now since $||f(x)|| - ||f(y)|| \leq ||f(x) - f(y)||$ we have that
-$$ \frac{1}{2}||f(x)|| < ||f(y)||.$$
-But by our assumption for contradiction there exists $y \in B_\delta(x)$
-
 \paragraph{}
-Let $x_0, \dots, x_e$ be affinely independent points in $\R^e$. We proceed by induction to show the claim that for any $k \in \{0, \dots, e\}$, the convex hull of $x_0, \dots, x_k$ has a nonempty relative interior. When $k=e$ this is equivalent to the desired result. For the base case, when $k=0$, the claim holds trivially.
+Let $\{x_0, \dots, x_e\}$ be an affinely independent subset of $\R^e$. By affine independence, the only solution to the system of equations
+$$\sum_{i=0}^e \alpha_e x_e =0 \quad \text{and}\quad \sum_{i=0}^e\alpha_i = 0$$
+is the trivial solution $\alpha_0 = \dots = \alpha_e = 0$. So the matrix $$A=\begin{bmatrix} x_0 &\dots & x_e\\ 1 & \dots & 1\end{bmatrix}$$
+is nonsingular. For any $x \in \R^e$ observe that $\alpha=A^{-1}\begin{bmatrix}x\\1\end{bmatrix}$ is a vector of coefficients $\alpha_0, \dots, \alpha_e$ with which $x$ can be written as an affine combination of $x_0, \dots, x_e$.
 \paragraph{}
-Now consider $k >0$ and suppose the claim holds for all smaller $k$. By induction there exists $x$ in the relative interior of the convex hull of $x_0, \dots, x_{k-1}$. Let $$y = \frac{1}{2} x_k + \frac{1}{2}x$$. Since $x$ is in the convex hull of $x_0, \dots, x_{k-1}$ there exists $\alpha_0, \dots, \alpha_{k-1} \geq 0$ satisfying
-$$\sum_{i=0}^{k-1} \alpha_i x_i = x \quad\text{and}\quad \sum_{i=0}^{k-1}\alpha_i = 1.$$
-Thus letting $\beta_i = \frac{\alpha_i}{2}$ for $i \in \{0, \dots, k-1\}$ and $\beta_k = \frac{1}{2}$ we obtain that each $\beta_i \geq 0$ and $$\sum_{i=0}^k \beta_i x_i = y \quad \text{and}\quad \sum_{i=0}^k \beta_i =\frac{1}{2}+ \sum_{i=0}^{k-1}\frac{\alpha_i}{2} = \frac{1}{2} + \frac{1}{2} =1,$$
-and hence $y$ is in the convex hull of $x_0, \dots, x_k$.
+Let $f : \R^e \rightarrow \R^{e+1}$ be the map given by $$f(x) = A^{-1}\begin{bmatrix}x\\1\end{bmatrix}.$$ Then $f$ is a linear map and hence continuous.
 \end{document}
