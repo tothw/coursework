@@ -171,5 +171,18 @@ $$\sum_{i=0}^e \alpha_e x_e =0 \quad \text{and}\quad \sum_{i=0}^e\alpha_i = 0$$
 is the trivial solution $\alpha_0 = \dots = \alpha_e = 0$. So the matrix $$A=\begin{bmatrix} x_0 &\dots & x_e\\ 1 & \dots & 1\end{bmatrix}$$
 is nonsingular. For any $x \in \R^e$ observe that $\alpha=A^{-1}\begin{bmatrix}x\\1\end{bmatrix}$ is a vector of coefficients $\alpha_0, \dots, \alpha_e$ with which $x$ can be written as an affine combination of $x_0, \dots, x_e$.
 \paragraph{}
-Let $f : \R^e \rightarrow \R^{e+1}$ be the map given by $$f(x) = A^{-1}\begin{bmatrix}x\\1\end{bmatrix}.$$ Then $f$ is a linear map and hence continuous.
+Let $f : \R^e \rightarrow \R^{e+1}$ be the map given by $$f(x) = A^{-1}\begin{bmatrix}x\\1\end{bmatrix}.$$ We claim that $f$ is uniformly continuous. Let $\epsilon >0$. Let $||\cdot || $ denote a vector norm (or the induced matrix norm when applied to a matrix). Let $(A^{-1})_{1\rightarrow e}$ denote the first $e$ columns of $A^{-1}$. Choose $$\delta = \frac{\epsilon}{||(A^{-1})_{1\rightarrow e}||} > 0.$$ Since $A$ has trivial nullspace this choice of delta is well-defined. Now let $x,y \in \R^e$ such that $||x-y|| < \epsilon$. Then
+\begin{align*}
+||f(x) - f(y)|| &= ||(A^{-1})_{1\rightarrow e}(x-y)|| \\
+&\leq ||(A^{-1})_{1\rightarrow e}|| \cdot ||x-y||  &\text{(proven in the course of problem $1$ that $||Ax|| \leq ||A|| \cdot ||x||$)}\\
+&< ||(A^{-1})_{1\rightarrow e}|| \cdot \delta \\
+&= \epsilon,
+\end{align*}
+and hence $f$ is uniformly continuous. Let $R^+ = \{x \in \R^{e+1} : x > 0 \}$. Then $R^+$ is open, and since $f$ is continuous the preimage $f^{-1}(R^+) = B$ is open. Notice every $a \in f(B)$ is a convex combination of $x_0, \dots, x_e$.
+\paragraph{}
+Now to show that the convex hull of $\{x_0, \dots, x_e\}$ has a nonempty interior. Let $$x = \frac{1}{e+1}\sum_{i=0}^e x_i.$$
+Then $x$ is a convex combination of $x_0, \dots, x_e$. Hence $x$ is in the convex hull of $x_0, \dots, x_e$, and it remains to show that we can put an open ball around $x$ that remains contained in the convex hull.
+\paragraph{}
+ Now $$y = \frac{1}{e+1}\begin{bmatrix}1\\ \vdots \\ 1\end{bmatrix} \in \R^{e+1}$$ is in $R^+$ and $f(x) = y$. So $x \in B$. Since $B$ is open there exists $\epsilon >0$ such that $$B_\epsilon(x) = \{a \in \R^e : ||x-a|| < \epsilon\} \subseteq B.$$
+Since $B_\epsilon(x) \subseteq B$, $f(B_\epsilon(x)) \subseteq \R^+$. Therefore each $a \in B_\epsilon(x)$ is a convex combination of $x_0, \dots, x_e$ and hence $x$ is in the interior of the convex hull of $x_0, \dots, x_e$ and so the convex hull is nonempty. $\blacksquare$
 \end{document}
