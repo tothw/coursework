@@ -185,4 +185,18 @@ Then $x$ is a convex combination of $x_0, \dots, x_e$. Hence $x$ is in the conve
 \paragraph{}
  Now $$y = \frac{1}{e+1}\begin{bmatrix}1\\ \vdots \\ 1\end{bmatrix} \in \R^{e+1}$$ is in $R^+$ and $f(x) = y$. So $x \in B$. Since $B$ is open there exists $\epsilon >0$ such that $$B_\epsilon(x) = \{a \in \R^e : ||x-a|| < \epsilon\} \subseteq B.$$
 Since $B_\epsilon(x) \subseteq B$, $f(B_\epsilon(x)) \subseteq \R^+$. Therefore each $a \in B_\epsilon(x)$ is a convex combination of $x_0, \dots, x_e$ and hence $x$ is in the interior of the convex hull of $x_0, \dots, x_e$ and so the convex hull is nonempty. $\blacksquare$
+\section*{19}
+\paragraph{}
+Let $C$ be a convex set. Let $x,y$ be in the interior of $C$. Let $\alpha$ be a nonnegative scalar. Let $$z = \alpha x + (1-\alpha)y.$$
+We will show that $z$ is in the interior of $C$. Let $B_\epsilon(w)$ denote an $\epsilon$ radius ball centred at $w$. Since $x$ and $y$ are in the interior of $C$ there exists $\epsilon_x, \epsilon_y$ such that $B_{\epsilon_x}(x) \subseteq C$ and $B_{\epsilon_y}(y) \subseteq C$. Choose $\epsilon = \min\{\epsilon_x, \epsilon_y\}$. Let $$a \in B_\epsilon(z).$$
+That is that $||a-z|| < \epsilon$. We must show that $a \in C$ to complete the proof.
+\paragraph{}
+Let $x' = x + a-z$ and let $y' = y + a - z$. Now $$||x' - x|| = ||a-z|| < \epsilon \leq \epsilon_x.$$ So $x' \in B_{\epsilon_x}(x)$ and hence $x' \in C$. Similary $$||y'-y|| = ||a-z|| < \epsilon \leq \epsilon_y.$$ So $y' \in B_{\epsilon_y}(y)$ and hence $y' \in C$. Since $C$ is convex if we can show that $a$ is a convex combination of $x'$ and $y'$ then we are done. We claim that $\alpha x' + (1-\alpha)y' = a$ :
+\begin{align*}
+\alpha x' + (1-\alpha)y' &= \alpha(x + a - z) + (1-\alpha)(y+a-z) \\
+&= \alpha x + (1-\alpha)y + a - z \\
+&= z + a -z \\
+&= a.
+\end{align*}
+So $a \in C$ as desired. Therefore $B_\epsilon(z) \subseteq C$ and hence $z$ is in the interior of $C$. Therefore the interior of $C$ is closed under taking convex combinations, that is to say the interior of $C$ is convex. $\blacksquare$
 \end{document}
