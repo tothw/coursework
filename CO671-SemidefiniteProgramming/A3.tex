@@ -201,24 +201,23 @@ Let $x' = x + a-z$ and let $y' = y + a - z$. Now $$||x' - x|| = ||a-z|| < \epsil
 So $a \in C$ as desired. Therefore $B_\epsilon(z) \subseteq C$ and hence $z$ is in the interior of $C$. Therefore the interior of $C$ is closed under taking convex combinations, that is to say the interior of $C$ is convex. $\blacksquare$
 \section*{20}
 \paragraph{}
-Let $C$ be closed and convex and let $u \not\in C$. Let $x$ lie on the half line from $\pi_C(u)$ through $u$. That is there exists $\alpha \geq 0$ for which $$ x = (1-\alpha)\pi_C(u) + \alpha u.$$
-We consider two cases: either $\alpha \geq 1$ or $\alpha < 1$.
-\paragraph{}
-First suppose that $\alpha \geq 1$. By definition $$\pi_C(x) = \arg\min_{y\in C} ||y-x||.$$
-Since $x = (1-\alpha)\pi_C(u) + \alpha u$ we have
-$$\pi_C(x) = \arg\min_{y\in C} || (\alpha -1)\pi_C(u) + y - \alpha u ||.$$
-If we let $$S = \{\frac{\alpha-1}{\alpha}\pi_C(u) + \frac{1}{\alpha}y : y \in C\}$$
-then $$\pi_C(x) = (1-\alpha)\pi_C(u) + \alpha \cdot(\arg\min_{z\in S} |\alpha|\cdot ||z-u||).$$
-Now we claim that $\pi_C(u) \in S$ and $S \subseteq C$. If the claim holds then $$\arg\min_{z\in S} |\alpha|\cdot||z-u|| = \pi_C(u)$$
-and hence $\pi_C(x) = \pi_C(u)$ as desired. To see the claim first observe that if $y = \pi_C(u)$ then
-$$\frac{\alpha-1}{\alpha}\pi_C(u) + \frac{1}{\alpha}y = \pi_C(u)$$
-and so $\pi_C(u) \in C$. To see that $S\subseteq C$ we use the fact that $C$ is convex and observe that every point in $S$ is a convex combination of points in $C$. Indeed, since $$\frac{\alpha-1}{\alpha} \geq 0$$ as $\alpha \geq 1$, and $$\frac{1}{\alpha} \geq 0$$ as $\alpha \geq 0$,
-and $$\frac{\alpha - 1}\alpha + \frac{1}{\alpha} = 1$$
-we have that every point in $S$ is a convex combination of points in $C$. Since $C$ is convex, $C$ is closed under convex combinations and hence contains $S$. Therefore the claim holds and we are done in this case.
-\paragraph{}
-Now suppose that $\alpha < 1$. This case is very similar to the previous case but we interchange the roles of $x$ and $u$. By definition
-$$\pi_c(u) = \arg\min_{y\in C} ||y-u||.$$
-Since $u = \frac{1}{\alpha}x + \frac{\alpha -1}{\alpha}\pi_C(u)$ we have $$\pi_C(u) = \arg\min_{y\in C} ||\frac{1-\alpha}{\alpha}\pi_C(u) + y - \frac{1}{\alpha}x ||.$$
-If we let $$S = \{(1-\alpha)\pi_C(u) + \alpha y : y \in C\}$$ then $$\pi_C(u) = \frac{\alpha-1}{\alpha} \pi_C(u) + \frac{1}{\alpha}(\arg\min_{z\in S} |\frac{1}{\alpha}|\cdot||z - x||)$$
-Similarly
+Let $C$ be closed and convex and let $u \not\in C$. Let $x$ lie on the half line from $\pi_C(u)$ through $u$. That is there exists $\alpha \geq 0$ for which \begin{equation} x = (1-\alpha)\pi_C(u) + \alpha u. \label{eq:xau}\end{equation}
+Rearranging we may also express $u$ as
+\begin{equation} u = \frac{x - (1-\alpha) \pi_C(u)}{\alpha} \label{eq:uax}\end{equation}
+Now by definition we have that $$|| \pi_C(x) -x|| = \min_{z \in C} ||z-x||.$$
+Applying (\ref{eq:xau}) we obtain that \begin{align*}||\pi_C(x) - x|| &= \min_{z \in C} || z - \alpha u -(1-\alpha) \pi_C(u)|| \\&= \min_{z\in C} ||(\alpha) (z -  u) + (1-\alpha)(z - \pi_C(u))||.\end{align*}
+Thus by the reverse triangle inequality we obtain (note $|\alpha| = \alpha$ as $\alpha \geq 0$)
+$$||\pi_C(x) - x|| \geq \alpha \min_{z\in C} ||z-u|| -|1-\alpha| \min_{z\in C} ||z - \pi_C(u)||.$$
+Since $\pi_C(u) \in C$ we observe that $\min_{z\in C} ||z - \pi_C(u)|| = 0$ and hence
+$$||\pi_C(x) - x|| \geq \alpha \min_{z\in C} ||z - u||.$$
+But by definition of $\pi_C(u)$ we have
+$$||\pi_C(x) - x || \geq \alpha ||\pi_C(u) - u||.$$
+Now applying (\ref{eq:uax}) we obtain
+\begin{align*}
+||\pi_C(x) - x|| &\geq \alpha ||\pi_C(u) - \frac{x- (1-\alpha)\pi_C(u)}{\alpha}|| \\
+&=\alpha ||\frac{\pi_C(u) - x}{\alpha}|| \\
+&= \frac{\alpha}{\alpha} ||\pi_C(u) - x|| \\
+&= ||\pi_C(u) - x||.
+\end{align*}
+Therefore by minimality $\pi_C(u) = \pi_C(x)$. $\blacksquare$
 \end{document}
