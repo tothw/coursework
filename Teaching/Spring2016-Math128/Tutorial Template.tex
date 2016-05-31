@@ -43,45 +43,4 @@
 %\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
 
 \begin{document}
-\section*{Section 5.5}
-\paragraph{Problem 91}
-If $a$ and $b$ are positive numbers, show that $$\int_0^1 x^a(1-x)^b dx = \int_0^1 x^b(1-x)^a dx.$$
-\paragraph{Solution}
-Let $x = 1-u$. Then $dx = -du$. So we have that
-\begin{align*}
-\int_{x=0}^{x=1} x^a(1-x)^b dx &= \int_{u=1}^{u=0} (1-u)^a u^b(-1)du \\
-&= -1 \int_1^0 u^b(1-u)^a du \\
-&= \int_0^1 x^b(1-x)^a dx.
-\end{align*}
-The last step applies the rule for resolving improper integrals:
-$$\int_a^b f(x) dx = -1 \int_b^af(x) dx.$$
-\section*{Section 7.1}
-\paragraph{Problem 52}
-Use integration by parts to show that
-$$\int x^n e^x dx = x^ne^x - n\int n^{n-1} e^x dx.$$
-\paragraph{Solution}
-Let $u = x^n$ and let $dv = e^xdx$. Then $$du = n x^{n-1}dx$$ and $$v = \int e^x dx = e^x$$
-So by the integration by parts formula:
-$$ \int u dv = uv - \int v du$$
-we have that
-\begin{align*} \int x^n e^x dx &= x^ne^x - \int e^x n x^{n-1}dx\\ &= x^ne^x - n\int x^{n-1} e^x dx.\end{align*}
-\section*{Section 7.2}
-\paragraph{Problem 55 - Modified}
-Find the average value of the function $$f(x) = sin^3xcos^2x$$ on the interval $$[0,\pi/2].$$
-\paragraph{Solution}
-The average value a function $f$ on interval $[a,b]$ is given by $$f_{ave} = \frac{1}{b-a} \int_a^b f(x) dx.$$
-So applying this to our problem gives:
-\begin{align*}
-f_{ave} &= \frac{1}{\pi/2 - 0}\int_{0}^{\pi/2} sin^3xcos^2x dx \\
-&= \frac{2}{\pi} \int_{0}^{\pi/2} (1-cos^2x)cos^2x\ sinx dx.
-\end{align*}
-Now we perform the substitution $cosx = u$ with $du = -sinxdx$ obtaining
-\begin{align*}
-f_{ave} &= -1\frac{2}{\pi}\int_{cos^{-1}u = 0}^{cos^{-1}u=\pi/2} (1-u^2)u^2du \\
-&=\frac{-2}{\pi}\int_{u=1}^{u=0} u^2 - u^4 du \\
-&=\frac{-2}{\pi}[\frac{u^3}{3} -\frac{u^5}{5}\mid^0_1 \\
-&= \frac{-2}{\pi}[0 - 0 - (\frac{1}{3} - \frac{1}{5})] \\
-&= \frac{-2}{\pi}\cdot\frac{3 - 5}{15} \\
-&= \frac{4}{15\pi}. 
-\end{align*}
 \end{document}

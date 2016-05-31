@@ -204,20 +204,11 @@ So $a \in C$ as desired. Therefore $B_\epsilon(z) \subseteq C$ and hence $z$ is 
 Let $C$ be closed and convex and let $u \not\in C$. Let $x$ lie on the half line from $\pi_C(u)$ through $u$. That is there exists $\alpha \geq 0$ for which \begin{equation} x = (1-\alpha)\pi_C(u) + \alpha u. \label{eq:xau}\end{equation}
 Rearranging we may also express $u$ as
 \begin{equation} u = \frac{x - (1-\alpha) \pi_C(u)}{\alpha} \label{eq:uax}\end{equation}
-Now by definition we have that $$|| \pi_C(x) -x|| = \min_{z \in C} ||z-x||.$$
-Applying (\ref{eq:xau}) we obtain that \begin{align*}||\pi_C(x) - x|| &= \min_{z \in C} || z - \alpha u -(1-\alpha) \pi_C(u)|| \\&= \min_{z\in C} ||(\alpha) (z -  u) + (1-\alpha)(z - \pi_C(u))||.\end{align*}
-Thus by the reverse triangle inequality we obtain (note $|\alpha| = \alpha$ as $\alpha \geq 0$)
-$$||\pi_C(x) - x|| \geq \alpha \min_{z\in C} ||z-u|| -|1-\alpha| \min_{z\in C} ||z - \pi_C(u)||.$$
-Since $\pi_C(u) \in C$ we observe that $\min_{z\in C} ||z - \pi_C(u)|| = 0$ and hence
-$$||\pi_C(x) - x|| \geq \alpha \min_{z\in C} ||z - u||.$$
-But by definition of $\pi_C(u)$ we have
-$$||\pi_C(x) - x || \geq \alpha ||\pi_C(u) - u||.$$
-Now applying (\ref{eq:uax}) we obtain
+We consider two cases separately: $\alpha \leq 1$ and $\alpha > 1$.
+\paragraph{}
+If $\alpha \leq 1$ then 
 \begin{align*}
-||\pi_C(x) - x|| &\geq \alpha ||\pi_C(u) - \frac{x- (1-\alpha)\pi_C(u)}{\alpha}|| \\
-&=\alpha ||\frac{\pi_C(u) - x}{\alpha}|| \\
-&= \frac{\alpha}{\alpha} ||\pi_C(u) - x|| \\
-&= ||\pi_C(u) - x||.
+||\pi_C(u) - x|| &\leq ||\pi_C(u) - u|| + || x - u|| \\
+&= ||\pi_C(x) - x||
 \end{align*}
-Therefore by minimality $\pi_C(u) = \pi_C(x)$. $\blacksquare$
 \end{document}
