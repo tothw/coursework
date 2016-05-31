@@ -204,11 +204,40 @@ So $a \in C$ as desired. Therefore $B_\epsilon(z) \subseteq C$ and hence $z$ is 
 Let $C$ be closed and convex and let $u \not\in C$. Let $x$ lie on the half line from $\pi_C(u)$ through $u$. That is there exists $\alpha \geq 0$ for which \begin{equation} x = (1-\alpha)\pi_C(u) + \alpha u. \label{eq:xau}\end{equation}
 Rearranging we may also express $u$ as
 \begin{equation} u = \frac{x - (1-\alpha) \pi_C(u)}{\alpha} \label{eq:uax}\end{equation}
+Before starting into the main argument we note two observations that will help up along the way. First for any $y \not\in C$ and any $z \in C$
+\begin{equation}
+||\pi_C(y) - y|| \leq ||z - y||
+\label{ineq:minproj}\end{equation}
+. This follows immediately from the definition of metric projection. We also note something slightly less trivial:
+\begin{equation}
+||\pi_C(u) - x || = \alpha ||\pi_C(u) - u||. \label{eq:alphau}
+\end{equation}
+This follows from (\ref{eq:xau}) and $\alpha \geq 0$ as:
+\begin{align*}||\pi_C(u) - x|| &= ||\pi_C(u) - \alpha u +(\alpha-1)u|| \\&= ||\alpha(\pi_C(u) - u)|| \\&= |\alpha|\cdot ||\pi_C(u) - u|| \\&= \alpha ||\pi_C(u) - u||.\end{align*}
 We consider two cases separately: $\alpha \leq 1$ and $\alpha > 1$.
 \paragraph{}
-If $\alpha \leq 1$ then 
+First suppose $\alpha \leq 1$. We will demonstrate the bound $$||\pi_C(x)-u|| \leq ||\pi_C(u) - u||$$ and conclude from the uniqueness of metric projection that $\pi_C(x) = \pi_C(u)$.  To see the bound observe the following computation:
 \begin{align*}
-||\pi_C(u) - x|| &\leq ||\pi_C(u) - u|| + || x - u|| \\
-&= ||\pi_C(x) - x||
+||\pi_C(x) - u|| &\leq ||\pi_C(x) - x|| + ||x-u|| &\text{(by triangle inequality)} \\
+&= ||\pi_C(x) - x|| + ||u - \alpha x + (\alpha-1)\pi_C(u)|| &\text{(by (\ref{eq:xau}))}\\
+&= ||\pi_C(x) - x|| + (1-\alpha) ||\pi_C(u) - u|| &\text{($1-\alpha =|1-\alpha|$ as $0\leq\alpha \leq 1$)}\\
+&\leq ||\pi_C(u) - x|| + (1-\alpha) ||\pi_C(u) - u|| &\text{(by (\ref{ineq:minproj}))} \\
+&= \alpha ||\pi_C(u) - u|| + (1-\alpha)||\pi_C(u) - u|| &\text{(by (\ref{eq:alphau})}\\
+&= ||\pi_C(u) - u||.
 \end{align*}
+\paragraph{}
+Now suppose $\alpha > 1$. We note that $\frac{1}{\alpha} < 1$ and hence $1-\frac{1}{\alpha} \geq 0$. Hence
+\begin{equation}
+(1-\frac{1}{\alpha}) \pi_C(u) + \frac{1}{\alpha} \pi_C(x) \in C
+\label{conv:pt}\end{equation}
+as $C$ is convex. This time we will demonstrate the bound $$||\pi_C(u) - x|| \leq ||\pi_C(x) - x||$$ and again conclude by the uniqueness of metric projection that $\pi_C(x) = \pi_C(u)$. To see the bound observe the following computation:
+\begin{align*}
+||\pi_C(u) - x|| &= \alpha ||\pi_C(u) - u|| &\\text{(by (\ref{eq:alphau}) }\\
+&\leq \alpha||(1-\frac{1}{\alpha}) \pi_C(u) + \frac{1}{\alpha} \pi_C(x) - u|| &\text{(by (\ref{conv:pt}) and (\ref{ineq:minproj}))}\\
+&= \alpha||(1-\frac{1}{\alpha}) \pi_C(u) + \frac{1}{\alpha} \pi_C(x) - \frac{x}{\alpha} - (1-\frac{1}{\alpha})\pi_C(u)|| &\text{(by (\ref{eq:uax}))} \\
+&=\alpha||\frac{1}{\alpha}(\pi_c(x) -x)|| \\
+&=\alpha\frac{1}{\alpha}||\pi_c(x) -x|| &\text{as $0\leq \frac{1}{\alpha} \leq 1$} \\
+&=||\pi_C(x) - x||.
+\end{align*}
+Therefore the claim holds in both cases as desired. $\blacksquare$
 \end{document}
