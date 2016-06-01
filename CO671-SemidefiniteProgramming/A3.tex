@@ -34,6 +34,7 @@
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
 \DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\aff}{aff}
 %Page style
 \pagestyle{fancy}
 
@@ -185,6 +186,19 @@ Then $x$ is a convex combination of $x_0, \dots, x_e$. Hence $x$ is in the conve
 \paragraph{}
  Now $$y = \frac{1}{e+1}\begin{bmatrix}1\\ \vdots \\ 1\end{bmatrix} \in \R^{e+1}$$ is in $R^+$ and $f(x) = y$. So $x \in B$. Since $B$ is open there exists $\epsilon >0$ such that $$B_\epsilon(x) = \{a \in \R^e : ||x-a|| < \epsilon\} \subseteq B.$$
 Since $B_\epsilon(x) \subseteq B$, $f(B_\epsilon(x)) \subseteq \R^+$. Therefore each $a \in B_\epsilon(x)$ is a convex combination of $x_0, \dots, x_e$ and hence $x$ is in the interior of the convex hull of $x_0, \dots, x_e$ and so the convex hull is nonempty. $\blacksquare$
+\section*{18}
+\paragraph{}
+Let $C$ be an open convex set and let $L$ be a line. In this context we take open to mean relatively open, that is open with respect to the affine hull of the set. Formally we mean a set $A$ is open if for any $x \in A$ there is an open set containing $x$, $N(x)$, is such that
+$$N(x) \cap \aff(A) \subseteq A$$
+where $\aff(A)$ denotes the affine hull of $A$. Hence the line $L$ is trivially open as $\aff(L) = L$. Notice this definition of open means a set is open if and only if it is equal to its relative interior. This agrees with the usual topological fact that a set is open if and only if it is equal to its interior.
+\paragraph{}
+Let $x \in C \cap L$. Then $x \in C$ and since $C$ is open there exists open set $N_C(x)\subseteq C$ containing $x$ and thus $$N_C(x) \cap \aff(C) \subseteq C \label{eq:inC}$$. Since $x\in L$ and $L$ is relatively open there exists open set $N_L(x)$ containg $x$ for which $$ N_L(x) \cap \aff(L) \subseteq L$$. Let $N(x) = N_C(x) \cap N_L(x)$. The intersection of open sets is open and thus $N(x)$ is open. Further $x \in N_C(x)$ and $x \in N_L(x)$ so $x \in N_C(x) \cap N_L(x) = N(x)$. That is, $N(x)$ is an open set containing $x$. Now since $N(x) \subseteq N_C(x)$ and $\aff(C \cap L) \subseteq \aff(C)$ we have
+$$N(x) \cap \aff(C \cap L) \subseteq N_C(x) \cap \aff(C) \subseteq C.$$
+Also since $N(x) \subseteq N_L(x)$ and $\aff(C \cap L) \subseteq \aff(L)$ we have
+$$N(x) \cap \aff(C \cap L) \subseteq N_L(x) \cap \aff(L) \subseteq L.$$
+Hence $$N(x) \cap \aff(C\cap L) \subseteq C\cap L$$ and thus $C\cap L$ is (relatively) open as desired.
+\paragraph{}
+Note that we used without proof that for any $B \subseteq A$, $$\aff(B) \subseteq \aff(A).$$ Indeed this is easy to see as any affine combination of points in $B$ is trivially an affine combination of points in $A$. $\blacksquare$
 \section*{19}
 \paragraph{}
 Let $C$ be a convex set. Let $x,y$ be in the interior of $C$. Let $\alpha$ be a nonnegative scalar. Let $$z = \alpha x + (1-\alpha)y.$$
