@@ -57,7 +57,7 @@ Which contradicts that $A$ is not a scalar multiple of $B$.
 \paragraph{}
 Now to show that $span\{a,b\} = col(A+B)$. We claim that for any $\alpha a + \beta b \in span \{a,b\}$ there exists $x \in \R^n$ such that $\alpha = a^Tx$ and $\beta = b^Tx$. Consider the system
 \begin{equation} \begin{bmatrix} a^T \\b^T\end{bmatrix} x = \begin{bmatrix}\alpha \\ \beta\end{bmatrix}. \label{sys:star}\end{equation}
-If (\ref{sys:star}) has no solutions then $a$ and $b$ are collinear. This contradicts that $a$ and $b$ are linearly independent. Thus (\ref{sys:star}) has a solution, and hence the claim holds. Now using the claim we may obtain that $span\{a,b\} = col(A+B)$ as follows. Let $\alpha a + \beta b \in span\{a,b\}$. Then there exists $x \in \R^n$ such that $$\alpha a + \beta b = aa^Tx + bb^Tx + (A+B)x.$$
+If (\ref{sys:star}) has no solutions then $a$ and $b$ are collinear. This contradicts that $a$ and $b$ are linearly independent. Thus (\ref{sys:star}) has a solution, and hence the claim holds. Now using the claim we may obtain that $span\{a,b\} = col(A+B)$ as follows. Let $\alpha a + \beta b \in span\{a,b\}$. Then there exists $x \in \R^n$ such that $$\alpha a + \beta b = aa^Tx + bb^Tx = (A+B)x.$$
 Therefore $\alpha a + \beta b \in col(A+B)$. So $span\{a,b\} \subseteq col(A+B)$. Now let $(A+B)x \in col(A+B)$. Then $$(A+B)x = (a^Tx)a + (b^Tx)b$$
 and so $(A+B)x \in span\{a,b\}.$ Therefore $span\{a,b\} = col(A+B)$, so we may conclude that $\{a,b\}$ is a basis for $col(A+B)$ and hence $rk(A+B) > 1$. $\blacksquare$
 \section*{12}
@@ -71,13 +71,13 @@ We claim that $A \circ B$ is a principle submatrix of $A \otimes B$. Formally, t
 &= (A \otimes B)_{n(i-1) + i, n(j-1) + j} \\
 &= (A \otimes B)_{(n+1)i -n, (n+1)j - n}.
 \end{align*}
-Thus if we let $I = \{(n+1)i - n: i \in \{1, \dots, n\}\}$ then $$A\circ B = (A\otimes B)_{I,I}.$$ So $A \circ B$ is a principle submatrix of $A\otimes B$ and the claim holds.
+Thus if we let $I = \{(n+1)i - n: i \in \{1, \dots, n\}\}$ then $$A\circ B = (A\otimes B)_{I}.$$ So $A \circ B$ is a principle submatrix of $A\otimes B$ and the claim holds.
 \paragraph{Claim 2}
 Now we claim that any principle submatrix of a positive semidefinite matrix is positive semidefinite. Let $M$ be an $n \times n$ positive semidefinite matrix. Let $I \subseteq \{1,\dots, n\}$. Since $M$ is positive semidefinite $M$ is a Gram matrix. Let $m_1, \dots, m_n$ be the vectors describing the Gram matrix $M$. That is to say,
 $$M_{i,j} = \langle m_i,m_j\rangle.$$
 Then we have that $M_I$ is a Gram matrix formed by vectors $m \in \{m_i : i \in I\}$. Since Gram matrices are positive semidefinite, $M_I$ is positive semidefinite and the claim holds.
 \paragraph{Finishing the problem}
-Thus we have by problem $6$ that $A \otimes B$ is positive semidefinite as $A$ and $B$ are positive semidefinite. Now by Claim $1$ $A \circ B$ is principle submatrix of $A\otimes B$, and since $A \otimes B$ is positive semidefinite by Claim $2$ $A \circ B$ is positive semidefinite as desired. $\blacksquare$
+Thus we have by problem $6$ that $A \otimes B$ is positive semidefinite as $A$ and $B$ are positive semidefinite. Now by Claim $1$ $A \circ B$ is principle submatrix of $A\otimes B$, and since $A \otimes B$ is positive semidefinite, by Claim $2$ $A \circ B$ is positive semidefinite as desired. $\blacksquare$
 \section*{13}
 \paragraph{}
 Let $S$ be a subspace of a real vector space of dimension $d$. Let $\conv(S)$ denote the convex hull of $S$. Let $x \in \conv(S)$. Then $x$ is a convex combination of vectors in $S$. Let $k$ be the minimum natural number for which
@@ -85,7 +85,7 @@ $$\sum_{i=1}^k a_i x_i = x$$
 where $\sum_{i=1}a_i = 1$, each $a_i \geq 0$, and each $x_i \in S$. Suppose for a contradiction that $k > d+1$. Then $k-1 >d$ and since the dimension of $S$ is $d$, the vectors
 $$x_2 - x_1, \dots, x_k -x_1$$
 are linearly dependent. Then there exists $\lambda_2, \dots, \lambda_k$ not all zero for which
-$$0 = \sum_{i=2}^k \lambda_i (x_i-x_1) = \sum_{i=2}^k \lambda_i x_i - \sum_{i=2}\lambda_i x_1.$$
+$$0 = \sum_{i=2}^k \lambda_i (x_i-x_1) = \sum_{i=2}^k \lambda_i x_i - \sum_{i=2}^k\lambda_i x_1.$$
 So if we let $\lambda_1 = -\sum_{i=2}^k\lambda_i$ then
 $$ \sum_{i=1}^k \lambda_i x_i = 0 \quad\text{and}\quad \sum_{i=1}^k \lambda_i = 0.$$
 Notice that $\sum_{i=1}^k \lambda_i = 0$ yet not all $\lambda_i$ are zero, so there exists $\lambda_i >0$. Now for any scalar $\alpha$ we have that
@@ -94,7 +94,7 @@ In particular we may choose
 $$\alpha = \min\{\frac{a_i}{\lambda_i} : \lambda_i >0\}.$$
 Since there exists $\lambda_i >0$ this choice of $\alpha$ is well defined. Let $i$ denote the index of the minimizing $\lambda_i$. Furthermore for any $j \in \{1, \dots, k\}$ we have
 \begin{align*}
-a_j - \alpha \lambda_j &= a_j - \frac{a_I}{\lambda_i} \lambda_i \\
+a_j - \alpha \lambda_j &= a_j - \frac{a_i}{\lambda_i} \lambda_i \\
 &\geq a_j - \frac{a_j}{\lambda_j}\lambda_j \\
 &= 0.
 \end{align*}
@@ -156,9 +156,9 @@ Suppose without loss of generality that $\alpha_0 \neq 0$. Then rearranging we o
 $$x_0 = \frac{-1}{\alpha_0}y_0 + \sum_{i=1}^e \frac{\alpha_i}{\alpha_0} x_i$$
 and further that
 $$\frac{-1}{\alpha_0} + \sum_{i=1}^e \frac{\alpha_i}{\alpha_0} = \frac{1}{\alpha_0}(-1+\sum_{i=1}^e \alpha_i) = \frac{1}{\alpha_0}\alpha_0 = 1.$$
-Therefore $x_0$ is an affine combination of $\{y_0, x_1, \dots, x_e\}$. Since each vector in $\{x_0, \dots, x_e\}$, which spans $A$, can be obtained from affine combinations of vectors in $\{y_0, x_1, \dots, x_e\}$ 
+Therefore $x_0$ is an affine combination of $\{y_0, x_1, \dots, x_e\}$. This follows since each vector in $\{x_0, \dots, x_e\}$, which spans $A$, can be obtained from affine combinations of vectors in $\{y_0, x_1, \dots, x_e\}$ 
 \paragraph{}
-Now for induction let $k>0$ and suppose the claim holds for smaller $k$. That is, $\{y_0, \dots, y_{k-1}, x_k, \dots, x_e\}$ spans $A$. So $y_k$ can be written as an affine combination of $y_0, \dots, y_{k-1}, x_k, \dots, x_e$. That is there exists $\alpha_0, \dots, \alpha_e$ satisfying
+Now for induction let $k>0$ and suppose the claim holds for smaller $k$. That is, $$\{y_0, \dots, y_{k-1}, x_k, \dots, x_e\}$$ spans $A$. So $y_k$ can be written as an affine combination of $y_0, \dots, y_{k-1}, x_k, \dots, x_e$. That is there exists $\alpha_0, \dots, \alpha_e$ satisfying
 $$ y_k = \sum_{i=0}^{k-1} \alpha_iy_i + \sum_{i=k}^e \alpha_ix_i \quad \text{and}\quad \sum_{i=0}^e \alpha_i=1.$$
 If each $\alpha_i = 0$ for $i \geq k$ then $y_k$ is an affine combination of $y_0, \dots, y_{k-1}$, which contradicts the affine independence of $\{y_0, \dots, y_{e+1}\}$. So without loss of generality $\alpha_k \neq 0$ and hence we may write $x_k$ as an affine combination of $y_0, \dots, y_k, x_{k+1}, \dots, x_e$,
 $$x_k = \frac{1}{\alpha_k}y_k+\sum_{i=0}^{k-1} \frac{-\alpha_{i}}{\alpha_k}y_i + \sum_{i=k+1}^e \frac{-\alpha_i}{\alpha_k}x_i \quad\text{and}\quad \frac{1}{\alpha_k} + \sum_{i=0}^{k-1} \frac{\alpha_i}{\alpha_k} + \sum_{i=k+1}^e \frac{-\alpha_i}{\alpha_k} = \frac{1 - 1 +\alpha_k}{\alpha_k} = 1.$$
@@ -172,14 +172,14 @@ $$\sum_{i=0}^e \alpha_e x_e =0 \quad \text{and}\quad \sum_{i=0}^e\alpha_i = 0$$
 is the trivial solution $\alpha_0 = \dots = \alpha_e = 0$. So the matrix $$A=\begin{bmatrix} x_0 &\dots & x_e\\ 1 & \dots & 1\end{bmatrix}$$
 is nonsingular. For any $x \in \R^e$ observe that $\alpha=A^{-1}\begin{bmatrix}x\\1\end{bmatrix}$ is a vector of coefficients $\alpha_0, \dots, \alpha_e$ with which $x$ can be written as an affine combination of $x_0, \dots, x_e$.
 \paragraph{}
-Let $f : \R^e \rightarrow \R^{e+1}$ be the map given by $$f(x) = A^{-1}\begin{bmatrix}x\\1\end{bmatrix}.$$ We claim that $f$ is uniformly continuous. Let $\epsilon >0$. Let $||\cdot || $ denote a vector norm (or the induced matrix norm when applied to a matrix). Let $(A^{-1})_{1\rightarrow e}$ denote the first $e$ columns of $A^{-1}$. Choose $$\delta = \frac{\epsilon}{||(A^{-1})_{1\rightarrow e}||} > 0.$$ Since $A$ has trivial nullspace this choice of delta is well-defined. Now let $x,y \in \R^e$ such that $||x-y|| < \epsilon$. Then
+Let $f : \R^e \rightarrow \R^{e+1}$ be the map given by $$f(x) = A^{-1}\begin{bmatrix}x\\1\end{bmatrix}.$$ We claim that $f$ is uniformly continuous. Let $\epsilon >0$. Let $||\cdot || $ denote a vector norm and let $\nu(\cdot)$ denote the induced matrix norm. Let $(A^{-1})_{1\rightarrow e}$ denote the first $e$ columns of $A^{-1}$. Choose $$\delta = \frac{\epsilon}{\nu((A^{-1})_{1\rightarrow e})} > 0.$$ Since $A$ has trivial nullspace this choice of delta is well-defined. Now let $x,y \in \R^e$ such that $||x-y|| < \epsilon$. Then
 \begin{align*}
 ||f(x) - f(y)|| &= ||(A^{-1})_{1\rightarrow e}(x-y)|| \\
-&\leq ||(A^{-1})_{1\rightarrow e}|| \cdot ||x-y||  &\text{(proven in the course of problem $1$ that $||Ax|| \leq ||A|| \cdot ||x||$)}\\
-&< ||(A^{-1})_{1\rightarrow e}|| \cdot \delta \\
+&\leq \nu((A^{-1})_{1\rightarrow e}) \cdot ||x-y||  &\text{(proven in the course of problem $1$ that $||Ax|| \leq \nu(A)\cdot ||x||$)}\\
+&< \nu((A^{-1})_{1\rightarrow e}) \cdot \delta \\
 &= \epsilon,
 \end{align*}
-and hence $f$ is uniformly continuous. Let $R^+ = \{x \in \R^{e+1} : x > 0 \}$. Then $R^+$ is open, and since $f$ is continuous the preimage $f^{-1}(R^+) = B$ is open. Notice every $a \in f(B)$ is a convex combination of $x_0, \dots, x_e$.
+and hence $f$ is uniformly continuous. Let $R^+ = \{x \in \R^{e+1} : x > 0 \}$. Then $R^+$ is open, and since $f$ is continuous the preimage $f^{-1}(R^+) = B$ is open. Notice every $a \in B$ is a convex combination of $x_0, \dots, x_e$.
 \paragraph{}
 Now to show that the convex hull of $\{x_0, \dots, x_e\}$ has a nonempty interior. Let $$x = \frac{1}{e+1}\sum_{i=0}^e x_i.$$
 Then $x$ is a convex combination of $x_0, \dots, x_e$. Hence $x$ is in the convex hull of $x_0, \dots, x_e$, and it remains to show that we can put an open ball around $x$ that remains contained in the convex hull.
