@@ -68,5 +68,23 @@ Now we will show that for any scalar $\alpha$, for any $y \in \R^d$, $\nu(\alpha
 . If $\alpha \geq 0$ then $\alpha y$ lies on the half-line from $0$ through $y$ and hence $\beta(y)$ lies on the half-line from $0$ through $\alpha y$. By uniqueness, $\beta(y) = \beta(\alpha y)$.
 \paragraph{}
 If $\alpha < 0$ then $\alpha y$ lies on the reflection of the half-line from $0$ through $y$. That is to say, $\alpha y$ lies on the half-line from $0$ through $-y$. Hence by the previous argument, $\beta(\alpha y) = \beta(-y)$. To finish this case we must show that $\beta(-y) = -\beta(y)$. By symmetry of reflection, $-\beta(y)$ lies on the half-line through $0$ and $-y$. By the central symmetry of $\cC$, $-\beta(y) \in \cC$. Thus if $-\beta(y)$ is a boundary point of $\cC$ then by uniqueness we are done and $-\beta(y) = \beta(-y)$. But if $\beta(y)$ were an interior point of $\cC$ then the open ball about $-\beta(y)$ could be reflected to give an open ball about $\beta(y)$ which would be contained in $\cC$ by central symmetry.
-
+\paragraph{}
+Thus by (\ref{eq:nudef}) and (\ref{eq:betacases}) we have that
+$$\nu(\alpha y) \beta(\alpha y) = \begin{cases}\alpha \nu(y) \beta(\alpha y) &\text{if $\alpha \geq 0$}\\
+-\alpha \nu(y) \beta(\alpha y) &\text{if $\alpha < 0$} \end{cases}$$
+and hence $\nu(\alpha y) = |\alpha| \nu(y)$ as desired.
+\paragraph{}
+Finally we will show that $\nu$ satisfies the triangle equality. Let $x,y\in \R^d$. If $\nu(x+y) = 0$ then $$\nu(x+y) = 0 \leq \nu(x) + \nu(y).$$ Hence we may assume that $\nu(x+y) \neq 0$. Let $$z = \frac{\nu(x)}{\nu(x)+ \nu(y)} \beta(x) + \frac{\nu(y)}{\nu(x) + \nu(y)} \beta(y)$$. Now by definition we have that
+$$\nu(x+y) \beta(x+y) = x+y = \nu(x) \beta(x) + \nu(y) \beta(y).$$
+So then $$\frac{1}{\nu(x) + \nu(y)}(x+y) = z.$$
+Thus $z$ lies on the half-line from $0$ through $x+y$. Further $z$ is a convex combination of $\beta(x)$ and $\beta(y)$ and hence lies in $C$. Since $\beta(x+y)$ lies on the half-line from $0$ through $x+y$ and is also a boundary point of $C$ we conclude that $z$ lies on the line-segment joining $0$ and $\beta(x+y)$. Therefore there exists $\alpha$ such that $0\leq \alpha\leq 1$ and $$z = \alpha \beta(x+y)$$.
+Now we observe that
+\begin{align*}
+\nu(x+y) \beta(x+y) &= \nu(x) \beta(x) + \nu(y)\beta(y)\\
+ &= (\nu(x) + \nu(y))z \\
+&= (\nu(x) + \nu(y)\alpha \beta(x+y).
+\end{align*}
+Therefore
+$$\nu(x+y) = \alpha(\nu(x) + \nu(y)).$$
+Since $\alpha \leq 1$ we conclude that $\nu(x+y) \leq \nu(x) + \nu(y)$ as desired. Hence $\nu$ satisfies the triangle equality. So $\nu$ satisfies the three properties defining a norm and is thus a norm. $\blacksquare$
 \end{document}
