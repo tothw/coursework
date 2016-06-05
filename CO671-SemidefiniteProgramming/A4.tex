@@ -87,4 +87,19 @@ Now we observe that
 Therefore
 $$\nu(x+y) = \alpha(\nu(x) + \nu(y)).$$
 Since $\alpha \leq 1$ we conclude that $\nu(x+y) \leq \nu(x) + \nu(y)$ as desired. Hence $\nu$ satisfies the triangle equality. So $\nu$ satisfies the three properties defining a norm and is thus a norm. $\blacksquare$
+\section*{23}
+\paragraph{}
+Let $C$ be a compact convex set. Let $H$ be a supporting hyperplane for $C$ with equation $\langle h,x \rangle = c$. Without loss of generality we may assume that for all $x \in C$, $\langle h,x \rangle \leq c$. Let $z$ be an extreme point of $H\cap C$ and assume for a contradiction that $z$ is not an extreme point of $C$. Then there exists $a,b \in C$ and scalar $\alpha$ with $0<\alpha<1$ such that $$z = \alpha a + (1-\alpha)b.$$
+If we can show that $a,b \in H$ then we would have a contradiction to $z$ being an extreme point of $H\cap C$. Indeed we have
+\begin{align*}
+c &= \langle h,z \rangle \\
+&= \langle h, \alpha a + (1-\alpha)b \rangle\\
+&= \alpha \langle h,a\rangle + (1-\alpha)\langle h,b \rangle.
+\end{align*}
+If either $a$ or $b$ is not in $H \cap C$ then one of $\langle h,a \rangle$ or $\langle h,b \rangle $ is strictly less than $c$ so then
+\begin{align*}
+\alpha \langle h,a\rangle + (1-\alpha)\langle h,b \rangle &< \alpha c + (1-\alpha) c\\
+&= c.
+\end{align*}
+But then we have the inequality $c < c$, a contradiction. Therefore both $a$ and $b$ are in $H \cap C$. Thus we have a contradiction to $z$ being an extreme point of $H \cap C$. Therefore $z$ is an extreme point of $C$. $\blacksquare$
 \end{document}
