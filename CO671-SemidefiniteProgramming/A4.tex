@@ -102,4 +102,34 @@ If either $a$ or $b$ is not in $H \cap C$ then one of $\langle h,a \rangle$ or $
 &= c.
 \end{align*}
 But then we have the inequality $c < c$, a contradiction. Therefore both $a$ and $b$ are in $H \cap C$. Thus we have a contradiction to $z$ being an extreme point of $H \cap C$. Therefore $z$ is an extreme point of $C$. $\blacksquare$
+\section*{24}
+\paragraph{}
+Let $K$ be the set of symmetric matrices $M$ such that $x^TMx \geq 0$ for all non-negative vectors $x$. We will demonstrate that $K$ is a cone by showing closure under non-negative combinations. Let $A, B \in K$. Let $\alpha, \beta \geq 0$ be scalars. We will show symmetry by showing that the $ij^\text{th}$ entry of $\alpha A + \beta B$ is equal to the $ji^\text{th}$ entry. We have
+\begin{align*}
+(\alpha A + \beta B)_{ij} &= \alpha A_{ij} + \beta B_{ij} \\
+&=\alpha A_{ji} + \beta B_{ji} &\text{by symmetry of $A$ and $B$} \\
+&= (\alpha A + \beta B)_{ji}.
+\end{align*}
+Thererfore $\alpha A + \beta B$ is symmetric.
+Let $x$ be a non-negative vector. Then 
+$$ x^T(\alpha A + \beta B) x = \alpha x^TAx + \beta x^TBx
+$$
+Since $A \in K$ and $x$ is non-negative, $x^TAx \geq 0$. Further since $\alpha \geq 0$, $\alpha x^T A x \geq 0$. Similary $\beta x^TBx \geq 0$. Therefore
+$$\alpha x^TAx + \beta x^TB x \geq 0.$$
+Hence $$x^T(\alpha A + \beta B) x \geq 0.$$
+Therefore $\alpha A + \beta B \in K$. So $K$ is closed under non-negative combinations and is thus a convex cone. $\blacksquare$
+\section*{25}
+\paragraph{}
+Let $K$ and $L$ be convex cones. Let $x \in (K+L)^*$. Then for every $k \in K$, $l \in L$, since $k+l \in K+L$:
+$$\langle x,k+l \rangle \geq 0.$$
+Let $k \in K$. Since $L$ is a convex cone $0 \in L$. So $$\langle x, k+0 \rangle \geq 0$$
+So for any $k \in K$, $\langle x, k \rangle \geq 0$. Therefore $x \in K^*$.
+\paragraph{}
+Now let $l \in L$. Since $K$ is a convex cone $0 \in K$. So $$\langle x, 0+l \rangle \geq 0.$$
+So for any $l \in L$, $\langle x, l \rangle \geq 0$. Therefore $x \in L^*$. Thus $x \in K^* \cap L^*$ and hence $(K+L)^* \subseteq K^* \cap L^*$.
+\paragraph{}
+Now let $x \in K^* \cap L^*$. Then for every $k \in K$, $$\langle x, k \rangle \geq 0$$ and for every $l \in L$, $$\langle x, l \rangle \geq 0.$$
+Let $y \in K+L$. Then there exists $k \in K$ and $l \in L$ such that $$y=k+l.$$ Thus
+$$\langle x, y \rangle = \langle x, k+l \rangle = \langle x, k\rangle +\langle x, l \rangle \geq 0 + 0 = 0.$$
+Therefore $x \in (K+L)^*$ and hence $K^* \cap L^* \subseteq (K+L)^*$. So $(K+L)^*= K^* \cap L^*$. $\blacksquare$
 \end{document}
