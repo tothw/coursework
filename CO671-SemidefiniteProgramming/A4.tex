@@ -39,7 +39,7 @@
 
 \raggedbottom
 
-\rhead{William Justin Toth 671 Assignment 4} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\rhead{William Justin Toth 671 Assignment 4 - Problem Set 1} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
 \renewcommand{\headrulewidth}{1pt} %heading underlined
 %\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
 
@@ -57,7 +57,8 @@ and hence $(\alpha x, \alpha s) + (\beta y, \beta t)  = \alpha(x,s) + \beta(y,t)
 \paragraph{}
 Let $\cC$ be a closed, bounded, centrally symmetric (that is, for all $x \in \cC, -x\in \cC$) convex set in $\R^d$. Let $\pi$ denote the metric projection map. For any $y \in \R^d$ let $\beta(y)$ denote the unique boundary point on the half-line through the origin and $y$. Let $\nu(y)$ be the scalar satisfying $\nu(y)\beta(y) = y$. We will show that $\nu(y)$ satisfies all three properties in the definition of a norm.
 \paragraph{}
-First we will show that for all $y \in \R^d$, $\nu(y) \geq 0$. Let $y \in \R^d$. Then $\beta(y)$ lies on the half-line from $0$ through $y$. So there exists a scalar $\alpha \geq 0$ such that $\beta(y) = \alpha (y-0) = \alpha y$. Then $\frac{1}{\alpha} = \nu(y)$ if $\alpha \neq 0$ and $\nu(y) = 0$ if $\alpha = 0$. In either case $\nu(y) \geq 0$ as desired.
+First we will show that for all $y \in \R^d$, $\nu(y) \geq 0$ and $\nu(y) = 0$ implies $y = 0$. Let $y \in \R^d$. Then $\beta(y)$ lies on the half-line from $0$ through $y$. So there exists a scalar $\alpha \geq 0$ such that $\beta(y) = \alpha (y-0) = \alpha y$. Then $\frac{1}{\alpha} = \nu(y)$ if $\alpha \neq 0$ and $\nu(y) = 0$ if $\alpha = 0$. In either case $\nu(y) \geq 0$ as desired. Further if $\nu(y) = 0$ then
+$$ y = \nu(y) \beta(y) = 0 \beta(y) = 0.$$
 \paragraph{}
 Now we will show that for any scalar $\alpha$, for any $y \in \R^d$, $\nu(\alpha y) = |\alpha| \nu(y)$. Let $y \in \R^d$ and let $\alpha$ be a scalar. We have
 \begin{equation}
@@ -67,14 +68,14 @@ Now we will show that for any scalar $\alpha$, for any $y \in \R^d$, $\nu(\alpha
 -\beta(y) &\text{if $\alpha <0$}\end{cases}\label{eq:betacases}\end{equation}
 . If $\alpha \geq 0$ then $\alpha y$ lies on the half-line from $0$ through $y$ and hence $\beta(y)$ lies on the half-line from $0$ through $\alpha y$. By uniqueness, $\beta(y) = \beta(\alpha y)$.
 \paragraph{}
-If $\alpha < 0$ then $\alpha y$ lies on the reflection of the half-line from $0$ through $y$. That is to say, $\alpha y$ lies on the half-line from $0$ through $-y$. Hence by the previous argument, $\beta(\alpha y) = \beta(-y)$. To finish this case we must show that $\beta(-y) = -\beta(y)$. By symmetry of reflection, $-\beta(y)$ lies on the half-line through $0$ and $-y$. By the central symmetry of $\cC$, $-\beta(y) \in \cC$. Thus if $-\beta(y)$ is a boundary point of $\cC$ then by uniqueness we are done and $-\beta(y) = \beta(-y)$. But if $\beta(y)$ were an interior point of $\cC$ then the open ball about $-\beta(y)$ could be reflected to give an open ball about $\beta(y)$ which would be contained in $\cC$ by central symmetry.
+If $\alpha < 0$ then $\alpha y$ lies on the reflection of the half-line from $0$ through $y$. That is to say, $\alpha y$ lies on the half-line from $0$ through $-y$. Hence by the previous argument, $\beta(\alpha y) = \beta(-y)$. To finish this case we must show that $\beta(-y) = -\beta(y)$. By symmetry of reflection, $-\beta(y)$ lies on the half-line through $0$ and $-y$. By the central symmetry of $\cC$, $-\beta(y) \in \cC$. Thus if $-\beta(y)$ is a boundary point of $\cC$ then by uniqueness we are done and $-\beta(y) = \beta(-y)$. But if $-\beta(y)$ were an interior point of $\cC$ then the open ball about $-\beta(y)$ could be reflected to give an open ball about $\beta(y)$ which would be contained in $\cC$ by central symmetry. Hence $-\beta(y)$ is a boundary point $\cC$ and the claim holds.
 \paragraph{}
 Thus by (\ref{eq:nudef}) and (\ref{eq:betacases}) we have that
 $$\nu(\alpha y) \beta(\alpha y) = \begin{cases}\alpha \nu(y) \beta(\alpha y) &\text{if $\alpha \geq 0$}\\
 -\alpha \nu(y) \beta(\alpha y) &\text{if $\alpha < 0$} \end{cases}$$
 and hence $\nu(\alpha y) = |\alpha| \nu(y)$ as desired.
 \paragraph{}
-Finally we will show that $\nu$ satisfies the triangle equality. Let $x,y\in \R^d$. If $\nu(x+y) = 0$ then $$\nu(x+y) = 0 \leq \nu(x) + \nu(y).$$ Hence we may assume that $\nu(x+y) \neq 0$. Let $$z = \frac{\nu(x)}{\nu(x)+ \nu(y)} \beta(x) + \frac{\nu(y)}{\nu(x) + \nu(y)} \beta(y)$$. Now by definition we have that
+Finally we will show that $\nu$ satisfies the triangle equality. Let $x,y\in \R^d$. Let $$z = \frac{\nu(x)}{\nu(x)+ \nu(y)} \beta(x) + \frac{\nu(y)}{\nu(x) + \nu(y)} \beta(y)$$. Now by definition we have that
 $$\nu(x+y) \beta(x+y) = x+y = \nu(x) \beta(x) + \nu(y) \beta(y).$$
 So then $$\frac{1}{\nu(x) + \nu(y)}(x+y) = z.$$
 Thus $z$ lies on the half-line from $0$ through $x+y$. Further $z$ is a convex combination of $\beta(x)$ and $\beta(y)$ and hence lies in $C$. Since $\beta(x+y)$ lies on the half-line from $0$ through $x+y$ and is also a boundary point of $C$ we conclude that $z$ lies on the line-segment joining $0$ and $\beta(x+y)$. Therefore there exists $\alpha$ such that $0\leq \alpha\leq 1$ and $$z = \alpha \beta(x+y)$$.
@@ -82,7 +83,7 @@ Now we observe that
 \begin{align*}
 \nu(x+y) \beta(x+y) &= \nu(x) \beta(x) + \nu(y)\beta(y)\\
  &= (\nu(x) + \nu(y))z \\
-&= (\nu(x) + \nu(y)\alpha \beta(x+y).
+&= (\nu(x) + \nu(y)\alpha) \beta(x+y).
 \end{align*}
 Therefore
 $$\nu(x+y) = \alpha(\nu(x) + \nu(y)).$$
