@@ -1,0 +1,90 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{article}
+\usepackage[margin=1in, bottom=1in, top=1in]{geometry} %1 inch margins
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%Macros
+\newcommand{\A}{\mathbb{A}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}} \newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+ 
+\newcommand{\cA}{\mathcal{A}} \newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}} \newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}} \newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}} \newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}} \newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}} \newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}} \newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}} \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}} \newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}} \newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}} \newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}} \newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}} \newcommand{\cZ}{\mathcal{Z}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+%Page style
+\pagestyle{fancy}
+
+\listfiles
+
+\raggedbottom
+
+\rhead{William Justin Toth 671 Assignment 5 - Problem Set 1} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{1pt} %heading underlined
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{26}
+\paragraph{}
+To solve this problem we will first need that the interior of the cone of positive semidefinite matrices is the set of positive definite matrices, and to prove that we will first need a slightly different but equivalent view of points in the interior of convex sets.
+\paragraph{Lemma 26.1}
+Let $V$ be a vector space with norm $|| \cdot ||$, and let $C$ be a convex set contained in $V$. Let $x \in C$. Then $x \in \text{int}(C)$ if and only if for all $v \in V$ there exists $\epsilon >0$ such that $x + \epsilon v \in C$.
+\paragraph{Proof of Lemma 26.1}
+First suppose that $x \in \text{int}(C)$. Then there exists $\delta > 0$ such that for all $y$ satisfying $$|| x - y|| < \delta$$ we have that $y \in C$. Now let $v \in V$. Choose $\epsilon = \frac{\delta}{2 ||v||}$. We will show $$x + \epsilon v \in C$$. Indeed we have $$|| x - (x+\epsilon v)|| = || \frac{-\delta}{2||v||} v|| = \frac{\delta}{2}\frac{||v||}{||v||} = \frac{\delta}{2} < \delta.$$
+Therefore $x +\epsilon v$ lies in the $\delta$ ball about $x$ and hence $x+\epsilon v \in C$ as desired.
+\paragraph{}
+Now for the contrapositive suppose that $x \not\in \text{int}(C)$. Then $x \in \delta(C)$, the boundary of $C$. By Lemma $3.4.3$ of the course notes there exists $y \not\in C$ such that $x = \pi_C(y)$. Let $v = y - x$. Then for all $\epsilon > 0$, $x + \epsilon v$ lies on the half-line from $x$ through $y$, and $x + \epsilon v \neq x$. We claim that since $x =\pi_C(y)$ and $y \not \in C$, the half-line from $x$ through $y$ intersects $C$ exactly at the point $x$, and hence for all $\epsilon > 0$, $x+ \epsilon v \not \in C$. So if we verify the claim we are done. We do so in the following paragraphs.
+\paragraph{}
+First suppose for contradiction there exists $\epsilon \geq 1$ such that $x + \epsilon v \in C$. Then $y$ lies on the line segment from $x$ to $x + \epsilon v$. Since $x \in C$ and $x +\epsilon v \in C$ this would imply $y \in C$ by the convexity of $C$. But $y \not\in C$, a contradiction.
+\paragraph{}
+Now suppose for contradiction that there exists $\alpha \in (0,1)$ such that $x + \epsilon v \in C$. Then we have that
+$$ ||y - (x + \epsilon v)|| = ||y - x - \epsilon y + \epsilon x|| = (1-\epsilon) ||y-x||.$$
+Since $\epsilon > 0$ this implies
+$$||y - (x + \epsilon v)|| < ||y -x|| $$
+which contradicts that $\pi_C(y) = x$. So the claim holds. $\blacksquare$
+\paragraph{Lemma 26.2}
+Let $V$ be the vector space of symmetric $n\times n$ matrices. Let $K\subseteq V$ be the convex cone of positive semidefinite matrices. Then $$\text{int}(K) =\{A \in K : A\text{ is nonsingular}\}.$$
+\paragraph{Proof of Lemma 26.2}
+Let $A \in \text{int}(K)$. Suppose for a contradiction that $\text{null}(A) \neq \{0\}$. Let $x \neq 0 \in \text{null}(A)$. Then $-xx^T$ is a symmetric matrix of order $n$. So by Lemma $26.1$ there exists $\epsilon > 0$ such that $$A - \epsilon xx^T \in K$$. That is,
+$$x^T(A - \epsilon xx^T)x \geq 0.$$
+But we have
+\begin{align*}
+x^T(A - \epsilon xx^T)x &= x^TAx - \epsilon (x^Tx)^2  \\
+&= -\epsilon (x^Tx)^2  &\text{Since $x\in\text{null}(A)$} \\
+&< 0 &\text{Since $\epsilon > 0$ and, as $x \neq 0$, $(x^Tx)^2 > 0$}. 
+\end{align*}
+Hence $x^T(A - \epsilon xx^T)x \geq 0$ and $x^T(A - \epsilon xx^T)x  < 0$, a contradiction. Thus $\text{null}(A) = \{0\}$ and thus $A$ is nonsingular. Therefore $\text{int}(A) \subseteq \{A \in K : A \text{ is nonsingular}\}$.
+\paragraph{}
+Now let $A$ be positive definite. Let $B \in V$. Let
+$$ \beta = \min_{\{x : ||x|| = 1\}} x^T B x.$$
+As we have argued in problem $1$, $\{x : ||x||=1\}$ is compact. Further the function we are minimizing is continuous, so this choice of $\beta$ is well-defined. If $\beta = 0$ then $B$ is positive semi-definite. Choose $\epsilon = 1$ and we have
+$$A + \epsilon B = A + B$$
+is positive semidefinite by problem $4$. That is $A +\epsilon B \in K$.
+\paragraph{}
+So we may assume $\beta > 0$. Choose $\epsilon = \frac{1}{\beta}$. Let $x \in \R^n$. We have
+\begin{align*}
+x^T(A + \epsilon B) x &= x^TAx + \epsilon x^T B x \\
+&= x^TAx + \frac{1}{\beta} x^T B x \\
+&\geq x^TAx + \frac{1}{x^TBx} x^TBx 
+\end{align*}
+\end{document}
