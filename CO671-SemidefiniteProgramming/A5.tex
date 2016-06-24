@@ -73,18 +73,55 @@ x^T(A - \epsilon xx^T)x &= x^TAx - \epsilon (x^Tx)^2  \\
 &= -\epsilon (x^Tx)^2  &\text{Since $x\in\text{null}(A)$} \\
 &< 0 &\text{Since $\epsilon > 0$ and, as $x \neq 0$, $(x^Tx)^2 > 0$}. 
 \end{align*}
-Hence $x^T(A - \epsilon xx^T)x \geq 0$ and $x^T(A - \epsilon xx^T)x  < 0$, a contradiction. Thus $\text{null}(A) = \{0\}$ and thus $A$ is nonsingular. Therefore $\text{int}(A) \subseteq \{A \in K : A \text{ is nonsingular}\}$.
+Hence $x^T(A - \epsilon xx^T)x \geq 0$ and $x^T(A - \epsilon xx^T)x  < 0$, a contradiction. Thus $\text{null}(A) = \{0\}$ and thus $A$ is nonsingular. Therefore $\text{int}(K) \subseteq \{A \in K : A \text{ is nonsingular}\}$.
 \paragraph{}
 Now let $A$ be positive definite. Let $B \in V$. Let
 $$ \beta = \min_{\{x : ||x|| = 1\}} x^T B x.$$
-As we have argued in problem $1$, $\{x : ||x||=1\}$ is compact. Further the function we are minimizing is continuous, so this choice of $\beta$ is well-defined. If $\beta = 0$ then $B$ is positive semi-definite. Choose $\epsilon = 1$ and we have
+As we have argued in problem $1$, $\{x : ||x||=1\}$ is compact. Further the function we are minimizing is continuous, so this choice of $\beta$ is well-defined. If $\beta \geq 0$ then $B$ is positive semi-definite. Choose $\epsilon = 1$ and we have
 $$A + \epsilon B = A + B$$
 is positive semidefinite by problem $4$. That is $A +\epsilon B \in K$.
 \paragraph{}
-So we may assume $\beta > 0$. Choose $\epsilon = \frac{1}{\beta}$. Let $x \in \R^n$. We have
+So we may assume $\beta < 0$.  Let
+$$ \gamma = \min_{\{x: ||x|| = 1\}} x^TAx .$$
+Again, this choice of $\gamma$ is well-defined. Since $A$ is positive definite $\gamma > 0$.
+Choose $$\epsilon = \frac{-\gamma}{\beta}.$$ Since $\gamma > 0$ and $\beta < 0$ we have $\epsilon > 0$. Let $x \in \R^n$. If $x^TBx = 0$ then
+$$x^T(A+\epsilon B) x = x^TAx + 0 > 0$$ and thus $A + \epsilon B$ is positive semidefinite. Otherwise we have
 \begin{align*}
 x^T(A + \epsilon B) x &= x^TAx + \epsilon x^T B x \\
-&= x^TAx + \frac{1}{\beta} x^T B x \\
-&\geq x^TAx + \frac{1}{x^TBx} x^TBx 
+&= x^TAx + \frac{\gamma}{\beta} x^T B x \\
+&\geq x^TAx + \frac{-x^TAx}{x^TBx} x^TBx  \\
+&= 0
 \end{align*}
+and still $A + \epsilon B$ is positive semidefinite. Therefore by Lemma $26.1$, $A \in \text{int}(K)$ and thus $\text{int}(K) = \{A \in K : A \text{ is nonsingular}\}$ as desired. $\blacksquare$
+\paragraph{Proof that $K$ is homogenous}
+We need to show that for any two positive semidefinite matrices $A$ and $B$ in the interior of $K$ there exists a linear bijection from $K$ to $K$ (that is, automorphism) mapping $A$ to $B$. Let $A, B \in \text{int}(K)$. Then by Lemma $26.2$, $A$ and $B$ are positive definite. Therefore there exist nonsingular matrices $M$ and $N$ such that
+$$ A = MM^T \quad B = NN^T.$$
+Consider the map $f: K \rightarrow K$ defined by
+$$f(C) = (NM^{-1})C(NM^{-1})^T.$$
+\paragraph{}
+First let us confirm that $f$ maps $A$ to $B$. We have
+\begin{align*}
+f(A) &= (NM^{-1})A(NM^{-1})^T \\
+&= NM^{-1} MM^T(NM^{-1})^T \\
+&=NM^{-1}MM^T(M^T)^{-1} N^T \\
+&= N I I N^T \\
+&= NN^T \\
+&= B.
+\end{align*}
+\paragraph{}
+We will now show that $f$ is a bijection (and that $f$ indeed maps $K$ to $K$). It is well known from Linear Algebra that left or right multiplication by a non-singular matrix is a bijective map. Since $f$ is simply a composition of such maps $f$ is also bijective. To see that $f$ maps $K$ to $K$ let $C \in K$. Since $C$ is positive semidefinite there exists $D$ such that$$C = DD^T.$$ Then 
+\begin{align*}
+f(C) &= (NM^{-1})C(NM^{-1})^T \\
+&= (NM^{-1})DD^T(NM^{-1})^T  \\
+&= (NM^{-1}D)(NM^{-1}D)^T.
+\end{align*}
+So $f(C) = EE^T$ where $E = NM^{-1}D$ and thus $f(C)$ is positive semidefinite, that is to say $f(C) \in K$.
+\paragraph{}
+Lastly we will show that $f$ is linear. Let $C, D \in K$ and let $\alpha, \beta$ be scalars. Then
+\begin{align*}
+f(\alpha C + \beta D) &= (NM^{-1})(\alpha C + \beta D)(NM^{-1})^T \\
+&= \alpha (NM^{-1}) C (NM^{-1})^T + \beta (NM^{-1})D(NM^{-1})^T \\
+&= \alpha f(C) + \beta f(D).
+\end{align*}
+Thus $f$ is a linear map and so we have shown that $f$ is an automorphism with $f(A) = B$. Therefore $K$ is homogenous. $\blacksquare$
 \end{document}
