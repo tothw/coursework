@@ -124,4 +124,26 @@ f(\alpha C + \beta D) &= (NM^{-1})(\alpha C + \beta D)(NM^{-1})^T \\
 &= \alpha f(C) + \beta f(D).
 \end{align*}
 Thus $f$ is a linear map and so we have shown that $f$ is an automorphism with $f(A) = B$. Therefore $K$ is homogenous. $\blacksquare$
+\section*{27}
+\paragraph{Lemma 27.1}
+If a set $C$ is closed then for every convergent sequence of points in $C$ converges to a point in $C$.
+\paragraph{Proof of Lemma 27.1}
+Let $C$ be a closed set. Let $\bar{C}$ denote the complemenet of $C$. Since $C$ is closed, $\bar{C}$ is open. Suppose for a contradiction that there exists a converegent sequence $(a)_n \subseteq C$ that converges to $a \in \bar{C}$. We will contradict that $\bar{C}$ is open. Let $\epsilon > 0$. Then there exists $N \in \N$ such that for all $n \geq N$, $$||a_n - a|| < \epsilon.$$
+Since any $a_n$ with $n \geq N$ is such that $a_n \in C$ we have that the $\epsilon$ ball about $a$ is not strictly contained in $\bar{C}$. That is there does not exist $\epsilon > 0$ for which the $\epsilon$ ball about $a$ is contained in $\bar{C}$. This contradicts that $\bar{C}$ is open. $\blacksquare$
+\paragraph{Problem Solution}
+Let $d \geq 2$. Let $P$ be the set of polynomials of degree less than $d$. Let $p,q \in P$. Declare that $p \geq q$ is $p-q = 0$ or the coefficient of the leading term of $p-q$ is positive. To show this order arises from convex cone we must show that $$K = \{p \in P : p=0 \text{ or the coefficient of the leading term of $p$ is positive}\}$$
+is a convex cone.
+\paragraph{}
+It is enough to show that $K$ is closed under nonnegative scaling and addition. Let $p \in K$ and let $\alpha \geq 0$. If $p = 0$ then $\alpha p = 0$ and thus $\alpha p \in K$. Similarly if $\alpha = 0$ then $\alpha p = 0$ and thus $\alpha p \in K$. Otherwise, that is if the leading coefficient of $p$ is positive and $\alpha > 0$ then the leading coefficient of $\alpha p$ is $\alpha$ times the leading coefficient of $p$ which is positive. As the product of two positive numbers is positive the leading coefficient of $\alpha p$ is positive and thus $\alpha p \in K$.
+\paragraph{}
+Now we will show $K$ is closed under addition. Let $p, q \in K$. We may write $p$ and $q$ as
+$$p = \sum_{i=0}^{d-1}p_i x^i \quad q = \sum_{i=0}^{d-1} q_i x^i.$$
+If either $p=0$ or $q=0$ then $p+q=q$ or $p+q = p$ respectively and hence $p+q \in K$. So suppose neither $p$ nor $q$ are $0$. That is their leading coefficients are positive. Let $k$ be such that $p_k$ is the leading coefficient of $p$. Let $j$ be such that $q_j$ is the leading coefficient of $q$. We may assume without loss of generality that $k \geq j$ (otherwise switch roles of $p$ and $q$). Then we have that $q_k \geq 0$ as $q_k=q_j$ or $q_k = 0$. Thus the leading coefficient of $p+q$ is $$p_k + q_k \geq p_k + 0 > 0.$$
+Hence the leading coefficient of $p+q$ is positive and thus $p+q \in K$. Therefore $K$ is closed under addition and we may conclude that $K$ is a convex cone.
+\paragraph{}
+Now we will show that $K$ is not closed via the contrapositive of Lemma $27.1$. Consider the sequence $(a)_n \subseteq K$ where each $a_i$ is given by
+$$\frac{1}{i}x - 1.$$
+Since $d \geq 2$ each $a_i \in K$ as the coefficient of the leading term is positive and its degree (which is $1$) is less than $d$. But it is easy to see that
+$$ \lim_{n \rightarrow \infty} a_n = 0x -1 = -1.$$
+That is, this sequence converges to $-1$ which is not in $K$. Thus we have a convergent sequence in $K$ which converges to a point not in $K$. Therefore by Lemma $27.1$, $K$ is not closed. $\blacksquare$
 \end{document}
