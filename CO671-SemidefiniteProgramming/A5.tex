@@ -50,16 +50,16 @@ To solve this problem we will first need that the interior of the cone of positi
 \paragraph{Lemma 26.1}
 Let $V$ be a vector space with norm $|| \cdot ||$, and let $C$ be a convex set contained in $V$. Let $x \in C$. Then $x \in \text{int}(C)$ if and only if for all $v \in V$ there exists $\epsilon >0$ such that $x + \epsilon v \in C$.
 \paragraph{Proof of Lemma 26.1}
-First suppose that $x \in \text{int}(C)$. Then there exists $\delta > 0$ such that for all $y$ satisfying $$|| x - y|| < \delta$$ we have that $y \in C$. Now let $v \in V$. Choose $\epsilon = \frac{\delta}{2 ||v||}$. We will show $$x + \epsilon v \in C$$. Indeed we have $$|| x - (x+\epsilon v)|| = || \frac{-\delta}{2||v||} v|| = \frac{\delta}{2}\frac{||v||}{||v||} = \frac{\delta}{2} < \delta.$$
+First suppose that $x \in \text{int}(C)$. Then there exists $\delta > 0$ such that for all $y$ satisfying $$|| x - y|| < \delta$$ we have that $y \in C$. Now let $v \in V$. If $v = 0$ then choose $\epsilon = 1$ and $x + \epsilon v = x + 0 = x$ and we are done. So we may assume $|| v|| > 0$.  Choose $\epsilon = \frac{\delta}{2 ||v||}$. We will show $$x + \epsilon v \in C$$. Indeed we have $$|| x - (x+\epsilon v)|| = || \frac{-\delta}{2||v||} v|| = \frac{\delta}{2}\frac{||v||}{||v||} = \frac{\delta}{2} < \delta.$$
 Therefore $x +\epsilon v$ lies in the $\delta$ ball about $x$ and hence $x+\epsilon v \in C$ as desired.
 \paragraph{}
 Now for the contrapositive suppose that $x \not\in \text{int}(C)$. Then $x \in \delta(C)$, the boundary of $C$. By Lemma $3.4.3$ of the course notes there exists $y \not\in C$ such that $x = \pi_C(y)$. Let $v = y - x$. Then for all $\epsilon > 0$, $x + \epsilon v$ lies on the half-line from $x$ through $y$, and $x + \epsilon v \neq x$. We claim that since $x =\pi_C(y)$ and $y \not \in C$, the half-line from $x$ through $y$ intersects $C$ exactly at the point $x$, and hence for all $\epsilon > 0$, $x+ \epsilon v \not \in C$. So if we verify the claim we are done. We do so in the following paragraphs.
 \paragraph{}
 First suppose for contradiction there exists $\epsilon \geq 1$ such that $x + \epsilon v \in C$. Then $y$ lies on the line segment from $x$ to $x + \epsilon v$. Since $x \in C$ and $x +\epsilon v \in C$ this would imply $y \in C$ by the convexity of $C$. But $y \not\in C$, a contradiction.
 \paragraph{}
-Now suppose for contradiction that there exists $\alpha \in (0,1)$ such that $x + \epsilon v \in C$. Then we have that
+Now suppose for contradiction that there exists $\epsilon \in (0,1)$ such that $x + \epsilon v \in C$. Then we have that
 $$ ||y - (x + \epsilon v)|| = ||y - x - \epsilon y + \epsilon x|| = (1-\epsilon) ||y-x||.$$
-Since $\epsilon > 0$ this implies
+Since $1-\epsilon > 0$ this implies
 $$||y - (x + \epsilon v)|| < ||y -x|| $$
 which contradicts that $\pi_C(y) = x$. So the claim holds. $\blacksquare$
 \paragraph{Lemma 26.2}
@@ -143,7 +143,7 @@ Hence the leading coefficient of $p+q$ is positive and thus $p+q \in K$. Therefo
 \paragraph{}
 Now we will show that $K$ is not closed via the contrapositive of Lemma $27.1$. Consider the sequence $(a)_n \subseteq K$ where each $a_i$ is given by
 $$\frac{1}{i}x - 1.$$
-Since $d \geq 2$ each $a_i \in K$ as the coefficient of the leading term is positive and its degree (which is $1$) is less than $d$. But it is easy to see that
+Since $d \geq 2$ each $a_i \in K$ has the coefficient of the leading term being positive and its degree (which is $1$) is less than $d$. But it is easy to see that
 $$ \lim_{n \rightarrow \infty} a_n = 0x -1 = -1.$$
 That is, this sequence converges to $-1$ which is not in $K$. Thus we have a convergent sequence in $K$ which converges to a point not in $K$. Therefore by Lemma $27.1$, $K$ is not closed. $\blacksquare$
 \section*{29}
@@ -171,7 +171,7 @@ So $X$ is feasible for (\ref{p:S}). Thus we have
 &= \text{value of (\ref{p:U})}.
 \end{align*}
 \paragraph{}
-It remains to show that value of (\ref{p:S}) $\leq$ value of (\ref{p:U}). Let $X$ be an optimal solution to (\ref{p:S}). Let $r$ be the rank of of $X$. Since $X\succcurlyeq$ there exist $x_1, \dots, x_r$ such that
+It remains to show that value of (\ref{p:S}) $\leq$ value of (\ref{p:U}). Let $X$ be an optimal solution to (\ref{p:S}). Let $r$ be the rank of of $X$. Since $X\succcurlyeq 0$ there exist $x_1, \dots, x_r$ such that
 $$X = \sum_{i=1}^r x_i x_i^T.$$
 Let $$\alpha_i = ||x_i||^2 = x_i^Tx_i$$
 and let $$\hat{x}_i = \frac{x_i}{||x_i||}.$$
@@ -198,6 +198,4 @@ Now let $x \in \R^n$ be an optimal solution to $(\ref{p:U})$. Then we have
 &= \text{value of (\ref{p:U})}.
 \end{align*}
 Therefore we have value of (\ref{p:S}) $\leq$ value of (\ref{p:U}), and value of (\ref{p:S}) $\geq$ value of (\ref{p:U}). Thus value of (\ref{p:S}) $=$ value of (\ref{p:U}) as desired. $\blacksquare$
-\paragraph{}
-
 \end{document}
