@@ -69,4 +69,67 @@ $$x_{n_i} = \alpha_{n_i} b_{n_i}.$$
 That is, $x_{n_i}$ is the product of two convergent sequences and hence converges to the product of their limits. Thus
 $$\lim_{n_i \rightarrow \infty} x_{n_i} = \lim_{n_i \rightarrow \infty} \alpha_{n_i} b_{n_i} =\alpha b.$$
 Since $\alpha \geq 0$ and $b \in K$, $\alpha b \in K$. Therefore the subsequence $(x)_{n_i}$ of $(x)_n$ converges to a point in $K$. Since convergent sequences and their convergent subsequences has the same limit, $(x)_n$ converges to a point in $K$. Therefore $K$ is closed. $\blacksquare$
+\section*{2}
+\subsection*{Part 1}
+\paragraph{}
+Let $K$ be a pointed convex cone. Let $H$ be an affine hyperplane that does not contain $0$. Let this affine hyperplane we describe by all $x$ satisfing:
+$$\langle h, x \rangle = c $$ where $c \neq 0$. Suppose that $H\cap K$ is bounded and $H \cap K \neq 0$. Let $k \in K$ such that $k \neq 0$. Let $R$ be the ray in $K$ formed by nonegative scalar multiples of $k$. Then either $R$ intersects $H$ at a unique point $b$ or $R$ is parallel to $H$ (possibly with infinite intersections or none).
+\paragraph{}
+Suppose for a contradiction that $R$ is parallel to $H$. Then, as $k \in R$,
+$$\langle h, k \rangle = 0.$$
+Let $a \in H \cap K$. Then for all $\alpha \geq 0$, $a + \alpha k \in H \cap K$. We can see this by observing that $a$ and $\alpha k$ are in $K$ and $K$ is closed under addition, and observing that
+$$\langle h, a + \alpha k \rangle = \langle h, a \rangle + \alpha \langle h, k \rangle = \langle h, a \rangle + 0 = c.$$
+But by appropriating choosing $\alpha$ we can make $|| a+ \alpha k||$ arbitrarily large. This contradictions that $H\cap K$ is bounded. Hence $R$ is not parallel to $H$.
+\paragraph{}
+So $R$ interesects $H$ at some unique point $b$. Since $b \in R$ we have that $b \in H \cap K$. Since $k \in R \backslash\{0\}$ and $b \in R \backslash \{0\}$ (as $0\not\in H$) there exists $\alpha > 0$ such that $$k = \alpha b.$$
+Such choice of $\alpha$ is unique. Therefore for any $k \in K \backslash\{0\}$ there is a unique point $b$ in $H \cap K$, and a unique scalar $\alpha > 0$ such that $k = \alpha b$. That is, $H \cap K$ is a base for $K$. $\blacksquare$
+\subsection*{Part 2}
+\paragraph{}
+We will us Part $1$ to show that positive semidefinite matrices of trace $1$ form a base for the cone of positive semidefinite matrices. But by Part $1$ it is enough to show that set of trace $1$ matrices form an affine hyperplance and that the set of positive semidefinite trace $1$ matrices is bounded.
+\paragraph{}
+Let $J$ be the all ones matrice. Then $$J = \begin{bmatrix}
+1 \\
+\vdots \\
+1
+\end{bmatrix}\begin{bmatrix}
+1& \hdots & 1
+\end{bmatrix}^T.
+$$
+Consider the affine hyperplane $H$ given by the set of $X$ satisfying
+$$\langle I, X \rangle = 1$$
+where $I$ is the identity matrix.
+We claim that $H$ is exactly the set of trace $1$ matrices. Indeed
+\begin{align*}
+\langle I , X \rangle = 1 &\iff tr(I^TX) = 1 \\
+&\iff tr(X) = 1.
+\end{align*} 
+Therefore the set of trace $1$ matrices is an affine hyperplane.
+\paragraph{}
+It remains to show that the set of trace $1$ positive semidefinite matrices in bounded. Let $X\succcurlyeq 0$ and suppose that $tr(X) = 1$. Let $r$ be the rank of $X$. Since $X \succcurlyeq 0$ there exists vectors $x_1, \dots, x_r$ such that
+$$ X = \sum_{i=1}^r x_ix_i^T.$$
+Let for each $i = 1,\dots,r$ let $\hat{x}_i$ be given by
+$$ \hat{x}_i = \frac{x_i}{||x_i||}.$$
+Then $$X = \sum_{i=1}^r ||x_i||^2 \hat{x}_i\hat{x}_i^T.$$
+So taking the trace gives
+\begin{align*}
+1 &= tr(X) \\
+&= \sum_{i=1}^r ||x_i||^2 tr(\hat{x}_i \hat{x}_i^T) \\
+&= \sum_{i=1}^r ||x_i||^2 \hat{x}_i^T \hat{x}_i \\
+&= \sum_{i=1}^r ||x_i||^2 ||\hat{x}_i||^2 \\
+&= \sum_{i=1}^r ||x_i||^2.
+\end{align*}
+Now using this equality we show that $||X|| \leq 1$:
+\begin{align*}
+||X|| &= ||\sum_{i=1}^r ||x_i||^2 \hat{x}_i\hat{x}_i^T|| \\
+&\leq \sum_{i=1}^r ||x_i||^2 ||\hat{x}_i\hat{x}_i^T|| \\
+&= \sum_{i=1}^r ||x_i||^2 \langle \hat{x}_i \hat{x}_i^T, \hat{x}_i \hat{x}_i^T\rangle^{\frac{1}{2}} \\
+&= \sum_{i=1}^r ||x_i||^2 tr(\hat{x}_i \hat{x}_i^T\hat{x}_i \hat{x}_i^T)^{\frac{1}{2}} \\
+&= \sum_{i=1}^r ||x_i||^2 tr(\hat{x}_i \hat{x}_i^T)^\frac{1}{2} \\
+&= \sum_{i=1}^r ||x_i||^2 (\hat{x}_i^T\hat{x}_i) ^\frac{1}{2} \\
+&= \sum_{i=1}^r ||x_i||^2 \\
+&= 1.
+\end{align*}
+Thus all positive semidefinite matrices of trace $1$ have norm at most $1$, and so the intersection of the hyperplane of trace $1$ matrices with the cone of positive semidefinite matrices is bounded. Therefore by Part 1 the set of trace $1$ positive semidefinite matrices is a base for the cone of positive semidefinite matrices. $\blacksquare$
+\section*{3}
+
 \end{document}
