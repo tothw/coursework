@@ -46,32 +46,18 @@
 \begin{document}
 \section*{1}
 \paragraph{}
-Let $K$ be a convex cone. Let $B$ be a compact base for $K$. Let $$\hat{B} = \{\hat{b} : \hat{b} = \frac{b}{||b||} \text{ and } b \in B \}.$$
-We claim $\hat{B}$ is a base for $K$. It is enough to show that there is a bijection between $B$ and $\bar{B}$. Let $f: B \rightarrow \hat{B}$ given by
-$$f(b) = \frac{b}{||b||}.$$
-This $f$ is well defined since $0 \not\in B$ and hence $||b|| \neq 0$ for all $b \in B$.
+Let $K$ be a convex cone. Let $B$ be a compact base for $K$.  We will use a basic result in Analysis to show that $K$ is closed:
+\begin{equation}
+\text{A set $C$ is closed $\iff$ every convergent sequence in $C$ converges to a point in $C$}
+\label{closed:sequence}
+\end{equation}
+Let $(x)_n \subseteq K$ be a convergent sequence in $K$. Then for every $x_n$ there exists $b_n \in B$ and $\alpha_n > 0$ such that
+$$x_n = \alpha_n b_n.$$
+Thus we have a sequence $(b)_n \subseteq B$ corresponding to the sequence $(x)_n$. Since $B$ is compact this sequence $(b)_n$ has a convergent subsequence $$(b)_{n_i}$$ that converges to $b \in B$.
+Since $(x)_n$ converges, the subsequence $$(x)_{n_i}$$ corresponding to $(b)_{n_i}$ converges. Let $x$ be the limit point of $(x)_{n_i}$. Let $\alpha \geq 0$ be given by
+$$\alpha = \lim_{n_i \rightarrow \infty} \frac{||x_{n_i}||}{||b_{n_i}||} = \frac{||x||}{||b||}$$
+Since $b\in B$, $b\neq 0$ and thus $\alpha$ is well-defined. Observe that the sequence $(\alpha)_{n_i}$ of scalars satisfying
+$$x_{n_i} = \alpha_{n_i} b_{n_i}$$
 \paragraph{}
-We demonstrate $f$ is surjective. Let $\hat{b} \in \hat{B}$. Since $B$ is a base there exists $b \in B$ and scalar $\alpha > 0$ such that $$\hat{b} = \alpha b.$$
-Thus $$1 = ||\hat{b}|| = \alpha ||b||$$
-and so $$|| b || = \frac{1}{\alpha}.$$
-Therefore $$f(b) = \frac{b}{||b||} = \alpha b = \hat{b}$$
-and hence $f$ is surjective.
-\paragraph{}
-Now we demonstrate that $f$ is injective. Let $b_1, b_2 \in B$. Suppose that
-$$f(b_1) = f(b_2) = \hat{b}.$$
-Now $||\hat{b}|| = 1$ so we have $$b_1 = ||b_1|| \frac{b_2}{||b_2||}.$$
-So $b_1$ lies on the ray $b_2$. Since each ray in $K$ has a single point in $B$ we thus have $b_1 = b_2$. So we may conclude that $f$ is bijective.
-\paragraph{}
-So $\hat{B}$ is a base for $K$. We claim that $\hat{B}$ is compact. Let $\hat{\cC}$ be a cover of $\hat{B}$. Since $0 \not \in \hat{B}$ we may assume that each open set in $\hat{\cC}$ does not contain $0$. For each $\hat{b} \in \hat{B}$ choose $C_{\hat{b}} \in \cC$ such that $\hat{b} \in C_{\hat{b}}$. Since $\cC$ covers $\hat{B}$ we may choose such $C_{\hat{b}}$. Each $\hat{b} \in \hat{B}$ is identified with some $b \in B$ by $f$.  Define $C_b$ by
-$$ C_b = C_{\hat{b}} +\{b -\hat{b}\} \quad \text{such that $f(b) = \hat{b}$}.$$
-That is $C_b$ is a linear translation of $C_{\hat{b}}$ sending $\hat{b}$ to $b$. Since this transformation is linear it is continuous. So since each $C_{\hat{b}}$ is open, each $C_b$ is open. Thus we have an open cover of $B$ given by:
-$$\bigcup_{b\in B} C_b.$$
-Since $B$ is compact this open cover contains a finite subcover. Let $I$ be the finite subset of $B$ indexing said finite subcover. That is,
-$$B \subseteq \bigcup_{b\in I} C_b.$$
-Let $\hat{I} = \{f(b) \in \hat{B}: b \in I\}$. We claim that $$\hat{B} \subseteq \bigcup_{\hat{b} \in I} C_{\hat{b}}.$$
-Let $\hat{b} \in \hat{B}$. Then there exists $b\in B$ such that $\hat{b} = f(b)$. Since $I$ covers $B$ there exists $c \in I$ such that $b \in C_c$. Then by translation we have
-$$\hat{b} \in C_{\hat{c}}$$
-where $\hat{c} = f(c) \in \hat{I}$. Thus indeed $$\bigcup_{\hat{b} \in \hat{I}} C_{\hat{b}}$$ is a finite subcover of $\cC$ covering $\hat{B}$. That is, $\hat{B}$ is compact.
-\paragraph{}
-So now we have a compact base of $K$ consisting entirely of unit vectors. We claim this base $\hat{B}$ has no isolated points.
+We claim that $(x)_n$ converges to $\alpha b$. Let $\epsilon > 0$.
 \end{document}
