@@ -47,17 +47,26 @@
 \section*{1}
 \paragraph{}
 Let $K$ be a convex cone. Let $B$ be a compact base for $K$.  We will use a basic result in Analysis to show that $K$ is closed:
-\begin{equation}
-\text{A set $C$ is closed $\iff$ every convergent sequence in $C$ converges to a point in $C$}
-\label{closed:sequence}
-\end{equation}
-Let $(x)_n \subseteq K$ be a convergent sequence in $K$. Then for every $x_n$ there exists $b_n \in B$ and $\alpha_n > 0$ such that
+$$
+\text{A set $C$ is closed $\iff$ every convergent sequence in $C$ converges to a point in $C$.}
+$$
+Let $(x)_n \subseteq K$ be a convergent sequence in $K$. Let $x$ be the limit point of $(x)_n$. Then for every $x_n$ there exists $b_n \in B$ and $\alpha_n > 0$ such that
 $$x_n = \alpha_n b_n.$$
 Thus we have a sequence $(b)_n \subseteq B$ corresponding to the sequence $(x)_n$. Since $B$ is compact this sequence $(b)_n$ has a convergent subsequence $$(b)_{n_i}$$ that converges to $b \in B$.
-Since $(x)_n$ converges, the subsequence $$(x)_{n_i}$$ corresponding to $(b)_{n_i}$ converges. Let $x$ be the limit point of $(x)_{n_i}$. Let $\alpha \geq 0$ be given by
-$$\alpha = \lim_{n_i \rightarrow \infty} \frac{||x_{n_i}||}{||b_{n_i}||} = \frac{||x||}{||b||}$$
-Since $b\in B$, $b\neq 0$ and thus $\alpha$ is well-defined. Observe that the sequence $(\alpha)_{n_i}$ of scalars satisfying
+Since $(x)_n$ converges, the subsequence $$(x)_{n_i}$$ corresponding to $(b)_{n_i}$ converges and its limit is also $x$. We also have a sequence of $(\alpha)_{n_i}$ satisfying
 $$x_{n_i} = \alpha_{n_i} b_{n_i}$$
+for all $n_i$.
+Taking norms and dividing by $||b_{n_i}||$ we obtain
+$$\alpha_{n_i} = \frac{||x_{n_i}||}{||b_{n_i}||}.$$
+Since each $b_{n_i}$ is not $0$ this is well-defined. The norm $||\cdot||$ is a continuous map, so since $(x)_{n_i}$ and $(b)_{n_i}$ are convergent, the sequences of norms
+$$||x_{n_i}|| \quad \text{and}\quad ||b_{n_i}||$$
+are convergent. Then $(\alpha)_{n_i}$ is the quotient of two convergent sequences and this therefore continuous. Further since $b \in B$, $b \neq 0 $ and thus the limit of $\alpha_{n_i}$ is just the limit of quotients:
+$$\lim_{n_i \rightarrow \infty} \alpha_{n_i} = \lim_{n_i \rightarrow \infty} \frac{||x_{n_i}||}{||b_{n_i}||} = \frac{||x||}{||b||}.$$
+Let $\alpha$ denote $\frac{||x||}{||b||}$. Then $(\alpha)_{n_i}$ is convergent and converges to $\alpha$. Further $\alpha \geq 0$.
 \paragraph{}
-We claim that $(x)_n$ converges to $\alpha b$. Let $\epsilon > 0$.
+But now we have that
+$$x_{n_i} = \alpha_{n_i} b_{n_i}.$$
+That is, $x_{n_i}$ is the product of two convergent sequences and hence converges to the product of their limits. Thus
+$$\lim_{n_i \rightarrow \infty} x_{n_i} = \lim_{n_i \rightarrow \infty} \alpha_{n_i} b_{n_i} =\alpha b.$$
+Since $\alpha \geq 0$ and $b \in K$, $\alpha b \in K$. Therefore the subsequence $(x)_{n_i}$ of $(x)_n$ converges to a point in $K$. Since convergent sequences and their convergent subsequences has the same limit, $(x)_n$ converges to a point in $K$. Therefore $K$ is closed. $\blacksquare$
 \end{document}
