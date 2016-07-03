@@ -132,4 +132,66 @@ Now using this equality we show that $||X|| \leq 1$:
 Thus all positive semidefinite matrices of trace $1$ have norm at most $1$, and so the intersection of the hyperplane of trace $1$ matrices with the cone of positive semidefinite matrices is bounded. Therefore by Part 1 the set of trace $1$ positive semidefinite matrices is a base for the cone of positive semidefinite matrices. $\blacksquare$
 \section*{3}
 
+\section*{4}
+
+\section*{5}
+\paragraph{}
+Let $x \in \R^d$ and $t\in \R$. We will show
+$$\begin{bmatrix}tI & x \\ x^T & t \end{bmatrix} \succcurlyeq 0 \iff ||x|| \leq t.$$
+\paragraph{Case 1}
+We first consider the case where $t = 0$. Then the matrix $$\begin{bmatrix}0 & x \\ x^T & 0 \end{bmatrix} \succcurlyeq 0$$ if and only if for all $\begin{bmatrix} \bar{y} \\y \end{bmatrix} \in \R^d \times \R$ we have
+$$\begin{bmatrix}\bar{y}^T & y \end{bmatrix} \begin{bmatrix}0 & x \\ x^T & 0 \end{bmatrix} \begin{bmatrix} \bar{y} \\y \end{bmatrix} \geq 0$$
+which holds if and only if
+$$2y\bar{y}^Tx \geq 0.$$
+Thus if $$\begin{bmatrix}0 & x \\ x^T & 0 \end{bmatrix} \succcurlyeq 0$$ choose $\bar{y} = x$ and $y = 1$ and we have
+$$2y\bar{y}^Tx  = 2||x||^2 \geq 0.$$
+Also if $||x|| \leq t = 0$ then $x = 0$ and thus
+$$2y\bar{y}^Tx = 0  \geq 0$$
+for any $\bar{y}, y$. Therefore the result holds in this case.
+\paragraph{Case 2}
+Now we may assume that $t\neq 0$. In this case $tI$ is nonsingular and so we may use Theorem $2.4.1$ (Cholesky) of the course notes:
+$$\begin{bmatrix}tI & x \\ x^T & t \end{bmatrix} \succcurlyeq 0 \iff tI \succcurlyeq 0 \quad \text{and}\quad t - x^T(tI)^{-1}x  = t - \frac{1}{t}x^Tx \succcurlyeq 0.$$
+But $tI \succcurlyeq 0$ if and only if
+$$ t\geq 0,$$
+and hence 
+$$t - \frac{1}{t}x^Tx \succcurlyeq 0 $$
+if and only if $$t^2 \geq x^Tx.$$
+But $t^2 \geq x^Tx$ simply states $t^2 \geq ||x||^2$ and thus taking square roots this holds if and only if
+$$t \geq ||x||.$$
+Therefore the result holds in both cases. $\blacksquare$
+\section*{6}
+\paragraph{}
+Let $x\in \R^d$ and $t\in \R$. Then
+$$\begin{bmatrix}tI & x \\ x^T & t \end{bmatrix} \succcurlyeq 0$$ if and only if for all $\begin{bmatrix} \bar{y} \\y \end{bmatrix} \in \R^d \times \R$ we have
+$$\begin{bmatrix}\bar{y}^T & y \end{bmatrix} \begin{bmatrix}tI & x \\ x^T & t \end{bmatrix} \begin{bmatrix} \bar{y} \\y \end{bmatrix} \geq 0.$$
+Multiplying out we have
+$$ty^2 + 2\bar{y}^Txy + t||\bar{y}||^2.$$
+If $t = 0$ then we are back in problem $5$ case $1$. Thus we may assume $t\neq 0$. In this case we complete the square:
+$$ty^2 + 2\bar{y}^Txy + t||\bar{y}||^2 + \frac{(\bar{y}^Tx)^2}{t}-\frac{(\bar{y}^Tx)^2}{t}.$$
+Which simplies giving $\begin{bmatrix}tI & x \\ x^T & t \end{bmatrix} \succcurlyeq 0$ if and only if
+\begin{equation}t(y+\frac{\bar{y}^Tx}{t})^2 + t||\bar{y}||^2 - \frac{(\bar{y}^Tx)^2}{t} \geq 0\label{eq:quadratic}\end{equation}
+for all $\begin{bmatrix} \bar{y} \\y \end{bmatrix} \in \R^d \times \R$.
+\paragraph{}
+Thus if $\begin{bmatrix}tI & x \\ x^T & t \end{bmatrix} \succcurlyeq 0$ then choosing $y =1$ and $\bar{y} = 0$ and substituting into (\ref{eq:quadratic}) we obtain:
+$$t(1 + 0)^2 + 0 \geq 0$$
+and thus $t \geq 0$. Now choosing $\bar{y} = x$ and $y = -\frac{\bar{y}^Tx}{t}$ and substituting into (\ref{eq:quadratic}) we obtain:
+$$0 + t||x||^2 - \frac{(x^Tx)^2}{t} \geq 0$$
+Since $x^Tx = ||x||^2$ and $t\geq 0$ we may rearrange giving
+$$t^2||x||^2 \geq ||x||^4.$$
+If $x = 0$ then since $t \geq 0$ we would have $||x|| \leq t$ as desired. Hence we may assume $x \neq 0$. Thus we may divide by $||x||^2$ obtaining
+$$t^2 \geq ||x||^2$$
+and thus taking square roots gives
+$$t \geq ||x||$$ as desired.
+\paragraph{}
+Now if $||x|| \leq t$ then $t \geq 0$ (more precisely $t > 0$). Let $\bar{y} \in \R^d$ and $y \in \R$. Then $$t(y++\frac{\bar{y}^Tx}{t})^2 \geq 0$$
+as it is the product of two non-negative quantities. Thus by (\ref{eq:quadratic}) it remains to show that
+$$t||\bar{y}||^2 - \frac{(\bar{y}^Tx)^2}{t} \geq 0.$$
+Indeed we have
+\begin{align*}
+t||\bar{y}||^2 - \frac{(\bar{y}^Tx)^2}{t} &= \frac{t^2||\bar{y}||^2 - (\bar{y}^Tx)^2}{t} \\
+&\geq \frac{||x||^2||\bar{y}||^2 - (\bar{y}^Tx)^2}{t}  &\text{since $t \geq ||x||$}\\
+&\geq \frac{(\bar{y}^Tx)^2 - (\bar{y}^Tx)^2}{t} &\text{by Cauchy-Schwarz} \\
+&= 0.
+\end{align*}
+Therefore by (\ref{eq:quadratic}) the result holds. $\blacksquare$
 \end{document}
