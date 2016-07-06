@@ -131,7 +131,66 @@ Now using this equality we show that $||X|| \leq 1$:
 \end{align*}
 Thus all positive semidefinite matrices of trace $1$ have norm at most $1$, and so the intersection of the hyperplane of trace $1$ matrices with the cone of positive semidefinite matrices is bounded. Therefore by Part 1 the set of trace $1$ positive semidefinite matrices is a base for the cone of positive semidefinite matrices. $\blacksquare$
 \section*{3}
-
+\paragraph{}
+Let $C\subseteq V$ be a compact convex set. Let $L\subseteq V$ be an affine subspace. Suppose that $C \cap L = \emptyset$. We interpret the distance between $C$ and $L$, denoted $d(C,L)$ to be
+$$d(C,L) = \inf \{||x - y|| : x \in C, y\in L\}.$$
+For any $x \in C$ define $d(x,L)$ as
+$$d(x,L) = \inf \{||x-y|| : y \in L\}.$$
+We claim that there exists $x \in C$ such that $d(x,L) = d(C,L)$. Indeed since
+$$d(C,L) = \inf_{x \in C} d(x,L)$$
+and since the compactness of $C$ implies the minimum of continuous functions over $C$ is attained at a point in $C$ the claim holds provided we can show that $d(x,L)$ is continuous.
+\paragraph{}
+Let $x \in C$. Let $\epsilon > 0$. Choose $\delta = \frac{\epsilon}{2}$. Now let $z \in C$ such that $||x - z || < \delta$. Then if $d(x,L) \leq d(z,L)$, let $y \in L$ such that $$||x-y|| < d(x,L) + \delta.$$
+Such a $y$ exists by the definition of $d(x,L)$. We have:
+\begin{align*}
+|d(z,L) - d(x,L)|  &= d(z,L) - d(x,L) \\
+&\leq ||z-y|| - d(x,L) \\
+&\leq ||z-x|| + ||x-y|| - d(x,L) \\
+&< \delta + \delta + d(x,L) - d(x,L) \\
+&= 2\delta \\
+&< \epsilon.
+\end{align*}
+Now if $d(x,L) > d(z,L)$, let $y \in L$ such that $$||z-y|| < d(z,L) + \delta.$$
+Such a $y$ exists by the definition of $d(z,L)$. We have:
+\begin{align*}
+|d(z,L) - d(x,L)| &= d(x,L) - d(z,L) \\
+&\leq ||x-y|| - d(z,L) \\
+&\leq ||x-z|| + ||y-z|| - d(z,L) \\
+&< \delta + \delta + d(z,L) - d(z,L) \\
+&= 2\delta \\
+&= \epsilon.
+\end{align*}
+Therefore $d(x,L)$ is a continuous function at any $x\in C$.
+\paragraph{}
+Thus there exists $x \in C$ such that $$ d(x,L) = d(C,L).$$ Now it remains to find $p \in L$ for which $||x - p || = d(x,L)$. Let $a \in L$. Since $L$ is an affine subspace there exists a linear subspace $S$ such that $$ L = a + S.$$
+Let $P_S(v)$ denote the standard orthogonal projection of linear algebra from any $v \in V$ onto $S$. In particular we note that for any $v \in V$ and $s \in S$, $\langle v - P_S(v), s - 0 \rangle = 0$. We claim that the orthogonal projection onto $L$, denoted $P_L(v)$ is of the form:
+$$P_L(v) = a + P_S(v-a).$$
+\paragraph{}
+First since $P_S(v-a) \in S$ we have that $P_L(v) \in a + S = L$ so indeed $P_L(v)$ maps into $L$. To verify that the map is orthogonal consider any direction $L$: $p -a$ for $p \in L$. We aim to show that $v - P_L(v)$ is orthogonal to any such direction, that is that:
+$$\langle v - P_L(v), p -a \rangle = 0.$$
+Indeed  let $p_S \in S$ such that $p_S + a = p$. Then we have
+\begin{align*}
+\langle v- P_L(v), p-a \rangle &= \langle v - a - P_S(v-a), p_S + a - a \rangle \\
+&= \langle (v-a) - P_S(v-a), p_S \rangle \\
+&= 0.
+\end{align*}
+Thus $P_L(v)$ is the orthogonal projection map onto $L$.
+\paragraph{}
+Hence it remains to show that $P_L(x)$ minimizes the distance from $x$ to $L$. Let $p \in L$ and let $p_S \in S$ such that $p = a + p_S$. Then
+\begin{align*}
+||x- P_L(x) ||^2 &\leq ||x - P_L(x) ||^2 + ||P_L(x) - p||^2 \\
+&= ||(x-a) - P_S(x-a) ||^2 + ||a + P_S(x) - a - p_S ||^2 \\
+&= ||(x-a) - P_S(x-a) ||^2 + ||P_S(x) - p_S||^2.
+\end{align*}
+Now by the definition of orthogonal projection onto a subspace, $(x-a) - P_S(x-a)$ is an element of the orthogonal complement of $S$. Further since $S$ is a vector subspace and $P_S(x), p_S \in S$, $P_S(x) - p_S \in S$. So by the Pythagorean Theorem
+$$ ||(x-a) - P_S(x-a) ||^2 + ||P_S(x) - p_S||^2 = ||(x-a) - P_S(x-a) + P_S(x-a) - p_S||^2 = ||x-a - p_s||^2.$$
+Therefore 
+\begin{align*}
+||x- P_L(x) ||^2 &\leq ||x-a - p_s||^2 \\
+&= ||x - (a+ p_S) ||^2 \\
+&= ||x - p||^2.
+\end{align*}
+So $||x- P_L(x) || \leq ||x-p||$ for any $p \in L$. That is $||x - P_L(x)|| = d(x,L)$. So there exists $p = P_L(x) \in L$ such that $||x-p||$ is equal to $d(C, L)$ and the line through $x$ and $p$ is orthogonal to $L$. $\blacksquare$
 \section*{4}
 
 \section*{5}
