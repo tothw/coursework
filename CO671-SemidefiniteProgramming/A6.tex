@@ -60,7 +60,7 @@ Taking norms and dividing by $||b_{n_i}||$ we obtain
 $$\alpha_{n_i} = \frac{||x_{n_i}||}{||b_{n_i}||}.$$
 Since each $b_{n_i}$ is not $0$ this is well-defined. The norm $||\cdot||$ is a continuous map, so since $(x)_{n_i}$ and $(b)_{n_i}$ are convergent, the sequences of norms
 $$||x_{n_i}|| \quad \text{and}\quad ||b_{n_i}||$$
-are convergent. Then $(\alpha)_{n_i}$ is the quotient of two convergent sequences and this therefore continuous. Further since $b \in B$, $b \neq 0 $ and thus the limit of $\alpha_{n_i}$ is just the limit of quotients:
+are convergent. Then $(\alpha)_{n_i}$ is the quotient of two convergent sequences and is therefore continuous. Further since $b \in B$, $b \neq 0 $ and thus the limit of $\alpha_{n_i}$ is just the limit of quotients:
 $$\lim_{n_i \rightarrow \infty} \alpha_{n_i} = \lim_{n_i \rightarrow \infty} \frac{||x_{n_i}||}{||b_{n_i}||} = \frac{||x||}{||b||}.$$
 Let $\alpha$ denote $\frac{||x||}{||b||}$. Then $(\alpha)_{n_i}$ is convergent and converges to $\alpha$. Further $\alpha \geq 0$.
 \paragraph{}
@@ -72,22 +72,27 @@ Since $\alpha \geq 0$ and $b \in K$, $\alpha b \in K$. Therefore the subsequence
 \section*{2}
 \subsection*{Part 1}
 \paragraph{}
-Let $K$ be a pointed convex cone. Let $H$ be an affine hyperplane that does not contain $0$. Let this affine hyperplane we describe by all $x$ satisfing:
-$$\langle h, x \rangle = c $$ where $c \neq 0$. Suppose that $H\cap K$ is bounded and $H \cap K \neq 0$. Let $k \in K$ such that $k \neq 0$. Let $R$ be the ray in $K$ formed by nonegative scalar multiples of $k$. Then either $R$ intersects $H$ at a unique point $b$ or $R$ is parallel to $H$ (possibly with infinite intersections or none).
+Let $K$ be a pointed convex cone. Let $H$ be an affine hyperplane that does not contain $0$. Let this affine hyperplane be described by all $x$ satisfing:
+$$\langle h, x \rangle = c $$ where $c \neq 0$. Suppose that $H\cap K$ is bounded and $H \cap K \neq \emptyset$. Let $k \in K$ such that $k \neq 0$. Let $R$ be the ray in $K$ formed by nonegative scalar multiples of $k$. Then either $R$ intersects $H$ at a unique point $b$ or $R$ is parallel to $H$ (possibly with infinite intersections or none).
 \paragraph{}
-Suppose for a contradiction that $R$ is parallel to $H$. Then, as $k \in R$,
-$$\langle h, k \rangle = 0.$$
-Let $a \in H \cap K$. Then for all $\alpha \geq 0$, $a + \alpha k \in H \cap K$. We can see this by observing that $a$ and $\alpha k$ are in $K$ and $K$ is closed under addition, and observing that
-$$\langle h, a + \alpha k \rangle = \langle h, a \rangle + \alpha \langle h, k \rangle = \langle h, a \rangle + 0 = c.$$
-But by appropriating choosing $\alpha$ we can make $|| a+ \alpha k||$ arbitrarily large. This contradictions that $H\cap K$ is bounded. Hence $R$ is not parallel to $H$.
+Let $c'$ be such that
+$$\langle h, k \rangle = c'.$$ Suppose for a contradiction that $R$ is parallel to $H$. Then, as $k \in R$ and $R$ is a ray, for all $r \in R$
+$$\langle h, r \rangle = c'.$$
+Since $R$ is a ray in $K$, $0 \in R$. Hence 
+$$0 = \langle h, 0 \rangle = c'.$$
+That is, $c' = 0$. So for all $r \in R$,
+$$\langle h, r \rangle = 0.$$
+Let $a \in H \cap K$. Then for all  $r \in R$, $a +r \in H \cap K$. We can see this by observing that $a$ and $r$ are in $K$ and $K$ is closed under addition, and observing that
+$$\langle h, a + r \rangle = \langle h, a \rangle +  \langle h, r \rangle = \langle h, a \rangle + 0 = c.$$
+But by appropriating choosing $r$ we can make $|| a+ r||$ arbitrarily large. This contradictions that $H\cap K$ is bounded. Hence $R$ is not parallel to $H$.
 \paragraph{}
-So $R$ interesects $H$ at some unique point $b$. Since $b \in R$ we have that $b \in H \cap K$. Since $k \in R \backslash\{0\}$ and $b \in R \backslash \{0\}$ (as $0\not\in H$) there exists $\alpha > 0$ such that $$k = \alpha b.$$
+So $R$ intersects $H$ at some unique point $b$. Since $b \in R$ we have that $b \in H \cap K$. Since $k \in R \backslash\{0\}$ and $b \in R \backslash \{0\}$ (as $0\not\in H$) there exists $\alpha > 0$ such that $$k = \alpha b.$$
 Such choice of $\alpha$ is unique. Therefore for any $k \in K \backslash\{0\}$ there is a unique point $b$ in $H \cap K$, and a unique scalar $\alpha > 0$ such that $k = \alpha b$. That is, $H \cap K$ is a base for $K$. $\blacksquare$
 \subsection*{Part 2}
 \paragraph{}
 We will us Part $1$ to show that positive semidefinite matrices of trace $1$ form a base for the cone of positive semidefinite matrices. But by Part $1$ it is enough to show that set of trace $1$ matrices form an affine hyperplance and that the set of positive semidefinite trace $1$ matrices is bounded.
 \paragraph{}
-Let $J$ be the all ones matrice. Then $$J = \begin{bmatrix}
+Let $J$ be the all ones matrix. Then $$J = \begin{bmatrix}
 1 \\
 \vdots \\
 1
@@ -107,7 +112,7 @@ Therefore the set of trace $1$ matrices is an affine hyperplane.
 \paragraph{}
 It remains to show that the set of trace $1$ positive semidefinite matrices in bounded. Let $X\succcurlyeq 0$ and suppose that $tr(X) = 1$. Let $r$ be the rank of $X$. Since $X \succcurlyeq 0$ there exists vectors $x_1, \dots, x_r$ such that
 $$ X = \sum_{i=1}^r x_ix_i^T.$$
-Let for each $i = 1,\dots,r$ let $\hat{x}_i$ be given by
+For each $i = 1,\dots,r$ let $\hat{x}_i$ be given by
 $$ \hat{x}_i = \frac{x_i}{||x_i||}.$$
 Then $$X = \sum_{i=1}^r ||x_i||^2 \hat{x}_i\hat{x}_i^T.$$
 So taking the trace gives
@@ -163,10 +168,10 @@ Such a $y$ exists by the definition of $d(z,L)$. We have:
 Therefore $d(x,L)$ is a continuous function at any $x\in C$.
 \paragraph{}
 Thus there exists $x \in C$ such that $$ d(x,L) = d(C,L).$$ Now it remains to find $p \in L$ for which $||x - p || = d(x,L)$. Let $a \in L$. Since $L$ is an affine subspace there exists a linear subspace $S$ such that $$ L = a + S.$$
-Let $P_S(v)$ denote the standard orthogonal projection of linear algebra from any $v \in V$ onto $S$. In particular we note that for any $v \in V$ and $s \in S$, $\langle v - P_S(v), s - 0 \rangle = 0$. We claim that the orthogonal projection onto $L$, denoted $P_L(v)$ is of the form:
+Let $P_S(v)$ denote the standard orthogonal projection (from basic linear algebra) from any $v \in V$ onto $S$. In particular we note that for any $v \in V$ and $s \in S$, $\langle v - P_S(v), s - 0 \rangle = 0$. We claim that the orthogonal projection onto $L$, denoted $P_L(v)$ is of the form:
 $$P_L(v) = a + P_S(v-a).$$
 \paragraph{}
-First since $P_S(v-a) \in S$ we have that $P_L(v) \in a + S = L$ so indeed $P_L(v)$ maps into $L$. To verify that the map is orthogonal consider any direction $L$: $p -a$ for $p \in L$. We aim to show that $v - P_L(v)$ is orthogonal to any such direction, that is that:
+First since $P_S(v-a) \in S$ we have that $P_L(v) \in a + S = L$ so indeed $P_L(v)$ maps into $L$. To verify that the map is orthogonal consider any direction of $L$: $p -a$ for $p \in L$. We aim to show that $v - P_L(v)$ is orthogonal to any such direction, that is that:
 $$\langle v - P_L(v), p -a \rangle = 0.$$
 Indeed  let $p_S \in S$ such that $p_S + a = p$. Then we have
 \begin{align*}
@@ -182,7 +187,7 @@ Hence it remains to show that $P_L(x)$ minimizes the distance from $x$ to $L$. L
 &= ||(x-a) - P_S(x-a) ||^2 + ||a + P_S(x) - a - p_S ||^2 \\
 &= ||(x-a) - P_S(x-a) ||^2 + ||P_S(x) - p_S||^2.
 \end{align*}
-Now by the definition of orthogonal projection onto a subspace, $(x-a) - P_S(x-a)$ is an element of the orthogonal complement of $S$. Further since $S$ is a vector subspace and $P_S(x), p_S \in S$, $P_S(x) - p_S \in S$. So by the Pythagorean Theorem
+Now by the definition of orthogonal projection onto a subspace, $(x-a) - P_S(x-a)$ is an element of the orthogonal complement of $S$. Further since $S$ is a vector subspace and $P_S(x), p_S \in S$, so the linear combination $P_S(x) - p_S \in S$. So by the Pythagorean Theorem
 $$ ||(x-a) - P_S(x-a) ||^2 + ||P_S(x) - p_S||^2 = ||(x-a) - P_S(x-a) + P_S(x-a) - p_S||^2 = ||x-a - p_s||^2.$$
 Therefore 
 \begin{align*}
@@ -208,7 +213,7 @@ Then since $L$ is affine $\alpha y_1 + (1-\alpha) y_2 \in L$. But we have
 \langle h, \alpha y_1 + (1-\alpha) y_2 \rangle &= \alpha \langle h,y_1\rangle + (1- \alpha) \langle h, y_2 \rangle \\
 &= \alpha c_1 + (1-\alpha) c_2 \\
 &= c_2 + \alpha (c_1 - c_2) \\
-&= c_2 + \frac{b-c_2}{2(c_1-c_2}(c_1-c_2) \\
+&= c_2 + \frac{b-c_2}{2(c_1-c_2)}(c_1-c_2) \\
 &< c_2 + b-c_2 \\
 &= b. 
 \end{align*}
@@ -224,7 +229,7 @@ Now if $b=c$ then for all $x  \in C$
 $$\langle h, x \rangle < b=c.$$
 Otherwise there exists a point in $C \cap L$, but $C\cap L = \emptyset$, a contradction. So we may assume that $b < c$. Now let $x \in C$. Then
 $$
-\langle h, x \rangle  \leq b < c.
+\langle h, x \rangle  < b \leq c.
 $$
 Hence $H \cap C = \emptyset$. $\blacksquare$
 \section*{5}
