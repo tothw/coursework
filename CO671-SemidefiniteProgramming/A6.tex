@@ -192,7 +192,41 @@ Therefore
 \end{align*}
 So $||x- P_L(x) || \leq ||x-p||$ for any $p \in L$. That is $||x - P_L(x)|| = d(x,L)$. So there exists $p = P_L(x) \in L$ such that $||x-p||$ is equal to $d(C, L)$ and the line through $x$ and $p$ is orthogonal to $L$. $\blacksquare$
 \section*{4}
-
+\paragraph{}
+Let $C \subseteq V$ be a closed convex set. Let $L \subseteq V$ be an affine subspace. Suppose that $C \cap L = \emptyset$. By the separating hyperplane thereom there exists $h$ and $b$ such that for $x \in C$
+$$\langle h, x \rangle \leq b.$$
+and for all $y \in L$
+$$\langle h, y \rangle \geq b.$$
+\paragraph{}
+We claim that there exists $c\geq b$ such that for all $y \in L$
+$$\langle h, y \rangle = c.$$
+That $c \geq b$ is obvious by our choice of $h$ and $b$. Now suppose for a contradiction there exist $y_1, y_2 \in L$ and $c_1, c_2 \geq b$ with $c_1 > c_2$ (without loss of generality) such that $$\langle h, y_1 \rangle = c_1 \quad\text{and}\quad \langle h, y_2 \rangle = c_2.$$
+Then $c_1 - c_2 > 0$. So we may choose
+$$\alpha = \frac{b-c_2}{2(c_1-c_2)}.$$
+Then since $L$ is affine $\alpha y_1 + (1-\alpha) y_2 \in L$. But we have
+\begin{align*}
+\langle h, \alpha y_1 + (1-\alpha) y_2 \rangle &= \alpha \langle h,y_1\rangle + (1- \alpha) \langle h, y_2 \rangle \\
+&= \alpha c_1 + (1-\alpha) c_2 \\
+&= c_2 + \alpha (c_1 - c_2) \\
+&= c_2 + \frac{b-c_2}{2(c_1-c_2}(c_1-c_2) \\
+&< c_2 + b-c_2 \\
+&= b. 
+\end{align*}
+But this contradicts that for all $y \in L$
+$$\langle h, y \rangle \geq b.$$
+Hence there exists $c \geq b$ such that for all $y \in L$
+$$\langle h, y \rangle = c.$$
+Choose $H$ to be the hyperplane defined by all $x$ satisfying
+$$\langle h, x \rangle = c.$$
+Then $L \subseteq H$. 
+\paragraph{}
+Now if $b=c$ then for all $x  \in C$ 
+$$\langle h, x \rangle < b=c.$$
+Otherwise there exists a point in $C \cap L$, but $C\cap L = \emptyset$, a contradction. So we may assume that $b < c$. Now let $x \in C$. Then
+$$
+\langle h, x \rangle  \leq b < c.
+$$
+Hence $H \cap C = \emptyset$. $\blacksquare$
 \section*{5}
 \paragraph{}
 Let $x \in \R^d$ and $t\in \R$. We will show
