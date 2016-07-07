@@ -1,0 +1,127 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{article}
+\usepackage[margin=1in, bottom=1in, top=1in]{geometry} %1 inch margins
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+\usepackage{bbm}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%Macros
+\newcommand{\A}{\mathbb{A}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}} \newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+\newcommand{\1}{\mathbbm{1}} 
+
+\newcommand{\cA}{\mathcal{A}} \newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}} \newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}} \newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}} \newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}} \newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}} \newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}} \newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}} \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}} \newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}} \newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}} \newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}} \newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}} \newcommand{\cZ}{\mathcal{Z}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+%Page style
+\pagestyle{fancy}
+
+\listfiles
+
+\raggedbottom
+
+\rhead{William Justin Toth 671 Assignment 7 - Problem Set 2} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{1pt} %heading underlined
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{7}
+\paragraph{}
+Let $A$ be the adjacency matrix of the graph $G$.  Let $\1$ denote the all ones vector. Let $a^T$ be a row of $A$ corresponding to vertex $v \in V(G)$. Let $d(v)$ denote the degree of vertex $v$. Then
+$$a^T\1 = \sum_{u \sim v} 1 = d(v).$$
+So labelling the vertices of $G$ as $1, \dots, n$ we have
+$$A\1 = \begin{bmatrix} d(1) \\ \vdots \\ d(n)\end{bmatrix}.$$
+So $G$ is a $k$-regular graph if and only if $d(v) = k$ for all $v \in V(G)$ which holds if and only if
+$$ A\1 = \begin{bmatrix} d(1) \\ \vdots \\ d(n)\end{bmatrix} = \begin{bmatrix} k \\ \vdots \\ k \end{bmatrix} = k \1.$$
+That is, $G$ is $k$-regular if and only if $\1$ is an eigenvector of $A$ which eigenvalue $k$, the valency of $G$.
+\paragraph{}
+Now suppose $G$ is a $k$-regular graph on $v$ vertices with adjacency matrix $A$. Suppose that $\tau$ is the least eigenvalue of $A$. We will show that the matrix
+\begin{equation}
+A - \tau I - \frac{k - \tau}{v} J \label{matrix:AIJ}
+\end{equation}
+is positive semidefinite by showing that all its eigenvalues are non-negative.
+\paragraph{}
+First we claim that $\1$ is an eigenvector of (\ref{matrix:AIJ}):
+$$(A - \tau I - \frac{k - \tau}{v} J)\1 = A\1 - \tau \1 - \frac{k-\tau}{v}v\1 = (k-\tau - (k-\tau))\1 = 0 \1 .$$
+Thus $\1$ is an eigenvector of (\ref{matrix:AIJ}) with eigenvalue $0$. It remains to show that all other eigenvalues of (\ref{matrix:AIJ}) are non-negative. 
+\paragraph{}
+Let $\lambda$ be an eigenvalue of (\ref{matrix:AIJ}) distinct from $0$. Since (\ref{matrix:AIJ}) is symmetric we may assume there is an eigenvector associated with $\lambda$, call it $x$, orthogonal to $\1$. We have:
+\begin{align*}
+\lambda x &= (A - \tau I - \frac{k - \tau}{v} J)x \\
+&= Ax - \tau x - \frac{k-\tau}{v} \1\1^T x \\
+&= Ax - \tau x - 0 &\text{ since $\1^T x = 0$}. \\
+\end{align*}
+Therefore
+$$(\lambda+\tau)x = A x. $$
+That is, $\lambda + \tau$ is an eigenvalue of $A$. Since $\tau$ is the least eigenvalue of $A$, 
+$$\lambda + \tau \geq \tau$$
+and hence
+$$\lambda \geq 0.$$
+So all eigenvalues of (\ref{matrix:AIJ}) are non-negative. Therefore (\ref{matrix:AIJ}) is positive semidefinite. $\blacksquare$
+\section*{8}
+\paragraph{}
+Suppose that $A$ is the adjacency matrix of a $k$-regular graph ($k > 0$) $G$ with least eigenvalue $\tau$. Let $x$ be the characteristic vector of a coclique in $G$. Then
+\begin{align*}
+\langle xx^T, A - \tau I - \frac{k - \tau}{v} J \rangle &= tr(xx^T(A - \tau I - \frac{k - \tau}{v} J)) \\
+&= x^T(A - \tau I - \frac{k - \tau}{v} J)x \\
+&\geq 0 &\text{As, by problem $7$, $(A - \tau I - \frac{k - \tau}{v} J) \succcurlyeq 0$}.
+\end{align*}
+\paragraph{}
+Now let $x$ be the characteristic vector of the largest coclique in $G$. Then 
+$$\sum_{i} x_i = \alpha(G).$$
+Since $x^TIx = \sum_{i} x_i^2 = \sum_{i} x_i$ we have
+$$x^TIx = \alpha(G).$$
+Also $\1^Tx = \sum_{i} x_i.$ and hence
+$$x^TJx = (\1^Tx)^2 = \alpha(G)^2.$$
+Now for a row in $A$, call it $a^T$, which corresponds to vertex $v \in V(G)$,
+$$a^Tx = \sum_{u: u\sim v} x_u.$$
+So then
+$$x^T A x = \sum_{v \in V(G)} \sum_{u:u\sim v} x_v x_u = 0.$$
+The last equality follows since $x$ is the characteristic vector of a coclique and so no adjacent vertices are both indexing a $1$ in $x$.
+Thus we have
+\begin{align*}
+0 &\leq \langle xx^T, A - \tau I - \frac{k - \tau}{v} J \rangle \\
+&= \langle xx^TA\rangle - \tau \langle xx^T, I \rangle - \frac{k - \tau}{v} \langle xx^T, J \rangle \\
+&= x^TAx - \tau x^TIx -\frac{k - \tau}{v} x^TJ x \\
+&= 0 - \tau \alpha(G) - \frac{k -\tau}{v} \alpha (G)^2. \\
+&= \alpha(G)(-\tau - \frac{k-\tau}{v} \alpha(G)).
+\end{align*}
+Now by definition $\alpha(G) \geq 1$ so since 
+$$ 0 \leq \alpha(G)(-\tau - \frac{k-\tau}{v} \alpha(G))$$
+we have
+\begin{equation}
+0 \leq -\tau - \frac{k-\tau}{v} \alpha(G) \label{ineq:alpha}\end{equation}
+\paragraph{}
+Before rearranging (\ref{ineq:alpha}) to finish the proof, we need to understand the relationship between $\tau$ and $k$. We claim that $k$ is the maximum eigenvalue of $A$. We have previously shown that $k$ is an eigenvalue of $A$. To see that it is maximal let $\lambda$ be an eigenvalue of $A$ with eigenvector $y$. Let $y_i$ be the element of $y$ with largest absolute value. That is, $|y_i| \geq |y_j|$ for all $j$. Then
+$$ |\lambda| |y_i| = |(Ay)_i| = |\sum_{j:\ j \sim i} y_j| = |d(i) y_j| = |k y_j| \leq k|y_i|$$
+so $\lambda \leq k$ as desired.
+\paragraph{}
+Therefore $k \geq \tau$. If $k = \tau$ then the largest and smallest eigenvaule of $A$ are equal, so $A$ has one eigenvalue. Since $A$ is real symmetric, $A$ is diagonalizable as
+$$A = Q^T k I Q = kQ^TQ = kI$$
+for some orthogonal matrix $Q$. But as the adjacency matrix of a graph this is nonsense unless $k = 0$. But $k > 0$, a contradiction. So we may assume $k > \tau$.
+\paragraph{}
+Since $k > 0$, $\tau - k < 0$ so when rearranging (\ref{:ineq:alpha}) the direction of the inequality will flip. We obtain:
+$$\alpha(G) \leq \tau\frac{v}{\tau-k} = \frac{v}{1-\frac{k}{\tau}}$$
+as desired. $\blacksquare$
+\end{document}
