@@ -124,4 +124,44 @@ for some orthogonal matrix $Q$. But as the adjacency matrix of a graph this is n
 Since $k > 0$, $\tau - k < 0$ so when rearranging (\ref{:ineq:alpha}) the direction of the inequality will flip. We obtain:
 $$\alpha(G) \leq \tau\frac{v}{\tau-k} = \frac{v}{1-\frac{k}{\tau}}$$
 as desired. $\blacksquare$
-\end{document}
+\section*{9}
+\paragraph{}
+Let $G$ and $H$ be graphs. Then $\overline{G} \boxtimes \overline{H}$ has the same vertex set as $\overline{G\boxtimes H}$ so to show that $\overline{G} \boxtimes \overline{H}$ is a spanning subgraph of $\overline{G\boxtimes H}$ it remains to show that $E(\overline{G} \boxtimes \overline{H})\subseteq E(\overline{G\boxtimes H})$.
+\paragraph{}
+Let $(u,x) (v,y) \in E(\overline{G} \boxtimes \overline{H})$. Then by definition of graph complement and strong product we have three cases, either:
+\begin{enumerate}
+\item $u = v$ and $x \not\sim y$ or
+\item $u \not\sim v$ and $x = y$ or
+\item $u \not\sim v$ and $x \not\sim y$.
+\end{enumerate}
+Since $u = v$ implies $u \not \sim v$ and $x = y$ implies $x \not \sim y$ we need only consider case $3$. Now for $(u,x)(v,y) \in E(\overline{G\boxtimes H})$ three conditions must be satisfied:
+\begin{equation} u \neq v \text{ or } x\not\sim y \label{cond:1}\end{equation}
+and
+\begin{equation} u \not\sim v \text{ or } x \neq y \label{cond:2}\end{equation}
+and
+\begin{equation} u \not\sim v \text{ or } x\not\sim y.\label{cond:3}\end{equation}
+\paragraph{}
+Since we are in case $3$, $u\not\sim v$ and thus (\ref{cond:2}) and (\ref{cond:3}) are satisfied. Further since $x \not\sim y$ (\ref{cond:1}) is satisfied. Therefore $(u,x)(v,y) \in E(\overline{G\boxtimes H})$. Hence $\overline{G} \boxtimes \overline{H}$ is a spanning subgraph of $\overline{G\boxtimes H}$. $\blacksquare$
+\section*{10}
+\paragraph{}
+If $G$ is a graph with vertex set $\{1,\dots, n\}$. Let $\Phi(G)$ be the set of symmetric $n\times n$ matrices $M$ such that $M_{ij} = 1$ if $i=j$ or $i \not\sim j$.
+\paragraph{}
+Let $G$ and $H$ be graphs. Let $M \otimes N \in \Phi(G) \otimes \Phi(H)$. We think of indices of entries of $M \otimes N$ as ordered pairs or ordered pairs. That is
+$$(M \otimes N)_{(u,x), (v,y)} = M_{u,v} N_{x,y}.$$ Suppose $u,v \in V(G)$ and $x,y \in V(H)$. Then if $u \neq v$ or $u \not\sim v$ and $x \neq y$ or $x \not \sim y$ then 
+$$M_{u,v} = 1 \quad\text{and}\quad N_{x,y} = 1.$$
+So we have
+$$(M \otimes N)_{(u,x), (v,y)} = M_{u,v} N_{x,y} = 1.$$
+\paragraph{}
+Let $(u,x), (v,y) \in V(G \boxtimes H)$. Suppose that $(u,x) \neq (v,y)$ or $(u,x) \not\sim (v,y)$. If $(u,x) \neq (v,y)$ then $u\neq v$ and $x \neq y$. So by the argument in the preceding paragraph
+$$(M \otimes N)_{(u,x), (v,y)} = 1$$
+and hence $(M \otimes N) \in \Phi(G \boxtimes H)$. Now if $(u,x) \not\sim (v,y)$ then $u,v,x,y$ satisfy conditions (\ref{cond:1}), (\ref{cond:2}), and (\ref{cond:3}). Thus $u \neq v$ or $u \not\sim v$ and $x \neq y$ or $x \not \sim y$. So by the argument in the preceeding paragraph $$(M \otimes N)_{(u,x), (v,y)} = 1$$
+and hence $(M \otimes N) \in \Phi(G \boxtimes H)$.  Therefore in either case we have $\Phi(G) \otimes \Phi(H) \subseteq \Phi(G \boxtimes H)$ $\blacksquare$
+\section*{11}
+\paragraph{}
+Let $G$ and $H$ be graphs of order $n$. We have
+$$\theta(G\boxtimes H) = \min_{M \in \Phi(G\boxtimes H)} \lambda_1(M)$$
+Since $\Phi(G) \otimes \Phi(H) \subseteq \Phi(G\boxtimes H)$ we also have
+$$\min_{M \in \Phi(G\boxtimes H)} \lambda_1(M) \leq \min_{M\otimes N \in \Phi(G) \otimes \Phi(H) }\lambda_1(M\otimes N).$$
+Hence
+$$\theta(G\boxtimes H) \leq \min_{M\otimes N \in \Phi(G) \otimes \Phi(H) }\lambda_1(M\otimes N).$$
+Since the eigenvalues of $M \otimes N$ are given by the products of eigenvalues of $M$ and $N$ ...\end{document}
