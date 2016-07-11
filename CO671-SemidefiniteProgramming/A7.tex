@@ -142,26 +142,38 @@ and
 \begin{equation} u \not\sim v \text{ or } x\not\sim y.\label{cond:3}\end{equation}
 \paragraph{}
 Since we are in case $3$, $u\not\sim v$ and thus (\ref{cond:2}) and (\ref{cond:3}) are satisfied. Further since $x \not\sim y$ (\ref{cond:1}) is satisfied. Therefore $(u,x)(v,y) \in E(\overline{G\boxtimes H})$. Hence $\overline{G} \boxtimes \overline{H}$ is a spanning subgraph of $\overline{G\boxtimes H}$. $\blacksquare$
-\section*{10}
+\section*{12}
 \paragraph{}
-If $G$ is a graph with vertex set $\{1,\dots, n\}$. Let $\Phi(G)$ be the set of symmetric $n\times n$ matrices $M$ such that $M_{ij} = 1$ if $i=j$ or $i \not\sim j$.
+Let $F_{ij}$ denote the matrix with entry $ij$ and $ji$ equal to $1$ and all other entries $0$. Let $\cA = \{ (i,j) : i,j \in \{1, \dots, n\}, \text{ and $i=j$ or $i\sim j$}\}$. The primal program for $\theta(G)$ is:
+\begin{align*}
+\max\quad \langle J, N \rangle&\ \\
+\ni\quad \langle I, N \rangle &= 1 \\
+\langle F_{ij}, N \rangle &= 0 &\text{$(i,j) \in \cA$}\\
+N &\succcurlyeq 0.
+\end{align*}
+\paragraph{} 
+Let $y_0 \in \R$ and $\bar{y} \in \R^{|\cA|}$. We optimize the dual over $y = \begin{bmatrix} y_0 \\ \bar{y} \end{bmatrix}$. The dual of our primal program is:
+\begin{align*}
+&\min\quad y_0&\ \\
+&\ni\quad  y_0+ \sum_{(i,j) \in \cA} y_{ij}F_{ij} - J \succcurlyeq 0.
+\end{align*}
+\section*{13}
 \paragraph{}
-Let $G$ and $H$ be graphs. Let $M \otimes N \in \Phi(G) \otimes \Phi(H)$. We think of indices of entries of $M \otimes N$ as ordered pairs or ordered pairs. That is
-$$(M \otimes N)_{(u,x), (v,y)} = M_{u,v} N_{x,y}.$$ Suppose $u,v \in V(G)$ and $x,y \in V(H)$. Then if $u \neq v$ or $u \not\sim v$ and $x \neq y$ or $x \not \sim y$ then 
-$$M_{u,v} = 1 \quad\text{and}\quad N_{x,y} = 1.$$
-So we have
-$$(M \otimes N)_{(u,x), (v,y)} = M_{u,v} N_{x,y} = 1.$$
+The primal problem from the last question of List $1$ was:
+\begin{align*}
+\max\ &\langle A, X \rangle \\
+\ni\ &\langle I, X\rangle = 1\\
+&X \succcurlyeq 0
+\end{align*}
 \paragraph{}
-Let $(u,x), (v,y) \in V(G \boxtimes H)$. Suppose that $(u,x) \neq (v,y)$ or $(u,x) \not\sim (v,y)$. If $(u,x) \neq (v,y)$ then $u\neq v$ and $x \neq y$. So by the argument in the preceding paragraph
-$$(M \otimes N)_{(u,x), (v,y)} = 1$$
-and hence $(M \otimes N) \in \Phi(G \boxtimes H)$. Now if $(u,x) \not\sim (v,y)$ then $u,v,x,y$ satisfy conditions (\ref{cond:1}), (\ref{cond:2}), and (\ref{cond:3}). Thus $u \neq v$ or $u \not\sim v$ and $x \neq y$ or $x \not \sim y$. So by the argument in the preceeding paragraph $$(M \otimes N)_{(u,x), (v,y)} = 1$$
-and hence $(M \otimes N) \in \Phi(G \boxtimes H)$.  Therefore in either case we have $\Phi(G) \otimes \Phi(H) \subseteq \Phi(G \boxtimes H)$ $\blacksquare$
-\section*{11}
+The dual program ($y \in \R$) is :
+\begin{align*}
+\min\ &y \\
+\ni\ &yI - A \succcurlyeq 0
+\end{align*}
 \paragraph{}
-Let $G$ and $H$ be graphs of order $n$. We have
-$$\theta(G\boxtimes H) = \min_{M \in \Phi(G\boxtimes H)} \lambda_1(M)$$
-Since $\Phi(G) \otimes \Phi(H) \subseteq \Phi(G\boxtimes H)$ we also have
-$$\min_{M \in \Phi(G\boxtimes H)} \lambda_1(M) \leq \min_{M\otimes N \in \Phi(G) \otimes \Phi(H) }\lambda_1(M\otimes N).$$
-Hence
-$$\theta(G\boxtimes H) \leq \min_{M\otimes N \in \Phi(G) \otimes \Phi(H) }\lambda_1(M\otimes N).$$
-Since the eigenvalues of $M \otimes N$ are given by the products of eigenvalues of $M$ and $N$ ...\end{document}
+Complementary Slackness: Let $y^*$ be dual feasible and $X^*$ be primal feasible. Then $y^*$ is dual optimal and $X^*$ is primal optimal if and only if
+$$ 0 = \langle y^*I - A,X^*\rangle.$$
+\section*{14}
+\paragraph{}
+\end{document}
