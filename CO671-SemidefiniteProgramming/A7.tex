@@ -102,7 +102,7 @@ The last equality follows since $x$ is the characteristic vector of a coclique a
 Thus we have
 \begin{align*}
 0 &\leq \langle xx^T, A - \tau I - \frac{k - \tau}{v} J \rangle \\
-&= \langle xx^TA\rangle - \tau \langle xx^T, I \rangle - \frac{k - \tau}{v} \langle xx^T, J \rangle \\
+&= \langle xx^T,A\rangle - \tau \langle xx^T, I \rangle - \frac{k - \tau}{v} \langle xx^T, J \rangle \\
 &= x^TAx - \tau x^TIx -\frac{k - \tau}{v} x^TJ x \\
 &= 0 - \tau \alpha(G) - \frac{k -\tau}{v} \alpha (G)^2. \\
 &= \alpha(G)(-\tau - \frac{k-\tau}{v} \alpha(G)).
@@ -117,11 +117,11 @@ Before rearranging (\ref{ineq:alpha}) to finish the proof, we need to understand
 $$ |\lambda| |y_i| = |(Ay)_i| = |\sum_{j:\ j \sim i} y_j| = |d(i) y_j| = |k y_j| \leq k|y_i|$$
 so $\lambda \leq k$ as desired.
 \paragraph{}
-Therefore $k \geq \tau$. If $k = \tau$ then the largest and smallest eigenvaule of $A$ are equal, so $A$ has one eigenvalue. Since $A$ is real symmetric, $A$ is diagonalizable as
+Therefore $k \geq \tau$. If $k = \tau$ then the largest and smallest eigenvalue of $A$ are equal, so $A$ has one eigenvalue. Since $A$ is real symmetric, $A$ is diagonalizable as
 $$A = Q^T k I Q = kQ^TQ = kI$$
 for some orthogonal matrix $Q$. But as the adjacency matrix of a graph this is nonsense unless $k = 0$. But $k > 0$, a contradiction. So we may assume $k > \tau$.
 \paragraph{}
-Since $k > 0$, $\tau - k < 0$ so when rearranging (\ref{:ineq:alpha}) the direction of the inequality will flip. We obtain:
+Since $k > 0$, $\tau - k < 0$ so when rearranging (\ref{ineq:alpha}) the direction of the inequality will flip. We obtain:
 $$\alpha(G) \leq \tau\frac{v}{\tau-k} = \frac{v}{1-\frac{k}{\tau}}$$
 as desired. $\blacksquare$
 \section*{9}
@@ -174,6 +174,4 @@ The dual program ($y \in \R$) is :
 \paragraph{}
 Complementary Slackness: Let $y^*$ be dual feasible and $X^*$ be primal feasible. Then $y^*$ is dual optimal and $X^*$ is primal optimal if and only if
 $$ 0 = \langle y^*I - A,X^*\rangle.$$
-\section*{14}
-\paragraph{}
 \end{document}
