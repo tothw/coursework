@@ -1,0 +1,102 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{article}
+\usepackage[margin=1in, bottom=1in, top=1in]{geometry} %1 inch margins
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+\usepackage{bbm}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%Macros
+\newcommand{\A}{\mathbb{A}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}} \newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+\newcommand{\1}{\mathbbm{1}} 
+
+\newcommand{\cA}{\mathcal{A}} \newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}} \newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}} \newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}} \newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}} \newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}} \newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}} \newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}} \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}} \newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}} \newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}} \newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}} \newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}} \newcommand{\cZ}{\mathcal{Z}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+%Page style
+\pagestyle{fancy}
+
+\listfiles
+
+\raggedbottom
+
+\rhead{William Justin Toth 671 Assignment 8 - Problem Set 2} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{1pt} %heading underlined
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{10}
+\paragraph{}
+Let $v_1, \dots, v_n$ be an orthonormal representation of $\overline{G}$ and let $w_1, \dots, w_m$ be an orthonormal representation of $\overline{H}$. We claim that the vectors $v_i \otimes w_j$ for all $i,j$ gives an orthonormal representation of $\overline{G \boxtimes H}$. Let $(t,x), (u,y) \in V(G\boxtimes H)$ such that $(t,x) \sim (u,y)$. First we show that each $v_i \otimes w_j$ is normal:
+\begin{align*}
+\langle v_i \otimes w_j, v_i \otimes w_j \rangle &= (v_i \otimes w_j)^T (v_i \otimes w_j) \\
+&= (v_i^T \otimes w_j^T)(v_i \otimes w_j) \\
+&= v_i^Tv_i \otimes w_j^Tw_j \\
+&= 1 \otimes 1 &\text{ as $v_i$ and $w_j$ are normal} \\
+&= 1.
+\end{align*}
+Now we need to show that $$\langle v_t \otimes w_x, v_u \otimes w_y \rangle = 0.$$
+First observe that:
+\begin{align*}\langle v_t \otimes w_x, v_u \otimes w_y \rangle &= (v_t \otimes w_x)^T(v_u \otimes w_y) \\
+&= (v_t^T \otimes w_x^T) (v_u \otimes w_y) \\
+&= v_t^Tv_u \otimes w_x^Tw_y \\
+&= v_t^Tv_u w_x^Tw_y \\
+&= \langle v_t, v_u \rangle \langle w_x, w_y \rangle.
+\end{align*}
+Thus it is enough to show that 
+$$\langle v_t, v_u \rangle = 0 \quad\text{or}\quad \langle w_x, w_y \rangle = 0.$$
+\paragraph{}
+Since $(t,x) \sim (u,y)$ we have one of three cases, either:
+\begin{enumerate}
+\item $t=u$ and $x \sim y$ or
+\item $t\sim u$ and $x = y$ or
+\item $t\sim u$ and $x \sim y$.
+\end{enumerate}
+\paragraph{}
+In case $1$, since $x\sim y$ and the vectors $w_1, \dots, w_n$ form an orthnormal representation of $\overline{H}$
+$$\langle w_x, w_y \rangle  = 0$$
+as desired. In case $2$ and $3$, since $t \sim u$ and the vectors $v_1, \dots, v_n$ form an orthonormal representation of $\overline{G}$
+$$\langle v_t, v_u \rangle = 0$$
+as desired. $\blacksquare$
+\section*{11}
+\paragraph{}
+Lovasz showed that for any graph $G$,
+\begin{equation}\theta(G) = \max \sum_{i} \langle d, v_i\rangle ^2\label{eq:sdp?} \end{equation}
+where the maximum is taken over all unit vectors $d$ and orthonormal representations $v_1, \dots, v_n$ of $\overline{G}$. So let $G$ and $H$ be graphs. Let $d_G$ and $v_1, \dots, w_n$ be the unit vector and orthonormal representation of $\overline{G}$ which optimize (\ref{eq:sdp?}) for $G$. Let $d_H$ and $w_1, \dots, w_m$ be the unit vector and orthonormal representation of $\overline{H}$ which optimize (\ref{eq:sdp?}) for $H$.
+\paragraph{}
+Now by problem $10$, the vectors $v_i \otimes w_j$ form an orthonormal representation of $\overline{G \boxtimes H}$. Further $d_G \otimes d_H$ is a unit vector in $\R^nm$ (in problem $10$ we showed that Kronecker product of unit vectors are unit vectors). So together $d_G \otimes d_H$ and the vectors $v_i \otimes w_j$ form a feasible solution to the optimization problem (\ref{eq:sdp?}) for $G \boxtimes H$. Therefore
+$$\theta(G\boxtimes H) \geq \sum_{i,j} \langle d_G\otimes d_H, v_i \otimes w_j \rangle^2.$$
+Now we compute
+\begin{align*}
+\sum_{i,j} \langle d_G\otimes d_H, v_i \otimes w_j \rangle^2  &= \sum_{i,j}[(d_G\otimes d_H)^T(v_i \otimes w_j)]^2 \\
+&= \sum_{i,j}[(d_G^T \otimes d_H^T)(v_i \otimes w_j)]^2 \\
+&= \sum_{i,j}(d_G^Tv_i \otimes d_H^Tw_j)^2 \\
+&= \sum_{i,j}(d_G^Tv_i)^2 (d_H^Tw_j)^2 \\
+&= \sum_i (d_G^Tv_i)^2 \sum_j (d_H^Tw_j)^2\\
+&= \theta(G)\theta(H).
+\end{align*}
+Hence $\theta(G\boxtimes H) \geq \theta(G)\theta(H)$. On the other hand, by Lemma $4.5.2$ of the course notes we have
+$$\theta(G\boxtimes H) \leq \theta(G) \theta(H).$$
+Therefore $\theta(G \boxtimes H) = \theta(G) \theta(H)$. $\blacksquare$
+\end{document}
