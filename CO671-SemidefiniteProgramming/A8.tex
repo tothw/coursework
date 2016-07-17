@@ -171,5 +171,51 @@ Then we have
 \end{align*}
 The $\leq$ in the third line follows from observing that the optimal $x$ for the program in the second line is simply feasible for the programs in the third line. Therefore $\lambda_1$ is convex. $\blacksquare$
 \section*{18}
-
+\paragraph{}
+The domain of $\lambda_1$ is the set of all symmetric matrices, so the domain of $\lambda_1$ is open. By problem $17$, $\lambda_1$ is convex. Since $\lambda_1$ is a convex function and its domain is open, $\lambda_1$ is continuous (a well-known fact of convex analysis, see Rockafellar's Convex Analysis for proof).
+\paragraph{}
+Despite $\lambda_1$ being continuous it is not differentiable everywhere. Consider the family of symmetric matrices
+$$A(\alpha) = \begin{bmatrix} \alpha & 0 \\ 0 & -\alpha \end{bmatrix}.$$
+Observe that $\lambda_1(A(\alpha)) = |\alpha|$. Now consider the derivative of $\lambda_1$ at $0$ restricting to the set of matrices $A(\alpha)$. Then the derivative is
+$$\lim_{\alpha\rightarrow 0} \frac{\lambda_1(0 + A(\alpha)) - \lambda_1(0)}{\alpha} = \lim_{\alpha\rightarrow 0}\frac{\lambda_1(A(\alpha)}{\alpha} = \frac{|\alpha|}{\alpha}.$$
+But if we approach from the left:
+$$\lim_{\alpha\rightarrow 0^-} \frac{|\alpha|}{\alpha} = \frac{-\alpha}{\alpha} = -1$$
+and if we approach from the right:
+$$\lim_{\alpha \rightarrow 0^+}\frac{|\alpha|}{\alpha} = \frac{\alpha}{\alpha} = 1.$$
+Hence the limit is undefined and so the derivative does not exist at $0$. 
+\section*{19}
+\paragraph{}
+Let $K$ be a closed convex cone such that $int(K) \neq \emptyset$. We will disprove the statement:
+$$\text{$x\in int(K) \iff $ there exists $y \in K^*$ such that $y^Tx > 0$}$$
+from both directions.
+\paragraph{}
+Let $K = \R^n$. Then $K$ is a closed convex cone and $int(K) = K \neq \emptyset$. Let $x \in int(K)$. Observe $K^* = \{0\}$ and hence for all $y \in K^*$, $y^Tx = 0^Tx = 0 \not> 0$. This contradicts the "$\implies$" direction of the statement.
+\paragraph{}
+Now let $K$ be the set of positive semidefinite matrices of order $n = 2$. Then $K$ is self-dual, that is $K^* = K$. Consider the all ones matrix $J \in K$. Now $I \in K^*$ since $I \succcurlyeq 0$ and $\langle I, J\rangle = tr(J) = 2 > 0$. But $J$ has eigenvalue $0$ and hence is nonsingular. Now since $int(K)$ is the set of positive definite matrices, $J \not\in int(K)$. This contradicts the "$\impliedby$" direction of the statement.
+\section*{20}
+\paragraph{}
+Consider the semidefinite program in variables $x_1, \dots, x_n$:
+$$\inf x_n,\quad \begin{bmatrix} 1 & 2 \\2 & x_1\end{bmatrix} \succcurlyeq 0, \quad \begin{bmatrix} 1 & x_{i-1}\\ x_{i-1} & x_i \end{bmatrix} \succcurlyeq 0, \quad (i=2,\dots,n).$$
+\paragraph{}
+We claim that for each $i = 1,\dots, n$, $x_i \leq 2^{2^{i}}$. Proceed by induction on $i$. If $i = 1$ then consider the constraint
+$$\begin{bmatrix} 1 & 2 \\2 & x_1\end{bmatrix} \succcurlyeq 0.$$
+We have that
+$$\det(\begin{bmatrix} 1 & 2 \\2 & x_1\end{bmatrix}) \geq 0$$
+as otherwise the matrix has at least one negative eigenvalue. Therefore
+$$ x_1 - 4 \geq 0$$
+that is,
+$$ x_1 \geq 2^{2^1}$$
+and the claim holds in the base case. Now let $i \in \{2,\dots, n\}$ and suppose the claim holds for $i-1$, that is
+$$x_{i-1} \geq 2^{2^{i-1}}.$$
+Again consider the constraint
+$$ \begin{bmatrix} 1 & x_{i-1}\\ x_{i-1} & x_i \end{bmatrix} \succcurlyeq 0$$
+from which we see that
+$$\det( \begin{bmatrix} 1 & x_{i-1}\\ x_{i-1} & x_i \end{bmatrix}) \geq 0.$$
+Thus we have 
+$$x_i - x_{i-1}^2 \geq 0.$$
+So by the induction hypothesis:
+$$x_i \geq x_{i-1}^2 \geq (2^{2^{i-1}})^2 = 2^{2\cdot 2^{i-1}} = 2^{2^i}.$$
+Hence by induction the claim holds for all $i = 1, \dots, n$. When $i = n$ we have
+$$x_n \geq 2^{2^n}$$
+as desired. $\blacksquare$
 \end{document}
