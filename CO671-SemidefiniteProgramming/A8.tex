@@ -99,4 +99,36 @@ Now we compute
 Hence $\theta(G\boxtimes H) \geq \theta(G)\theta(H)$. On the other hand, by Lemma $4.5.2$ of the course notes we have
 $$\theta(G\boxtimes H) \leq \theta(G) \theta(H).$$
 Therefore $\theta(G \boxtimes H) = \theta(G) \theta(H)$. $\blacksquare$
+\section*{15}
+\paragraph{}
+Let $A$ and $B$ be $m \times n$ and $n \times m$ matrices respectively and let 
+$$N = \begin{bmatrix} I & 0 \\-B & I \end{bmatrix}, \quad M = \begin{bmatrix} I & A \\B & I \end{bmatrix}.$$
+Then 
+$$NM = \begin{bmatrix} I & 0 \\-B & I \end{bmatrix}\begin{bmatrix} I & A \\B & I \end{bmatrix} = \begin{bmatrix}I & A \\ 0 & I-BA\end{bmatrix}$$
+and
+$$MN = \begin{bmatrix} I & A \\B & I \end{bmatrix}\begin{bmatrix} I & 0 \\-B & I \end{bmatrix} = \begin{bmatrix} I-AB & A \\ 0 & I\end{bmatrix}.$$
+Since $NM$ and $MN$ are block upper trianglular we have
+$$\det(NM) = \det(I)\det(I-BA) = \det(I-BA)$$
+and
+$$\det(MN) = \det(I)\det(I-AB) = \det(I-AB).$$
+Further since $\det(NM) = \det(N)\det(M) = \det(MN)$ we have
+$$\det(I-BA) = \det(I-AB)$$
+as desired. Hence if you replace $A$ with $tA$ in the argument above you obtain that
+$$\det(I-tAB) = \det(I-tBA).$$
+\paragraph{}
+To show $AB$ and $BA$ have the same eigenvalues we will use a similar argument to obtain a relationship between the characteristic polynomial of $AB$ and that of $BA$. We redefine $N$ and $M$ as:
+$$N = \begin{bmatrix} \lambda I & 0 \\-B & I \end{bmatrix}, \quad M = \begin{bmatrix} I & A \\B & \lambda I \end{bmatrix}.$$
+For some indeterminant $\lambda$. Then we have
+$$NM = \begin{bmatrix} \lambda I & 0 \\-B & I \end{bmatrix}\begin{bmatrix} I & A \\B & \lambda I \end{bmatrix} = \begin{bmatrix}\lambda I & \lambda A \\ 0 & \lambda I-BA\end{bmatrix}$$
+and
+$$MN = \begin{bmatrix} I & A \\B & \lambda I \end{bmatrix}\begin{bmatrix} \lambda I & 0 \\-B & I \end{bmatrix} = \begin{bmatrix} \lambda I-AB & \lambda A \\ 0 & \lambda I\end{bmatrix}.$$
+Again since our matrices are block upper trianglular we have
+$$\det(NM) = \det(\lambda I)\det(\lambda I - BA) = \lambda^m \det(\lambda I - BA).$$
+and 
+$$\det(MN) = \det(\lambda I) \det(\lambda I -AB) = \lambda^n \det(\lambda I - AB).$$
+Since $\det(NM) = \det(N)\det(M) = \det(MN)$, we have
+$$\lambda^m \det(\lambda I - BA) = \lambda^n \det(\lambda I - AB).$$
+That is the characteristic polynomials of $AB$ and $BA$ agree regarding their non-zero roots and their multiplicities, and hence $AB$ and $BA$ have the same non-zero eigenvalues with the same multiplicities. $\blacksquare$
+\section*{16}
+
 \end{document}
