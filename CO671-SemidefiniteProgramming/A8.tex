@@ -130,5 +130,32 @@ Since $\det(NM) = \det(N)\det(M) = \det(MN)$, we have
 $$\lambda^m \det(\lambda I - BA) = \lambda^n \det(\lambda I - AB).$$
 That is the characteristic polynomials of $AB$ and $BA$ agree regarding their non-zero roots and their multiplicities, and hence $AB$ and $BA$ have the same non-zero eigenvalues with the same multiplicities. $\blacksquare$
 \section*{16}
+\paragraph{Lemma 16.1}
+Let $N$ be a positive semidefinite matrix. Let $A$ be a symmetric matrix. Then
+$$ANA \succcurlyeq 0.$$
+\paragraph{Proof of Lemma 16.1}
+Sicne $N \succcurlyeq 0$ there exists $M$ such that
+$$N = MM^T.$$
+Now $$ANA = AMM^TA = AM(A^TM)^T = AM(AM)^T \succcurlyeq 0.$$ 
+The third equality follows by the symmetry of $A$. $\blacksquare$
+\paragraph{}
+Let $A$ and $B$ be positive definite matrices of the same order. Suppose that $A - B \succcurlyeq 0$. Since $A$ and $B$ are positive definite there exist positive definite matrices $A^\frac{1}{2}$ and $B^\frac{1}{2}$ such that
+$$ A= A^\frac{1}{2}A^\frac{1}{2} \quad B = B^\frac{1}{2} B^\frac{1}{2}.$$
+We will use $A^\frac{-1}{2}$ and $B^\frac{-1}{2}$ to denote the inverses of $A^\frac{1}{2}$ and $B^\frac{1}{2}$ respectively. Note that $A^\frac{-1}{2}A^\frac{-1}{2} = A^{-1}$ and similar for $B^{-1}$.
+\paragraph{}
+By Lemma $16.1$
+$$A^\frac{-1}{2}(A-B)A^\frac{-1}{2} \succcurlyeq 0.$$
+Therefore
+$$I - A^\frac{-1}{2}BA^\frac{-1}{2} \succcurlyeq 0.$$
+Now for any matrix $M$, the eigenvalues of $I-M$ are $1-\lambda$ where $\lambda$ is an eigenvalue of $M$, so the eigenvalues of $I - A^\frac{-1}{2}BA^\frac{-1}{2}$ are $1- \lambda$ where $\lambda$ is an eigenvalue of $A^\frac{-1}{2}BA^\frac{-1}{2}$. Hence any matrix $M$ with the same non-zero eigenvalues as $A^\frac{-1}{2}BA^\frac{-1}{2}$ would also be such that $I - M \succcurlyeq 0$. But $$\A^\frac{-1}{2}BA^\frac{-1}{2}  = (A^\frac{-1}{2}B^\frac{1}{2})(B^\frac{1}{2}A^\frac{-1}{2})$$
+and we have by problem $15$ of this problem set that commuting matrices does not change non-zero eigenvalues. So the non-zero eigenvalues of $A^\frac{-1}{2}BA^\frac{-1}{2}$ are the same as the non-zero eigenvalues of $$(B^\frac{1}{2}A^\frac{-1}{2})(A^\frac{-1}{2}B^\frac{1}{2}) = B^\frac{1}{2}A^{-1}B^\frac{1}{2}.$$
+Therefore
+$$I - B^\frac{1}{2}A^{-1}B^\frac{1}{2} \succcurlyeq 0.$$
+\paragraph{}
+Apply Lemma $16.1$ again we have that
+$$B^\frac{-1}{2}(I - B^\frac{1}{2}A^{-1}B^\frac{1}{2})B^\frac{-1}{2} \succcurlyeq 0$$
+and thus by multiplying through we see
+$$B^{-1} - A^{-1} \succcurlyeq 0.$$
+$\blacksquare$
 
 \end{document}
