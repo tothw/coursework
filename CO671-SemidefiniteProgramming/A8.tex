@@ -157,5 +157,19 @@ $$B^\frac{-1}{2}(I - B^\frac{1}{2}A^{-1}B^\frac{1}{2})B^\frac{-1}{2} \succcurlye
 and thus by multiplying through we see
 $$B^{-1} - A^{-1} \succcurlyeq 0.$$
 $\blacksquare$
+\section*{17}
+\paragraph{}
+Let $\lambda_1(A)$ denote the largest eigenvalue of symmetric matrix $A$. By Laurent and Vallentin we have
+$$\lambda_1(A) = \max_{x: ||x|| = 1} x^TAx.$$
+Let $A$ and $B$ be symmetric matrices  and let $\alpha \in [0,1]$.
+Then we have
+\begin{align*}
+\lambda_1(\alpha A + (1-\alpha)B) &= \max_{x: ||x|| =1} x^T(\alpha A + (1-\alpha)B)x \\
+&= \max_{x: ||x|| =1}\alpha x^TAx + (1-\alpha)x^TBx \\
+&\leq \alpha\max_{x:||x|| =1}x^TAx + (1-\alpha)\max_{x:||x||=1} x^TBx\\
+&= \alpha\lambda_1(A) + (1-\alpha)\lambda_1(B).
+\end{align*}
+The $\leq$ in the third line follows from observing that the optimal $x$ for the program in the second line is simply feasible for the programs in the third line. Therefore $\lambda_1$ is convex. $\blacksquare$
+\section*{18}
 
 \end{document}
