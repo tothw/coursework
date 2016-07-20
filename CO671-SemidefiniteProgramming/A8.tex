@@ -85,7 +85,7 @@ Lovasz showed that for any graph $G$,
 \begin{equation}\theta(G) = \max \sum_{i} \langle d, v_i\rangle ^2\label{eq:sdp?} \end{equation}
 where the maximum is taken over all unit vectors $d$ and orthonormal representations $v_1, \dots, v_n$ of $\overline{G}$. So let $G$ and $H$ be graphs. Let $d_G$ and $v_1, \dots, w_n$ be the unit vector and orthonormal representation of $\overline{G}$ which optimize (\ref{eq:sdp?}) for $G$. Let $d_H$ and $w_1, \dots, w_m$ be the unit vector and orthonormal representation of $\overline{H}$ which optimize (\ref{eq:sdp?}) for $H$.
 \paragraph{}
-Now by problem $10$, the vectors $v_i \otimes w_j$ form an orthonormal representation of $\overline{G \boxtimes H}$. Further $d_G \otimes d_H$ is a unit vector in $\R^nm$ (in problem $10$ we showed that Kronecker product of unit vectors are unit vectors). So together $d_G \otimes d_H$ and the vectors $v_i \otimes w_j$ form a feasible solution to the optimization problem (\ref{eq:sdp?}) for $G \boxtimes H$. Therefore
+Now by problem $10$, the vectors $v_i \otimes w_j$ form an orthonormal representation of $\overline{G \boxtimes H}$. Further $d_G \otimes d_H$ is a unit vector in $\R^{nm}$ (in problem $10$ we showed that Kronecker product of unit vectors are unit vectors). So together $d_G \otimes d_H$ and the vectors $v_i \otimes w_j$ form a feasible solution to the optimization problem (\ref{eq:sdp?}) for $G \boxtimes H$. Therefore
 $$\theta(G\boxtimes H) \geq \sum_{i,j} \langle d_G\otimes d_H, v_i \otimes w_j \rangle^2.$$
 Now we compute
 \begin{align*}
@@ -234,9 +234,9 @@ f(X + tH) &= -\log(\det(X + tH)) \\
 \end{align*}
 Now since determinant is equal to the product of the eigenvalues, and adding $I$ merely shifts eigenvalues by $1$ we have
 $$f(X+tH) = f(X) -\log(\Pi_{i}(1+t\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2}))) = f(X) -\sum_i \log(1+t\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2})),$$
-where $\lambda_i(\cdot)$ denotes the $i^\text{lth}$ largest eigenvalue. Let $g(t)$ be the function
+where $\lambda_i(\cdot)$ denotes the $i^\text{th}$ largest eigenvalue. Let $g(t)$ be the function
 $$g(t) = \sum_i \log(1+t\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2})).$$
-We will approximate $g$ be a Taylor polynomial centred at $0$. Note that $g(0) = \sum_i \log(1) = 0$. Observe that
+We will approximate $g$ by a Taylor polynomial centred at $0$. Note that $g(0) = \sum_i \log(1) = 0$. Observe that
 $$g'(t) = \sum_{i}\frac{\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2})}{1 + t(\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2}))}$$
 and hence
 $$g'(0) = \sum_{i} \lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2}).$$
@@ -270,9 +270,9 @@ Let $A \succcurlyeq 0$. Then there exists $H$ such that $A = HH^T$, and so
 $$\langle\nabla^2f(X), A \rangle = \langle \nabla^2f(X), HH^T\rangle = \langle \nabla^2f(X)H, H\rangle = tr((X^\frac{-1}{2}HX^\frac{-1}{2})^2).$$
 If we can show that $\langle\nabla^2f(X), A \rangle \geq 0$ then we may conclude that $\nabla^2f(X) \succcurlyeq 0$ by Theorem $2.1.2$ of the course notes. So it remains to show
 $$tr((X^\frac{-1}{2}HX^\frac{-1}{2})^2) \geq 0.$$
-Indeed this holds as $X^\frac{-1}{2}HX^\frac{-1}{2})^2 \succcurlyeq 0$. To see that observe
+Indeed this holds as $(X^\frac{-1}{2}HX^\frac{-1}{2})^2 \succcurlyeq 0$. To see that observe
 \begin{align*}
-X^\frac{-1}{2}HX^\frac{-1}{2})^2 &= (X^\frac{-1}{2}HX^\frac{-1}{2})(X^\frac{-1}{2}HX\frac{-1}{2})^T
+(X^\frac{-1}{2}HX^\frac{-1}{2})^2 &= (X^\frac{-1}{2}HX^\frac{-1}{2})(X^\frac{-1}{2}HX^\frac{-1}{2})^T
 \end{align*}
 as $$(X^\frac{-1}{2}HX^\frac{-1}{2})^T = (X^\frac{-1}{2})^TH^T(X^\frac{-1}{2})^T = X^\frac{-1}{2}HX^\frac{-1}{2}$$
 by symmetry of $H$ and $X^\frac{-1}{2}$. $\blacksquare$
