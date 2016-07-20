@@ -218,4 +218,62 @@ $$x_i \geq x_{i-1}^2 \geq (2^{2^{i-1}})^2 = 2^{2\cdot 2^{i-1}} = 2^{2^i}.$$
 Hence by induction the claim holds for all $i = 1, \dots, n$. When $i = n$ we have
 $$x_n \geq 2^{2^n}$$
 as desired. $\blacksquare$
+
+\section*{21}
+\paragraph{}
+Let $f(X) = -\log(\det(X))$ for $X \succ 0$. Let $t$ be a scalar parameter and let $H$ be a symmetric matrix. Consider the second order approximation:
+\begin{equation}f(X + tH) \approx f(X) + t\langle \nabla f(X), H \rangle + \frac{t^2}{2}\langle \nabla^2f(X)H, H\rangle.\label{eq:soa}\end{equation}
+Since $X \succ 0$ there exist positive definite $X^\frac{1}{2}$ such that $X = X^\frac{1}{2}X^\frac{1}{2}$. We have
+\begin{align*}
+f(X + tH) &= -\log(\det(X + tH)) \\
+&= -\log(\det(X^\frac{1}{2}(I + tX^\frac{-1}{2}HX^\frac{-1}{2})X^\frac{1}{2})) \\
+&= -\log(\det(X^\frac{1}{2})\det(I + tX^\frac{-1}{2}HX^\frac{-1}{2})X^\frac{1}{2})\det(X^\frac{1}{2}))\\
+&=-\log(\det(X)\det(I + tX^\frac{-1}{2}HX^\frac{-1}{2})) \\
+&=-\log(\det(X)) -\log(\det(I + tX^\frac{-1}{2}HX^\frac{-1}{2}))\\
+&= f(X) + -\log(\det(I + tX^\frac{-1}{2}HX^\frac{-1}{2})) \label{eq:taylor} \numberthis.
+\end{align*}
+Now since determinant is equal to the product of the eigenvalues, and adding $I$ merely shifts eigenvalues by $1$ we have
+$$f(X+tH) = f(X) -\log(\Pi_{i}(1+t\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2}))) = f(X) -\sum_i \log(1+t\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2})),$$
+where $\lambda_i(\cdot)$ denotes the $i^\text{lth}$ largest eigenvalue. Let $g(t)$ be the function
+$$g(t) = \sum_i \log(1+t\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2})).$$
+We will approximate $g$ be a Taylor polynomial centred at $0$. Note that $g(0) = \sum_i \log(1) = 0$. Observe that
+$$g'(t) = \sum_{i}\frac{\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2})}{1 + t(\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2}))}$$
+and hence
+$$g'(0) = \sum_{i} \lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2}).$$
+Also observe that
+$$g''(t) = -\sum_{i} \frac{\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2})^2}{(1+t\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2}))^2}$$
+and hence
+$$g''(0)  = -\sum_{i} \lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2})^2.$$
+Therefore $g(t)$ can be approximated by a Taylor polynomial as
+\begin{align*}g(t) &\approx g(0) + g'(0)t + \frac{g''(0)}{2} t^2 \\
+&= 0 + t\sum_{i} \lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2}) - t^2 \sum_{i} \lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2})^2 \\
+&= t\cdot tr(X^\frac{-1}{2}HX^\frac{-1}{2}) -t^2 \sum_i\lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2})^2
+\end{align*}
+since trace is the equal to the sum of the eigenvalues. Further note that for any matrix $A$, if $\lambda$ is an eigenvalue of $A$ then $\lambda^2$ is an eigenvalue of $A^2$. For a quick proof suppose that $x$ is the corresponding eigenvector to eigenvalue $\lambda$ of $A$. Then
+$$A^2x = \lambda Ax = \lambda^2x$$
+as desired. Therefore
+$$\sum_{i} \lambda_i(X^\frac{-1}{2}HX^\frac{-1}{2})^2 = \sum_{i} \lambda_i((X^\frac{-1}{2}HX^\frac{-1}{2})^2) = tr((X^\frac{-1}{2}HX^\frac{-1}{2})^2).$$
+So then
+$$g(t) \approx t\cdot tr(X^\frac{-1}{2}HX^\frac{-1}{2}) - t^2 tr((X^\frac{-1}{2}HX^\frac{-1}{2})^2)).$$
+Now substituting into (\ref{eq:taylor}) we observe
+$$f(X+tH) \approx f(X) + t(-tr(X^\frac{-1}{2}HX^\frac{-1}{2})) + \frac{t^2}{2}(tr((X^\frac{-1}{2}HX^\frac{-1}{2})^2)).$$
+Comparing terms with (\ref{eq:soa}) we have
+$$\langle \nabla f(X), H \rangle = -tr(X^\frac{-1}{2}HX^\frac{-1}{2})$$
+and
+$$\langle \nabla^2f(X)H, H\rangle = tr((X^\frac{-1}{2}HX^\frac{-1}{2})^2)$$
+as desired.
+\paragraph{}
+Notice that
+$$\langle \nabla^2f(X)H, H\rangle = tr((\nabla^2f(X)H)^TH) = tr(\nabla^2f(X)^2(HH^T)) = \langle \nabla^2f(X), HH^T\rangle$$
+for any symmetric matrix $H$.
+Let $A \succcurlyeq 0$. Then there exists $H$ such that $A = HH^T$, and so
+$$\langle\nabla^2f(X), A \rangle = \langle \nabla^2f(X), HH^T\rangle = \langle \nabla^2f(X)H, H\rangle = tr((X^\frac{-1}{2}HX^\frac{-1}{2})^2).$$
+If we can show that $\langle\nabla^2f(X), A \rangle \geq 0$ then we may conclude that $\nabla^2f(X) \succcurlyeq 0$ by Theorem $2.1.2$ of the course notes. So it remains to show
+$$tr((X^\frac{-1}{2}HX^\frac{-1}{2})^2) \geq 0.$$
+Indeed this holds as $X^\frac{-1}{2}HX^\frac{-1}{2})^2 \succcurlyeq 0$. To see that observe
+\begin{align*}
+X^\frac{-1}{2}HX^\frac{-1}{2})^2 &= (X^\frac{-1}{2}HX^\frac{-1}{2})(X^\frac{-1}{2}HX\frac{-1}{2})^T
+\end{align*}
+as $$(X^\frac{-1}{2}HX^\frac{-1}{2})^T = (X^\frac{-1}{2})^TH^T(X^\frac{-1}{2})^T = X^\frac{-1}{2}HX^\frac{-1}{2}$$
+by symmetry of $H$ and $X^\frac{-1}{2}$. $\blacksquare$
 \end{document}
