@@ -1,0 +1,87 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{article}
+\usepackage[margin=1in, bottom=1in, top=1in]{geometry} %1 inch margins
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+\usepackage{bbm}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%Macros
+\newcommand{\A}{\mathbb{A}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}} \newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+\newcommand{\1}{\mathbbm{1}} 
+
+\newcommand{\cA}{\mathcal{A}} \newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}} \newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}} \newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}} \newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}} \newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}} \newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}} \newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}} \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}} \newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}} \newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}} \newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}} \newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}} \newcommand{\cZ}{\mathcal{Z}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+%Page style
+\pagestyle{fancy}
+
+\listfiles
+
+\raggedbottom
+
+\rhead{William Justin Toth 671 Assignment 9 - Problem Set 3} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{1pt} %heading underlined
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{1}
+\paragraph{}
+Let $A_i$ denote the adjacency matrix of the $i$-th distance graph of the Hamming graph $H(n,2)$. Set $A_0 = I$. Let $i \in \{1, \dots, n\}$. Let $\alpha_i$ be given as
+$$|\{x \in \Z^n_2 : h(u,x) = 1 \text{ and } h(x,v) = i-1\}| \quad \text{for any }u,v\text{ such that } h(u,v) = i$$
+and let $\beta_i$ be given as
+$$|\{x \in \Z^n_2 : h(u,x) = 1 \text{ and } h(x,v) = i+1\}| \quad \text{for any }u,v\text{ such that } h(u,v) = i.$$
+That is, $\alpha_i$ counts the number of vertices adjacent to $u$ and at distance $i-1$ from $v$ for any pair $u,v$ of Hamming distance $i$, and $\beta_i$ similarly counts the number of vertices adjacent to $u$ and at distance $i+1$. We will show that $\beta_i$ and $\alpha_i$ are independent of our choice of $u,v$ and thus constants depending only on the parameter $n$ of our graph and on $i$.
+\paragraph{}
+As a matter of notation we will use $u \oplus v$ to denote addition in $\Z_2^n$ and leave $+$ denoting the usual addition over integers. One can think of $u \oplus v$ to be $u$ XOR $v$ (bitwise) when $u$ and $v$ are interpreted as bitstrings of length $n$. Let $|u| = \sum_k u_k$, that is $|u|$ counts the number of $1$'s in $u$.
+\paragraph{}
+Let $u, v \in \Z^n_2$ with $h(u,v) = i$ and let $x \in \delta(u)$. Recall that $\delta(u) = \{x \in \Z^n_2: x\sim u \in H(n,2)\}$. Then $x$ and $u$ differ in only one coordinate, so
+$$x \oplus u = e_k$$
+for some $k$, where $e_k$ denotes standard basis vector with $1$ in coordinate $k$. Then $e_k \oplus u = x$. Since $h(u,v) = i$, we have $|u \oplus v | = i$. We compute $h(x,v) = |x \oplus v|$:
+\begin{align*}
+|x \oplus v| &= |(e_k \oplus u) \oplus v|\\
+&= |e_k \oplus (u \oplus v) | \\
+&= \begin{cases}
+i-1, \text{ if $(u \oplus v)_k = 1$}  \\
+i+1, \text{ if $(u\oplus v)_k = 0$} .
+\end{cases} 
+\end{align*}
+\paragraph{}
+Thus $\alpha_i$ counts the number of $x = u \oplus e_k$ where $(u \oplus v)_k = 1$. Since $|u \oplus v| = i$ there are exactly $i$ such $k$ and hence $i$ such $x$. So $\alpha_i = i$. Further $\beta_i$ counts the number of $x = u \oplus e_k$ where $(u \oplus v)_k = 0$. Since there are $i$ coordinates valued $1$ in $(u\oplus v)$ there are $n-i$ coordinates valued $0$. So $\beta_i = n-i$. Therefore $\beta_i$ and $\alpha_i$ are well-defined and independent of our choice of $u$ and $v$.
+\paragraph{}
+Consider the $u,v$-th entry of $A_1A_{i}$, which is equal to $e_u^TA_1A_i e_v$. Observe that $(A_ie_v)_x = 1$ if $h(x,v) = i$ and is $0$ otherwise. Also $(e_u^TA_1)^T_x = 1$ if $x \in \delta(u)$ and is $0$ otherwise. Then we have
+\begin{equation}e_u^TA_1A_ie_v = \sum_{x : x\in \delta(u)\text{ and } h(x,v) = i}1.\label{eq:xcount}\end{equation}
+We claim that if (\ref{eq:xcount}) $> 0$ then $h(u,v) = i \pm 1$. To see this let $x \in \delta(u)$ such that $h(x,v) = i$. If $h(u,v) = i$ then the path from $u$ to $x$ to $v$ (via an $i$ length path), back to $u$ (via an $i$ length path) forms a cycle in $H(n,2)$ of length $2i+1$ which is odd. This cannot happen since $H(n,2)$ is bipartite (partitions are vertices with even number of ones and vertices with an odd number of ones; it is clear that changing one coordinate of an element of $\Z^n_2$ changes this parity and hence adjacent elements have differing parity in terms of number of ones). Now if $h(u,v) < i-1$ then the path from $x$ to $u$ to $v$ (via an $<i-1$ length path) is an $x$-$v$ path of length $< i$ contradicting $h(x,v) = i$. In the case $h(u,v) > i+1$ the path from $u$ to $x$ to $v$ (via an $i$ length path) is a $u$-$v$ path of length $i+1$ contradicting $h(u,v) > i+1$. Thus the claim $h(u,v) = i \pm 1$ if (\ref{eq:xcount}) $>0$ holds.
+\paragraph{}
+Let $c_i = \beta_{i-1}$ and $b_i = \alpha_{i+1}$. Suppose $(\ref{eq:xcount}) > 0$. If $h(u,v) = i-1$ then $(A_{i-1})_{u,v} = 1$, and $(\ref{eq:xcount})$ is precisely $\beta_{i-1}$ which counts the number of vertices adjacent to $u$ and at distance $i$ from $v$. Also observe that $(A_{i+1})_{u,v} = 0$ in this case. So we have
+$$e_u^T A_1 A_i e_v = c_i (A_{i-1})_{u,v} + b_i(A_{i+1})_{u.v}.$$
+Now if $h(u,v) = i+1$ then $(A_{i+1})_{u,v} = 1$ and (\ref{eq:xcount}) is precisely $\alpha_{i+1}$ which counts the number of vertices adjacent to $u$ and at distance $i$ from $v$. Also observe that $(A_{i-1})_{u,v} = 0$ in this case. So we have
+$$e_u^T A_1 A_i e_v = c_i (A_{i-1})_{u,v} + b_i(A_{i+1})_{u.v}.$$
+\paragraph{}
+It remains to consider when $(\ref{eq:xcount}) = 0$. In this case $h(u,v) \neq i \pm 1$. If $h(u,v) = i + 1$ then let $x$ be the vertex immediately following $u$ on the $i+1$ length $u$-$v$ path. The $x$-$v$ subpath of $u$-$v$ path of length $i+1$ is of length $i$ so $h(x, v) \leq i$. If $h(x,v) < i$ then take the $x$-$v$ path of length $<i$ and join $u$ to the beginning of it giving a $u$-$v$ path of length $< i+1$, contradicting that $h(u,v) = i+1$. So $h(x,v) = i$. But this contradicts $(\ref{eq:xcount}) = 0$. So $h(u,v) \neq i+1$. Similarly suppose $h(u,v) = i-1$. Then $i-1<n$ and hence there exists an index $k$ for which $u_k = v_k$ (as $u,v$ differ in $i-1$ indices). Let $x = u \oplus e_k$. Then $x \in \delta(u)$ and $h(x,v) = h(u,v) + 1 = i.$ But this contradicts that (\ref{eq:xcount}) $=0$. So $h(u,v) = i \pm 1$. Thus $$(A_{i\pm1})_{u,v} = 0$$ and so
+$$e_u^T A_1 A_i e_v = c_i (A_{i-1})_{u,v} + b_i(A_{i+1})_{u.v}.$$
+\paragraph{}
+Now since $u,v$ were arbitrary, and $c_i$ and $b_i$ are independent of $u$ and $v$ we have
+$$A_1 A_i = c_i A_{i-1} + b_i A_{i+1}.$$ $\blacksquare$
+\end{document}
