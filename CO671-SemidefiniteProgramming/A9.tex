@@ -46,7 +46,9 @@
 %\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
 
 \begin{document}
-\section*{1}
+\section{}
+\paragraph{}
+Throughout we use the equivalence of Hamming distance and path length in $H(n,2)$ which we prove in question $2$ which follows.
 \paragraph{}
 Let $A_i$ denote the adjacency matrix of the $i$-th distance graph of the Hamming graph $H(n,2)$. Set $A_0 = I$. Let $i \in \{1, \dots, n\}$. Let $\alpha_i$ be given as
 $$|\{x \in \Z^n_2 : h(u,x) = 1 \text{ and } h(x,v) = i-1\}| \quad \text{for any }u,v\text{ such that } h(u,v) = i$$
@@ -84,4 +86,31 @@ $$e_u^T A_1 A_i e_v = c_i (A_{i-1})_{u,v} + b_i(A_{i+1})_{u.v}.$$
 \paragraph{}
 Now since $u,v$ were arbitrary, and $c_i$ and $b_i$ are independent of $u$ and $v$ we have
 $$A_1 A_i = c_i A_{i-1} + b_i A_{i+1}.$$ $\blacksquare$
+
+\section{}
+\paragraph{}
+Consider the Hamming graph $H(n,2)$. Proceed by induction on $i$. For the sake of precision our claim to be proved by induction is
+$$\text{ for any $i \in \{1, \dots, n\}$, $h(u,v) = i=d(u,v)$}$$
+where $d(u,v)$ is the distance (length of shortest path) between $u$ and $v$ as vertices of $H(n,2)$, and $h(u,v)$ is the Hamming distance between $u$ and $v$.
+\paragraph{}
+In the base case, $i=1$ the result is immediate by definition of $H(n,2)$. Now let $i \in \{2,\dots, n\}$ and suppose the claim holds for any $j \in \{1, \dots, i-1\}$. Let $u,v \in \Z^n_2$ be two vertices of $H(n,2)$. Suppose $h(u,v) = i$. Then there exists $k$ such that $u_k \neq v_k$. Let $x = u \oplus e_k$. Then $h(x,v) = i-1$. By induction $d(x,v) = i-1$. Since $x \in \delta(u)$ we have $$d(u,v) \leq d(x,v) +1 = i.$$
+Suppose for a contradiction that $d(u,v) < i$. Then by induction $h(u,v) < i$, a contradiction to $h(u,v) = i$. Hence $d(u,v) = i = h(u,v)$.
+\paragraph{}
+Therefore by induction $h(u,v) = d(u,v)$ for any $i \in \{1,\dots, n\}$. $\blacksquare$
+
+\section{}
+Let $J(v,k)$ be the graph whose vertices are $k$-subsets of $V = \{1,\dots,v\}$ where $k$-subsets $\alpha$ and $\beta$ are adjacent if and only if $|\alpha \cap \beta | = k-1$. Assume $2k \leq v$. We want to show that $$\text{$k$-subsets $\alpha$ and $\beta$ are at distance $i$ in $J(v,k)$ if and only if $|\alpha \cap \beta | = k-i$}.$$
+Let $d(\alpha,\beta)$ denote the distance between $k$-subsets $\alpha$ and $\beta$. Let $j(\alpha, \beta) = k - |\alpha \cap \beta|$. Then equivalently we will show
+$$\text{ $k$-subsets $\alpha$ and $\beta$ are such that $d(\alpha, \beta) = i = j(\alpha, \beta)$ for any $i \in \{1, \dots, k\}$}.$$
+We proceed by induction on $i$. In the base case $i=1$ the claim holds by definition. Suppose that the claim holds for any $k$-subsets at distance less than $i$ for $i>1$. Let $\alpha, \beta$ be $k$-subsets such that $j(\alpha, \beta) = i > 1$.  Then 
+$|\alpha \cap \beta| = k -i < k$
+so there exists $a \in \alpha\backslash\beta$ and there exists $b \in \beta\backslash\alpha$.  Let $$\gamma = \beta \backslash \{b\} \cup \{a\}.$$
+Then $|\gamma \cap \beta | = k-1$ and hence $\gamma \in \delta(\beta)$. Now we have
+\begin{align*}
+|\alpha \cap \gamma | &= | \alpha \cap (\beta \backslash \{b\} \cup \{a\})| \\
+&= | \alpha \cap \beta \backslash\{b\} \cup \alpha \cap \{a\}| \\
+&=|\alpha \cap \beta | + 1 \\
+&= k - i + 1.
+\end{align*}
+So $j(\alpha, \gamma) = k - k + i -1 = i -1 < i$. Then by induction $d(\alpha, \gamma) = i-1$. Since $\gamma \in \delta(\beta)$ this give $d(\alpha, \beta) \leq i$. But if $d(\alpha,\beta) < i$ then by induction $j(\alpha, \beta) < i$, a contradiction, so we have in fact that $d(\alpha, \beta) = i$. Therefore by induction the claim holds for all $i$. $\blacksquare$
 \end{document}
