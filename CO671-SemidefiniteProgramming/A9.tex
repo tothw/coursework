@@ -115,6 +115,8 @@ Then $|\gamma \cap \beta | = k-1$ and hence $\gamma \in \delta(\beta)$. Now we h
 So $j(\alpha, \gamma) = k - k + i -1 = i -1 < i$. Then by induction $d(\alpha, \gamma) = i-1$. Since $\gamma \in \delta(\beta)$ this give $d(\alpha, \beta) \leq i$. But if $d(\alpha,\beta) < i$ then by induction $j(\alpha, \beta) < i$, a contradiction, so we have in fact that $d(\alpha, \beta) = i$. Therefore by induction the claim holds for all $i$. $\blacksquare$
 \section{}
 \paragraph{}
+We use the equivalence between distance in $J(v,k)$ and size of intersection as outlined and proven in problem $3$ throughout.
+\paragraph{}
 Let $A_i$ be the adjacency matrix of the $i$-distance graph of $J(v,k)$ and set $A_0 = I$. Let $\alpha, \beta$ be $k$-subsets of $V = \{1, \dots, v\}$. Then for any $b \in V \backslash \alpha$ and $a \in \alpha$ we have
 $$|\alpha \cap (\alpha \backslash \{a\} \cup \{b\}| = k -1$$
 and hence $(\alpha \backslash \{a\} \cup \{b\}) \in \delta(\alpha)$. In fact any $\gamma \in \delta(\alpha)$ has this form as there is precisely one element of $\alpha$ not in $\gamma$ and conversely there is precisely one element in $\gamma$ not in $\alpha$.
@@ -129,9 +131,9 @@ There are $v-k$ choices of $b$ and $k$ choices of $a$ and hence $|\delta(\alpha)
 \paragraph{}
 In cases $1$ and $4$ we have $|\beta \cap \gamma | = |\beta \cap \alpha| = k-i$. There are $(k-i)i + i(v-k-i)$ ways to choose $\alpha$ and $\beta$ this way. Set $a_i = (k-i)i + i(v-k-i)$. Then for any $k$-subsets vertices satisfying $|\alpha \cap \beta| = k-i$, $a_i$ counts the number of $k$-subsets adjacent to $\alpha$ and with intersection size $k-i$ with $\beta$.
 \paragraph{}
-In case $2$ we have $|\beta \cap \gamma | = |\beta \cap \alpha| -1$. There are $(k-i)(v-k-i)$ ways to choose $\alpha$ and $\beta$ this way. Set $b_{i-1} = (k-i)(v-k-i)$. Then for any $k$-subsets vertices satisfying $|\alpha \cap \beta| = k-i$, $b_{i-1}$ counts the number of $k$-subsets adjacent to $\alpha$ and with intersection size $k-i-1$ with $\beta$.
+In case $2$ we have $|\beta \cap \gamma | = |\beta \cap \alpha| -1$. There are $(k-i)(v-k-i)$ ways to choose $\alpha$ and $\beta$ this way. Set $c_{i-1} = (k-i)(v-k-i)$. Then for any $k$-subsets vertices satisfying $|\alpha \cap \beta| = k-i$, $c_{i-1}$ counts the number of $k$-subsets adjacent to $\alpha$ and with intersection size $k-i-1$ with $\beta$.
 \paragraph{}
-In case $3$ we have $|\beta \cap \gamma | = k-i +1$. There are $i^2$ ways to choose $\alpha$ and $\beta$ this way. Set $c_{i+1} = i^2$. Then for any $k$-subsets vertices satisfying $|\alpha \cap \beta| = k-i$, $c_{i+1}$ counts the number of $k$-subsets adjacent to $\alpha$ and with intersection size $k-i+1$ with $\beta$.
+In case $3$ we have $|\beta \cap \gamma | = k-i +1$. There are $i^2$ ways to choose $\alpha$ and $\beta$ this way. Set $b_{i+1} = i^2$. Then for any $k$-subsets vertices satisfying $|\alpha \cap \beta| = k-i$, $b_{i+1}$ counts the number of $k$-subsets adjacent to $\alpha$ and with intersection size $k-i+1$ with $\beta$.
 \paragraph{}
 Let $\alpha$ and $\beta$ be $k$-subsets of $V$. Then as in problem $1$ $(A_1A_i)_{\alpha,\beta}$ counts the number of $k$-subsets $\gamma$ such that $\gamma \in \delta(\alpha)$ and $|\beta \cap \gamma| = k-i$. As $\alpha \in \delta(\gamma)$ we have that either
 \begin{itemize}
@@ -143,20 +145,21 @@ Let $\alpha$ and $\beta$ be $k$-subsets of $V$. Then as in problem $1$ $(A_1A_i)
 In the first case $a_i$ counts exactly how many such $\gamma$ there are. In this case $(A_i)_{\alpha,\beta} = 1$, and $(A_{i-1})_{\alpha,\beta} = (A_{i+1})_{\alpha,\beta} = 0$. So
 $$(A_1A_i)_{\alpha,\beta} = c_i A_{i-1} + a_iA_i + b_iA_{i+1}.$$
 \paragraph{}
-In the second case $c_i$ counts exactly how many such $\gamma$ there are. In this case $(A_{i-1})_{\alpha,\beta} = 1$, and $(A_{i})_{\alpha,\beta} = (A_{i+1})_{\alpha,\beta} = 0$. So
+In the second case $b_i$ counts exactly how many such $\gamma$ there are. In this case $(A_{i+1})_{\alpha,\beta} = 1$, and $(A_{i})_{\alpha,\beta} = (A_{i+1})_{\alpha,\beta} = 0$. So
 $$(A_1A_i)_{\alpha,\beta} = c_i A_{i-1} + a_iA_i + b_iA_{i+1}.$$
 \paragraph{}
-In the third case $b_i$ counts exactly how many such $\gamma$ there are. In this case $(A_{i+1})_{\alpha,\beta} = 1$, and $(A_{i})_{\alpha,\beta} = (A_{i-1})_{\alpha,\beta} = 0$. So
+In the third case $c_i$ counts exactly how many such $\gamma$ there are. In this case $(A_{i-1})_{\alpha,\beta} = 1$, and $(A_{i})_{\alpha,\beta} = (A_{i-1})_{\alpha,\beta} = 0$. So
 $$(A_1A_i)_{\alpha,\beta} = c_i A_{i-1} + a_iA_i + b_iA_{i+1}.$$
 \paragraph{}
 It remains to consider when $(A_1A_i)_{\alpha,\beta} = 0$. If $|\alpha \cap \beta| = k-i$ then either there exist distinct $a, b \in \alpha \cap \beta$ and hence $\gamma = \alpha \backslash\{a\} \cup \{b\}  \in \delta(\alpha)$ and $|\beta \cap \gamma| = k-i$, or $\alpha \cap \beta = \{a\}$. In the first $\gamma$ cannot exist as $(A_1A_i)_{\alpha,\beta} = 0$, a contradiction. In the second $a_i = 0$ and so
 $$(A_1A_i)_{\alpha,\beta} = c_i A_{i-1} + a_iA_i + b_iA_{i+1}$$
 still holds.
 \paragraph{}
-Now suppose $(A_1A_i)_{\alpha,\beta} = 0$ and $|\alpha \cap \beta| = k-i -1$. If $\alpha \cap \beta \neq \emptyset$ then there is $a \in \alpha \cap \beta$ and $b \in \beta \backslash \alpha$. Let $\gamma = \alpha \backslash\{a\} \cup \{b\}$ Then $\gamma \in \delta(\alpha)$ and $|\beta \cap \gamma| = i$, contradicting $(A_1A_i)_{\alpha,\beta} = 0$, so this case cannot happen. If $\alpha \cap \beta = \emptyset$ then $c
+Now suppose $(A_1A_i)_{\alpha,\beta} = 0$ and $|\alpha \cap \beta| = k-i -1$. If $\alpha \cap \beta \neq \emptyset$ then there is $a \in \alpha \cap \beta$ and $b \in \beta \backslash \alpha$. Let $\gamma = \alpha \backslash\{a\} \cup \{b\}$. Then $\gamma \in \delta(\alpha)$ and $|\beta \cap \gamma| = k-i$, contradicting $(A_1A_i)_{\alpha,\beta} = 0$, so this case cannot happen. If $\alpha \cap \beta = \emptyset$ then $c_i = 0$ and so
+$$(A_1A_i)_{\alpha,\beta} = c_i A_{i-1} + a_iA_i + b_iA_{i+1}$$
+still holds
 \paragraph{}
-Finally suppose $(A_1A_i)_{\alpha,\beta} = 0$ and $|\alpha \cap \beta| = k-i +1$. Then there is $a \in \alpha
-
-%need to verify which distance matrix goes with which of a,b,c
-%need to finish last two cases
+Finally suppose $(A_1A_i)_{\alpha,\beta} = 0$ and $|\alpha \cap \beta| = k-i +1$. If $\alpha \cap \beta \neq \emptyset$ then there is $a \in \alpha \backslash \beta$ and $b \in \beta \cap \alpha$. Let $\gamma = \alpha \backslash\{a\} \cup \{b\}$. Then $\gamma \in \delta(\alpha)$ and $|\beta \cap \gamma| = k-i$, contradicting $(A_1A_i)_{\alpha,\beta} = 0$, so this case cannot happen. If $\alpha \cap \beta = \emptyset$ then $b_i = 0$ and so
+$$(A_1A_i)_{\alpha,\beta} = c_i A_{i-1} + a_iA_i + b_iA_{i+1}$$
+$\blacksquare$
 \end{document}
