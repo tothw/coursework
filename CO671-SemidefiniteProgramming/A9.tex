@@ -162,4 +162,42 @@ still holds
 Finally suppose $(A_1A_i)_{\alpha,\beta} = 0$ and $|\alpha \cap \beta| = k-i +1$. If $\alpha \cap \beta \neq \emptyset$ then there is $a \in \alpha \backslash \beta$ and $b \in \beta \cap \alpha$. Let $\gamma = \alpha \backslash\{a\} \cup \{b\}$. Then $\gamma \in \delta(\alpha)$ and $|\beta \cap \gamma| = k-i$, contradicting $(A_1A_i)_{\alpha,\beta} = 0$, so this case cannot happen. If $\alpha \cap \beta = \emptyset$ then $b_i = 0$ and so
 $$(A_1A_i)_{\alpha,\beta} = c_i A_{i-1} + a_iA_i + b_iA_{i+1}$$
 $\blacksquare$
+\section{}
+\paragraph{}
+Let $K = J_2 - I_2$ be the adjacency matrix of $K_2$. We will prove the claim:
+$$(I + tK)^{\otimes n} = A_0 + tA_1 + \dots + t^nA_n$$
+where $A_i$ is the $i$-th distance matrix of $H(n,2)$ by induction, setting $A_0 = I$. In the base case $n=1$, $H(1,2)$ has two vertices, $0$ and $1$, both adjacent, so
+$$A_1 = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} = K.$$
+Therefore
+$$(I+tK)^{\otimes 1} = I + tK = A_0 + tA_1$$
+as desired.
+\paragraph{}
+For induction let $n > 1$ and suppose the claim holds for Kronecker powers smaller than $n$. We have by induction
+$$(I + tK)^{\otimes n} = (I+tK)(I+tK)^{\otimes n-1} = (I+tK)\otimes(\sum_{i=0}^{n-1} t^iB_i)$$
+where $B_i$ is the $i$-th distance matrix of $H(n-1,2)$. Since $\otimes$ distributes over addition we have
+$$(I+tK)\otimes(\sum_{i=0}^{n-1} t^iB_i) = \sum_{i=0}^{n-1} (I \otimes B_i)t^i + \sum_{i=0}^{n-1} (K \otimes B_i) t^{i+1} = I\otimes B_0 + \sum_{i=1}^{n-1}[(I \otimes B_i + K \otimes B_{i-1})t^i] + t^n K\otimes B_{n-1}$$
+Thus we have three things to verify: that $$I \otimes B_0 = A_0,$$
+$$(I \otimes B_i + K \otimes B_{i-1})t^i = A_i$$
+for $i = 1, \dots, n-1$, and 
+$$K \otimes B_{n-1} = A_n$$
+where $A_i$ is the $i$-th distance matrix of $H(n,2)$.
+\paragraph{}
+To verify that $I \otimes B_0 = A_0$ we simply must check that the identity matrix given by $I \otimes B_0$ is of appropriate dimensions. Since $H(n-1,2)$ has $2^{n-1}$ vertices (count subsets of a set of $n-1$ elements), $B_0$ is of dimensions $2^{n-1} \times 2^{n-1}$. Also we know $I$ is $2\times 2$ so we that that the dimensions of $I \otimes B_0$ are
+$2(2^{n-1}) \times 2(2^{n-1}) = 2^n \times 2^n$
+as desired. Notice this argument actually demonstrates that the matrices whose properties which remain to verify are all of appropriate dimensions.
+\paragraph{}
+Let $v \in Z^n_2$ be a vertex  of $H(n,2)$ and let $u\in \Z^{n-1}_2$ be such that $u_i = v_i$ for $i = 1, \dots, n-1$. Then 
+$$v = \begin{cases}\begin{bmatrix}u\\0\end{bmatrix} + 0, &\text{if $v_n = 0$} \\ \begin{bmatrix}u\\0\end{bmatrix} + e_n, &\text{if $v_n = 1$} \end{cases}$$
+where $e_n$ is the $n$-th standard basis vector. That is, we may think of $v$ as being given by a vertex of $H(n-1,2)$ that is extended by either a $0$ or $1$ in the $n$-th coordinate. We will now describe $A_i$. We may assume without loss of generality that the rows and columns of the matrices $B_0, \dots, B_{n-1}$ are arranged indexing vertices $u^1, \dots, u^{2^{n-1}}$, and the rows and columns of $A_i$ are arranged indexing $$\begin{bmatrix}u^1 \\ 0 \end{bmatrix} , \dots, \begin{bmatrix}u^{2^{n-1}} \\ 0 \end{bmatrix}, \begin{bmatrix}u^1 \\ 1 \end{bmatrix}, \dots, \begin{bmatrix}u^{2^{n-1}} \\ 1 \end{bmatrix}.$$
+Let $v, y \in \Z^n_2$ and let $u, x \in \Z^{n-1}_2$ be the vertices extended to obtain $v$ and $y$ respectively. If $v_n = y_n = 0$ or $v_n = y_n = 1$ then
+$$h(v,y) = h(u,x).$$
+So if $u,x$ are at distance $i$ in $H(n-1,2)$ then there extensions which have the same $n$-th coordinates are at distance $i$ in $H(n,2)$. Therefore the diagonal blocks of $A_i$ are $B_i$. Now if $v_n \neq y_n$ then
+$$h(v,y) = h(u,x) + h(e_n, 0) = h(u,x) + 1.$$
+So if $u,x$ are at distance $i-1$ in $H(n-1,2)$ then there extensions which have differing $n$-th coordinates are at distance $i$ in $H(n,2)$. Therefore the anti-diagonal blocks of $A_i$ are $B_{i-1}$. Collecting these observations we conclude that
+$$A_i = \begin{bmatrix}B_i & B_{i-1} \\ B_{i-1} & B_i. \end{bmatrix}$$
+but for $i = 1,\dots,n-1$ this is exactly $I \otimes B_i + K \otimes B_{i-1}$. 
+\paragraph{}
+Finally for $A_n$ the anti-diagonal blocks are still $B_{n-1}$ as argued previously but since there are no vertices in $H(n-1,2)$ at distance $n$ we have
+$$A_n = \begin{bmatrix}0 & B_{n-1} \\ B_{n-1} & 0. \end{bmatrix}$$
+which is exactly $K\otimes B_{n-1}$ as desired. So by induction the result holds. $\blacksquare$
 \end{document}
