@@ -200,4 +200,23 @@ but for $i = 1,\dots,n-1$ this is exactly $I \otimes B_i + K \otimes B_{i-1}$.
 Finally for $A_n$ the anti-diagonal blocks are still $B_{n-1}$ as argued previously but since there are no vertices in $H(n-1,2)$ at distance $n$ we have
 $$A_n = \begin{bmatrix}0 & B_{n-1} \\ B_{n-1} & 0. \end{bmatrix}$$
 which is exactly $K\otimes B_{n-1}$ as desired. So by induction the result holds. $\blacksquare$
+\section{}
+\paragraph{}
+We have that the eigenvalues of $I+tK$ are $1+t$ and $1-t$. We claim that for any matrices $A, B$ the eigenvalues of $A \otimes B$ are
+$$\lambda_i \mu_j \quad \text{for any $i =1,\dots, n$ and $j = 1,\dots,m$}$$ 
+where $\lambda_1, \dots, \lambda_n$ are the eigenvalues of $A$ and $\mu_1, \dots, \mu_m$ are the eigenvalues of $B$. Indeed let $\lambda_i$ be an eigenvalue of $A$ with eigenvector $x$ and let $\mu_j$ be an eigenvalue of $B$ with eigenvector $y$. Then 
+$$(A\otimes B)(x\otimes y) = (Ax \otimes By) = (\lambda_i x \otimes \mu_j y) = \lambda_i\mu_j(x\otimes y)$$
+so $\lambda_i \mu_j$ is an eigenvalue of $A\otimes B$. There are $nm$ such $\lambda_i\mu_j$ and $A \otimes B$ is of order $nm \times nm$ so these such $\lambda_i \mu_j$ are all the eigenvalues of $A\otimes B$.
+\paragraph{}
+We will show that the eigenvalues of
+$$(I + tK)^{\otimes n} = (1+t)^k(1-t)^{n-k} \quad\text{for $k = 0,\dots, n$}$$
+by induction on $n$. In the base case $n=1$ we have already noted that the eigenvalues of $I+tK$ are $1 \pm t$. Now let $n > 1$ and suppose that the eigenvalues of $(I+tK)^{\otimes n-1}$ are $(1+t)^k(1-t)^{n-1-k}$ for any $k =0, \dots, n-1$. Since
+$$(I + tK)^{\otimes n} = (I+tK) \otimes (I+tK)^{\otimes n-1},$$
+by our claim we know that the eigenvalues of $(I+tK)^{\otimes n}$ are $\lambda_i \mu_j$ for $i = 1, \dots, 2$ and $j = 1,\dots, 2^{n-1}$ where $\lambda_i$ is an eigenvalue of $I+tK$ and $\mu_j$ is an eigenvalue of $(I+tK)^{\otimes n-1}$. Let $k \in \{ 0, \dots, n\}$. If $k >0$ then we observe that
+$$(1+t)^k(1-t)^{n-k} = (1+t)(1+t)^{k-1}(1-t)^{n-1-k}$$
+and since $1+t$ is an eigenvalue of $I+tK$ and $(1+t)^{k-1}(1-t)^{n-1-k}$ is an eigenvalue of $(I+tK)^{\otimes n-1}$ by induction, we have $(1+t)^k(1-t)^{n-k}$ is an eigenvalue of $(I+tK)^{\otimes n}$. Now if $k = 0$ then
+$$(1+t)^k(1-t)^{n-k} = (1-t)^{n} = (1-t)(1-t)^{n-1}$$
+and since $1-t$ is an eigenvalue of $I+tK$ and $(1-t)^{n-1}$ is an eigenvalue of $(I+tK)^{\otimes n-1}$ by induction, we have $(1+t)^k(1-t)^{n-k}$ is an eigenvalue of $(I+tK)^{\otimes n}$. Hence the result holds by induction.
+\paragraph{}
+
 \end{document}
