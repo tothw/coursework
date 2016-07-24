@@ -218,5 +218,16 @@ and since $1+t$ is an eigenvalue of $I+tK$ and $(1+t)^{k-1}(1-t)^{n-1-k}$ is an 
 $$(1+t)^k(1-t)^{n-k} = (1-t)^{n} = (1-t)(1-t)^{n-1}$$
 and since $1-t$ is an eigenvalue of $I+tK$ and $(1-t)^{n-1}$ is an eigenvalue of $(I+tK)^{\otimes n-1}$ by induction, we have $(1+t)^k(1-t)^{n-k}$ is an eigenvalue of $(I+tK)^{\otimes n}$. Hence the result holds by induction.
 \paragraph{}
+Now we claim that each $A_i$ is a polynomial in $A_1$. We proceed by induction on $i$. In the base case when $i=0$,
+$$A_0 = I = A_1^0.$$
+We need another base case, when $i=1$ we have immediately $A_1$ is a polynomial in $A_1$.
+Now we proceed by induction: let $i > 1$, and suppose for every $j < i$, $A_j$ is a polynomial in $A_1$, say $P_j(A_1)$. Now we use the result of problem $1$ that there exists $c_{i-1}$ and $b_{i-1}$ ( such that
+$$A_1A_{i-1} = c_{i-1}A_{i-2} + b_{i-1}A_i.$$
+By induction, $A_{i-1}$ is a polynomial in $A_1$: $P_{i-1}(A_1)$, and $A_{i-2}$ is a polynomial in $A_1$: $P_{i-2}(A_1)$. Thus we have
+$$A_1P_{i-1}(A_1) = c_{i-1}P_{i-2}(A_1) + b_{i-1}A_i.$$
+Rearranging ($b_{i-1} \neq 0$ by the proof of problem $1$) we obtain
+$$A_i = \frac{1}{b_{i-1}}A_1P_{i-1}(A_1) - \frac{c_{i-1}}{b_{i-1}}P_{i-2}(A_2)$$
+and therefore $A_i$ is a polynomial in $A_1$. Thus the result holds by induction. 
+\paragraph{}
 
 \end{document}
