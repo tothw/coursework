@@ -229,5 +229,9 @@ Rearranging ($b_{i-1} \neq 0$ by the proof of problem $1$) we obtain
 $$A_i = \frac{1}{b_{i-1}}A_1P_{i-1}(A_1) - \frac{c_{i-1}}{b_{i-1}}P_{i-2}(A_2)$$
 and therefore $A_i$ is a polynomial in $A_1$. Thus the result holds by induction. 
 \paragraph{}
-
+Let $E_0, \dots, E_n$ be the spectral idempotents of $A_1$. Since $E_r^2 = E_r$ and $E_rE_r = 0$ for $r\neq s$, and each $A_i$ is a polynomial in $A_1$ we know that the spectral idempotents of $\sum_i t^i A_i$ are also $E_0, \dots, E_n$. That is 
+$$\sum_i t^i A_i = \sum_{i=0}^n \theta_i E_i$$
+where $\theta_i$ are the eigenvalues of $\sum_{i}t^i A_i$. Now we have from problem $5$ that $(I+tK)^{\otimes n} =\sum_i  t^i A_i$. Thus since the eigenvalues of $(I+tK)^{\otimes n}$ are $(1+t)^k(1-t)^{n-k}$ we conclude that
+$$\sum_i t^i A_i = \sum_j(1+t)^{n-j}(1-t)^j E_j.$$
+$\blacksquare$
 \end{document}
