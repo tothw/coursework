@@ -59,4 +59,45 @@ where $\1$ is taken to be the all ones vector of size $n$ in this context. We pr
 &\leq \frac{-k}{n-k}.
 \end{align*}
 So $h(A) \sim h(B)$ by the definition of $S(n, \frac{-k}{n-k})$. Therefore $h$ is a homomorphism, and thus $K(n,k)$ has a vector $\frac{n}{k}$-colouring. $\blacksquare$
+\section*{8}
+\paragraph{}
+Consider the program for $\theta(\overline{G})$:
+\begin{align*}
+\max sum(N) \label{eq:sum}\numberthis  \\
+\ni tr(N) &= 1\\
+N \circ (J - I - A) & =0 \\
+N & \succcurlyeq 0
+\end{align*}
+and the program
+\begin{align*}
+\max \frac{1}{tr(N)} \label{eq:tr}\numberthis  \\
+\ni sum(N) &= 1\\
+N \circ (J - I - A) & =0 \\
+N & \succcurlyeq 0.
+\end{align*}
+It is enough to show that the value of (\ref{eq:sum}) is equal to the value of (\ref{eq:tr}) to obtain that $\theta(\overline{G}) = $ value of (\ref{eq:tr}).
+\paragraph{}
+First we will show that  value of (\ref{eq:sum}) $\leq$ value of (\ref{eq:tr}). Let $N$ be an optimal solution to (\ref{eq:sum}). We observe that $e_1e_1^T$ is feasible for (\ref{eq:sum}) and hence $sum(N) \geq 1$. To see this observation note that $e_1e_1^T \succcurlyeq 0$, $tr(e_1e_1^T) = 1$, and (since $A_{ii}= 0$):
+$$(e_1e_1^T) \circ (J- I - A) = e_1e_1^T - e_1e_1^T - 0 = 0.$$
+We claim that $\frac{1}{\sum(N)} N$ is feasible for (\ref{eq:tr}) with objective value equal to the optimal value of (\ref{eq:sum}) and hence (\ref{eq:sum}) $\leq$ (\ref{eq:tr}) as desired. Indeed since  $\frac{1}{sum{N}} \geq 0$ and $N \succcurlyeq 0$, 
+$$\frac{1}{sum(N)}N \succcurlyeq 0.$$
+We also have $$sum(\frac{1}{sum(N)} N)= \frac{1}{sum(N)}sum(N) = 1.$$
+And finally that
+$$\frac{1}{sum(N)} N \circ (J - I - A) = \frac{1}{sum(N)} 0 = 0.$$
+So $\frac{1}{sum(N)} N$ is feasible for (\ref{eq:tr}). Its objective value is
+$$\frac{1}{tr(\frac{1}{sum(N)}N)} = \frac{sum(N)}{tr(N)} = sum(N)$$
+which is the optimal value of (\ref{eq:sum}). Hence the value of (\ref{eq:sum}) $\leq$ the value of (\ref{eq:tr}).
+\paragraph{}
+We finish by showing that the value of (\ref{eq:tr}) $\leq$ value of (\ref{eq:sum}) and hence the values of the two programs are equal. Let $N$ be an optimal solution to (\ref{eq:tr}). We observe that $e_1e_1^T$ is feasible for (\ref{eq:tr}), and hence $\frac{1}{tr(N)} \geq 1$. As we have previously considered $e_1e_1^T$ it only remains to verify that
+$$sum(e_1e_1^T) = 1$$
+but this is clear. We claim that $\frac{1}{tr(N)} N$ is feasible for (\ref{eq:sum}) with objective value equal to the optimal value of (\ref{eq:tr}) and hence (\ref{eq:tr}) $\leq$ (\ref{eq:sum}) as desired. Indeed since $\frac{1}{tr(N)} \geq 0$ and $N\succcurlyeq 0$,
+$$\frac{1}{tr(N)} N \succcurlyeq 0.$$
+We also have $$tr(\frac{1}{tr(N)}N) = \frac{tr(N)}{tr(N)} = 1.$$
+And finally that
+$$\frac{1}{tr(N)} N \circ(J - I - A) = \frac{1}{tr(N)} 0 = 0.$$
+So $\frac{1}{tr(N)}N$ is feasible for (\ref{eq:sum}). Its objective value is
+$$sum(\frac{1}{tr(N)}N) = \frac{1}{tr(N)} sum(N) = \frac{1}{tr(N)}$$
+which is the optimal value of (\ref{eq:tr}). Hence the value of (\ref{eq:tr}) $\leq$ the value of (\ref{eq:sum}).
+\paragraph{}
+Therefore the optimal values of (\ref{eq:sum}) and (\ref{eq:tr}) are equal and hence $\theta(\overline{G}) =$ value of (\ref{eq:tr}). $\blacksquare$
 \end{document}
