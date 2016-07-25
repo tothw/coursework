@@ -1,0 +1,62 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{article}
+\usepackage[margin=1in, bottom=1in, top=1in]{geometry} %1 inch margins
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+\usepackage{bbm}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%Macros
+\newcommand{\A}{\mathbb{A}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}} \newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+\newcommand{\1}{\mathbbm{1}} 
+
+\newcommand{\cA}{\mathcal{A}} \newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}} \newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}} \newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}} \newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}} \newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}} \newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}} \newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}} \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}} \newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}} \newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}} \newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}} \newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}} \newcommand{\cZ}{\mathcal{Z}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+%Page style
+\pagestyle{fancy}
+
+\listfiles
+
+\raggedbottom
+
+\rhead{William Justin Toth 671 Assignment 10 - Problem Set 3} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{1pt} %heading underlined
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{7}
+\paragraph{}
+Let $K(n,k)$ be the Kneser graph. We define a homomorphism, $h$ from $K(n,k)$ to $S(n, \frac{-1}{\frac{n}{k}-1}) = S(n, \frac{-k}{n-k})$ as follows: Let $A \in V(K(n,k))$ and let $\chi(A)$ denote the characteristic vector of $A$. That is $\chi(A) \in \R^n$ with $\chi(A)_i = 1$ if $i \in A$ for $i =1,\dots, n$ and $\chi(A)_i = 0$ otherwise. Define
+$$h(A) = \frac{1}{\sqrt{1 - \frac{k}{n}}} (\chi(A) - \frac{k}{n} \1)$$
+where $\1$ is taken to be the all ones vector of size $n$ in this context. We prove now that $h$ is a graph homomorphism. Let $A,B \in V(K(n,k))$ and suppose that $A\sim B$. Then $A\cap B = \emptyset$. More pertinently this means $\langle \chi(A), \chi(B) \rangle = 0$. Also observe that $\langle \chi(A), \1\rangle = k$ since $A$ is a $k$-subset of $\{1, \dots, n\}$. We need to show that $h(A) \sim h(B)$. Indeed we have:
+\begin{align*}
+\langle h(A), h(B) \rangle &= \langle  \frac{1}{\sqrt{1 - \frac{k}{n}}} (\chi(A) - \frac{k}{n} \1),  \frac{1}{\sqrt{1 - \frac{k}{n}}} (\chi(B) - \frac{k}{n} \1) \rangle \\
+&= \frac{1}{1-\frac{k}{n}}[\langle \chi(A), \chi(B)\rangle + \langle \chi(A), \frac{-k}{n}\1\rangle + \langle \frac{-k}{n} \1, \chi(B) \rangle + \langle \frac{-k}{n} \1, \frac{-k}{n} \1\rangle] \\
+&= \frac{n}{n-k}[\frac{-k^2}{n} + \frac{-k^2}{n} + \frac{k^2}{n}] \\
+&= \frac{-k^2}{n-k} \\
+&\leq \frac{-k}{n-k}.
+\end{align*}
+So $h(A) \sim h(B)$ by the definition of $S(n, \frac{-k}{n-k})$. Therefore $h$ is a homomorphism, and thus $K(n,k)$ has a vector $\frac{n}{k}$-colouring. $\blacksquare$
+\end{document}
