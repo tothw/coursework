@@ -81,7 +81,7 @@ $$e_u^T A_1 A_i e_v = c_i (A_{i-1})_{u,v} + b_i(A_{i+1})_{u.v}.$$
 Now if $h(u,v) = i+1$ then $(A_{i+1})_{u,v} = 1$ and (\ref{eq:xcount}) is precisely $\alpha_{i+1}$ which counts the number of vertices adjacent to $u$ and at distance $i$ from $v$. Also observe that $(A_{i-1})_{u,v} = 0$ in this case. So we have
 $$e_u^T A_1 A_i e_v = c_i (A_{i-1})_{u,v} + b_i(A_{i+1})_{u.v}.$$
 \paragraph{}
-It remains to consider when $(\ref{eq:xcount}) = 0$. In this case $h(u,v) \neq i \pm 1$. If $h(u,v) = i + 1$ then let $x$ be the vertex immediately following $u$ on the $i+1$ length $u$-$v$ path. The $x$-$v$ subpath of $u$-$v$ path of length $i+1$ is of length $i$ so $h(x, v) \leq i$. If $h(x,v) < i$ then take the $x$-$v$ path of length $<i$ and join $u$ to the beginning of it giving a $u$-$v$ path of length $< i+1$, contradicting that $h(u,v) = i+1$. So $h(x,v) = i$. But this contradicts $(\ref{eq:xcount}) = 0$. So $h(u,v) \neq i+1$. Similarly suppose $h(u,v) = i-1$. Then $i-1<n$ and hence there exists an index $k$ for which $u_k = v_k$ (as $u,v$ differ in $i-1$ indices). Let $x = u \oplus e_k$. Then $x \in \delta(u)$ and $h(x,v) = h(u,v) + 1 = i.$ But this contradicts that (\ref{eq:xcount}) $=0$. So $h(u,v) = i \pm 1$. Thus $$(A_{i\pm1})_{u,v} = 0$$ and so
+It remains to consider when $(\ref{eq:xcount}) = 0$. In this case $h(u,v) \neq i \pm 1$. If $h(u,v) = i + 1$ then let $x$ be the vertex immediately following $u$ on the $i+1$ length $u$-$v$ path. The $x$-$v$ subpath of $u$-$v$ path of length $i+1$ is of length $i$ so $h(x, v) \leq i$. If $h(x,v) < i$ then take the $x$-$v$ path of length $<i$ and join $u$ to the beginning of it giving a $u$-$v$ path of length $< i+1$, contradicting that $h(u,v) = i+1$. So $h(x,v) = i$. But this contradicts $(\ref{eq:xcount}) = 0$. So $h(u,v) \neq i+1$. Similarly suppose $h(u,v) = i-1$. Then $i-1<n$ and hence there exists an index $k$ for which $u_k = v_k$ (as $u,v$ differ in $i-1$ indices). Let $x = u \oplus e_k$. Then $x \in \delta(u)$ and $h(x,v) = h(u,v) + 1 = i.$ But this contradicts that (\ref{eq:xcount}) $=0$. So $h(u,v) \neq i \pm 1$. Thus $$(A_{i\pm1})_{u,v} = 0$$ and so
 $$e_u^T A_1 A_i e_v = c_i (A_{i-1})_{u,v} + b_i(A_{i+1})_{u.v}.$$
 \paragraph{}
 Now since $u,v$ were arbitrary, and $c_i$ and $b_i$ are independent of $u$ and $v$ we have
@@ -121,7 +121,7 @@ Let $A_i$ be the adjacency matrix of the $i$-distance graph of $J(v,k)$ and set 
 $$|\alpha \cap (\alpha \backslash \{a\} \cup \{b\}| = k -1$$
 and hence $(\alpha \backslash \{a\} \cup \{b\}) \in \delta(\alpha)$. In fact any $\gamma \in \delta(\alpha)$ has this form as there is precisely one element of $\alpha$ not in $\gamma$ and conversely there is precisely one element in $\gamma$ not in $\alpha$.
 \paragraph{}
-There are $v-k$ choices of $b$ and $k$ choices of $a$ and hence $|\delta(\alpha)| = (v-k)k$ for any $k$-subset $\alpha$. Thus $J(v,k)$ is regular. Let $i \{1,\dots, k-1\}$. Suppose $|\alpha \cap \beta| = k-i$. As before let $a \in \alpha$ and let $b \in V \backslash \alpha$. Let $\gamma = \alpha \backslash\{a\} \cup \{b\}$. Consider the cases
+There are $v-k$ choices of $b$ and $k$ choices of $a$ and hence $|\delta(\alpha)| = (v-k)k$ for any $k$-subset $\alpha$. Thus $J(v,k)$ is regular. Let $i \in \{1,\dots, k-1\}$. Suppose $|\alpha \cap \beta| = k-i$. As before let $a \in \alpha$ and let $b \in V \backslash \alpha$. Let $\gamma = \alpha \backslash\{a\} \cup \{b\}$. Consider the cases
 \begin{enumerate}
 \item $a \in \beta$ and $b \in \beta$
 \item $a \in \beta$ and $b \not\in \beta$
