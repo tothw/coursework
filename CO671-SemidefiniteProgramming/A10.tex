@@ -49,14 +49,22 @@
 \section*{7}
 \paragraph{}
 Let $K(n,k)$ be the Kneser graph. We define a homomorphism, $h$ from $K(n,k)$ to $S(n, \frac{-1}{\frac{n}{k}-1}) = S(n, \frac{-k}{n-k})$ as follows: Let $A \in V(K(n,k))$ and let $\chi(A)$ denote the characteristic vector of $A$. That is $\chi(A) \in \R^n$ with $\chi(A)_i = 1$ if $i \in A$ for $i =1,\dots, n$ and $\chi(A)_i = 0$ otherwise. Define
-$$h(A) = \frac{1}{\sqrt{1 - \frac{k}{n}}} (\chi(A) - \frac{k}{n} \1)$$
-where $\1$ is taken to be the all ones vector of size $n$ in this context. We prove now that $h$ is a graph homomorphism. Let $A,B \in V(K(n,k))$ and suppose that $A\sim B$. Then $A\cap B = \emptyset$. More pertinently this means $\langle \chi(A), \chi(B) \rangle = 0$. Also observe that $\langle \chi(A), \1\rangle = k$ since $A$ is a $k$-subset of $\{1, \dots, n\}$. We need to show that $h(A) \sim h(B)$. Indeed we have:
+$$h(A) = \frac{1}{\sqrt{k}\sqrt{1 - \frac{k}{n}}} (\chi(A) - \frac{k}{n} \1)$$
+where $\1$ is taken to be the all ones vector of size $n$ in this context. We claim that $h$ indeed maps to $S(n,\frac{-k}{n-})$. To show this we prove that $h(A)$ is a unit vector:
 \begin{align*}
-\langle h(A), h(B) \rangle &= \langle  \frac{1}{\sqrt{1 - \frac{k}{n}}} (\chi(A) - \frac{k}{n} \1),  \frac{1}{\sqrt{1 - \frac{k}{n}}} (\chi(B) - \frac{k}{n} \1) \rangle \\
-&= \frac{1}{1-\frac{k}{n}}[\langle \chi(A), \chi(B)\rangle + \langle \chi(A), \frac{-k}{n}\1\rangle + \langle \frac{-k}{n} \1, \chi(B) \rangle + \langle \frac{-k}{n} \1, \frac{-k}{n} \1\rangle] \\
-&= \frac{n}{n-k}[\frac{-k^2}{n} + \frac{-k^2}{n} + \frac{k^2}{n}] \\
-&= \frac{-k^2}{n-k} \\
-&\leq \frac{-k}{n-k}.
+\langle h(A), h(A) \rangle &= \frac{1}{k(1-\frac{k}{n})}\langle \chi(A) - \frac{k}{n}\1, \chi(A) - \frac{k}{n}\1\rangle \\
+&= \frac{n}{k(n-k)} [\langle \chi(A), \chi(A) \rangle - \langle \frac{k}{n}\1, \chi(A) \rangle -\langle \chi(A), \frac{k}{n}\1 \rangle + \frac{k^2}{n^2}\langle \1, \1\rangle]\\
+&= \frac{n}{k(n-k)}[k - \frac{k^2}{n} - \frac{k^2}{n} + \frac{k^2}{n}] \\
+&= \frac{n}{k(n-k)}[\frac{nk - k^2}{n}] \\
+&= 1.
+\end{align*}
+Thus $h(A)$ is a unit vector in $\R^n$, that is a vertex of $S(n,\frac{-k}{n-k})$.
+ We prove now that $h$ is a graph homomorphism. Let $A,B \in V(K(n,k))$ and suppose that $A\sim B$. Then $A\cap B = \emptyset$. More pertinently this means $\langle \chi(A), \chi(B) \rangle = 0$. Also observe that $\langle \chi(A), \1\rangle = k$ since $A$ is a $k$-subset of $\{1, \dots, n\}$. We need to show that $h(A) \sim h(B)$. Indeed we have:
+\begin{align*}
+\langle h(A), h(B) \rangle &= \langle  \frac{1}{\sqrt{k}\sqrt{1 - \frac{k}{n}}} (\chi(A) - \frac{k}{n} \1),  \frac{1}{\sqrt{k}\sqrt{1 - \frac{k}{n}}} (\chi(B) - \frac{k}{n} \1) \rangle \\
+&= \frac{1}{k(1-\frac{k}{n})}[\langle \chi(A), \chi(B)\rangle + \langle \chi(A), \frac{-k}{n}\1\rangle + \langle \frac{-k}{n} \1, \chi(B) \rangle + \langle \frac{-k}{n} \1, \frac{-k}{n} \1\rangle] \\
+&= \frac{n}{k(n-k)}[\frac{-k^2}{n} + \frac{-k^2}{n} + \frac{k^2}{n}] \\
+&= \frac{-k}{n-k}.
 \end{align*}
 So $h(A) \sim h(B)$ by the definition of $S(n, \frac{-k}{n-k})$. Therefore $h$ is a homomorphism, and thus $K(n,k)$ has a vector $\frac{n}{k}$-colouring. $\blacksquare$
 \section*{8}
