@@ -164,4 +164,43 @@ p_1(t)p_2(t) &= ||a(t) + ib(t)||^2||c(t) + i d(t)||^2 \\
 &= (a(t)c(t) - b(t)d(t))^2 + (a(t)d(t) + b(t)c(t))^2.
 \end{align*}
 Therefore $p_1(t)p_2(t)$ is the sum of two squares. $\blacksquare$
+\section*{14}
+\paragraph{}
+Let $p(t)$ be a real-valued polynomial and suppose that $p(t) \geq 0$ for all $t$. By the Fundamental Theorem of Algebra we may factor $p$ as:
+$$p(t) = a \Pi_{i=1}^k q_i(t) \Pi_{i=1}^j (t-x_i)^{m_i} \Pi_{i=1}^\ell (t-y_i)^{n_i}$$
+where $a$ is a constant, $q_i(t)$ are irreducible quadratics (no real roots), $x_i$ are roots of even multiplicity, and $y_i$ are roots of odd multiplicity. We may assume without loss of generality that each $q_i(t) > 0$ for all $i$. If some $q_i(t) < 0$ factor out $-1$ and modify $a$ as $(-1)a$. Now each $q_i$ is strictly greater than $0$. We claim that $q_i$ can be written as a sum of squares.
+\paragraph{Claim 14.1}
+If $q_i$ is a strictly positive quadratic then $q_i$ can be written as a sum of squares.
+\paragraph{Proof of Claim 14.1}
+We may write $q_i$ as
+$$q_i(t) = at^2 + bt + c$$
+with $a > 0$ and $b^2 - 4ac < 0$ as $q_i(t)$ is strictly positive.	We complete the square as
+\begin{align*}
+q_i(t) &= at^2 + bt + c \\
+&= at^2 + bt +\frac{b^2}{4a} - \frac{b^2}{4a} + c \\
+&= (at - \frac{b}{2\sqrt{a}})^2 + \frac{4ac - b^2}{4a}.
+\end{align*}
+Now $(at - \frac{b}{2\sqrt{a}})^2$ is a square, so it remains to verify that $\frac{4ac - b^2}{4a}$ is a square. Since $b^2 - 4ac < 0$, $4ac - b^2 > 0$, and since $a> 0$, $4a>0$. Therefore $\frac{4ac - b^2}{4a}$ has a square root, that is to say it is a square. Hence $q_i(t)$ is a sum of squares. $\blacksquare$
+\paragraph{Main Proof Continues}
+Thus by claim $14.1$, each $q_i(t)$ can be written as a sum of squares. Further each $(t-x_i)^m_i$ can be written as a sum of squares: since $m_i$ is even there exists $c$ such that $2c = m_i$. Thus $(t-x_i)^m_i = ((t-x_i)^c)^2$, and since $(t-x_i)^c$ is a polynomial in $t$ we see that $(t-x_i)^m_i$ is a square (that is, can be written as a sum of one square).
+\paragraph{}
+If $a = 0$ then $p$ vanishes, and clearly is a sum of squares. So we may assume $a \neq 0$. If $\ell$ (the count of odd multiplicity roots) is $0$ then we have $a > 0$. This follows as each $q_i$ is strictly positive, and each even multiplicity linear factor $(t-x_i)^{m_i}$ is non-negative, so $a>0$ as otherwise $p(t) <0$. In claim $14.2$ to follow, we show that indeed $\ell = 0$ and thus $a > 0$ and has a square root. In doing so we prove that $p(t)$ is a product of sums of squares.
+\paragraph{Claim 14.2}
+The non-negative polynomial $p(t)$ as described above has no roots of odd multiplicity.
+\paragraph{Proof of Claim 14.2}
+Consider $y_1, \dots, y_\ell$, the roots of odd multiplicity of $p$. Suppose for a contradiction $\ell \geq 1$. We may assume without loss that the roots $y_1, \dots, y_\ell$ are ordered satisfying
+$$y_1 < \dots y_{\ell -1}< y_\ell.$$
+Choose $t^* \in (y_{\ell-1}, y_\ell)$ if $\ell >1$, or choose $t^* \in (-\infty, y_\ell)$ if $\ell = 1$. Then for all $i \in \{1, \dots, y_{\ell - 1}\}$, $(t^* - y_i)^{n_i} > 0$, but $(t^* - y_\ell)^{n_\ell} < 0$. Further each $q_i(t^*) > 0$ and each even multiplicity linear factor $(t^* - x_i)^{m_i} \geq 0$. Thus $p(t^*) < 0$, contradicting that $p(t) \geq 0$ for all $t$. Hence $\ell = 0$, that is $p(t)$ has no roots of odd multiplicity. $\blacksquare$
+\paragraph{Main Proof Continues}
+Hence $p(t)$ has no roots of odd multiplicity. Therefore $p(t)$ is a product of sums of squares. To finish the proof we will show in Claim $14.3$ that the product of sums of squares is a sum of squares. Note it is enough to show that the product of two sums of squares is a sum of squares and finish by induction. $\blacksquare$
+\paragraph{Claim 14.3}
+Let $p_1,p_2$ be polynomials that are sums of squares. Then $p_1p_2$ is a sum of squares.
+\paragraph{Proof of Claim 14.3 - Finishes Proof}
+We may write $p_1$ as
+$$p_1 = \sum_i q_i^2$$
+for polynomial $q_i$, and $p_2$ as 
+$$p_2 = \sum_j r_j^2.$$
+for polynomials $r_j$. Then we have
+$$p_1p_2 = \sum_i q_i^2 \sum_j r_j^2 = \sum_i\sum_j q_i^2r_j^2 = \sum_{i,j} (q_ir_j)^2.$$
+Therefore $p_1p_2$ is a sum of squares. $\blacksquare$
 \end{document}
