@@ -144,4 +144,24 @@ $$p(t) = at + b.$$
 Since $p$ divides $t$ we can be a little stricter and say either $b=0$ or $a=0$. But if $b=0$ then $p(t) = at$ which changes sign at $0$ in the interval $[-1,1]$. This contradicts that $p(t) \geq 0$ on the interval $[-1,1]$. So $b \neq 0$ and hence $a=0$. That is, $p$ is a constant.
 \paragraph{}
 Now we deduce that $g_i(1) \neq 0$ for all $i$. But Lemma $10.1$ has already done all the work for us. The polynomial $g_i$ has at most $i$ roots, and by Lemma $10.1$, $g_i$ has $i$ roots in the interval $(-1,1)$. That is all $i$ roots of $g_i$ are accounted for. If $g_i$ had a root at $1$ it would have at least $i+1$ roots, a contradiction. $\blacksquare$
+\section*{13}
+Let $p_1(t)$ and $p_2(t)$ be two real-valued polynomials. Suppose that $p_1$ is the sum of two squares. That is there exist $a(t), b(t)$ such that
+$$p_1(t) = a(t)^2 + b(t)^2.$$
+Suppose that $p_2$ is the sum of two squares. That is there exist $c(t), d(t)$ such that
+$$p_2(t) = c(t)^2 + d(t)^2$$
+Now for any complex number $a+ib$ we have
+$$||a + ib||^2 = a^2 + b^2.$$
+So applying to our polynomials we see
+$$p_1(t) = ||a(t) + ib(t)||^2$$
+and
+$$p_2(t) = ||c(t) + id(t)||^2.$$
+Now using the identity
+$$||a + ib||^2||c+id||^2 = ||ac - bd + i(ad + bc)||^2$$
+we can obtain that
+\begin{align*}
+p_1(t)p_2(t) &= ||a(t) + ib(t)||^2||c(t) + i d(t)||^2 \\
+&= ||a(t)c(t) - b(t)d(t) + i(a(t)d(t) + b(t) c(t))||^2 \\
+&= (a(t)c(t) - b(t)d(t))^2 + (a(t)d(t) + b(t)c(t))^2.
+\end{align*}
+Therefore $p_1(t)p_2(t)$ is the sum of two squares. $\blacksquare$
 \end{document}
