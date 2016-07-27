@@ -108,4 +108,40 @@ $$sum(\frac{1}{tr(N)}N) = \frac{1}{tr(N)} sum(N) = \frac{1}{tr(N)}$$
 which is the optimal value of (\ref{eq:tr}). Hence the value of (\ref{eq:tr}) $\leq$ the value of (\ref{eq:sum}).
 \paragraph{}
 Therefore the optimal values of (\ref{eq:sum}) and (\ref{eq:tr}) are equal and hence $\theta(\overline{G}) =$ value of (\ref{eq:tr}). $\blacksquare$
+\section*{10}
+\paragraph{}
+Consider the inner product on polynomials
+$$\langle f, g\rangle = \int_{-1}^1 f(t) g(t) dt.$$
+Let $(g_i)i\geq 0$ be a sequence of orthogonal polynomials obtained by Gram-Schmidt from the sequence of powers of $t$. That is,
+$$g_i(t) = t^i - \sum_{j=0}^{i-1} \frac{\langle t^i, g_j(t)\rangle}{\langle g_j(t), g_j(t)\rangle} g_j(t).$$
+\paragraph{Lemma $10.1$}
+For all $i$, $g_i$ has $i$ distinct odd roots of odd multiplicity in the interval $(-1,1)$.
+\paragraph{Proof of Lemma $10.1$}
+Let $i \geq 0$. Consider the polynomial $g_i$. Let $t_1, \dots, t_n$ be the distinct odd multiplicity roots in the interval $(-1,1)$. Suppose for a contradiction that $n < i$. Consider the polynomial $p(t)$ of the form
+$$p(t) = (t-t_1)\cdot \dots \cdot(t-t_n)\cdot 1.$$
+Then on the interval $(-1,1)$ the polynomial
+$$g_i(t)p(t)$$
+has all roots of even multiplicity. Thus $g_i(t)p(t)$ is an even function. Since Gram-Schmidt forms a basis, $g_i \neq 0$, and since $g_i(t)p(t)$ is even on $(-1, 1)$ implies $g_i(t)p(t)$ is not both $\geq 0$ and $\leq 0$ on the interval $(-1,1)$ we may conclude that
+$$\int_{-1}^1 g_i(t)p(t) dt \neq 0.$$
+But on the other hand, $p(t)$ is a polynomial of degree $n$ and so, since $g_0, \dots, g_{n}(t)$ form a basis of the space of polynomials of degree at most $n$, there exist $a_0, \dots, a_n$ such that
+$$p(t) = \sum_{k=0}^n a_k g_k(t).$$
+Now since $n < i$ we have for all $k \in \{0,\dots, n\}$
+$$\langle g_i, g_k \rangle = 0$$
+by Gram-Schmidt. Thus we see that
+\begin{align*}
+\int_{-1}^1 g_i(t)p_(t) dt &= \int_{-1}^1 g_i(\sum_{k=0}^n a_k g_k(t)) dt\\
+&= \sum_{k=0}^n a_k \int_{-1}^1 g_i(t)g_k(t) dt\\
+&= \sum_{k=0}^n a_k \langle g_i(t), g_k(t) \rangle\\
+&= 0.\end{align*}
+But this contradicts that the integral is non-zero. Hence $n \geq i$. But since $g_i(t)$ is a polynomial of degree $i$, $n \leq i$ and so $n=i$. That is $g_i(t)$ has $i$ distinct roots of odd multiplicity in the interval $(-1,1)$. $\blacksquare$
+\paragraph{}
+Let $p$ be a polynomial such that $p(t) \geq 0$ for all $t \in [-1,1]$, and $p$ divides $g_i$ for all $i \geq 1$. We compute $g_0$ and $g_1$. First $g_0$,
+$$g_0 = t^0 = 1 $$
+immediately. Now for $g_1$, we have that $\langle t, g_0 \rangle$ is $\int_{-1}^1 t dt = 1 - 1 = 0$, and so
+$$g_1(t) = t - \frac{\langle t, 1\rangle}{\langle 1, 1\rangle} 1 = t.$$
+Thus since $p$ divides $g_1$ we know $p$ divides $t$, and the degree of $p$ is at most $1$. But if $p$ is of degree $1$ there exists $a$ and $b$ such that $p$ is of the form
+$$p(t) = at + b.$$
+Since $p$ divides $t$ we can be a little stricter and say either $b=0$ or $a=0$. But if $b=0$ then $p(t) = at$ which changes sign at $0$ in the interval $[-1,1]$. This contradicts that $p(t) \geq 0$ on the interval $[-1,1]$. So $b \neq 0$ and hence $a=0$. That is, $p$ is a constant.
+\paragraph{}
+Now we deduce that $g_i(1) \neq 0$ for all $i$. But Lemma $10.1$ has already done all the work for us. The polynomial $g_i$ has at most $i$ roots, and by Lemma $10.1$, $g_i$ has $i$ roots in the interval $(-1,1)$. That is all $i$ roots of $g_i$ are accounted for. If $g_i$ had a root at $1$ it would have at least $i+1$ roots, a contradiction. $\blacksquare$
 \end{document}
