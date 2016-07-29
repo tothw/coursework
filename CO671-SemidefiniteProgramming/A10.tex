@@ -203,4 +203,57 @@ $$p_2 = \sum_j r_j^2.$$
 for polynomials $r_j$. Then we have
 $$p_1p_2 = \sum_i q_i^2 \sum_j r_j^2 = \sum_i\sum_j q_i^2r_j^2 = \sum_{i,j} (q_ir_j)^2.$$
 Therefore $p_1p_2$ is a sum of squares. $\blacksquare$
+\section*{15}
+\paragraph{}
+Consider a polynomial, $p(x_1, \dots, x_d)$, in $d$ variables of degree $2n$:
+$$p(x_1, \dots, x_d) = \sum_{i_1, \dots, i_d = 0}^{2n} a_{i_1, \dots, i_d} x_1^{i_1}\cdot \dots \cdot x_d^{i_d}.$$ 
+We aim to use linear algebra to make our lives easier in discussing this problem. The possible variable terms in $p(x_1, \dots, x_d)$ are of the form:
+$$x_1^{i_1} \cdot \dots \cdot x_d^{i_d}$$
+of which there are $0, \dots, 2n$ possible choices for each $i_j$. Hence there are 
+$$  m = {{2n+1}\choose{d}}$$
+terms in $p(x_1, \dots, x_d)$ (some possibly $0$). Suppose we stack them in a vector $x \in \R^m$:
+$$x = \begin{bmatrix} (x_1^{i_1} \cdot \dots \cdot x_d^{i_d}) \end{bmatrix}$$
+and similarly we stack the coefficients on each variable in $x$ in a vector $p \in \R^m$. So then we can write $p(x_1, \dots, x_d)$ as
+$$p(x_1, \dots, x_d) = p^T x.$$
+\paragraph{}
+Now if $p(x_1, \dots, x_d)$ were a sum of squares there would exist $q_r(x_1, \dots, x_d)$ of degree at most $n$ satisfying
+$$p(x_1, \dots, x_d) = \sum_r q_r(x_1\dots, x_d)^2 $$
+If we let $y \in \R^{n+1 \choose{d}}$ be a vector corresponding to the possible variable terms of a polynomial of degree $n$ in $d$ variables, and $q_r \in \R^{n+1\choose{d}}$ correspond to the coefficients of $q_r(x_1, \dots, x_d)$ on the respective variables then we can write
+$$p^Tx = \sum_r (q_r^Ty)^2 = \sum_r y^T q_r q_r^T y = y^T\sum_r q_rq_r^T y.$$
+Collecting $\sum_r q_rq_r^T$ in a matrix $Q = \sum_r q_r q_r^T$ we have
+$$p^Tx = y^TQy.$$
+\section*{17}
+\paragraph{}
+Suppose that $M$ is a completely positive matrix. Then there exist $n$ vectors $x_r \geq 0$ such that
+$$M = \sum_r x_r x_r^T.$$
+So we have
+$$M_{i,j} = (\sum_r (x_rx_r^T))_{i,j} = \sum_r (x_r)_i(x_r)_j$$
+So define the matrix $A$ as the vectors $x_r$ arranged as columns
+$$A = \begin{bmatrix} x_1 & \dots & x_n\end{bmatrix}.$$
+Thus $A \geq 0$ as $x_r \geq 0$ for all $r$. So the $i$-th row of $A$ is
+$$\begin{bmatrix} (x_1)_i & \dots & (x_n)_i\end{bmatrix}.$$
+Thus entry $i-j$ of $AA^T$ is 
+$$(AA^T)_{i,j} = \begin{bmatrix} (x_1)_i & \dots & (x_n)_i\end{bmatrix}\begin{bmatrix} (x_1)_j \\\vdots \\ (x_n)_j \end{bmatrix} = \sum_r(x_r)_i(x_r)_j.$$
+Therefore each $i-j$ entry of $M$ is equal to entry $i-j$ of $AA^T$, so $M = AA^T$. 
+\paragraph{}
+Now suppose there exists $A \geq 0$ such that $$M = AA^T.$$
+Let $x_1, \dots, x_n$ be the columns of $A$.  Then each $x_r \geq 0$. Further
+\begin{align*}
+M_{i,j} &= (AA^T)_{i,j} \\
+&=  \sum_r (x_r)_i (x_r)_j \\
+&= \sum_r(x_r x_r^T)_{i,j} 
+\end{align*}
+Thus,
+$$M = \sum_r x_r x_r^T$$
+and hence $M$ is completely positive. $\blacksquare$
+\section*{18}
+\paragraph{}
+Let $M$ be completely positive. Let $x \geq 0$ and suppose that $x^TMx = 0$. By problem $17$, there exists $A \geq 0$ such that
+$$ M = AA^T.$$
+So then 
+$$x^TAA^Tx = 0,$$
+that is
+$$\langle A^Tx, A^Tx \rangle = ||A^Tx||^2 = 0.$$
+Thus $A^Tx = 0$, and hence
+$$Mx = AA^Tx = A0 = 0.\blacksquare$$
 \end{document}
