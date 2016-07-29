@@ -205,23 +205,28 @@ $$p_1p_2 = \sum_i q_i^2 \sum_j r_j^2 = \sum_i\sum_j q_i^2r_j^2 = \sum_{i,j} (q_i
 Therefore $p_1p_2$ is a sum of squares. $\blacksquare$
 \section*{15}
 \paragraph{}
-Consider a polynomial, $p(x_1, \dots, x_d)$, in $d$ variables of degree $2n$:
-$$p(x_1, \dots, x_d) = \sum_{i_1, \dots, i_d = 0}^{2n} a_{i_1, \dots, i_d} x_1^{i_1}\cdot \dots \cdot x_d^{i_d}.$$ 
-We aim to use linear algebra to make our lives easier in discussing this problem. The possible variable terms in $p(x_1, \dots, x_d)$ are of the form:
-$$x_1^{i_1} \cdot \dots \cdot x_d^{i_d}$$
-of which there are $0, \dots, 2n$ possible choices for each $i_j$. Hence there are 
-$$  m = {{2n+1}\choose{d}}$$
-terms in $p(x_1, \dots, x_d)$ (some possibly $0$). Suppose we stack them in a vector $x \in \R^m$:
-$$x = \begin{bmatrix} (x_1^{i_1} \cdot \dots \cdot x_d^{i_d}) \end{bmatrix}$$
-and similarly we stack the coefficients on each variable in $x$ in a vector $p \in \R^m$. So then we can write $p(x_1, \dots, x_d)$ as
-$$p(x_1, \dots, x_d) = p^T x.$$
+Let $$p(t_1, \dots,t_d) = \sum_{i_1, \dots, i_d} a_{i_1, \dots, i_d} t_1^{i_1} \cdot \dots \cdot t_d^{i_d}$$ be a polynomial in $d$ variables of degree $2n$. Let $M_d^{n}$ be the set of all monomials in $d$-variables of degree at most $n$. That is,
+$$M_d^{n} : \{ t_1^{i_1}\cdot\dots \cdot t_d^{i_d} : 0 \leq i_j \leq n \text{ for all } j \in \{1, \dots, d\}\}.$$
+Let $x$ be the vector stacking all elements of $M_d^{2n}$. We can index the coordinates of $x$ by $d$-tuples $i = (i_1, \dots, i_d)$ such that
+$$x_i = t_1^{i_1}\cdot \dots\cdot t_d^{i_d}.$$
+Now if we let $p$ be the vector given by $p_i = a_{i_1, \dots, i_d}$ for $d$-tuple $i$ then we can write $p(t_1, \dots, t_d)$ as
+$$p(t_1, \dots, t_d) = p^Tx.$$
+We call $p$ the coefficient vector corresponding $p(t_1, \dots, t_d)$ and $x$ the variable vector. If $p^Tx$ is a sum of squares then there exists polynomials $q_r(t_1,\dots,t_d)$ such that
+$$p^Tx = \sum_r q_r(t_1,\dots, t_d)^2.$$
+Each polynomial $q_r(t_1, \dots, t_d)$ is of degree at most $n$, so if we let $y$ be the variable vector given by stacking the monomials of $M_d^n$ and let $q_r$ denote the coefficient vector of $q_r(t_1,\dots,t_d)$ then we can write each $q_r(t_1,\dots,t_d)$ as
+$$q_r^Ty$$
+and thus
+$$p^Tx = \sum_r (q_r^Ty)^2 = \sum_r y^Tq_rq_r^Ty = y^T(\sum_r q_rq_r^T)y.$$
+Let $Q = \sum_r q_rq_r$ we see that $p^Tx = y^TQy$ where $Q \succcurlyeq 0$.
 \paragraph{}
-Now if $p(x_1, \dots, x_d)$ were a sum of squares there would exist $q_r(x_1, \dots, x_d)$ of degree at most $n$ satisfying
-$$p(x_1, \dots, x_d) = \sum_r q_r(x_1\dots, x_d)^2 $$
-If we let $y \in \R^{n+1 \choose{d}}$ be a vector corresponding to the possible variable terms of a polynomial of degree $n$ in $d$ variables, and $q_r \in \R^{n+1\choose{d}}$ correspond to the coefficients of $q_r(x_1, \dots, x_d)$ on the respective variables then we can write
-$$p^Tx = \sum_r (q_r^Ty)^2 = \sum_r y^T q_r q_r^T y = y^T\sum_r q_rq_r^T y.$$
-Collecting $\sum_r q_rq_r^T$ in a matrix $Q = \sum_r q_r q_r^T$ we have
-$$p^Tx = y^TQy.$$
+Now we observe that the entries of $Q$ are indexed two $d$-tuples $j,k$ and we have that
+$$p_i = \sum_{j,k : j+k = i} Q_{j,k}$$
+by observing that $x_i = y_j y_k$ provided by $j + k = i$. Hence if we can find a semi-definite matrix $Q$ satisfying:
+\begin{align*}
+\sum_{j,k: i} Q_{j,k} &= p_i &\text{ for all $i$}\\
+Q&\succcurlyeq 0 
+\end{align*}
+then we would have $p^Tx = y^TQy$. Notice this is a proper feasible region semidefinite program as the constraints are all linear besides the constraint constraining $Q$ to be in the semi-definite cone. Thus we can decide if $p^Tx$ is a sum of squares by finding a $Q$ feasible for region written above. Further we can decompose $Q$ in a sum of rank one matrices such that $Q = \sum_r q_rq_r^T$ and then we can write $p^Tx$ as a sum of squares: $p^Tx = \sum_r (q_r^Ty)^2$. $\blacksquare$
 \section*{17}
 \paragraph{}
 Suppose that $M$ is a completely positive matrix. Then there exist $n$ vectors $x_r \geq 0$ such that
