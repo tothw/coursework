@@ -50,7 +50,7 @@
 \paragraph{}
 Let $K(n,k)$ be the Kneser graph. We define a homomorphism, $h$ from $K(n,k)$ to $S(n, \frac{-1}{\frac{n}{k}-1}) = S(n, \frac{-k}{n-k})$ as follows: Let $A \in V(K(n,k))$ and let $\chi(A)$ denote the characteristic vector of $A$. That is $\chi(A) \in \R^n$ with $\chi(A)_i = 1$ if $i \in A$ for $i =1,\dots, n$ and $\chi(A)_i = 0$ otherwise. Define
 $$h(A) = \frac{1}{\sqrt{k}\sqrt{1 - \frac{k}{n}}} (\chi(A) - \frac{k}{n} \1)$$
-where $\1$ is taken to be the all ones vector of size $n$ in this context. We claim that $h$ indeed maps to $S(n,\frac{-k}{n-})$. To show this we prove that $h(A)$ is a unit vector:
+where $\1$ is taken to be the all ones vector of size $n$ in this context. We claim that $h$ indeed maps to $S(n,\frac{-k}{n-k})$. To show this we prove that $h(A)$ is a unit vector:
 \begin{align*}
 \langle h(A), h(A) \rangle &= \frac{1}{k(1-\frac{k}{n})}\langle \chi(A) - \frac{k}{n}\1, \chi(A) - \frac{k}{n}\1\rangle \\
 &= \frac{n}{k(n-k)} [\langle \chi(A), \chi(A) \rangle - \langle \frac{k}{n}\1, \chi(A) \rangle -\langle \chi(A), \frac{k}{n}\1 \rangle + \frac{k^2}{n^2}\langle \1, \1\rangle]\\
@@ -189,7 +189,7 @@ If $a = 0$ then $p$ vanishes, and clearly is a sum of squares. So we may assume 
 The non-negative polynomial $p(t)$ as described above has no roots of odd multiplicity.
 \paragraph{Proof of Claim 14.2}
 Consider $y_1, \dots, y_\ell$, the roots of odd multiplicity of $p$. Suppose for a contradiction $\ell \geq 1$. We may assume without loss that the roots $y_1, \dots, y_\ell$ are ordered satisfying
-$$y_1 < \dots y_{\ell -1}< y_\ell.$$
+$$y_1 < \dots < y_{\ell -1}< y_\ell.$$
 Choose $t^* \in (y_{\ell-1}, y_\ell)$ if $\ell >1$, or choose $t^* \in (-\infty, y_\ell)$ if $\ell = 1$. Then for all $i \in \{1, \dots, y_{\ell - 1}\}$, $(t^* - y_i)^{n_i} > 0$, but $(t^* - y_\ell)^{n_\ell} < 0$. Further each $q_i(t^*) > 0$ and each even multiplicity linear factor $(t^* - x_i)^{m_i} \geq 0$. Thus $p(t^*) < 0$, contradicting that $p(t) \geq 0$ for all $t$. Hence $\ell = 0$, that is $p(t)$ has no roots of odd multiplicity. $\blacksquare$
 \paragraph{Main Proof Continues}
 Hence $p(t)$ has no roots of odd multiplicity. Therefore $p(t)$ is a product of sums of squares. To finish the proof we will show in Claim $14.3$ that the product of sums of squares is a sum of squares. Note it is enough to show that the product of two sums of squares is a sum of squares and finish by induction. $\blacksquare$
@@ -221,12 +221,12 @@ Let $Q = \sum_r q_rq_r$ we see that $p^Tx = y^TQy$ where $Q \succcurlyeq 0$.
 \paragraph{}
 Now we observe that the entries of $Q$ are indexed two $d$-tuples $j,k$ and we have that
 $$p_i = \sum_{j,k : j+k = i} Q_{j,k}$$
-by observing that $x_i = y_j y_k$ provided by $j + k = i$. Hence if we can find a semi-definite matrix $Q$ satisfying:
+by observing that $x_i = y_j y_k$ provided $j + k = i$ and collecting like terms. Hence if we can find a positive semi-definite matrix $Q$ satisfying:
 \begin{align*}
-\sum_{j,k: i} Q_{j,k} &= p_i &\text{ for all $i$}\\
+\sum_{j,k:j+k = i} Q_{j,k} &= p_i &\text{ for all $i$}\\
 Q&\succcurlyeq 0 
 \end{align*}
-then we would have $p^Tx = y^TQy$. Notice this is a proper feasible region semidefinite program as the constraints are all linear besides the constraint constraining $Q$ to be in the semi-definite cone. Thus we can decide if $p^Tx$ is a sum of squares by finding a $Q$ feasible for region written above. Further we can decompose $Q$ in a sum of rank one matrices such that $Q = \sum_r q_rq_r^T$ and then we can write $p^Tx$ as a sum of squares: $p^Tx = \sum_r (q_r^Ty)^2$. $\blacksquare$
+then we would have $p^Tx = y^TQy$. Notice this is a proper feasible region for a semidefinite program as the constraints are all linear besides the constraint constraining $Q$ to be in the positive semi-definite cone. Thus we can decide if $p^Tx$ is a sum of squares by finding a $Q$ feasible for region written above. Further we can decompose $Q$ in a sum of rank one matrices such that $Q = \sum_r q_rq_r^T$ and then we can write $p^Tx$ as a sum of squares: $p^Tx = \sum_r (q_r^Ty)^2$. $\blacksquare$
 \section*{17}
 \paragraph{}
 Suppose that $M$ is a completely positive matrix. Then there exist $n$ vectors $x_r \geq 0$ such that
