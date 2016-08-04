@@ -1,5 +1,5 @@
-\documentclass[letterpaper,12pt,oneside,onecolumn]{article}
-\usepackage[margin=1in, bottom=1in, top=1in]{geometry} %1 inch margins
+\documentclass[letterpaper,11pt,oneside,onecolumn]{article}
+\usepackage[margin=0.5in, bottom=0.5in, top=0.75in]{geometry} %1 inch margins
 \usepackage{amsmath, amssymb, amstext}
 \usepackage{fancyhdr}
 \usepackage{algorithm}
@@ -46,9 +46,24 @@
 \begin{document}
 \section*{Foundations}
 \subsection*{Positive Semidefinite Matrices}
+\paragraph{Equivalent Definitions} The following are equivalent: $(a)$ Matrix $A$ is positive semidefinite ($A\succcurlyeq 0$), $(b)$ $A$ is a symmetric and for all $x$, $x^TAx \geq 0$, $(c)$ $A = B^TB$ for some $B$, $(d)$ all eigenvalues of $A$ are non-negative, $(e)$ $\langle A, X\rangle \geq
+ 0$ for all $X \succcurlyeq 0$.
+ \paragraph{Notes} $\langle A, X\rangle = trace(A^TX)$. Non-singular positive-semidefinite matrices are called positive definite.
+ \paragraph{Necessary Conditions}
+ If $A \succcurlyeq 0$ and $rank(A) = r$ then $A$ can be written as the sum of $r$ rank $1$ PSD matrices. Also each principal submatrix of $A$ is PSD.
+ \paragraph{Cholesky} $M = \begin{bmatrix} A & B \\  B^T &D\end{bmatrix} \succcurlyeq 0$ iff $A \succcurlyeq 0$ and $D - B^TA^{-1}B \succcurlyeq 0$ (note: $A$ is non-singular).
+\paragraph{Kronecker Product} $(A \otimes B)_{(i,k),(j,\ell)} = A_{i,j}B_{k,\ell}$. Properties: $(A\otimes B)(C\otimes D) = AC \otimes BD$, $(A\otimes B)^T = A^T \otimes B^T$, $tr(A \otimes B)= tr(A) tr(B)$, $vec(AXB^T) = (A\otimes B)vec(X)$.
+\paragraph{Schur Product} $(A \circ B)_{i,j} = A_{i,j}B_{i,j}$. Properties: $(A\otimes B) \circ(C\otimes D) = (A\circ C) \otimes (B \circ D)$ and $(A \circ B)\otimes(C\circ D) = (A\otimes C) \circ(B \otimes D)$, $\langle A, B \rangle = sum(A \circ B)$.
+\paragraph{Products and PSD} If $A, B\succcurlyeq 0$ then $A\otimes B \succcurlyeq 0$. If $A$ and $B$ are of the same order then $A\circ B \succcurlyeq 0$.
 \subsection*{Convex Sets}
+\paragraph{Theorem} If $f$ is a continuous function on compact set $C$ then there exists $c\in C$ such that $f(x) \leq f(c)$ for all $x \in C$.
+\paragraph{Affine space} Affine subspaces of a vector space are closed under affine combinations: $y = \sum_r a_r x_r$ with $\sum_r a_r =1$ means $y$ is an affine combination of $x_r$'s. If the maximum size of an affinely independent spanning set of $C$ is $d+1$ then $C$ has affine dimension $d$.
+\paragraph{Convex space} Convex combinations are affine combinations where scalars $a_r \geq 0$. Convex spaces are those closed under convex combinations. Half-spaces are convex sets of the form $\{x \in V: \langle \alpha, x \rangle \leq b\}$. A compact convex set is the convex hull of its extreme points. If $x = sa + (1-s)b$ for $0\leq s \leq 1$, $a,b \in C$ implies $s=0$ or $s=1$ then $x$ is an extreme point of $C$. A convex hull of a set of point is the smallest convex set containing those points.
+\paragraph{Hyperplanes and Separation}
+A hyperplane $\langle h, x\rangle = c$ separates $A,B$ if for all $a \in A$, $\langle h, a\rangle \leq c$ and for all $b \in B$, $\langle h, b \rangle \geq c$. Hyperplane $H$ supports convex set $C$ at $y \in C$ if $C$ lies entirely in one half-space determined by $H$ and $y \in H \cap C$. The metric projection $\pi_C(x) :=$ point in $C$ nearest to $x \not\in C$ has the property that the hyperplane with normal $x - \pi_C(x)$ supports $C$ at $\pi_C(x)$.
+\paragraph{Cones} A convex cone is a convex set closed under non-negative linear combinations. The set of PSD matrices of order $n$ form a cone. The dual of cone $K$, denoted $K^*$ is $K^*=\{v \in V: \langle v,k \rangle \geq 0 \text{ for all } k \in K \}$. The PSD cone is self-dual.
 \section*{Semidefinite Programs}
-\subsection*{Definition}
+\subsection*{Canonical Form}
 \subsection*{Duality}
 \subsection*{Algorithms}
 \section*{Applications}
