@@ -64,7 +64,12 @@ A hyperplane $\langle h, x\rangle = c$ separates $A,B$ if for all $a \in A$, $\l
 \paragraph{Cones} A convex cone is a convex set closed under non-negative linear combinations. The set of PSD matrices of order $n$ form a cone. The dual of cone $K$, denoted $K^*$ is $K^*=\{v \in V: \langle v,k \rangle \geq 0 \text{ for all } k \in K \}$. The PSD cone is self-dual.
 \section*{Semidefinite Programs}
 \subsection*{Canonical Form}
+\paragraph{Primal Conic Program} If $K$ is a closed convex cone then then problem:
+$\sup \{\langle C, X \rangle : \langle A_i, X \rangle = b_i (i=1,\dots, m), X \in K \} $ is called our primal problem. If $K$ is the cone of PSD matrices then we have a Semidefinite Program.
 \subsection*{Duality}
+\paragraph{Dual Conic Program} Corresponding to the primal we have a dual problem given by $\inf \{ y^Tb : \sum_i y_iA_i - C \in K^*\}.$
+\paragraph{Duality Theorems} (Weak:) If $y$ is dual feasible and $X$ is primal feasible then $y^Tb \geq \langle C, X\rangle$ with equality iff $\langle \sum_i y_i A_i - C, X\rangle = 0$. (Strong:) If there is $y$ s.t. $\sum_i y_i A_i - C \in int(K^*)$ and dual is bounded below then primal has an optimal solution with no duality gap (difference between primal/dual optimal solutions).
+\paragraph{Farkas-Type Lemma} If $K$ is a pointed closed convex cone s.t $int(K) \neq \emptyset$, and system $\langle A_i, X \rangle = b_i (i=1,\dots,m)$ has a solution then exactly one of: (a) There is $X \in int (K)$ st. $\langle A_i, X\rangle = b_i$ for all i, (b) There is $y$ s.t. $\sum_i y_i A_i \in K^*\backslash \{0\}$ and $y^Tb \leq 0$ holds.
 \subsection*{Algorithms}
 \section*{Applications}
 \subsection*{Lovasz Theta}
