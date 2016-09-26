@@ -1,17 +1,23 @@
 %======================================================================
 \chapter{Preliminaries}
 %======================================================================
-This chapter gives background on the tools used in the main body of work.
+This chapter gives background on the tools used in the main body of work. Most of this material, with possible exceptions being iterative rounding and the structure of stable matching instances, should be familiar to a student with comparable background to a Combinatorics and Optimization undergraduate at the University of Waterloo. We will emphasize the results in the covered areas that we will need later, but it is important to point out that these areas go much deeper than what is written here and so the end of each section includes suggested texts for further reading.
 
 \section{Matching Theory}
-\subsection{Matchings}
-\subsection{Algorithms}
-\subsection{Linear Programming}
+\subsection{Graphs and Matchings}
+\paragraph{Graphs} A graph $G$ is an ordered pair $(V,E)$ where $V$ is called the vertex set and $E \subseteq \{\{a,b\} : a,b \in V, a \neq b\}$ is called the edge set. The clause $a \neq b$ forbids self-loops and insisting that $E$ is a proper set forbids parallel edges. Some authors choose to work with more generality but for ease of exposition we will not. As defined above, $G$ is an undirected graph, but if one were to change $E$ to a set of ordered pairs in $V \times V$ then $G$ would be called a directed graph. We will work here with undirected graphs in most chapters. When $V$ and $E$ are not explicit we can used $V(G)$ and $E(G)$ to refer to respectively the vertex and edge sets of $G$.
+\paragraph{Paths and Adjacency} In a graph $G$, two vertices $a,b \in V(G)$ are said to be adjacent, denoted $a \sim b$, if $ab \in E$ (notice $ab \in E$ is shorthand for $\{a,b\} \in E$). For any vertex $a$ we call $\delta(a) = \{b \in V(G): b \sim a\}$ the neighbourhood of $a$. The degree of $a$, $d(a)$, is defined as $d(a) = |\delta(a)|$. A path $P \subseteq E$ is a set of edges that describe a sequence of vertices $v_0, v_1, \dots, v_n$ such that for any $i \in \{0,\dots, n-1\}$, $v_iv_{i+1} \in P$. That is a path is a set of edges describing a sequence of adjacent vertices. Formally we also disallow paths to repeat vertices, with the following exceptional case. A cycle is a path with $v_0 = v_n$.
+\paragraph{Bipartite Graphs} A graph $G = (V,E)$ is said to be bipartite if there exists a partition of $V$ into $V_0, V_1$ such that for every edge $ab \in E$, $a \in V_0$ and $b \in V_1$. We will restrict our attention to bipartite graphs in this section as most of our work on stable matchings presupposes this case.
+\paragraph{Matching} Given a graph $G = (V,E)$, a matching on $G$ is any $M \subseteq E$ satisfying that for all $e_1, e_2 \in M$, $e_1 \cap e_2 = \emptyset$. We use $V(M) = \{v \in V: \exists e \in M, v \in e\}$ to denote the set of vertices matched in $M$. Intuitively our definition of matching means that each vertex matched in $M$ (those in $V(M)$) is matched to exactly one "partner". The partner of vertex $v$, denoted $M(v)$, is the vertex such that $vM(v) \in M$. When it is clear from contex we may also use $M$ to refer to the graph "induced" by $M$, by which we mean the graph $(V(M), M)$.
+\subsection{Maximum Cardinality Matching}
+
+\subsection{Maximum Weight Matching}
 \section{Iterative Rounding}
-\subsection{Basic Tools}
+\subsection{Linear Programming Tools}
 \subsection{Strategy}
 \subsection{Application to Matching}
 \section{Stable Matching}
 \subsection{Problem}
 \subsection{Gale Shapley Algorithm}
 \subsection{Structure}
+
