@@ -22,6 +22,15 @@ We cover this proof not only because it is instrinsically interesting, but also 
 \paragraph{Further Reading}
 This problem is very well understood. For instance Tutte's classic min-max theorem TODOCITE, and Edmond's Blossom algorithm TODOCITE. A textbook appropriate for advanced undergraduate or beginner graduate students is Combinatorial Optimization by Cook, Cunningham, Pulleybank, and Schrijver TODOCITE which contains a chapter covering the results mentioned here.
 \subsection{Maximum Weight Matching}
+\paragraph{Problem} Suppose we are given a graph $G$ and a weight function $w : E(G) \rightarrow \R$. The problem now is to find a matching $M$ which maximizes $\sum_{e \in M} w(e)$. This problem and its solution via the Hungarian Algorithm attributed to Kuhn and Munkres TODOCITE is one of the earliest success stories of Combinatorial Optimization. Another approach which gives some flavour of the work to come is to model the problem via a linear program. It is this approach we will explain here.
+\paragraph{Linear Program}
+Consider the following linear program:
+\begin{align*}
+	\text{max} &\sum_{e \in E(G)} w(e) x_e \\
+	\ni \sum_{e \in \delta(v)} x_e &\leq 1 &\text{for all $v \in V(G)$} \\
+	x_e &\geq 0 &\text{for all $e \in E(G)$.}
+\end{align*}
+If we let $M$ be a maximum weight matching of $G$ with weight function $w$ then its incidence vector $\chi(M) \in \R^{|E(G)|}$ is the vector with $\chi(M)_e = 1$ if $e \in M$ and $\chi(M)_e = 0$ otherwise. Since $M$ is a matching $\chi(M)$ is feasible for the above linear program. Hence the optimal solution to the linear program is an upper bound on the maximum weight of a $M$ in $G$. In fact Birkhoff TODOCITE showed that all extreme point solutions to this program are integral and hence optimal extreme point solutions are incidence vectors of matchings. In the next section we will break down the previous statement and discuss a proof, not the original proof of Birkhoff, but a proof using the techniques of iterative rounding.
 \section{Iterative Rounding}
 \subsection{Linear Programming Tools}
 \subsection{Strategy}
