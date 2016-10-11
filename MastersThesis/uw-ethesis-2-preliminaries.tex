@@ -26,9 +26,9 @@ This problem is very well understood. For instance Tutte's classic min-max theor
 \paragraph{Linear Program}
 If you are uncomfortable with linear programming please see section X.Y TODOCITE, otherwise read on. Consider the following linear program:
 \begin{align*}
-	\text{max} &\sum_{e \in E(G)} w(e) x_e \\
-	\ni \sum_{e \in \delta(v)} x_e &\leq 1 &\text{for all $v \in V(G)$} \\
-	x_e &\geq 0 &\text{for all $e \in E(G)$.}
+	&\text{max} \sum_{e \in E(G)} w(e) x_e \\
+	&\ni \sum_{e \in \delta(v)} x_e \leq 1 &\text{for all $v \in V(G)$} \\
+	&\quad\quad\quad\ \ x_e \geq 0 &\text{for all $e \in E(G)$.}
 \end{align*}
 If we let $M$ be a maximum weight matching of $G$ with weight function $w$ then its incidence vector $\chi(M) \in \R^{|E(G)|}$ is the vector with $\chi(M)_e = 1$ if $e \in M$ and $\chi(M)_e = 0$ otherwise. Since $M$ is a matching $\chi(M)$ is feasible for the above linear program. Hence the optimal solution to the linear program is an upper bound on the maximum weight of a $M$ in $G$. In fact Birkhoff TODOCITE showed that all extreme point solutions to this program are integral and hence optimal extreme point solutions are incidence vectors of matchings. TODOCITE (Edmonds should be here somewhere). In the next section we will break down the previous statement and discuss a proof, not the original proof of Birkhoff, but a proof using the techniques of iterative rounding.
 \section{Iterative Rounding}
@@ -115,6 +115,51 @@ We need to establish two things in this phase, that the algorithm terminates in 
 \subparagraph{Termination} To show that the algorithm terminates we demonstrate that there always exists an $e$ for which $x_e \in \{0,1\}$ for every iteration. Doing so proves inductively that the algorithm terminates with a $\{0,1\}$ valued vector. There is a standard approach to showing the existence of $x_e \in \{0,1\}$ which proceeds by contradiction. If we suppose that every $x_e \in (0,1)$ (classically $0\leq x \leq 1$ is part of our $(LP)$ formulation) then we may obtain a contradiction as follows. Since $x$ is a basic feasible solution we have that there are $|E|$ linearly independent constraints tight at $x$. Since $x_e > 0$ we know no such constraints are non-negativity constraints. We may then further use $x_e < 1$ to obtain some structure and show an upper bound on the number of linearly independent tight constraints that is smaller than $n$, contradicting that $x$ is an extreme point. This will become more concrete in the next section when we demonstrate an example.
 \subparagraph{Correctness} It remains to show that the algorithm returns an optimal solution. This typically takes the form of an inductive argument on the size of the $(LP)$. In that context showing that the vector $x$ restricted to the variables not removed in line $2$ of the algorithm is a feasible solution to the residual linear program allows you to conclude that the objective value at $x$ is at most that of the integral solution returned. Since $x$ is optimal this implies that the integral solution returned has the same objective value as $x$ and is thus optimal.
 \subsection{Application to Matching}
+\paragraph{}
+Recall the linear programming relaxation of maximum weight matching in bipartite graphs:
+\begin{align*}
+	&\text{max} \sum_{e \in E(G)} w(e) x_e \\
+	&\ni \sum_{e \in \delta(v)} x_e \leq 1 &\text{for all $v \in V(G)$} \\
+	&\quad\quad\quad\ \ x_e \geq 0 &\text{for all $e \in E(G)$.}
+\end{align*}
+We will use iterative rounding to prove that this linear program, $LP(G)$, is integral. Consider an iterative rounding algorithm for bipartite matching with weighted input graph $G$.
+\begin{enumerate}
+\item Set $M \leftarrow \emptyset$
+\item While $|E(G)| > 0$\begin{enumerate}
+\item Let $x$ be an extreme point optimal solution to $LP(G)$.
+\item For each edge $e$ with $x_e = 1$: $M \leftarrow M \cup \{e\}$.
+\item For each edge $e$ with $x_e \in \{0,1\}$ : $G \leftarrow G - e$.
+\end{enumerate}
+\item return $M$
+\end{enumerate}
+To prove that $LP(G)$ is integral for any weighted bipartite graph $G$ we need to show that our iterative algorithm always terminates in finite time and returns an integral solution of optimal value.
+\paragraph{} Since our graph $G$ is finite, demonstrating termination is simply a matter of verifying that for any extreme point solution $x$ of $LP(G)$ there exists an edge $e$ with $x_e \in \{0,1\}$. In doing so we will need the following lemma about extreme points of $LP(G)$.
+\paragraph{Lemma} Let $x$ be an extreme point optimal solution to $LP(G)$. Suppose that for all $e \in E(G)$, $x_e > 0$. Then there exists $W \subseteq V(G)$ satisfying
+\begin{itemize}
+\item $\sum_{e\in\delta(v)} x_e = 1$ for all $v \in W$ \\
+\item $\{\chi(\delta(v)) : v \in W\}$ is linearly independent (recall that $\chi : E \rightarrow \{0,1\}^{|E|}$ maps edge sets to incidence vectors)
+\item $|W| = |E|$.
+\end{itemize} 
+The proof is immediate from observing $x$ is a basic feasible solution and no non-negativity constraints are tight.
+\paragraph{} We will now prove that our iterative rounding algorithm always terminates returning a matching (equivalently an integral solution). We will do this via a contradiction argument proving that a $01$ variable can always be found.
+\paragraph{Lemma} Let $x$ be an optimal extreme point solution to $LP(G)$. Then there exists $e \in E(G)$ such that $x_e \in \{0,1\}$.
+\paragraph{Proof}
+Suppose for a contradiction that for all $e\in E(G)$, $0 < x_e < 1$. By our previous lemma there exists $W \subseteq V(G)$ containing vertices corresponding to $|E(G)|$ linearly independent tight vertex constraints. Let $v \in W$. Since $\sum_{e\in \delta(v)} x_e = 1$ and $x_e < 1$ for all $e$, we have $d(v) \geq 2$. So then
+$$2|W| = 2|E| = \sum_{v \in V(G)} d(v) \geq \sum_{v\in W} d(v) \geq 2|W|.$$
+The inequalities about thus hold as equalities. Since $\sum_{v\in V(G)} d(v) = \sum_{v \in W} d(v)$, $d(v) = 0$ for all $v \not\in W$. Since $\sum_{v \in W} d(v) = 2|W|$, $d(v) = 2$ for all $v \in W$. Therefore $E(G)$ is a set of cycles covering the vertices of $W$. Let $C \subseteq E(G)$ be a cycle with $V(C) \subseteq W$. Let $V_1, V_2$ be a bipartition of the vertex set of $G$ (which exists since $G$ is bipartite). Further since $G$ is bipartite for each edge $vw \in E(C)$ one of $v,w \in V_1$ and the other of $v,w \in V_2$. Hence we have
+$$\sum_{v \in V(C) \cap V_1} \chi(\delta(v)) = \sum_{v\in V(C) \cap V_2} \chi(\delta(v))$$
+which contradicts the linear independence of $\{\chi(\delta(v)) : v \in W\}$. $\blacksquare$
+\paragraph{}
+It remains to verify that our algorithm returns an optimal solution. We show that via an inductive argument in the following lemma.
+\paragraph{Lemma}
+The iterative rounding algorithm returns a matching of weight at least that of an optimal solution $LP(G)$.
+\paragraph{Proof}
+We proceed by induction on the number of iterations the algorithm runs to solve the problem. In the base case if the algorithm runs for a single iteration then the returned solution is exactly the incidence vector of an extreme point optimal solution to $LP(G)$. That is, the lemma holds trivially. So for induction suppose the algorithm needs $k$ iterations to return an answer for input graph $G$ and for any graph $G'$ such that the algorithm needs less than $k$ iterations to solve the problem, the algorithm returns an optimal matching. Let $x$ be the extreme point of $LP(G)$ found in step $2(a)$. Let $R$ be the set of edges removed in step $2(c)$ of the algorithm when run on $G$. Let $G'$ be the residual graph ($G$ restricted to edges $E(G) \backslash R$). The following iteration is equivalent to running the algorithm on $G'$. Let $M'$ be the matching returned. By the inductive hypothesis $w(\chi(M')) \geq w(x')$ for any $x'$ feasible for $LP(G')$. Let $x'$ be the point $x$ restricted to edges variables in $E(G')$. Then $w(x) = w(x') + w(\chi(R))$. Further, as $x'$ is feasible for $LP(G')$, we have
+$w(\chi(M')) \geq w(x')$. Let $M$ be the matching returned. Then $M = M' \cup R$ and thus
+$$w(\chi(M)) = w(\chi(M')) + w(\chi(R)) \geq w(x') + w(\chi(R)) = w(x).$$
+Therefore by induction the algorithm always returns a matching with weight at least that of an optimal solution to $LP(G)$. $\blacksquare$
+\paragraph{}
+As discussed in the previous section, the above lemmas imply that that $LP(G)$ is integral.
 \section{Stable Matching}
 \subsection{Problem}
 \subsection{Gale Shapley Algorithm}
