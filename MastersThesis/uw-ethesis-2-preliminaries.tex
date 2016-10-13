@@ -162,6 +162,30 @@ Therefore by induction the algorithm always returns a matching with weight at le
 As discussed in the previous section, the above lemmas imply that that $LP(G)$ is integral.
 \section{Stable Matching}
 \subsection{Problem}
+\paragraph{Input}The stable matching problem gives you a bipartite graph $G=(V, E)$ with bipartition $V = A\cup B$, where each $v \in V$ has a strict order over $\delta(v)$ referred to as $v$'s preferences. We will use $u <_v w$ to denote that $(u,w)$ is in $v$'s order of $\delta(v)$, and we will use $>_v$, $\leq_v$, $\geq_v$, and $=_v$ analogously.
+\paragraph{Output} Given a stable matching instance you are to find a matching $M$ that is stable. A matching is called stable if there is no blocking pair $(a,b)$. A pair $(a,b)$ is said to block $M$ if $ab \not\in M$ and $b >_a M(a)$ and $a >_b M(b)$.
+\paragraph{Application} The sets $A,B$ are colloqially referred to as men and women respectively. This alludes to the toy application of stable matching in forming couples from single people together who have preferences over the opposite gender. In this context a blocking pair references to a pair who mutually prefer each other to their partner. One of the original applications of stable matching TODOCITE was to pair medical students with hospitals at which they were to do their residency.
 \subsection{Gale Shapley Algorithm}
+\paragraph{}
+In their original work, Gale and Shapley gave an algorithm, called deferred acceptance TODOCITE, for solving the stable matching problem and in doing so proved that every bipartite graph with strict prefernce orders has a stable matching.
+\paragraph{Deferred Acceptance Algorithm}
+In the following description of the algorithm we adopt the convention that vertices prefer to be matched than to be unmatched. For each vertex in $a\in A$ we maintain a set $P(a)$ of vertices in $B$ that $a$ has previously "proposed" to. Given an input graph $G=(A \cup B, E)$ with preferences do:
+\begin{enumerate}
+\item Assign $M \leftarrow \emptyset$
+\item Assign $P(a) \leftarrow \emptyset$ for all $a \in A$
+\item While there exists $a \in A$ such that $a \not\in V(M)$ and $P(a) \neq \delta(a)$:
+	\begin{enumerate}
+	\item Let $b$ be such that $b \geq_a b'$ for all $b' \in \delta(v) \backslash P(a)$
+	\item Assign $P(a) \leftarrow P(a) \cup \{b\}$
+	\item If $a >_b M(b)$ then assign $M \leftarrow M \cup \{ab\} \backslash \{M(b)b\}$
+	\end{enumerate}
+\item Return $M$.
+\end{enumerate}
+\paragraph{Lemma} Deferred Acceptance returns a matching.
+\paragraph{Proof}
+From step $3(c)$ it is clear that each $b \in B$ is matched to at most one $a \in A$. Further any $a \in A$ matched in step $3(c)$ is unmatched by the While condition of step $3$, and hence each $a \in A$ is matched to at most one $b \in B$. Therefore $M$ returned is a matching. $\blacksquare$
+\paragraph{Theorem (Gale-Shapley)} The matching returned by Deferred Acceptance is stable.
+\paragraph{Proof}
+We claim that Deferred Acceptance maintains the following invariant: at any iteration for any $a \in A$ for all $b \in P(a)$, $M(b) \geq_b a$. We proved this claim by induction. In the base case, at the start of the algorithm $P(a) = \emptyset$ for all $a \in A$ and hence the claim is vacuously true. In the inductive case consider some iteration $i$. Let $a\in A$ be the vertex chosen in step $3$. Let $b \in B$ be as chosen in step $3(a)$. In step $3(b)$, $b$ is added to $P(a)$. By induction the invariant holds for all $b' \in P(a)$ except $b$. In step $3(c)$ if $a \leq_b M(b)$ then the invariant holds for $b \in P(a)$ and no changes are made. If $a >_b M(b)$ then $b$ is matched to $a$ and hence after step $3(c)$ the invariant holds for $b$ and thus the entirety of $P(a)$. For all other $a' \neq a$, $P(a')$ is unchanged and hence by induction the invariant holds for all $b' \in P(a')$ except $b$. So consider if $b \in P(a')$. Observe that $a$ is preferred by $b$ to her match previous to this iteration and hence by transitivity the invariant also holds for $b \in P(a')$. Therefore by induction the invariant holds. It is easy to see from step $3$ that the algorithm also maintains the invariant that for all $b \in \delta(a)\backslash P(a)$, $M(a) \geq_a b$. Hence if $ab \in E$ with $ab \not\in M$ at termination of the algorithm then either $b \in P(a)$ or $b \not\in P(a)$. If $b \in P(a)$ then $M(b) >_b a$ (as $a \neq M(b)$) and so $ab$ is not a blocking pair. If $b \not\in P(a)$ then as $ab \in E$, $b \in \delta(a) \backslash P(a)$ and so $M(a) >_a b$ (as $b \neq M(a)$). Therefore in either case $ab$ does not block $M$. Therefore $M$ is stable. $\blacksquare$
 \subsection{Structure}
 
