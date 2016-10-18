@@ -1,7 +1,37 @@
 %======================================================================
 \chapter{Stable Matching Polytope}
 %======================================================================
-This chapter gives a linear description of the convex hull of stable matchings. Our result is a new, simpler proof of integrality.
+\paragraph{}
+In this we focus on a polyhedral characterization of the set of
+incidence vectors of stable matchings.  Vande Vate first provided such
+a description in \cite{vate1989linear} for the special case where $G$
+is a complete bipartite graph.  Rothblum \cite{rothblum1992characterization} later generalized Vande Vate's result to incomplete preference lists and simplified the proof of integrality via an extreme point argument.
+\paragraph{}
+We provide an even simpler, more compact argument for the integrality of Rothblum's formulation. Our arguments are elementary and rely solely on some well-known results on the symmetric difference of stable matchings as well as some knowledge of the local structure of extreme points in our formulation to achieve the desired result. This proof operates in the spirit of iterative rounding as discussed in \ref{IR}. We say it is iterative rounding in spirit because, while it does not follow the strict approach of iterative rounding, it proves that there is an integral variable in every extreme point and analyses the result of dropping that variable and applying induction to the smaller problem instance to obtain a contradiction.
 \section{Linear Description}
-
+\paragraph{Notation}
+We will use some notation to ease exposition. Suppose $G=(A\cup B, E)$ is a bipartite graph. Let $S \subseteq E$ and let $x \in \R^{\size{E}}$. Then we denote $\sum_{e\in S} x_e$ by $x(S)$. Suppose $A \cup B$ have preference orders as in a stable matching instance. Then we for any $a\in A$ and $b \in B$ we let
+$$\delta^{>a}(b) = \{a' \in A: a' >_b a\}.$$
+We can define $\delta^{>b}(a)$ analogously, and further replace $>$ with $<, \leq, \geq, =$ in the natural way.
+\paragraph{}
+We will begin with a linear description of a polytope which we claim has incidence vectors of stable matchings as its extreme points. This polytope is the matching polytope described in \ref{GT:MWM} with added "stability" constraints. If we let $G=(A\cup B, E)$ be a bipartite graph with preferences then we will denote the so-called stable matching polytope of $G$ by $P(G)$ and it has the following description:
+\begin{align}
+x(\delta(v)) &\leq 1, &\text{for all } v \in A\cup B \label{constraint:one}\\
+x_e &\geq 0, &\text{for all } e \in E \label{constraint:nonneg}\\
+x(\delta^{>a}(b)) + x(\delta^{>b}(a)) + x_{ab} &\geq 1, &\text{for all } ab \in E.\label{constraint:stab}
+\end{align}
+Our major theorem of this chapter is to demonstrate that $P(G)$ is integral, but first we must verify that indeed the integral extreme points of $P(G)$ are exactly the incidence vectors of stable matchings in $G$.
+\begin{lemma}
+Let $x \in \R^{\size{E}}$. Then $x$ is an integral extreme point of $P(G)$ if and only if there exists a stable matching $M$ of $G$ such that $x = \chi(M)$.
+\end{lemma}
+\begin{proof}
+\paragraph{}
+Suppose that $x$ is an integral extreme point of $P(G)$. By constraints \ref{constraint:one} and \ref{constraint:nonneg} and Birkhoff's theorem \cite{birkhoff1946tres}, $x$ is the incidence vector of some matching $M$ of $G$. Suppose that $M$ is not stable, that is to say there exists $ab \in E$ which blocks $M$. But $ab$ satisfies:
+$$x(\delta^{>a}(b)) + x(\delta^{>b}(a)) + x_{ab} &\geq 1$$
+and since $x$ is integral, $ab \not\in M$ this implies that either
+$$x(\delta^{>a}(b)) = 1 \quad\text{or}\quad  x(\delta^{>b}(a)) = 1.$$
+In the first case there exists $b'$ for which $x_{ab'} = 1$ and hence $ab' \in M$  with $b' >_a b$. Thus in the first case $ab$ does not block $M$. Similarly in the second case there exists $a' >_b a$ with $a'b \in M$ and hence $ab$ does not block $M$ in either case. Therefore $M$ is stable.
+\paragraph{}
+Now suppose there exists a stable matching $M$ of $G$ for which $x = \chi(M)$. Since $M$ is a matching $x(\delta(v) \leq 1$ for all $v \in A \cup B$ and $x_e \geq 0$ for all $e \in E$. Hence it remains to verify that $x$ satisfies constraints \ref{constraint:stab}. Indeed let $ab \in E$. If $ab \in M$ then $1 = \chi(M)_{ab} = x_{ab}$ and so \ref{constraint:stab} is satisfied for $ab$. Now if $ab \not\in M$ then, since $M$ is stable, $(a,b)$ is not a blocking pair. So there exists $ab' \in M$ with $b' >_a b$ or there exists $a'b \in M$ with $a' >_b a$. In the former case $x(\delta^{>b}(a)) \geq 1$ and in the latter $x(\delta^{>a}(b)) \geq 1$. In either case \ref{constraint:stab} is satisfied for $ab$ as desired.  
+\end{proof}
 \section{Proof of Integrality}
