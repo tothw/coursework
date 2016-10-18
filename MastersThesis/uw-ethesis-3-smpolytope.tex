@@ -94,4 +94,50 @@ Let $M$ and $M'$ be distinct stable matchings in bipartite graph $G=(A\cup B, E)
 M \cap \delta^{>a}(b) \neq \emptyset,\ \ M\cap \delta^{>b}(a) \neq \emptyset \quad\text{and}\quad M' \cap(\delta^{>a}(b) \cup \delta^{>b}(a)) = \emptyset \end{equation}
 then $\chi(M)$ and $\chi(M')$ do not define an edge of the polytope $P(G)$.
 \end{corollary}
+\begin{proof}
+\paragraph{}
+By condition \ref{cond:nonedge} we have $$M(a)>_a M'(a)$$ and $$M(b) >_b M'(b).$$
+Since $M(a) >_a M'(a)$, $aM(a) \in \sup(M,M')$. That is $$sup(M,M') \cap M \neq \emptyset$$ and since $M'(a) \neq M(a)$, 
+$$sup(M,M') \not\subseteq M'.$$
+Since $M(b) >_b M'(b)$, $M'(b)b \in \sup(M,M')$. That is $$sup(M,M') \cap M' \neq \emptyset$$ and since $M(b) \neq M'(b)$,
+$$sup(M,M') \not\subseteq M.$$
+Taken together these observations prove that $sup(M,M')$ is a distinct stable matching from $M$ and $M'$. Thus by lemma \ref{lemma:all-same}, $\chi(M)$ and $\chi(M')$ do not define an edge of $P(G)$.  
+\end{proof}
 \subsection{Integrality of $P(G)$}
+\paragraph{}
+We are now ready to provide our proof that $P(G)$ is integral. The strategy is to first show that every extreme point $x$ has some variable $e \in E$ with $x_e \in \{0,1\}$, then, in a minimal counterexample, remove that variable and look at the reduced problem in the smaller variable set. By induction the vertices of the smaller polytope are integral. We will consider a particular edge of this polytope and obtain a contradiction via our structural lemmas of the previous section showing its end vertices cannot define an edge. The details will be made clear as we proceed.
+\begin{lemma}\label{lemma:01}
+Let $G = (A\cup B, E)$ be a bipartite graph with preferences. Let $x$ be an extreme point of $P(G)$. Then there exists $e \in E(G)$ such that $x_e \in \{0,1\}$.
+\end{lemma}
+\begin{proof}
+\paragraph{}
+Suppose for a contradiction that for all $e \in E(G)$, $0 <x_e < 1$. Recall by constraints \ref{constraint:nonneg} and \ref{constraint:one} that $0 \leq x_e \leq 1$ and so our assumption is sufficient for a contradiction. Since $x$ is a basic feasible solution (see section \ref{IR:LP}), $x$ is defined by $\size{E}$ linearly independent constraints which are tight (satisfied with equality) at $x$. Since $x > 0$ no such constraints are from type \ref{constraint:nonneg}. Thus all such constraints are from \ref{constraint:one} and \ref{constraint:stab}. Let $V_x \subseteq V(G)$ and $E_x \subseteq E(G)$ be such that $V_x$ and $E_x$ respectively contain vertices and edges corresponding to a set of $\size{E}$ linearly independent constraints tight at $x$. That is $V_x$ contains vertices corresponding to constraints from \ref{constraint:one} and $E_x$ contains edges corresponding to constraints from \ref{constraint:stab}. Choose $V_x$ and $E_x$ in such a way that $\size{V_x}x$ is maximized.
+\paragraph{}
+First observe that $V_x \subsetneq V$. To see this, suppose that $V_x = V$. Then since $G$ is bipartite
+$$\sum_{a \in A} \chi(\delta(a)) = \sum_{b \in B} \chi(\delta(b))$$
+and hence $\{\chi(\delta(v)) : v \in V=V_x\}$ is not linearly independent. Thus our observation that $V_x \subsetneq V$ holds.
+\paragraph{}
+For any $v \in V(G)$ denote by $N(v)$ the set $\{ w \in V(G): vw \in \delta(v)\}$ and let $N_{max}(v) \in N(v)$ be such that $N_{max}(v) \geq_v w$ for all $w \in N(v)$. Similarly let $N_{min}(v) \in N(v)$ be such that $N_{min}(v) \leq_v w$ for all $w \in N(v)$.
+\paragraph{}
+Let $b \in B$. We claim that if $a = N_{max}(b)$ then $ab \not\in E_x$. Indeed suppose for a contradiction that $ab \in E_x$. Since $a = N_{max}(b)$, $\delta^{>a}(b) = \emptyset$ and hence
+$$1 \leq x(\delta^{>a}(b)) + x(\delta^{>b}(a)) + x_{ab}  = x(\delta^{\geq b}(a) \leq x(\delta(a)) \leq 1,$$
+shows that $1 = x(\delta^{\geq b}(a)$ and thus $x(\delta^{<b}(a) = 0$. Since $x_e > 0$ for all $e \in E(G)$ this implies that $\delta^{<b}(a) = \emptyset$. Therefore
+$$\chi(\delta(a)) = \chi(\delta^{\geq b}(a)) = \chi(\delta^{>a}(b)) + \chi(\delta^{>b}(a)) + \chi(\{ab\})$$
+and hence by linear independence we cannot have both $ab \in E_x$ and $a \in V_x$. Since $ab \in E_x$ this implies $a \not\in V_x$. But then the sets $V_x \cup\{a\}$ and $E_x \backslash\{ab\}$ describe the same vectors as $V_x, E_x$ but $\size{V_x \cup\{a\}} > \size{V_x}$ contradicting our choice of $V_x$. Thus $ab \not\in E_x$. Similarly we can show that $aN_{max} \not\in E_x$. Therefore for any $v \in V$, $vN_{max}(v) \not\in E_x$.
+\paragraph{}
+Let $v \in V_x$. Let $w = N_{min}(v)$. We claim analogously to the previous claim that $vw \not\in E_x$ (this time we will show it without mention of $A$,$B$). Indeed suppose for a contradiction that $vw  \in E_x$. Since $v \in V_x$, by tightness,
+$$x(\delta(v)) = 1$$
+and since $vw \in E_x$, by tightness,
+$$x(\delta^{>v}(w)) + x(\delta^{>w}(v)) + x_{vw} = 1.$$
+Since $w = N_{min}(v)$, $\delta^{>w}(v) \cup \{vw\} = \delta(v)$ and hence
+$$x(\delta^{>w}(v)) + x_{vw} = x(\delta(v)$$
+and
+$$\chi(\delta^{>w}(v)) + \chi(\{vw\}) = \chi(\delta(v)).$$
+Thus
+$$1 = x(\delta^{>v}(w)) + x(\delta^{>w}(v)) + x_{vw} = x(\delta^{>v}(w)) + x(\delta(v)) = x(\delta^{>v}(w)) + 1,$$
+which implies that $x(\delta^{>v}(w)) = 0$. Again since $x_e > 0$ for all $e \in E(G)$, this implies that
+$$\chi(\delta^{>v}(w)) = 0.$$
+So we have that
+$$\chi(\delta(v)) = \chi(\delta^{>w}(v)) + \chi(\{vw\}) = \chi(\delta^{>v}(w)) + \chi(\delta^{>w}(v)) + \chi(\{vw\}),$$
+and hence by linear independence we cannot have both $vw \in E_x$ and $v \in V_x$. Since $v \in V_x$ this implies $vw \not\in E_x$, a contradiction.
+\end{proof}
