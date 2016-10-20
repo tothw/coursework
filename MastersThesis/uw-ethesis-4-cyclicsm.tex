@@ -1,9 +1,50 @@
 %======================================================================
 \chapter{Cyclic Stable Matching}
 %======================================================================
-This chapter describes the cyclic stable matching problem as posed by Knuth. We give some sufficient conditions for a matching to be stable in this context. We describe a computer search procedure for deciding if all preference systems of a certain size have a cyclic stable matching or finding a counterexample should one exist. 
+This chapter describes the cyclic stable matching problem as posed by Knuth. We give some sufficient conditions for a matching to be stable in this context. Then we proceed to describe a computer search procedure for deciding if all preference systems of a certain size have a cyclic stable matching or finding a counterexample should one exist. 
 \section{The Problem}
+\paragraph{}
+In Knuth's writing on stable matching \cite{knuth1997stable} he talks about some extensions of the classical stable matching problems as discussed so far. One such avenue for generalization is increasing the number of "genders", which is to say increase instead of matching pairs, we consider matching triples in tripartite graphs or matching $k$-tuples in $k$-partite graphs. We will make this notion formal through the terminology of hypergraphs.
+\begin{definition}
+We $G=(V,E)$ is a hypergraph if $V$ is some discrete set and $E \subseteq 2^V$ ($2^V$ denotes the set of all subsets of elements in $V$). We can think of adjacency in this case as $v \sim w$ provided there exists $e \in E$ such that $v, w \in e$. The notions of degree $d$ and edges incident upon a vertex $\delta$ extend naturally. A matching in this context is $M \subseteq E$ such that for all $m_1, m_2 \in M$, $m_1 \cap m_2 = \emptyset$. We call $G$ $k$-uniform if for all $e \in E$, $|e| = k$. We call $k$-uniform $G$ $k$-partite if there exists $V_1, \dots, V_k$ which partition $V$ and for all $e=(v_1, \dots, v_k) \in E$, $v_i \in V_i$ for $i = 1,\dots, k$. Lastly we say $k$-partite graph $G$ is balanced if $\size{V_1} = \dots = \size{V_k}$.
+\end{definition}
+\paragraph{}
+With our description hypergraphs complete we are ready to describe a generalization of stable matching.
+\begin{definition}
+In an instance of cyclic $k$-gender stable matching ($CkGSM$), we are given a $k$-partite hypergraph $G=(V_0 \cup \dots \cup V_{k-1}, E)$ and for each $i \in \{0,\dots,k-1\}$, each $v_i \in V_i$ is equipped with a preference order over $V_{i+1} \cap V(\delta(v_i))$ where addition of indices is taken modulo $k$ (so $V_{k-1}$ vertices have preferences over $V_0$ vertices, hence the descriptor cyclic). That each vertex in a given gender has preferences over vertices acceptable to them in another gender. We say our instance, and naturally the hypergraph $G$, is complete if for all $v_0 \in V_0$, $\dots$, $v_{k-1} \in V_{k-1}$, $(v_0,\dots,v_{k-1}) \in E$ (all possible tuples are acceptable to use in matchings). A solution to an instance of $CkGSM$ is a matching $M \subseteq E$ that is stable in the sense that no blocking tuple exists. A tuple $e=(v_0,\dots, v_{k-1}) \in E$ blocks $M$ if $e\not\in M$ and for each $i \in \{0,\dots, k-1\}$, $v_{i+1} >_{v_i} M(v_i)$ where $M(v_i)$ denotes the vertex $v_{i+1} \in V_{i+1}$ such that there exists an edge $m \in M$ for which $v_i, v_{i+1} \in m$.
+\end{definition}
+\paragraph{}
+We will focus on instances where $k=3$ to simplify things somewhat. Knuth asked if instances of $C3GSM$ always have solutions. To this day this question is unresolved for complete instances. Some, but not many, results are known and we will present them in the next section. 
 \section{Known Results}
+\paragraph{}
+First we will present a counterexample that demonstrates that when instances are not complete there need not always be a stable matching solution. This example is due to Biro et al \cite{biro2010three} and shows that when you have incomplete preferences there is a hypergraph with each $V_i$ have size $6$ and preference lists that admit no stable matching.
+\begin{note}\label{ex:R6}
+For our counterexample consider the tripartite hypergraph $R6 = (A \cup B \cup C, E)$ where $$A = \{a_1,a_2,a_3,a_1',a_2',a_3'\},\ B = \{b_1,b_2,b_3,b_1',b_2',b_3'\},\ \text{and}\ C = \{c_1,c_2,c_3,c_1',c_2',c_3'\}.$$ Below we present the preference orders of each vertex, where vertices omitted from a list are deemed unacceptable and cannot form edges with the given vertex whose list is under consideration:
+\begin{align*}
+a_0 &: b_0 > b_0' &b_0: c_0 > c_0' &\ &c_0:a_1 > a_1'\\
+a_1 &: b_1 > b_1' &b_1: c_1 > c_1' &\ &c_1:a_2 > a_2'\\
+a_2 &: b_2 > b_2' &b_2: c_2 > c_2' &\ &c_2: a_0> a_0'\\
+a_0' &: b_2 &b_0': c_2 &\ &c_0':a_0 \\
+a_1'&: b_0 &b_1': c_0 &\ &c_1':a_1\\
+a_2' &:b_1 &b_2': c_1 &\ & c_1':a_2.
+\end{align*}
+We will adopt the notation of the original authors calling the agents $\{a_i, b_i, c_i: 1 \leq i \leq 3 \}$ the inner agents and $\{a_i',b_i',c_i': 1\leq i \leq 3\}$ the outer agents.
+\end{note}.
+\begin{lemma}
+The problem instance of $C3GSM$ described in note \ref{ex:R6} has no stable matching.
+\end{lemma}
+\begin{proof}
+Let $M$ be a matching in $R6$. We observe that the possible triples in $M$ have very particular forms. Let $m \in M$ be a triple. Suppose that inner vertex $a_i \in m$. Then by $a_i$'s preferences either $b_i \in m$ or $b_i' \in m$. If $b_i \in m$ then as $a_i$ is not acceptable to $c_i$, the triple $m$ is of the form $a_ib_ic_i'$. If $b_i' \in m$ then $c_{i-1} \in m$ (recall index addition and subtraction is done modulo $3$) and hence the triple $m$ is of the form $a_i b_i'c_{i-1}$. Otherwise if outer vertex $a_i' \in m$ then the triple $m$ is of the form $a_i'b_{i-1}c_{i-1}$. That is the only triples in $M$ are those of the form
+$$a_ib_ic_i' \quad\text{or}\quad a_ib_i'c_{i-1} \quad\text{or}\quad a_i'b_{i-1}c_{i-1}.$$
+Then triples in $M$ contain exactly two inner agents and one outer agent each. Since each agent can only be matched at most once, and inner agents are matched in pairs then $M$ matches an even number of inner agents. But there are an odd number ($9$) of inner agents. Hence at least one inner agent is unmatched in $M$. By the symmetry of the problem instance we may assume without loss of generality that this inner agent is $a_i$. Consider the triple $T=(a_i, b_{i}', c_{i-1})$. If $c_{i-1}$ is matched in $M$ then, as $a_i$ is unmatched, $M(c_{i-1}) = a_i'$. Hence $a_i >_{c_{i-1}} M(c_{i-1})$. Again since $a_i$ is unmatched, $b_{i}'$ is unmatched and thus prefers $T$ to $M$. Hence the triple $T$ blocks $M$, and since $M$ was an arbitrary matching no matching of $R6$ is stable.
+\end{proof}
+\paragraph{}
+Since we have a counterexample to stability in the case where incomplete preferences are allowed this motivates us to restrict the problem to the situation where problem instances are complete. It is in this setting that we will work going forward. As of yet we are not aware of any counterexample instance that has no stable matching for complete $C3GSM$, nor of any proof that all instances admit a stable matching.
+\paragraph{}
+One natural angle towards a proof would be to attempt to extend the Deferred-Acceptance algorithm of Gale and Shapley to $C3GSM$. Farczadi et al provide some insight into the feasibility of this route in \cite{farczadi2014stable}. Here they claim a particular approach to extending Deferred-Acceptance is $NP$-complete. For readers without a complexity theory background this result gives strong evidence that there is no polynomial time algorithm for the approach to extending Deferred-Acceptance that they examine.
+\begin{theorem}
+(Farczadi et al): Consider an instance of complete $C3GSM$ with hypergraph $G=(A\cup B\cup C, E)$. Fix a perfect matching of $A$ to $B$. The problem of deciding if this matching can be extended to a stable matching of $G$ is $NP$-complete.
+\end{theorem}
 \section{Our Contributions}
 \subsection{Sufficient Conditions}
 \subsection{Symmetry in Problem Instances}
