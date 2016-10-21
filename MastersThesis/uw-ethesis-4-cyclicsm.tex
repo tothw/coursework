@@ -17,7 +17,10 @@ In an instance of cyclic $k$-gender stable matching ($CkGSM$), we are given a $k
 We may assume that instances of $CkGSM$ are balanced. To see this observe that adding dummy vertices does not affect the solutions. Thus if $\size{V_i} < \size{V_j}$ we can add $\size{V_j} - \size{V_i}$ dummy vertices to $V_i$ to balance their sizes. If incomplete preferences are allowed then dummy vertices can simply have no incoming edges. If preferences are required to be complete then we may simply place dummy vertices as the least preferred vertices among the relevant preference lists and give the dummy vertices arbitrary orders over "real" vertices they face. We that an instance of $CkGSM$ is of size $n$ if it is balanced with each $V_i$ having size $n$.
 \end{note}
 \paragraph{}
-We will focus on instances where $k=3$ to simplify things somewhat. Knuth asked if instances of $C3GSM$ always have solutions. To this day this question is unresolved for complete instances. Some, but not many, results are known and we will present them in the next section. 
+We will focus on instances where $k=3$ to simplify things somewhat. Knuth asked if instances of $C3GSM$ always have solutions. To this day this question is unresolved for complete instances. Some, but not many, results are known and we will present them in the next section.
+\begin{conjecture}\label{conj:stab}
+For all sizes $n$, instances of $C3GSM$ of size $n$ have a stable matching.
+\end{conjecture} 
 \section{Known Results}
 \paragraph{}
 First we will present a counterexample that demonstrates that when instances are not complete there need not always be a stable matching solution. This example is due to Biro et al \cite{biro2010three} and shows that when you have incomplete preferences there is a hypergraph with each $V_i$ have size $6$ and preference lists that admit no stable matching.
@@ -65,9 +68,39 @@ Let $G = (A \cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$. We 
 \end{proof}
 \paragraph{}
 Using lemma \ref{lemma:n3} Eriksson et al show the following theorem. We ommit the proof as, by the authors own admission, it is a technical case analysis.
-\begin{theorem}(Eriksson et al) \label{theorem:n4} \cite{eriksson2006three}: Any instance of $C3GSM$ with size $n = 4$ has a stable matching.
+\begin{theorem}(Eriksson et al) \label{theorem:n4} \cite{eriksson2006three}: The conjecture \ref{conj:stab} holds for $n\leq 4$.
 \end{theorem}
 \section{Our Contributions}
+\paragraph{}
+In this section we will describe some work done towards resolving if $C3GSM$ instances always have solutions for higher sizes $n$. We present first some sufficient conditions for problem instances to have stable matchings. Next we study the symmetry of problem instances and describe when problem instances are equivalent with respect to having a stable matching. All this work is building towards a proposal for a computer search procedure to decide if all instances of $C3GSM$ for a given size $n$ have a stable matching, or present a counterexample if they do not.
 \subsection{Sufficient Conditions}
+\begin{definition}
+Let $G$ be the hypergraph for an instance of $C3GSM$, and let $M$ be a matching in $G$. We denote by $\cB(G,M)$ the set of blocking triples in $G$ against $M$. Formally $\cB(G,M) = \{abc \in E(G): b>_a M(a), c>_b M(b), a>_c M(c)\}$.
+\end{definition}
+\begin{note}
+If we let $S \subseteq V(G)$ and denote by $G[S]$ the hypergraph $G$ restricted to vertices in $S$ and edges between vertices in $S$ ($G[S]$ denotes the subgraph induced by $S$) then we may use $\cB(G[S],M)$ to describe the blocking triples of $G$ among vertices in $S$. In particular if we wish to study blocking triples present among agents matched in $M$ we study the set $\cB(G[V(M)], M)$.
+\end{note}
+\begin{lemma}\label{lemma:partialstab}
+Let $G = (A\cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$ of size $n$ where $n-1$ is the best known size such that  satisfies conjecture \ref{conj:stab}. Suppose that $G$ has a matching $M$ (note $M$ need not be perfect) for which $\cB(G[V(M)],M) = \emptyset$. If for all  $v \in V(M)$, for all $w \in V(G)$ such that $w >_v M(v)$, we have that $w \in V(M)$ then $G$ has a stable matching.
+\end{lemma}
+\begin{proof}
+\paragraph{}
+Let $G' = G[V(G)\backslash V(M)]$ be the hypergraph obtained by removing vertices matched in $M$ from $G$. Consider the instance of $C3GSM$ with underlying hypergraph $G'$ and preference orders obtained from $G$. Since the size the instance with $G' \leq n=1$ we can find a stable matching of $G'$, call it $M'$. Consider the perfect matching in $G$ given by $S = M \cup M'$. We claim that $S$ is stable for $G$. Suppose for a contradiction that there exists $(a,b,c) \in \cB(G, S)$. Since $M'$ is stable for $G'$ and $\cB(G[V(M)], M) = \emptyset$, the blocking triple $(a,b,c)$ must use both agents matched in $M$ and $M'$. That is, at least one of $a,b,c \in V(M')$ and at least one of $a,b,c \in V(M)$. Bear in mind $V(M) \cap V(M') = \emptyset$. Without loss suppose $a \in V(M)$. Since $(a,b,c)$ is a blocking triple, $b >_a S(a) = M(a)$. Then by our hypothesis $b$ is matched in $M$. Again, since $(a,b,c)$ is a blocking triple, $c >_b S(b) = M(b)$ and by our hypothesis $c$ is matched in $M$. So $a,b,c \in V(M)$, a contradiction as this implies $a,b,c \not\in M'$ violating that at least one of $a,b,c \in M'$.
+\end{proof}
+\begin{corollary}\label{cor:1cycle}
+Let $G$ be the hypergraph for an instance of $C3GSM$ and $n$ be as in lemma \ref{lemma:partialstab}. If there exists $a,b,c \in V(G)$ such that $b = f(a,1)$, $c = f(b,1)$, and $a = f(c,1)$ then $G$ has a stable matching.
+\end{corollary}
+\begin{proof}
+\paragraph{}
+Invoke lemma \ref{lemma:partialstab} with $M = \{(a,b,c)\}$.
+\end{proof}
+\begin{corollary}
+Let $G=(A\cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$ with $n$ as in lemma \ref{lemma:partialstab}. If one of $A,B,C$, say without loss $A$, is such that for all $a,a' \in A$, $f(a,1) = f(a',1)$ then $G$ has a stable matching.
+\end{corollary}
+\begin{proof}
+\paragraph{}
+Let $a_1, \dots, a_n \in A$. Supppose that $b = f(a_1,1) =  \dots = f(a_n,1)$. Let $c = f(b,1)$. Then there exists some $a_k$ such that $a_k = f(c,1)$. Since $a_k \in A$ we may invoke corollary \ref{cor:1cycle} with $(a_k, b, c)$ to complete the proof.
+\end{proof}
 \subsection{Symmetry in Problem Instances}
+
 \subsection{Computer Search}
