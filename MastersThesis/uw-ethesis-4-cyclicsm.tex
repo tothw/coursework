@@ -114,7 +114,22 @@ Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ 
 \paragraph{}
 We may assume without loss that $\size{M} = n-3$, as $|M| \geq n-2$ is trivial. Let $c' = f(b, V(M))$ be the first choice of $b$ unmatched in $M$. Let $a' = f(c, V(M))$. If $c' = c$ then adding the triple $(a', b,c)$ to matching $M$ stabilizes $M(A), M(B), M(C)$ and $a', b, c'$ in the sense that they form no blocking triples. Formally $M(A),M(B),(C), a',b,c' \not\in V(\cB(G, M \cup \{ a'bc\}))$. Any matching of the unmatched agents extends this to a stable matching of $G$. So consider when $c' \neq c$. Let $a = f(c, V(M) \cup\{a'\})$ be first choice of $c'$ among agents not matched in $M$ and not equal to $a'$. Form the triple $T = (a, b, c')$. Then $b$ is stable for having $c'$, $a$ is stable for having $b$, and $M(A)$ is stable for $b$ being stable. It is possible that $c'$ is unstable through $a'$ if $a' >_{c'} a$ (otherwise $c'$ is stable). Form the triple $T' = (a', b', c)$ where $b'=f(a',V(M(B))\cup\{b\})$. Then $a'$ is is stable as $b$ and $M(B)$ are stable, and $c$ is stable for having $a'$. Hence $c'$ is stable for having $a$ with $a'$ stable. Form the complete matching $S$ from $M$, $T$, $T'$ and the triple matching the three remaining unmatched agents. The only unstable agents under $S$ are $b'$ and possibly agents among the last three to be matched, but that is not a sufficient number of agents enough to form a blocking triple and hence $S$ is a stable matching for $P$. 
 \end{proof}
-
+\paragraph{Stabilizing $A,B,C$}
+The previous lemmas have the common theme of building matchings that have no blocking triples in the hypergraph then using induction to make the matching perfect. The following lemma and corollary take a different strategy. Whereas before we tried to create a matching where matched vertices have no blocking triples even with unmatched vertices, alternatively we can attempt to pair all the vertices in one of $A,B,C$ with a partner in such a way that none of them will participate in a blocking triple.
+\begin{lemma}\label{lemma:genderstab}
+Let $G=(A\cup B\cup C, E)$ be the hypergraph underlying an instance of $C3GSM$. Let $M$ be a perfect $A$-$B$ matching (that is a perfect matching of the underlying complete bipartite graph between $A$ and $B$). Let $B' = \{ b \in B : \exists a \in A : b >_a M(a) \}$. Hence $B'$ is the set of vertices through which agents of $A$ can form blocking triples. If for all $b, b' \in B'$, $f(b,1) \neq f(b',1)$ then $G$ has a stable matching.
+\end{lemma}
+\begin{proof}
+\paragraph{}
+Let $C' = \{ c \in C : \exists b\in B', c = f(b,1)\}$. Since each $f(\cdot,1)$ is a bijection between $B'$ and $C'$ we can form the matching $S_1 = \{abc \in E: a = M(b)\text{ and } c = f(b,1)\}$. Let $S_2$ be an arbitrary perfect matching of $G[V(G) \backslash V(S_1)]$, the remaining vertices unmatched in $S = S_1 \cup S_2$. Then $S$ is a complete matching on $G$. We claim that $S$ is stable. Suppose for a contradiction there exists blocking triple $a,b,c$. Then $b >_a M(a)$ and hence $b \in B'$. Thus $M(b) = f(b,1)$ and so $M(b) \geq_b c$ by definition of $f(\cdot,1)$, but this contradicts that $a,b,c$ is a blocking triple since that requires $c >_b M(b)$.
+\end{proof}
+\begin{corollary}
+If $f(a,1) \neq f(a',1)$ for all $a,a' \in A$ in a hypergraph $G=(A\cup B \cup C, E)$ underlying a $C3GSM$ instance then $G$ has a stable matching.
+\end{corollary}
+\begin{proof}
+\paragraph{}
+Observe that $M = \{ab : b = f(a,1)\}$ is a perfect $A$-$B$ matching since $f(\cdot, 1)$ is a bijection between $A$ and $B$. In this case we have $B' = \emptyset$ by the definition of $f(\cdot,1)$. Thus we may invoke lemma \ref{lemma:genderstab} to obtain a stable matching of $G$.
+\end{proof}
 \subsection{Symmetry in Problem Instances}
 
 \subsection{Computer Search}
