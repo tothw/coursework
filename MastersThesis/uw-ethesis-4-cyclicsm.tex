@@ -130,6 +130,15 @@ If $f(a,1) \neq f(a',1)$ for all $a,a' \in A$ in a hypergraph $G=(A\cup B \cup C
 \paragraph{}
 Observe that $M = \{ab : b = f(a,1)\}$ is a perfect $A$-$B$ matching since $f(\cdot, 1)$ is a bijection between $A$ and $B$. In this case we have $B' = \emptyset$ by the definition of $f(\cdot,1)$. Thus we may invoke lemma \ref{lemma:genderstab} to obtain a stable matching of $G$.
 \end{proof}
+\begin{lemma}\label{lemma:fixing}
+Let $G = (A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ with $\size{M} = n-2$. Suppose there exists $a \in A \cap V(M)$ such that for all $e \in \cB(G, V(M))$ if there exists $v \in V(M)$ such that $v \in e$ then $v = a$. That is, $a$ is the only vertex matched in $M$ that forms blocking triples against $G$. If there exists $b \in B\backslash V(M)$, for all $b' \in B$, $b' \geq_a b$ (that is, the last choice of $a$ is unmatched in $M$) then $G$ has a stable matching.
+\end{lemma}
+\begin{proof}
+\paragraph{}
+By the size of $M$ there exists $b,b' \in B$ such that $\{b,b'\} = B \backslash V(M)$. Without loss say that $b$ is the last choice of $a$. Let $c' = f(b', V(M))$ be the first choice of $b'$ not matched in $M$. Let $a' \in A\backslash V(M)$. Form triple $T = a'b'c'$ and let $T'$ be the triple containing $b$ and the remaining two vertices unmatched in $M$ or $T$. Then $S = M \cup \{T, T'\}$ is a perfect matching of $G$. We claim that $S$ is stable.
+\paragraph{}
+Suppose for a contradiction that there exists $e \in \cB(G,S)$. First consider the case where for all $v \in V(M)$, $v \not\in e$. Then $e$ uses only vertices of the triples $T$ and $T'$, but that is an insufficient number of vertices to form a blocking triple. Now consider when there exists $v \in V(M)$, $v \in e$. Since $M \subseteq S$, $\cB(G,S) \subseteq \cB(G,M)$ and hence $e \in \cB(G,M)$. So by our assumptions $a=v$. Since all $v' \neq a \in V(M)$ are such that $v' \not\in e$. We have either $b \in e$ or $b' \in e$. Since $a \in e$, $b$ is the last choice of $a$, and $e$ is a blocking triple, we know $b \not\in e$ (otherwise $b >_a S(a)$ which is a contradiction as $S$ is a perfect matching). Thus $b' \in e$. Let $c \in e \cap V(C)$. Now since $S(b') = c' = f(b',V(M))$ we have $c >_{b'} c'$. Then by our choice of $c'$, $c \in V(M)$. But this contradicts that $c \not\in e$. Therefore $S$ is stable.
+\end{proof}
 \subsection{Symmetry in Problem Instances}
 
 \subsection{Computer Search}
