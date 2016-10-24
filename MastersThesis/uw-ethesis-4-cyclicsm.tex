@@ -140,5 +140,23 @@ By the size of $M$ there exists $b,b' \in B$ such that $\{b,b'\} = B \backslash 
 Suppose for a contradiction that there exists $e \in \cB(G,S)$. First consider the case where for all $v \in V(M)$, $v \not\in e$. Then $e$ uses only vertices of the triples $T$ and $T'$, but that is an insufficient number of vertices to form a blocking triple. Now consider when there exists $v \in V(M)$, $v \in e$. Since $M \subseteq S$, $\cB(G,S) \subseteq \cB(G,M)$ and hence $e \in \cB(G,M)$. So by our assumptions $a=v$. Since all $v' \neq a \in V(M)$ are such that $v' \not\in e$. We have either $b \in e$ or $b' \in e$. Since $a \in e$, $b$ is the last choice of $a$, and $e$ is a blocking triple, we know $b \not\in e$ (otherwise $b >_a S(a)$ which is a contradiction as $S$ is a perfect matching). Thus $b' \in e$. Let $c \in e \cap V(C)$. Now since $S(b') = c' = f(b',V(M))$ we have $c >_{b'} c'$. Then by our choice of $c'$, $c \in V(M)$. But this contradicts that $c \not\in e$. Therefore $S$ is stable.
 \end{proof}
 \subsection{Symmetry in Problem Instances}
-
+\paragraph{}
+We will now turn our attention towards formulating an equivalence relation on instances of $C3GSM$. In doing so we hope to answer the question ``when does knowledge that one instance of $C3GSM$ has a stable matching translate to knowing that another instance does?". This question is motivated by our efforts to design a computer search protocol in the next subsection. In checking if all $C3GSM$ instances of a certain size have a stable matching it is desirable to avoid repeated work by not checking instances``symmetric" to one already checked.
+\begin{definition}
+Let $G$ and $H$ be two hypergraphs underlying distinct instances of $C3GSM$. We say that $G$ and $H$ are equivalent in the sense that they denote symmetric problem instances, written $G \equiv H$ if there exists a bijection $\phi: V(G) \rightarrow V(H)$ such that for all $v \in V(G)$,
+ \begin{equation}\label{cond:order}
+ w >_v u \text{ if and only if } \phi(w) >_{\phi(v)} \phi(u)
+ \end{equation}
+ \end{definition}
+ \begin{lemma}
+ If $G \equiv H$ then $G$ has a stable matching if and only if $H$ has a stable matching
+ \end{lemma}
+ \begin{proof}
+ \paragraph{}
+ By symmetry it suffices to prove the sufficiency direction. Let $M$ be a stable matching of $G$. Define the matching $\phi(M)$ in $H$ as
+ $$\phi(M) = \{ \phi(a)\phi(b)\phi(c): abc \in M \}.$$
+ It is not hard to see that since $M$ is a matching and $\phi$ is a bijection that $\phi(M)$ is a matching. Suppose for a contradiction that $\phi(M)$ is not stable for $H$. Let $xyz$ be a blocking triple of $\phi(M)$ against $H$. Let $abc = \phi^{-1}(x)\phi^{-1}(y)\phi^{-1}(z)$. By our definition of $\phi(M)$, $abc \not\in M$. Further since $y >_x \phi(M)(x)$, by the definition of $\phi$ we have $b >_a M(a)$. Similarly $c>_b M(b)$ and $a>_c M(c)$. Thus $abc$ is a blocking triple of $M$, a contradiction.
+ \end{proof}
+ \paragraph{Observations}
+ Since we require that $\phi$ is a bijection it is necessary that $G$ and $H$ underly instances of $C3GSM$ of the same size, say $n$. Let $V(G)$ be partitioned as $V(G)_1 \cup V(G)_2 \cup V(G)_3$ since $G$ is tripartite. Let $i \in \{0,1,2\}$. Since each $V(G)_i$ is of size $n$ we may label the elements of $V(G)_i$ as $(i,0), \dots, (i,n-1)$. We may induce the same labelling on $V(H)$. Then $\phi$ is a bijection from $Z_3 \times Z_n$ to itself which preserves the each vertex's order of its neighbours (and consequently the graph incidence structure). So we can say a few things about $\phi$ from this perspective. Firstly by $\ref{cond:order}$ we must preserve the graph structure. Hence if $\phi(a,i) = \phi(b, j)$ then for all $k \in \{0,\dots,a-1,a+1,\dots,n-1\}$ there exists some $\ell$ such that $\phi(a,k) = \phi(b,\ell)$. That is to say, $\phi$ maps elements of all elements of one part to a single other part. Furthermore if $\phi(a,\cdot) = \phi(b,\cdot)$ then $\phi(a+1,\cdot) = \phi(b+1, \cdot)$ with addition taken modulo $3$. Again this follows from condition \ref{cond:order}.
 \subsection{Computer Search}
