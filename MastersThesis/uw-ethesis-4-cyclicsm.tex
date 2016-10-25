@@ -99,7 +99,7 @@ Let $G=(A\cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$ with $n
 \end{corollary}
 \begin{proof}
 \paragraph{}
-Let $a_1, \dots, a_n \in A$. Supppose that $b = f(a_1,1) =  \dots = f(a_n,1)$. Let $c = f(b,1)$. Then there exists some $a_k$ such that $a_k = f(c,1)$. Since $a_k \in A$ we may invoke corollary \ref{cor:1cycle} with $(a_k, b, c)$ to complete the proof.
+Let $a_1, \dots, a_n \in A$. Suppose that $b = f(a_1,1) =  \dots = f(a_n,1)$. Let $c = f(b,1)$. Then there exists some $a_k$ such that $a_k = f(c,1)$. Since $a_k \in A$ we may invoke corollary \ref{cor:1cycle} with $(a_k, b, c)$ to complete the proof.
 \end{proof}
 \begin{lemma} Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$ where $n-1$ is the best known size satisfying conjecfture \ref{conj:stab}. Let $M$ be a matching in $G$. Suppose that for all $b\in B\cap V(M)$ and $c\in C\cap V(M)$, $b,c \not\in V(\cB(G,M))$. Also suppose that for all $a \in A\cap V(M)$ if $abc \in \cB(G,M)$ then $b \not\in V(M)$. If $b = f(a,1)$ for all $a \in A\backslash V(M)$ then $G$ has a stable matching.
 \end{lemma}
@@ -145,9 +145,12 @@ We will now turn our attention towards formulating an equivalence relation on in
 \begin{definition}
 Let $G$ and $H$ be two hypergraphs underlying distinct instances of $C3GSM$. We say that $G$ and $H$ are equivalent in the sense that they denote symmetric problem instances, written $G \equiv H$ if there exists a bijection $\phi: V(G) \rightarrow V(H)$ such that for all $v \in V(G)$,
  \begin{equation}\label{cond:order}
- w >_v u \text{ if and only if } \phi(w) >_{\phi(v)} \phi(u)
+ w >_v u \text{ if and only if } \phi(w) >_{\phi(v)} \phi(u).
  \end{equation}
  \end{definition}
+\begin{note}
+It is clear that $\equiv$ is an equivalence relation. Through the identity bijection we have reflexivity, through the inverse bijection we have symmetry, and through composition of bijections we have transitivity. Thus $\equiv$ is an equivalence relation as desired.
+\end{note}
  \begin{lemma}
  If $G \equiv H$ then $G$ has a stable matching if and only if $H$ has a stable matching
  \end{lemma}
@@ -158,5 +161,23 @@ Let $G$ and $H$ be two hypergraphs underlying distinct instances of $C3GSM$. We 
  It is not hard to see that since $M$ is a matching and $\phi$ is a bijection that $\phi(M)$ is a matching. Suppose for a contradiction that $\phi(M)$ is not stable for $H$. Let $xyz$ be a blocking triple of $\phi(M)$ against $H$. Let $abc = \phi^{-1}(x)\phi^{-1}(y)\phi^{-1}(z)$. By our definition of $\phi(M)$, $abc \not\in M$. Further since $y >_x \phi(M)(x)$, by the definition of $\phi$ we have $b >_a M(a)$. Similarly $c>_b M(b)$ and $a>_c M(c)$. Thus $abc$ is a blocking triple of $M$, a contradiction.
  \end{proof}
  \paragraph{Observations}
- Since we require that $\phi$ is a bijection it is necessary that $G$ and $H$ underly instances of $C3GSM$ of the same size, say $n$. Let $V(G)$ be partitioned as $V(G)_1 \cup V(G)_2 \cup V(G)_3$ since $G$ is tripartite. Let $i \in \{0,1,2\}$. Since each $V(G)_i$ is of size $n$ we may label the elements of $V(G)_i$ as $(i,0), \dots, (i,n-1)$. We may induce the same labelling on $V(H)$. Then $\phi$ is a bijection from $Z_3 \times Z_n$ to itself which preserves the each vertex's order of its neighbours (and consequently the graph incidence structure). So we can say a few things about $\phi$ from this perspective. Firstly by $\ref{cond:order}$ we must preserve the graph structure. Hence if $\phi(a,i) = \phi(b, j)$ then for all $k \in \{0,\dots,a-1,a+1,\dots,n-1\}$ there exists some $\ell$ such that $\phi(a,k) = \phi(b,\ell)$. That is to say, $\phi$ maps elements of all elements of one part to a single other part. Furthermore if $\phi(a,\cdot) = \phi(b,\cdot)$ then $\phi(a+1,\cdot) = \phi(b+1, \cdot)$ with addition taken modulo $3$. Again this follows from condition \ref{cond:order}.
+ Since we require that $\phi$ is a bijection it is necessary that $G$ and $H$ underly instances of $C3GSM$ of the same size, say $n$. Let $V(G)$ be partitioned as $V(G)_1 \cup V(G)_2 \cup V(G)_3$ since $G$ is tripartite. Let $i \in \{0,1,2\}$. Since each $V(G)_i$ is of size $n$ we may label the elements of $V(G)_i$ as $(i,0), \dots, (i,n-1)$. We may induce the same labelling on $V(H)$. Then $\phi$ is a bijection from $Z_3 \times Z_n$ to itself which preserves the each vertex's order of its neighbours (and consequently the graph incidence structure). So we can say a few things about $\phi$ from this perspective.
+ \paragraph{} Firstly by $\ref{cond:order}$ we must preserve the graph structure. Hence if $\phi(a,i) = \phi(b, j)$ then for all $k \in \{0,\dots,a-1,a+1,\dots,n-1\}$ there exists some $\ell$ such that $\phi(a,k) = \phi(b,\ell)$. That is to say, $\phi$ maps elements of all elements of one part to a single other part. Furthermore if $\phi(a,\cdot) = \phi(b,\cdot)$ then $\phi(a+1,\cdot) = \phi(b+1, \cdot)$ with addition taken modulo $3$. Again this follows from condition \ref{cond:order}.
+\paragraph{}
+The previous observations lead us to see that there exists $r \in \{0,1,2\}$ such that $\phi(a, \cdot) = \phi(a+r,\cdot)$. Hence we can specify $\phi$ by $(r,\Pi)$ where $\Pi = \{\pi_0, \pi_1,\pi_2\}$ is a family of three permutations $\pi_i$ on $\Z_5$, one for each part $V(G)_i$. In specifying $\phi=(r,\Pi)$ we require that $(r,\Pi)$ satisfying a translation of condition \ref{cond:order} for all $(i,a) \in V(G)$
+\begin{equation}\label{cond:orderT}
+(i+1,b) >_{(i,a)} (i+1, b') \text{ if and only if } (i+1+r, \pi_{i+1}(b)) >_{(i+r,\pi_i(a))} (i+1+r, \pi_{i+1}(b')).
+\end{equation}
+\paragraph{}
+Of interest to us are the equivalence classes of a given problem instance under $\equiv$. For a hypergraph $G$ underlying an instance of $C3GSM$ we will denote the equivalence class containing $G$ by $[G]$. In a procedure to test whether instances of $C3GSM$ of a certain size have stable matchings one can hope to avoid unnecessary repeated work by only testing one representative from $[G]$ instead of all instances in $[G]$. We will now define a strict total order on instances of $C3GSM$ of size $n$, with the goal of obtaining a method to test only the minimum element with respect to this order for each equivalence class $[G]$.
+\begin{definition}
+We will use the symbol $>_{lex}$ to denote our lexicographical order of instances of $C3GSM$ of a given size $n$. Let $G$ and $H$ be hypergraphs underlying size $n$ instances of $C3GSM$. We will translate $G$ and $H$ to finite sequences and apply the natural lexicographical order to said sequences. The sequence $seq(G)$ will consist of appending sequences for each of its vertex partitions as $seq(G) = seq(G,0)seq(G,1)seq(G,2)$ to be defined as follows. Let $i \in \{0,\dots, 2\}$.  We define $seq(G,i)$ by appending sequences for each of part $V(G)_i$'s possible ranking choices from first through fifth. Formally $seq(G,i) = seq(G,i,1)\dots seq(G,i,5)$ where for each $j \in \{1,\dots, 5\}$,
+$$seq(G,i,j) = f((i,0),j)f((i,1),j)\dots f((i,4),j).$$
+So for instance $seq(G,0, 1)$ is obtained by appending the first choices vertices $0$ through $4$ in partition $V(G)_0$. So $seq(G)$ consisting of appending the first choices of vertices in $V(G)_0$ followed by appending second choices, through fifth choices, then appending the same for $V(G)_1$ and finally $V(G)_2$.
+We say $G >_{lex} H$ is $seq(G)$ is lexicographically larger than $seq(H)$. That is there exists some $k$ such that
+$$seq(G)_k > seq(H)_k$$
+and for all $i < k$
+$$seq(G)_i = seq(H)_i.$$
+We compare vertices indexed by $seq(G)_k$ and$ seq(H)_k$ if they are natural numbers corresponding to their labels. That is if $seq(G)_k = (i,a)$ and $seq(H)_k = (j,b)$ then we simply say $seq(G)_k > seq(H)_k$ if and only if $a>b$. 
+\end{definition}
 \subsection{Computer Search}
