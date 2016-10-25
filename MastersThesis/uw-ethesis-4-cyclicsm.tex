@@ -180,4 +180,7 @@ and for all $i < k$
 $$seq(G)_i = seq(H)_i.$$
 We compare vertices $seq(G)_k$ and $ seq(H)_k$ as if they are natural numbers corresponding to their labels. That is if $seq(G)_k = (i,a)$ and $seq(H)_k = (j,b)$ then we simply say $seq(G)_k > seq(H)_k$ if and only if $a>b$. 
 \end{definition}
-\subsection{Computer Search}
+\paragraph{}
+In the search procedure of subsection \ref{sec:computersearch}  we will be operating with partially specified instances of $C3GSM$. In the next section we will define more rigorously what such objects look like, but for now just bear in mind that when operating with partially specified instances we do not know the full preference order of every vertex. Hence it will be difficult to always be able to decide if a partially specified instance, once fully specified, is the lexicographical minimum of its respective equivalence class. To cope with this difficulty our search procedure will make a best effort by eliminating instances where we can answer ``no this is not the lexicographic minimum" with certainty. We stress though that without a full characterization of lexicographic minima we cannot always answer ``yes" with the same certainty.
+
+\subsection{Computer Search}\label{sec:computersearch}
