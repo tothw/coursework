@@ -73,7 +73,7 @@ Using lemma \ref{lemma:n3} Eriksson et al show the following theorem. We ommit t
 \section{Our Contributions}
 \paragraph{}
 In this section we will describe some work done towards resolving if $C3GSM$ instances always have solutions for higher sizes $n$. We present first some sufficient conditions for problem instances to have stable matchings. Next we study the symmetry of problem instances and describe when problem instances are equivalent with respect to having a stable matching. All this work is building towards a proposal for a computer search procedure to decide if all instances of $C3GSM$ for a given size $n$ have a stable matching, or present a counterexample if they do not.
-\subsection{Sufficient Conditions}
+\subsection{Sufficient Conditions}\label{subsec:sufficient}
 \begin{definition}
 Let $G$ be the hypergraph for an instance of $C3GSM$, and let $M$ be a matching in $G$. We denote by $\cB(G,M)$ the set of blocking triples in $G$ against $M$. Formally $\cB(G,M) = \{abc \in E(G): b>_a M(a), c>_b M(b), a>_c M(c)\}$.
 \end{definition}
@@ -139,7 +139,7 @@ By the size of $M$ there exists $b,b' \in B$ such that $\{b,b'\} = B \backslash 
 \paragraph{}
 Suppose for a contradiction that there exists $e \in \cB(G,S)$. First consider the case where for all $v \in V(M)$, $v \not\in e$. Then $e$ uses only vertices of the triples $T$ and $T'$, but that is an insufficient number of vertices to form a blocking triple. Now consider when there exists $v \in V(M)$, $v \in e$. Since $M \subseteq S$, $\cB(G,S) \subseteq \cB(G,M)$ and hence $e \in \cB(G,M)$. So by our assumptions $a=v$. Since all $v' \neq a \in V(M)$ are such that $v' \not\in e$. We have either $b \in e$ or $b' \in e$. Since $a \in e$, $b$ is the last choice of $a$, and $e$ is a blocking triple, we know $b \not\in e$ (otherwise $b >_a S(a)$ which is a contradiction as $S$ is a perfect matching). Thus $b' \in e$. Let $c \in e \cap V(C)$. Now since $S(b') = c' = f(b',V(M))$ we have $c >_{b'} c'$. Then by our choice of $c'$, $c \in V(M)$. But this contradicts that $c \not\in e$. Therefore $S$ is stable.
 \end{proof}
-\subsection{Symmetry in Problem Instances}
+\subsection{Symmetry in Problem Instances}\label{subsec:symmetry}
 \paragraph{}
 We will now turn our attention towards formulating an equivalence relation on instances of $C3GSM$. In doing so we hope to answer the question ``when does knowledge that one instance of $C3GSM$ has a stable matching translate to knowing that another instance does?". This question is motivated by our efforts to design a computer search protocol in the next subsection. In checking if all $C3GSM$ instances of a certain size have a stable matching it is desirable to avoid repeated work by not checking instances``symmetric" to one already checked.
 \begin{definition}
@@ -160,9 +160,10 @@ It is clear that $\equiv$ is an equivalence relation. Through the identity bijec
  $$\phi(M) = \{ \phi(a)\phi(b)\phi(c): abc \in M \}.$$
  It is not hard to see that since $M$ is a matching and $\phi$ is a bijection that $\phi(M)$ is a matching. Suppose for a contradiction that $\phi(M)$ is not stable for $H$. Let $xyz$ be a blocking triple of $\phi(M)$ against $H$. Let $abc = \phi^{-1}(x)\phi^{-1}(y)\phi^{-1}(z)$. By our definition of $\phi(M)$, $abc \not\in M$. Further since $y >_x \phi(M)(x)$, by the definition of $\phi$ we have $b >_a M(a)$. Similarly $c>_b M(b)$ and $a>_c M(c)$. Thus $abc$ is a blocking triple of $M$, a contradiction.
  \end{proof}
- \paragraph{Observations}
+ \begin{note}\label{note:labels}
  Since we require that $\phi$ is a bijection it is necessary that $G$ and $H$ underly instances of $C3GSM$ of the same size, say $n$. Let $V(G)$ be partitioned as $V(G)_1 \cup V(G)_2 \cup V(G)_3$ since $G$ is tripartite. Let $i \in \{0,1,2\}$. Since each $V(G)_i$ is of size $n$ we may label the elements of $V(G)_i$ as $(i,0), \dots, (i,n-1)$. We may induce the same labelling on $V(H)$. Then $\phi$ is a bijection from $Z_3 \times Z_n$ to itself which preserves the each vertex's order of its neighbours (and consequently the graph incidence structure). So we can say a few things about $\phi$ from this perspective.
- \paragraph{} Firstly by $\ref{cond:order}$ we must preserve the graph structure. Hence if $\phi(a,i) = \phi(b, j)$ then for all $k \in \{0,\dots,a-1,a+1,\dots,n-1\}$ there exists some $\ell$ such that $\phi(a,k) = \phi(b,\ell)$. That is to say, $\phi$ maps elements of all elements of one part to a single other part. Furthermore if $\phi(a,\cdot) = \phi(b,\cdot)$ then $\phi(a+1,\cdot) = \phi(b+1, \cdot)$ with addition taken modulo $3$. Again this follows from condition \ref{cond:order}.
+ \end{note}
+ \paragraph{Observations} Firstly by $\ref{cond:order}$ we must preserve the graph structure. Hence if $\phi(a,i) = \phi(b, j)$ then for all $k \in \{0,\dots,a-1,a+1,\dots,n-1\}$ there exists some $\ell$ such that $\phi(a,k) = \phi(b,\ell)$. That is to say, $\phi$ maps elements of all elements of one part to a single other part. Furthermore if $\phi(a,\cdot) = \phi(b,\cdot)$ then $\phi(a+1,\cdot) = \phi(b+1, \cdot)$ with addition taken modulo $3$. Again this follows from condition \ref{cond:order}.
 \paragraph{}
 The previous observations lead us to see that there exists $r \in \{0,1,2\}$ such that $\phi(a, \cdot) = \phi(a+r,\cdot)$. Hence we can specify $\phi$ by $(r,\Pi)$ where $\Pi = \{\pi_0, \pi_1,\pi_2\}$ is a family of three permutations $\pi_i$ on $\Z_5$, one for each part $V(G)_i$. In specifying $\phi=(r,\Pi)$ we require that $(r,\Pi)$ satisfying a translation of condition \ref{cond:order} for all $(i,a) \in V(G)$
 \begin{equation}\label{cond:orderT}
@@ -180,7 +181,44 @@ and for all $i < k$
 $$seq(G)_i = seq(H)_i.$$
 We compare vertices $seq(G)_k$ and $ seq(H)_k$ as if they are natural numbers corresponding to their labels. That is if $seq(G)_k = (i,a)$ and $seq(H)_k = (j,b)$ then we simply say $seq(G)_k > seq(H)_k$ if and only if $a>b$. 
 \end{definition}
-\paragraph{}
-In the search procedure of subsection \ref{sec:computersearch}  we will be operating with partially specified instances of $C3GSM$. In the next section we will define more rigorously what such objects look like, but for now just bear in mind that when operating with partially specified instances we do not know the full preference order of every vertex. Hence it will be difficult to always be able to decide if a partially specified instance, once fully specified, is the lexicographical minimum of its respective equivalence class. To cope with this difficulty our search procedure will make a best effort by eliminating instances where we can answer ``no this is not the lexicographic minimum" with certainty. We stress though that without a full characterization of lexicographic minima we cannot always answer ``yes" with the same certainty.
-
 \subsection{Computer Search}\label{sec:computersearch}
+\paragraph{}
+Our goal now is to describe a computer search procedure to test all instances of $C3GSM$ for a given size $n$ under the assumption that for $k<n$ it is known that all instances of $C3GSM$ have a stable matching (in our case we study $n=5$). A major challenge towards solving this problem computationally is that enumerating all instances of $C3GSM$ would be infeasible. For each vertex there is one possible preference order over the vertices they face for each permutation of $\{1,\dots,n\}$. There are $3n (=15$ in our case) such vertices, and thus there are $(5!)^{15}$ possible problem instances for $C3GSM$ with size $5$. 
+\paragraph{}
+So what we resolve to do is attempt to eliminate preference systems from consideration using our symmetry and sufficient checks theory from the previous subsections. Our approach is based on the idea that if we relax the total orders to partial orders giving only the first few preferences of each vertex and can find a stable matching then any $C3GSM$ instance that results from completing the partial order will also have said stable matching. The following theory formalizes this idea.
+\begin{definition}
+A partially specified instance of $C3GSM$ again provides a complete $3$-partite hypergraph $G$, but now we do not know the total orders for each of the vertices of $G$. Herein and henceforth we use the ordered pair labelling for vertices of $G$ as outlined in note \ref{note:labels}. In our partially specified instance there exists some ordered triple of integers $(i,j,k)$, called the indicator of this instance, such that, for all vertices $(x,a)$ where $x<i$ or, $x=i$ and $a\leq j$ we have that $f((x,a), 1), \dots f((x,a), k)$ are the only choices $(x,a)$ has specified. For all other vertices $(x,a)$ (those with $x=i$ and $a > j$ or, $x>i$) we have that $f((x,a), 1), \dots, f((x,a),k-1)$ are the only choices $(x,a)$ has specified. TODO-IS-INDICATOR-UNIQUE-AS-DEFINED?
+\end{definition}
+\paragraph{}
+We give a few quick examples. A partially specified instance of $C3GSM$ with indicator $(i,jk)$ where any of $i,j,k <0$ has specified no choices for any vertex. A partially specified instance with indicator$(2,4,5)$ of size $5$ is in fact a completely specified instance of $C3GSM$ of size $5$. A partially specified instance with indicator $(0,4,1)$ has each vertex in $V(G)_0$ specifying their first choice and no other choice specified.
+\begin{definition}
+A partially specified instance of $C3GSM$, $I'$, of size $n$ with indicator $(i',j',k')$ is called an extension of partially specified instance of $C3GSM$, $I$,of size $n$ with indicator $(i,j,k)$ if  they both have underlying hypergraph $G$ and the following is satisfied:
+\begin{equation} \label{cond:indicator}
+(i',j',k') = \begin{cases}
+(0,0,k+1), \text{if $i=2$ and $j=n-1$} \\
+(i+1, 0, k), \text{else, if $j = n-1$} \\
+(i,j+1, k), \text{otherwise},
+\end{cases}
+\end{equation}
+and for all $v \in V(G)$, the order specified for $v$  in $I$ is contained in the order specified for $v$ in $I'$.
+\end{definition}
+\paragraph{}
+For example consider the partially specified instance of $C3GSM$ of size $5$ where the first four vertices of $V(G)_0$ specify their first choice to be $(1,0)$, and the remaining vertices specify no choices. This instance has indicator $(0,3,1)$. The partially specified instances of $C3GSM$ where the first four vertices of $V(G)_0$ specify their first choice to be $(1,0)$ and the vertex $(0,4)$ specifies $f((0,4),1) = k$ where $k \in \{(1,0), \dots, (1,4)\}$ are extensions of our original partially specified instance. In this example the indicator of our original instance satisfies the third case of equation \ref{cond:indicator}. By the second case of \ref{cond:indicator} any extensions of our above mentioned extensions would next have vertex $(1,0)$ specify their first choice. By third case of \ref{cond:indicator} an extension of a system where all first choices are specified and no others would have $(0,0)$ specifying their first two choices and and all others specifying their first choice.
+\paragraph{Computer Search Algorithm}
+We now describe our procedure for deciding if each instance of $C3GSM$ of size $n=5$ has a stable matching. For any partially specified instance of $C3GSM$, $I$, let $\cE(I)$ denote the list of partially specified instances of $C3GSM$ which are extensions of $I$ and let $\cP(I)$ denote the unique instance that $I$ is an extension of. For uniqueness $\cP$ of a preference system with no preferences specified is itself and its canonical indicator is $(0,-1,1)$. The algorithm is as follows:
+\begin{enumerate}
+\item Let $I$ be the partially specified instance of $C3GSM$ of size $5$ with indicator $(0,-1,1)$.
+\item While $\cE(I) \neq \emptyset$ or $\cP(I) \neq I$
+	\begin{enumerate}
+	\item If $I$ satisfies a lemma of \ref{subsec:sufficient} which implies $I$ has a stable matching or the graph underlying $I$ is not the lexicographical minimum of its equivalence class under symmetry described in \ref{subsec:symmetry} then set $\cE(I) \leftarrow \emptyset$ and $I \leftarrow \cP(I)$, and continue to the next iteration of step $2$.
+	\item Else If $\cE(I) = \emptyset$ then return $I$ as a counterexample to conjecture \ref{conj:stab}
+	\item Otherwise let $E \in \cE(I)$. Remove $E$ from $\cE(I)$ and set $I \leftarrow E$. 
+	\end{enumerate}
+\item If While loop terminates with no counterexample found then conjecture \ref{conj:stab} is proven for $n=5$ and return that it is so.
+\end{enumerate}
+\paragraph{}
+The intuition behind this approach is that we can often conclude that a problem instance has a stable matching without looking at all the preferences of each vertex. Recall, for instance that if there is a cycle of vertices, all respective first choices of each other, then there is a stable matching. The goal is to develop enough theory of lemmas that imply stable matchings as in subsection \ref{subsec:sufficient} that we can eliminate many instances in step $2(a)$ early on in execution. To see the benefit of this suppose we eliminate in step $2(a)$ a partially specified instance that has only specified each vertex's first choice. There are $(4!)^{15}$ possible fully specified instances of $C3GSM$ that can be obtained from said instance via a sequence of extensions that we do not need to check now.
+\paragraph{Notes on using lemmas of subsection\ref{subsec:sufficient}}
+In step $2(a)$ it important to observe that saying $I$ has a stable matching is a bit of an abuse of notation. What we mean is that any completely specified instance that can be obtained from $I$ by a sequence of extensions has a stable matching. This is actually easier to verify in many cases than in immediately apparent. If you can form a matching in $I$ only  matches vertices with those that they have specified a ranking for (first choice, second choice, etc.) then it is easy to see which vertices they prefer to the matching. When you specify the $k$-th choice of a vertex in an extension all their $k-1$-th choices have previously been specified. Most lemmas only need knowledge of the vertices preferred by a vertex to their partner, and so for them just match as above and check the lemma's conditions directly. There is a notable exception in lemma \ref{lemma:fixing} which we use in a slightly different way.
+\paragraph{Fixing Choices With Lemma \ref{lemma:fixing}}
+Lemma \ref{lemma:fixing} requires knowledge of a vertex's last choice in order to conclude that the given problem instance has a stable matching. Unfortunately lemmas which rely on last choices don't naturally lend themselves to cutting instances from consideration early on via step $2(a)$. There is an alternative approach to using them though. Suppose you have a partially specified instance $I$ and matching $M$ for which each vertex except for $a$ that is matched in $I$ is matched to a partner that they have already specified their ranking for in $I$, and all vertices $a$ has specified a ranking for are matched in $M$. Also suppose that $M$ satisfies all the requirements of lemma \ref{lemma:fixing} except for the requirement that $a$'s last choice is unmatched in $M$ (as a consequence of not knowing $a$'s last choice). Then by lemma \ref{lemma:fixing} any fully specified instance of $C3GSM$ extended from $I$ wherein $M(a)$ is not the last choice of $a$ is one where $a$'s last choice is unmatched in $M$ and hence has a stable matching. Thus we know we need only consider extensions where $M(a)$ is the last choice of $a$. If you can find another such matching $M'$ with $M'(a) \neq M(a)$ then we know $I$ has a stable matching since the last choice of $a$ cannot simultaneously be $M'(a)$ and $M(a)$.
