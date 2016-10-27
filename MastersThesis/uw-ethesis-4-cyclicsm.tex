@@ -172,22 +172,47 @@ The previous observations lead us to see that there exists $r \in \{0,1,2\}$ suc
 \paragraph{}
 Of interest to us are the equivalence classes of a given problem instance under $\equiv$. For a hypergraph $G$ underlying an instance of $C3GSM$ we will denote the equivalence class containing $G$ by $[G]$. In a procedure to test whether instances of $C3GSM$ of a certain size have stable matchings one can hope to avoid unnecessary repeated work by only testing one representative from $[G]$ instead of all instances in $[G]$. We will now define a strict total order on instances of $C3GSM$ of size $n$, with the goal of obtaining a method to test only the minimum element with respect to this order for each equivalence class $[G]$.
 \begin{definition}
-We will use the symbol $>_{lex}$ to denote our lexicographical order of instances of $C3GSM$ of a given size $n$. Let $G$ and $H$ be hypergraphs underlying size $n$ instances of $C3GSM$. We will translate $G$ and $H$ to finite sequences and apply the natural lexicographical order to said sequences. The sequence $seq(G)$ will consist of appending sequences for each of its vertex partitions as $seq(G) = seq(G,0)seq(G,1)seq(G,2)$ to be defined as follows. Let $i \in \{0,\dots, 2\}$.  We define $seq(G,i)$ by appending sequences for each of part $V(G)_i$'s possible ranking choices from first through fifth. Formally $seq(G,i) = seq(G,i,1)\dots seq(G,i,5)$ where for each $j \in \{1,\dots, 5\}$,
-$$seq(G,i,j) = f((i,0),j)f((i,1),j)\dots f((i,4),j).$$
-So for instance $seq(G,0, 1)$ is obtained by appending the first choices vertices $0$ through $4$ in partition $V(G)_0$. So $seq(G)$ consisting of appending the first choices of vertices in $V(G)_0$ followed by appending second choices, through fifth choices, then appending the same for $V(G)_1$ and finally $V(G)_2$.
+We will use the symbol $>_{lex}$ to denote our lexicographical order of instances of $C3GSM$ of a given size $n$. Let $G$ and $H$ be hypergraphs underlying size $n$ instances of $C3GSM$. We will translate $G$ and $H$ to finite sequences and apply the natural lexicographical order to said sequences. The sequence $seq(G)$ will consist of appending sequences for each of its vertex partitions as $seq(G) = seq(G,0)seq(G,1)seq(G,2)$ to be defined as follows. Let $i \in \{0,\dots, 2\}$.  We define $seq(G,i)$ by appending sequences for each vertex of $V(G)_i$. Formally $seq(G,i) = seq(G,i,0)\dots seq(G,i,4)$ where for each $j \in \{0,\dots, n-1\}$,
+$$seq(G,i,j) = f((i,j),1)f((i,j),2)\dots f((i,j),n-1).$$
+So for instance $seq(G,0, 0)$ is obtained by appending the first through $n$-th choices of vertex $0$ in $V(G)_0$. We sometimes will refer to $seq(G,0,0)$ as $(0,0)$'s So $seq(G)$ consists of appending the preference lists of vertices $0$ through $n-1$ of $V(G)_0$ followed by appending the same for $V(G)_1$ and finally $V(G)_2$.
 We say $G >_{lex} H$ is $seq(G)$ is lexicographically larger than $seq(H)$. That is there exists some $k$ such that
 $$seq(G)_k > seq(H)_k$$
 and for all $i < k$
 $$seq(G)_i = seq(H)_i.$$
 We compare vertices $seq(G)_k$ and $ seq(H)_k$ as if they are natural numbers corresponding to their labels. That is if $seq(G)_k = (i,a)$ and $seq(H)_k = (j,b)$ then we simply say $seq(G)_k > seq(H)_k$ if and only if $a>b$. 
 \end{definition}
+\paragraph{}
+Unfortunately we do not have a full characterization of the lexicographic minimum of a given equivalence class under the order $>_{lex}$, which would be desirable. Instead we do have some necessary conditions which we collect in the following lemma. These are useful for finding instances of $C3GSM$ that we can avoid testing in a computer search since we are certain we are at least testing the lexicographic minimum of each equivalence class.
+\begin{lemma}\label{lemma:nec-symmetry}
+Let $G$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. If $G$ is the lexicographic minimum of $[G]$ then the following are satisfied:
+\begin{enumerate}
+\item $seq(G,0,0) = 0,1,\dots,n-1$,
+\item $seq(G,1,0) = 0,1,\dots,4$,
+\item let $a, b \in [0,n-1] \cap \Z$ and let $k \in [1,n] \cap \Z$. If $f((0,a), k) < f((0,b), k)$ and for all $j \in [0,k) \cap \Z$, $f((0,a),j) =f((0,b),k)$ then $a < b$,
+\item $seq(G)$ is lexicographically at most $seq(G,1)seq(G,2)seq(G,0)$ and $seq(G,2)seq(G,0)seq(G,1)$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\paragraph{}
+We first prove $(1)$. Let $\phi : V(G) \rightarrow V(G)$ be described by $(0,e,\pi_1, e)$ where $e$ denotes the identity permutation and $\pi_1$ is the permutation which sends $seq(G,0,0)$ to $0,1,\dots,n-1$. Let $H$ be the hypergraph underlying an instance of $C3GSM$ such that $G \equiv H$ under $\phi$. Since $G$ is the lexicographic minimum of $[G]$ and $H \in [G]$, $seq(G,0,0) \leq_{lex} seq(H,0,0) = 0,1,\dots,n-1$. Since $0,1,\dots,n-1$ is the lexicographic minimum sequence possible we have $seq(G,0,0) = 0,1,\dots,n-1$.
+\paragraph{}
+To prove $(2)$ we do something similar to $(1)$. Let $\phi$ be described by $(0,e,e,\pi_2)$ where $\pi_2$ is the permutation which sends $seq(G,1,0)$ to $0,1,\dots,n-1$. Let $H$ be the hypergraph underlying an instance of $C3GSM$ such that $G \equiv H$ under $\phi$. Observe that since $r = 0$ and $\pi_0 = \pi_1 = e$, $seq(G,0) = seq(H,0)$. Since $G$ is the lexicographic minimum of $[G]$ and $H \in [G]$, $seq(G,1,0) \leq_{lex} seq(H,1,0) = 0,1,\dots,n-1$. Since $0,1,\dots,n-1$ is the lexicographic minimum sequence possible we have $seq(G,1,0) = 0,1,\dots,n-1$.
+\paragraph{}
+We now turn our attention to proving $(3)$. Observe that $seq(G,0,a) <_{lex} seq(G,0,b)$. Let $\phi$ be described by $(0,\pi_0,e,e)$ where $\pi_0$ which transposes $a$ and $b$. Let $H$ be the hypergraph underlying an instance of $C3GSM$ such that $G \equiv H$ under $\phi$. Suppose for a contradiction that $b<a$. Since $r=0$, $\pi_1=\pi_2=e$, and $\pi_0$ simply transposes $a$ and $b$, this yields 
+$$seq(H,0) = seq(G,0,0) \dots seq(G,0,b-1)seq(G,0,a)seq(G,0,b+1) \dots seq(G,0,a-1) seq(G,0,b) seq(G,0,a+1) \dots seq(G,0,n-1) <_{lex} seq(G,0).$$
+This contradicts the lexicographic minimality of $G$.
+\paragraph{}
+Finally we prove $(4)$. Let $\phi$ be described by $(1,e,e,e)$. We will prove $seq(G)$ is lexicographically at most $seq(G,1)seq(G,2)seq(G,0)$. The proof that $G$ is lexicographically smaller that $seq(G,2)seq(G,0)seq(G,1)$ folllws similarly using $(2,e,e,e)$. Let $H$ be the hypergraph underlying an instance of $C3GSM$ such that $G \equiv H$ under $\phi$. Since $\pi_0=\pi_1=\pi_2=e$ and $r=1$ we have that
+$$seq(H) = seq(G,1)seq(G,2)seq(G,0)$$
+and thus by the lexicographic minimality of $G$, $seq(G) \leq_{lex} seq(H)$ and the result follows.
+\end{proof}
 \subsection{Computer Search}\label{sec:computersearch}
 \paragraph{}
 Our goal now is to describe a computer search procedure to test all instances of $C3GSM$ for a given size $n$ under the assumption that for $k<n$ it is known that all instances of $C3GSM$ have a stable matching (in our case we study $n=5$). A major challenge towards solving this problem computationally is that enumerating all instances of $C3GSM$ would be infeasible. For each vertex there is one possible preference order over the vertices they face for each permutation of $\{1,\dots,n\}$. There are $3n (=15$ in our case) such vertices, and thus there are $(5!)^{15}$ possible problem instances for $C3GSM$ with size $5$. 
 \paragraph{}
 So what we resolve to do is attempt to eliminate preference systems from consideration using our symmetry and sufficient checks theory from the previous subsections. Our approach is based on the idea that if we relax the total orders to partial orders giving only the first few preferences of each vertex and can find a stable matching then any $C3GSM$ instance that results from completing the partial order will also have said stable matching. The following theory formalizes this idea.
 \begin{definition}
-A partially specified instance of $C3GSM$ again provides a complete $3$-partite hypergraph $G$, but now we do not know the total orders for each of the vertices of $G$. Herein and henceforth we use the ordered pair labelling for vertices of $G$ as outlined in note \ref{note:labels}. In our partially specified instance there exists some ordered triple of integers $(i,j,k)$, called the indicator of this instance, such that, for all vertices $(x,a)$ where $x<i$ or, $x=i$ and $a\leq j$ we have that $f((x,a), 1), \dots f((x,a), k)$ are the only choices $(x,a)$ has specified. For all other vertices $(x,a)$ (those with $x=i$ and $a > j$ or, $x>i$) we have that $f((x,a), 1), \dots, f((x,a),k-1)$ are the only choices $(x,a)$ has specified. TODO-IS-INDICATOR-UNIQUE-AS-DEFINED?
+A partially specified instance of $C3GSM$ again provides a complete $3$-partite hypergraph $G$, but now we do not know the total orders for each of the vertices of $G$. Herein and henceforth we use the ordered pair labelling for vertices of $G$ as outlined in note \ref{note:labels}. In our partially specified instance there exists some ordered triple of integers $(i,j,k)$, called the indicator of this instance, such that, for all vertices $(x,a)$ where $x<i$ or, $x=i$ and $a\leq j$ we have that $f((x,a), 1), \dots f((x,a), k)$ are the only choices $(x,a)$ has specified. For all other vertices $(x,a)$ (those with $x=i$ and $a > j$ or, $x>i$) we have that $f((x,a), 1), \dots, f((x,a),k-1)$ are the only choices $(x,a)$ has specified.
 \end{definition}
 \paragraph{}
 We give a few quick examples. A partially specified instance of $C3GSM$ with indicator $(i,jk)$ where any of $i,j,k <0$ has specified no choices for any vertex. A partially specified instance with indicator$(2,4,5)$ of size $5$ is in fact a completely specified instance of $C3GSM$ of size $5$. A partially specified instance with indicator $(0,4,1)$ has each vertex in $V(G)_0$ specifying their first choice and no other choice specified.
@@ -210,7 +235,7 @@ We now describe our procedure for deciding if each instance of $C3GSM$ of size $
 \item Let $I$ be the partially specified instance of $C3GSM$ of size $5$ with indicator $(0,-1,1)$.
 \item While $\cE(I) \neq \emptyset$ or $\cP(I) \neq I$
 	\begin{enumerate}
-	\item If $I$ satisfies a lemma of \ref{subsec:sufficient} which implies $I$ has a stable matching or the graph underlying $I$ is not the lexicographical minimum of its equivalence class under symmetry described in \ref{subsec:symmetry} then set $\cE(I) \leftarrow \emptyset$ and $I \leftarrow \cP(I)$, and continue to the next iteration of step $2$.
+	\item If $I$ satisfies a lemma of \ref{subsec:sufficient} which implies $I$ has a stable matching or the graph underlying $I$ is not the lexicographical minimum of its equivalence class by lemma \ref{lemma:nec-symmetry} then set $\cE(I) \leftarrow \emptyset$ and $I \leftarrow \cP(I)$, and continue to the next iteration of step $2$.
 	\item Else If $\cE(I) = \emptyset$ then return $I$ as a counterexample to conjecture \ref{conj:stab}
 	\item Otherwise let $E \in \cE(I)$. Remove $E$ from $\cE(I)$ and set $I \leftarrow E$. 
 	\end{enumerate}
@@ -222,3 +247,8 @@ The intuition behind this approach is that we can often conclude that a problem 
 In step $2(a)$ it important to observe that saying $I$ has a stable matching is a bit of an abuse of notation. What we mean is that any completely specified instance that can be obtained from $I$ by a sequence of extensions has a stable matching. This is actually easier to verify in many cases than in immediately apparent. If you can form a matching in $I$ only  matches vertices with those that they have specified a ranking for (first choice, second choice, etc.) then it is easy to see which vertices they prefer to the matching. When you specify the $k$-th choice of a vertex in an extension all their $k-1$-th choices have previously been specified. Most lemmas only need knowledge of the vertices preferred by a vertex to their partner, and so for them just match as above and check the lemma's conditions directly. There is a notable exception in lemma \ref{lemma:fixing} which we use in a slightly different way.
 \paragraph{Fixing Choices With Lemma \ref{lemma:fixing}}
 Lemma \ref{lemma:fixing} requires knowledge of a vertex's last choice in order to conclude that the given problem instance has a stable matching. Unfortunately lemmas which rely on last choices don't naturally lend themselves to cutting instances from consideration early on via step $2(a)$. There is an alternative approach to using them though. Suppose you have a partially specified instance $I$ and matching $M$ for which each vertex except for $a$ that is matched in $I$ is matched to a partner that they have already specified their ranking for in $I$, and all vertices $a$ has specified a ranking for are matched in $M$. Also suppose that $M$ satisfies all the requirements of lemma \ref{lemma:fixing} except for the requirement that $a$'s last choice is unmatched in $M$ (as a consequence of not knowing $a$'s last choice). Then by lemma \ref{lemma:fixing} any fully specified instance of $C3GSM$ extended from $I$ wherein $M(a)$ is not the last choice of $a$ is one where $a$'s last choice is unmatched in $M$ and hence has a stable matching. Thus we know we need only consider extensions where $M(a)$ is the last choice of $a$. If you can find another such matching $M'$ with $M'(a) \neq M(a)$ then we know $I$ has a stable matching since the last choice of $a$ cannot simultaneously be $M'(a)$ and $M(a)$.
+\paragraph{Results of Computational Experiments}
+We implemented our computer search algorithm in Java and attempt to run it. We were unsuccessful in getting the algorithm to terminate but we were able to eliminate many preferences. A week of running showed the algorithm had gotten down to considering the C3GSM instance:
+TODO-Show-a-Preference-System
+\paragraph{}
+TODO-What-to-say-about-results?
