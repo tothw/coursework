@@ -1,5 +1,42 @@
 \chapter{Conclusion}
 
+\paragraph{}
+In this chapter we summarize our work and suggest some open problems for further investigation.
+
 \section{Summary}
 
+\paragraph{}
+The focus of this thesis has been on understanding the nature of stable matching problems. In Chapter $2$ we gave the necessary background to read this work, and also gave some interesting previously known results about the structure of the classical stable matching problem. This culminated in the lattice theorem for stable matchings \ref{theorem:lattice}. 
+\paragraph{}
+In Chapter $3$ we formulated an instance of the stable matching problem as the feasible region of a linear program. We then proved that the extreme points of this feasible region were integral using a technique inspired by the methods of iterative rounding. In our proof the structure given by the lattice theorem was instrumental in obtaining the result.
+\paragraph{}
+In Chapter $4$ we turn our attention to stable matching problems with more than two parties. We investigated the cyclic stable matching problem with $3$ ``genders" and complete preference lists. It is conjectured (\ref{conj:stab}) that all such instances of $C3GSM$ have a stable matching. We considered the case where instance sizes were $n=5$, one greater than the best known. We offered some sufficient conditions for existence of a stable matching, and some theory about symmetry in problem instances. This new understanding was applied in a computational search framework to attempt to find counterexamples to the conjecture or prove that none exist. We implemented and ran experiments with this procedure, but could not find a counterexample or exhaust all possible cases. 
+
+\paragraph{}
+It is my hope for the reader that through studying this work the rich structure of stable matchings has become apparent. Indeed this is exciting because stable matching problems are very simple to state, and can arise so naturally in applications. It is this pairing of theory and application that makes these problems such a rewarding domain to work in. In the following section I will describe some open questions for the reader who has been excited by this work and hopes jump in and solve problems. 
+
 \section{Open Problems}
+
+\paragraph{}
+To conclude we mention some problems that remain open. We will draw some questions from our work in Chapter $3$ and Chapter $4$.
+\subsection{Questions from Chapter $3$}
+
+\paragraph{Convert Our Integrality Proof to an Iterative Rounding Procedure}
+In spirit our short proof that the stable matching polytope is integral in chapter 3 is very close to the iterative rounding procedures discussed in \cite{lau2011iterative}. If one were able to convert the proof into an iterative rounding algorithm and give a proof of correctness that would convert our approach into a more useful form. This is because there are natural extensions of those algorithms to more difficult problems, as can also be seen in \cite{lau2011iterative}. In fact, that motivates the next question.
+
+\paragraph{Approximation Algorithms via Our Integrality Proof}
+It is well-known that the methods of iterative rounding are not simply for proofs of integrality, but are commonly used in designing approximation algorithms\cite{lau2011iterative}. Since our proof of integrality for the stable matching polytope as given in Chapter $3$ is so close to an iterative rounding approach, can these methods be extended to given good approximations for hard variants of stable matching problems such as the introduction of non-strict preferences or relaxing the need for a bipartite graph \cite{iwama2008survey}?
+
+\paragraph{Consider the Popular Matching Polytope}
+Besides stability there are types of desirable properties for matching under preferences, such as popularity \cite{abraham2007popular}. A $\frac{1}{2}$-integral formulation of the popular matching polytope has recently been given \cite{kavitha2016popular}, but an integral formulation is not known. To our knowledge no one has looked at approaching this problem from an iterative rounding perspective. Perhaps such a perspective could inspire an integral formulation and lead to simple proof as it did for stable matchings?
+
+\subsection{Questions from Chapter $4$}
+
+\paragraph{Fully Characterize Symmetry}
+In subsection \ref{subsec:symmetry} our discussion of symmetry in instances of $C3GSM$ left some questions open. We gave some necessary conditions for an instance to be the lexicographic minimum of its equivalence class. One opportunity would be to extend these conditions and prove give a full set of necessary and sufficient conditions for being the lexicographic minimum. Another opportunity once that is done is to give an algorithm that computes the lexicographic minimum instance in the equivalence class of a given problem instance of $C3GSM$. This would lead to being able to decide if two instances are symmetric since we could compute their lexicographic minimums and check if they are the same or not.
+
+\paragraph{Solve the size $n$ case for small $n$}
+From our computational results, the size $5$ case of conjecture \ref{conj:stab} is close at hand, but still eluding us. It is my opinion that it is true, and that we just need more lemmas that yield stable matchings early on in running to make the computer search procedure go through. The size $5$ case has been fruitful in leading to better understanding of sufficient conditions for stable matchings and so once resolved it may be worthwhile to consider size $6$ and higher. Naturally of course at some point we must jump to the next question.
+
+\paragraph{Resolve Conjecture \ref{conj:stab}}
+The big looming question is to resolve the conjecture that all instances of $C3GSM$ have a stable matching. We feel that our approach to studying the problem computationally may in fact lead to resolving the conjecture. Either with enough sophistication the computer search can be used to find a counterexample, or the theory built up to run the procedure for higher sizes reaches a critical mass where we understand enough to prove that conjecture \ref{conj:stab} is true.
