@@ -7,7 +7,7 @@ incidence vectors of stable matchings.  Vande Vate first provided such
 a description in \cite{vate1989linear} for the special case where $G$
 is a complete bipartite graph.  Rothblum \cite{rothblum1992characterization} later generalized Vande Vate's result to incomplete preference lists and simplified the proof of integrality via an extreme point argument.
 \paragraph{}
-We provide an even simpler, more compact argument for the integrality of Rothblum's formulation. Our arguments are elementary and rely solely on some well-known results on stable matchings as well as some knowledge of the local structure of extreme points in our formulation to achieve the desired result. This proof operates in the spirit of iterative rounding as discussed in \ref{IR}. We say it is iterative rounding in spirit because, while it does not follow the strict approach of iterative rounding, it proves that there is an integral variable in every extreme point and analyses the result of dropping that variable and applying induction to the smaller problem instance to obtain a contradiction.
+We provide a simpler, more compact argument for the integrality of Rothblum's formulation. Our arguments are elementary and rely solely on some well-known results on stable matchings as well as some knowledge of the local structure of extreme points in our formulation to achieve the desired result. This proof operates in the spirit of iterative rounding as discussed in \ref{IR}. We say it is iterative rounding in spirit because, while it does not follow the strict approach of iterative rounding, it proves that there is an integral variable in every extreme point and analyses the result of dropping that variable and applying induction to the smaller problem instance to obtain a contradiction.
 \section{Linear Description}
 \paragraph{Notation}
 We will use some notation to ease exposition. Suppose $G=(A\cup B, E)$ is a bipartite graph. Let $S \subseteq E$ and let $x \in \R^{\size{E}}$. Then we denote $\sum_{e\in S} x_e$ by $x(S)$. Suppose $A \cup B$ have preference orders as in a stable matching instance. Then we for any $a\in A$ and $b \in B$ we let
@@ -48,15 +48,15 @@ Let $x^1, x^2 \in \R^n$. Then $x \in \R^n$ is a convex combination of $x^1, x^2$
 Let $P\subseteq \R^n$ be a polytope. Then the hyperplane given by $(h,\delta)$ is said to describe a valid inequality for $P$ if for all $x \in P$ $h^Tx \leq \delta$.
 \end{definition}
 \begin{definition}
-Let $P \subseteq \R^n$ be a polytope. For our purposes we define an edge of $P$ to be a set $F$ of the form $$F = P \cap \{x \in \R^n: h^Tx \leq \delta \}$$ where $(h,\delta)$ describes a valid inequality for $P$, and there exists $x^1, x^2$ distinct vertices of $P$ for which all $x \in F$ are a convex combination of $x^1, x^2$.
+Let $P \subseteq \R^n$ be a polytope. For our purposes we define an edge of $P$ to be a set $F$ of the form $$F = P \cap \{x \in \R^n: h^Tx = \delta \}$$ where $(h,\delta)$ describes a valid inequality for $P$, and there exists $x^1, x^2$ distinct vertices of $P$ for which all $x \in F$ are a convex combination of $x^1, x^2$.
 \end{definition}
 \begin{lemma}\label{lemma:edge-midpoint}
 Let $P \subseteq \R^n$ be a polytope. Let $F$ be an edge of $P$ defined by valid inequality $(h,\delta)$ and extreme points $x^1, x^2$. Suppose there exist $y^1, y^2 \in \R^n$ not a convex combination of $x^1, x^2$ satisfying
 $$\frac{1}{2}x^1 + \frac{1}{2} x^2 = \frac{1}{2} y^1 + \frac{1}{2}y^2.$$
-Then at most one of $y^1, y^2 \in P$.
+Then at most one of $y^1, y^2$ lies in $P$.
 \end{lemma}
 \begin{proof}
-Let $$x = \frac{1}{2}x^1 + \frac{1}{2} x^2 = \frac{1}{2} y^1 + \frac{1}{2}y^2.$$ Suppose for a contradiction that $y^1,y^2 \in P$. Since $y^1, y^2 \not\in F$ we have
+Let $$x = \frac{1}{2}x^1 + \frac{1}{2} x^2 = \frac{1}{2} y^1 + \frac{1}{2}y^2.$$ Suppose for a contradiction that $y^1,y^2 \in P$. Since $y^1, y^2 \not\in F$ as $y_1$ and $y_2$ are not convex combinations of $x_1$ and $x_2$, we have
 $$h^Ty^1 < \delta \quad\text{and}\quad h^Ty^2 < \delta. $$
 So then,
 \begin{align*}
