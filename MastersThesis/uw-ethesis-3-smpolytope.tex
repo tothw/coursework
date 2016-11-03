@@ -25,7 +25,6 @@ Our major theorem of this chapter is to demonstrate that $P(G)$ is integral, but
 Let $x \in \R^{\size{E}}$. Then $x$ is an integral extreme point of $P(G)$ if and only if there exists a stable matching $M$ of $G$ such that $x = \chi(M)$.
 \end{lemma}
 \begin{proof}
-\paragraph{}
 Suppose that $x$ is an integral extreme point of $P(G)$. By constraints \ref{constraint:one} and \ref{constraint:nonneg} and Birkhoff's theorem \cite{birkhoff1946tres}, $x$ is the incidence vector of some matching $M$ of $G$. Suppose that $M$ is not stable, that is to say there exists $ab \in E$ which blocks $M$. But $ab$ satisfies:
 $$x(\delta^{>a}(b)) + x(\delta^{>b}(a)) + x_{ab} \geq 1.$$
 Since $x$ is integral this implies that either
@@ -57,7 +56,6 @@ $$\frac{1}{2}x^1 + \frac{1}{2} x^2 = \frac{1}{2} y^1 + \frac{1}{2}y^2.$$
 Then at most one of $y^1, y^2 \in P$.
 \end{lemma}
 \begin{proof}
-\paragraph{}
 Let $$x = \frac{1}{2}x^1 + \frac{1}{2} x^2 = \frac{1}{2} y^1 + \frac{1}{2}y^2.$$ Suppose for a contradiction that $y^1,y^2 \in P$. Since $y^1, y^2 \not\in F$ we have
 $$h^Ty^1 < \delta \quad\text{and}\quad h^Ty^2 < \delta. $$
 So then,
@@ -78,7 +76,6 @@ In this section we describe some theory connecting the lattice structure of stab
 Let $M$ and $M'$ be distinct stable matchings in bipartite graph $G$ with preferences. If $\chi(M)$ and $\chi(M')$ are extreme points of $P(G)$ which define an edge of $P(G)$ then either $sup(M,M') = M$ (conversely $inf(M,M') = M'$) or $sup(M,M') = M'$ (conversely $inf(M,M') = M$).
 \end{lemma}
 \begin{proof}
-\paragraph{}
 Let $S = sup(M,M')$ and $I = inf(M,M')$. Suppose for a contradiction that $S \neq M$ and $S \neq M'$. That is, $S$ and $I$ are distinct stable matchings from $M$ and $M'$. We claim that
 \begin{equation} \label{claim:chieq}
 \chi(M) + \chi(M') = \chi(S) + \chi(I)
@@ -97,7 +94,6 @@ M \cap \delta^{>a}(b) \neq \emptyset,\ \ M\cap \delta^{>b}(a) \neq \emptyset \qu
 then $\chi(M)$ and $\chi(M')$ do not define an edge of the polytope $P(G)$.
 \end{corollary}
 \begin{proof}
-\paragraph{}
 By condition \ref{cond:nonedge} we have $$M(a)>_a M'(a)$$ and $$M(b) >_b M'(b).$$
 Since $M(a) >_a M'(a)$, $aM(a) \in \sup(M,M')$. That is $$sup(M,M') \cap M \neq \emptyset$$ and since $M'(a) \neq M(a)$, 
 $$sup(M,M') \not\subseteq M'.$$
@@ -112,7 +108,6 @@ We are now ready to provide our proof that $P(G)$ is integral. The strategy is t
 Let $G = (A\cup B, E)$ be a bipartite graph with preferences. Let $x$ be an extreme point of $P(G)$. Then there exists $e \in E(G)$ such that $x_e \in \{0,1\}$.
 \end{lemma}
 \begin{proof}
-\paragraph{}
 Suppose for a contradiction that for all $e \in E(G)$, $0 <x_e < 1$. Recall by constraints \ref{constraint:nonneg} and \ref{constraint:one} that $0 \leq x_e \leq 1$ and so our assumption is sufficient for a contradiction. Since $x$ is a basic feasible solution (see section \ref{IR:LP}), $x$ is defined by $\size{E}$ linearly independent constraints which are tight (satisfied with equality) at $x$. Since $x > 0$ no such constraints are from type \ref{constraint:nonneg}. Thus all such constraints are from \ref{constraint:one} and \ref{constraint:stab}. Let $V_x \subseteq V(G)$ and $E_x \subseteq E(G)$ be such that $V_x$ and $E_x$ respectively contain vertices and edges corresponding to a set of $\size{E}$ linearly independent constraints tight at $x$. That is $V_x$ contains vertices corresponding to constraints from \ref{constraint:one}, $E_x$ contains edges corresponding to constraints from \ref{constraint:stab}, $\size{E} = \size{E_x} + \size{V_x}$, and $$\{\chi(\delta(v)) : v \in V_x\} \cup \{\chi(\delta^{>a}(b)) + \chi(\delta^{>b}(a)) + \chi(\{ab\}): ab \in E_x\}$$ is linearly independent. Choose $V_x$ and $E_x$ in such a way that $\size{V_x}$ is maximized.
 \paragraph{}
 First observe that $V_x \subsetneq V$. To see this, suppose that $V_x = V$. Then since $G$ is bipartite
@@ -161,7 +156,6 @@ First it should be clear that these rules are well-defined since no $ab \in E_x$
 Let $G=(A\cup B, E)$ be a bipartite graph with preferences. Then the polytope $P(G)$ is integral.
 \end{theorem}
 \begin{proof}
-\paragraph{}
 Suppose for a contradiction the theorem does not hold. Let $G=(A\cup B, E)$ be a minimal counterexample in terms of $|E|$. It is clear from case analysis that $|E| > 2$. Let $x$ be a non-integral extreme point of $P(G)$. By lemma \ref{lemma:01} there exists $ab \in E$ such that $x_{ab} \in \{0,1\}$.
 \paragraph{}
 First we consider the case where $x_{ab} = 0$. Let $P' = P(G) \cap \{x \in \R^{\size{E(G)}} : x_{ab} = 0 \}$. Then $x$ is an extreme point of polytope $P'$ since $P' \subseteq P(G)$. Let $G'$ be the graph with $V(G') = V(G)$ and $E(G') = E(G) \backslash \{ab\}$. Observe that by dropping edge $ab$ $P(G')$ differs from $P(G)$ only in not having constraint \ref{constraint:stab} for $ab$ and constraints \ref{constraint:one} for $a$ and $b$ not counting edge $ab$ (which is equivalent to assigning $x_{ab} = 0$ always), hence we have
