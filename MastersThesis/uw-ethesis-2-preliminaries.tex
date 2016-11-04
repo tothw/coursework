@@ -140,7 +140,7 @@ c^Tx &\geq c^T(x+d) \\
 \end{align*}
 Thus for any $\epsilon$, $x+\epsilon d$ satisfies $A^=(x+\epsilon d) = b^=$ and $c^T(x+\epsilon d) = c^Tx$. Since $d \neq 0$, we may assume that there exists $i$ such that $d_i < 0$ (otherwise we may use $-d$ instead of $d$). We define $\epsilon > 0$, which is finite as $d_i < 0$, as follows:
 $$ \epsilon = \min\{ \min\{\frac{x_j}{-d_j}: d_j < 0\}, \min \{\frac{b_i - a_i x }{-a_id}: a_i x < b_i, a_i d < 0 \}\}.$$
-where $a_i$ are the rows $A$ and $b_i$ is the corresponding entry of $b$. By our choice of $\epsilon$ either $x+\epsilon d$ has one more $0$ entry (in the $\frac{x_j}{-d_j}$ case) or one more tight constraint (in the $\frac{b_i-a_i x}{-a_i}$ case) than $x$. Further by the minimality of $\epsilon$ the non-tight constraints remain feasible, and as previously argued the tight constraints are not violated so $x + \epslion d$ is feasible. Since $c^Td = 0$ we thus have $x + \epsilon d$ is an optimal solution with more tight constraints than $x$.
+where $a_i$ are the rows $A$ and $b_i$ is the corresponding entry of $b$. By our choice of $\epsilon$ either $x+\epsilon d$ has one more $0$ entry (in the $\frac{x_j}{-d_j}$ case) or one more tight constraint (in the $\frac{b_i-a_i x}{-a_i}$ case) than $x$. Further by the minimality of $\epsilon$ the non-tight constraints remain feasible, and as previously argued the tight constraints are not violated so $x + \epsilon d$ is feasible. Since $c^Td = 0$ we thus have $x + \epsilon d$ is an optimal solution with more tight constraints than $x$.
 \end{proof}
 \paragraph{Integrality}
 The previous lemma tells us that an algorithm which solves linear programs need only concern itself with extreme point solutions. So extreme point solutions are of particular interest in applications. We call a polyhedron $P$ integral if every extreme point $x$ of $P$ is contained in $\Z^n$. We will call a linear program integral if its feasible region is integral. Integrality is important when using linear programs to model discrete optimization problems since fractional solutions rarely have an interpretation in this context. Later in this section we will demonstrate how iterative rounding can be used to prove that the feasible region of a linear program is integral.
@@ -173,7 +173,9 @@ Let $P \subseteq \cI \times \cO$ be a problem. Suppose that $\cI$ is equipped wi
 \paragraph{Example}
 Consider once more the example of the maximum cardinality matching problem. Let $G, G'$ be graphs. We say $G'$ is a subgraph of graph $G$ if $V(G') \subseteq V(G)$ and $E(G') \subseteq E(G)$. The subgraph relation is a partial order on the space of all graphs. Hence we can say that $G'$ is a residual problem instance of $G$.
 \paragraph{Step 2 - Iterative Algorithm}
-Let $CP$ be a combinatorial optimization problem on ground set $E$. Let $LP(E)$ be a linear programming relaxation of $CP(E)$. In this step we describe an algorithm which constructs an integral optimal solution $LP(E)$, which is equivalently a solution to $CP(E)$. As we will show in the following lemma, the existence of such an algorithm implies that $LP(E)$ is integral. The algorithm constructs integral optimal solution $x^*$ as follows:
+Let $CP$ be a combinatorial optimization problem on ground set $E$. Let $LP(E)$ be a linear programming relaxation of $CP(E)$ for which the variables of our linear program our bounded between $0$ and $1$. The assumption that the feasible region of our linear programs is contained in $[0,1]^{|E|}$ is reasonable because this occurs in the natural situation where our feasible region is intended to contain incidence vectors. 
+\paragraph{}
+In this step we describe an algorithm which constructs an integral optimal solution to $LP(E)$, which is equivalently a solution to $CP(E)$. The algorithm constructs integral optimal solution $x^*$ as follows:
 \begin{enumerate}
 \item Let $x$ be an optimal extreme point solution of $LP(E)$.
 \item For each $e \in E$ for which $x_e  \in \{0,1\}$ set $x^*_e = x_e$ and remove $e$ from $E$.
@@ -181,25 +183,32 @@ Let $CP$ be a combinatorial optimization problem on ground set $E$. Let $LP(E)$ 
 \item Otherwise repeat from step 1.
 \end{enumerate}
 Observe that if the algorithm always finds $x_e \in \{0,1\}$ then $|E|$ decreases at every iteration and thus the algorithm terminates. What the algorithm is doing intuitively is finding variables which are integral in an extreme point solution, fixing them to their corresponding values in the solution it will return, then removing those variables from the ground set resulting in a residual problem. The algorithm then iterates, considering an optimal solution for the residual problem. 
-\begin{lemma} If the iterative algorithm of Step $2$ is correct and terminates then the feasible region of $LP(E)$ is integral.
+\paragraph{}
+The following lemma explains how an algorithm can be used to prove the integrality of a polytope. This lemma indicates the the properties we will need to prove our algorithm satisfies in order for its existence to imply that $LP(E)$ is integral.
+\begin{lemma} If there exists an algorithm $\cA$ that always returns an integral optimal solution to $LP(E)$ for any objective function $c$, and terminates then the feasible region of $LP(E)$ is integral.
 \end{lemma}
 \begin{proof}
-Let $x$ be an extreme point of the $P$, the feasible region of $LP(E)$. Then $x$ is equivalently a vertex of $P$. So there exists a supporting hyperplane described by $(h,\delta)$ for which $h^Tx = \delta$ and for all $x' \neq x \in P$, $h^Tx' < \delta$. If we consider the linear program with feasible region $P$ and objective function $h$ then $x$ is the unique optimal solution of this linear program. Hence for any extreme point of $P$ there exists an objective function for which that extreme point is the unique optimal solution of the corresponding linear program. Therefore if we run the algorithm of Step $2$ with extreme point $x$ and objective function $h$ then the integral solution returned is equal to $x$ by uniqueness. Thus $x$ is integral, and so any extreme of $P$ is integral. 
+Let $x$ be an extreme point of $P$, the feasible region of $LP(E)$. Then $x$ is equivalently a vertex of $P$ by lemma \ref{lemma:bfs-equiv}. So there exists a supporting hyperplane described by $(h,\delta)$ for which $h^Tx = \delta$ and for all $x' \in P$ with $x' \neq x$, we have $h^Tx' < \delta$. If we consider the linear program $LP(E)$ with objective function $h$ then $x$ is the unique optimal solution of this linear program. Therefore if we run algorithm $\cA$  with objective function $h$ as input then the integral solution returned is equal to $x$ by uniqueness. Thus $x$ is integral, and so any extreme of $P$ is integral. 
 \end{proof}
 \paragraph{Step 3 - Algorithm Analysis}
 We need to establish two things in this phase: that the algorithm terminates in finite time giving an integral vector and that it indeed returns an optimal solution.
-\subparagraph{Termination} To show that the algorithm terminates we demonstrate that there always exists an $e$ for which $x_e \in \{0,1\}$ for every iteration. Doing so proves inductively that the algorithm terminates with a $\{0,1\}$ valued vector. There is a standard approach to showing the existence of $x_e \in \{0,1\}$ which proceeds by contradiction. If we suppose that every $x_e \in (0,1)$ (classically $0\leq x \leq 1$ is part of our $LP(E)$ formulation) then we may obtain a contradiction as follows. Since $x>0$ we may invoke lemma \ref{lemma:rank} saying there exists a maximal set of $n=|E|$ linearly independent constraints not drawn from non-negativity constratints which are tight at $x$. We may then further use $x_e < 1$ to obtain some structure and show an upper bound on the number of linearly independent tight constraints that is smaller than $n$, contradicting that $x$ is an extreme point. This will become more concrete in the next section when we demonstrate an example.
-\subparagraph{Correctness} It remains to show that the algorithm returns an optimal solution. This typically takes the form of an inductive argument on $|E|$. In that context  we show two things. First, we show that the vector $x$ restricted to the variables not removed in line $2$ of the algorithm is a feasible solution to the linear programming relaxation of the residual problem. Second, we show that the optimal solution to the residual problem along with the variables which were fixed to $0$ or $1$ in step $1$ gives a feasible solution for the original problem. Together this allows one to conclude that the objective value at $x$ is at most that of the integral solution returned by the algorithm. Since $x$ is optimal this implies that the integral solution returned has the same objective value as $x$ and is thus optimal.
+\subparagraph{Termination} Recall that we are assuming our the feasible region of $LP(E)$ is contained in $[0,1]^{|E|}$. To show that the algorithm terminates we demonstrate that there always exists an $e$ for which $x_e \in \{0,1\}$ for every iteration. Doing so proves inductively that the algorithm terminates with a $\{0,1\}$ valued vector. There is a standard approach to showing the existence of $x_e \in \{0,1\}$ which proceeds by contradiction. If we suppose that every $x_e \in (0,1)$ then we may obtain a contradiction as follows. Since $x>0$ we may invoke lemma \ref{lemma:rank} saying there exists a maximal set of $n=|E|$ linearly independent constraints not drawn from non-negativity constraints which are tight at $x$. If we can then show an upper bound on the number of linearly independent constraints tight at $x$ that is smaller than $n$, then we have obtained a contradiction as desired. This will become more concrete in the next section when we demonstrate an example.
+\subparagraph{Correctness} It remains to show that the algorithm returns an optimal solution. For iterative algorithms this typically takes the form of an inductive argument on $|E|$. We show two things:
+\begin{enumerate}
+\item the vector $x$ restricted to the variables in the residual problem instance is feasible for the linear programming relaxation of the residual problem instance,
+\item and the integral optimal solution to the linear programming relaxation of the residual problem instance, along with the variables which were fixed to $0$ or $1$ in step $2$ of the current iteration is a feasible solution to $LP(E)$.
+\end{enumerate}
+Together this allows one to conclude that the objective value at $x$ is at most that of the integral solution returned by the algorithm. Since $x$ is optimal this implies that the integral solution returned has the same objective value as $x$ and is thus optimal.
 \subsection{Application to Matching}\label{subsec:irapp}
 \paragraph{}
-Recall the linear programming relaxation of maximum weight matching in bipartite graphs:
+Recall the linear programming relaxation of maximum weight matching in bipartite graphs which we will denote $LP(G)$:
 \begin{align*}
 	&\text{max} \sum_{e \in E(G)} w(e) x_e \\
 	&\text{s.t.} \sum_{e \in \delta(v)} x_e \leq 1 &\text{for all $v \in V(G)$} \\
 	&\quad\quad\quad\ \ x_e \geq 0 &\text{for all $e \in E(G)$.}
 \end{align*}
 \paragraph{}
-We will use iterative rounding to prove that this linear program, $LP(G)$, is integral. Consider an iterative rounding algorithm for bipartite matching with weighted input graph $G$.
+We will use iterative rounding to prove that this linear program is integral. Consider an iterative rounding algorithm for bipartite matching with weighted input graph $G$.
 \begin{enumerate}
 \item Set $M \leftarrow \emptyset$
 \item While $|E(G)| > 0$\begin{enumerate}
@@ -216,8 +225,8 @@ To prove that $LP(G)$ is integral for any weighted bipartite graph $G$ we need t
 \begin{lemma} Let $x$ be an extreme point optimal solution to $LP(G)$. Suppose that for all $e \in E(G)$, $x_e > 0$. Then there exists $W \subseteq V(G)$ satisfying
 \begin{itemize}
 \item $\sum_{e\in\delta(v)} x_e = 1$ for all $v \in W$ \\
-\item $\{\chi(\delta(v)) : v \in W\}$ is linearly independent (recall that $\chi : E \rightarrow \{0,1\}^{|E|}$ maps edge sets to incidence vectors)
-\item $|W| = |E|$.
+\item $\{\chi(\delta(v)) : v \in W\}$ is linearly independent (recall that $\chi : E(G)\rightarrow \{0,1\}^{|E(G)|}$ maps edge sets to incidence vectors)
+\item $|W| = |E(G)|$.
 \end{itemize} 
 \end{lemma}
 \begin{proof}
@@ -228,8 +237,8 @@ The proof is immediate from lemma \ref{lemma:rank}.
 \end{lemma}
 \begin{proof}
 Suppose for a contradiction that for all $e\in E(G)$, $0 < x_e < 1$. By our previous lemma there exists $W \subseteq V(G)$ containing vertices corresponding to $|E(G)|$ linearly independent tight vertex constraints. Let $v \in W$. Since $\sum_{e\in \delta(v)} x_e = 1$ and $x_e < 1$ for all $e$, we have $d(v) \geq 2$. So then
-$$2|W| = 2|E| = \sum_{v \in V(G)} d(v) \geq \sum_{v\in W} d(v) \geq 2|W|.$$
-The inequalities above thus hold as equalities. Since $\sum_{v\in V(G)} d(v) = \sum_{v \in W} d(v)$, $d(v) = 0$ for all $v \not\in W$. Since $\sum_{v \in W} d(v) = 2|W|$ we have $d(v) = 2$ for all $v \in W$. Therefore $E(G)$ is a set of cycles covering the vertices of $W$ (each vertex is contained in an edge of $E(G)$ and the edges of $E(G)$ only form cycles). Let $C \subseteq E(G)$ be a cycle with $V(C) \subseteq W$. Let $V_1, V_2$ be a bipartition of the vertex set of $G$ (which exists since $G$ is bipartite). Further since $G$ is bipartite for each edge $vw \in E(C)$ one of $v,w \in V_1$ and the other of $v,w \in V_2$. Hence we have
+$$2|W| = 2|E(G)| = \sum_{v \in V(G)} d(v) \geq \sum_{v\in W} d(v) \geq 2|W|.$$
+The inequalities above thus hold as equalities. Since $\sum_{v\in V(G)} d(v) = \sum_{v \in W} d(v)$, $d(v) = 0$ for all $v \not\in W$. Since $\sum_{v \in W} d(v) = 2|W|$ we have $d(v) = 2$ for all $v \in W$. Therefore $E(G)$ is a set of cycles covering the vertices of $W$ (each vertex is contained in an edge of $E(G)$ and the edges of $E(G)$ only form cycles). Let $C \subseteq E(G)$ be a cycle with $V(C) \subseteq W$. Let $V_1, V_2$ be a bipartition of the vertex set of $G$ (which exists since $G$ is bipartite). Further since $G$ is bipartite for each edge $vw \in E(C)$ one of $v,w $ is in $V_1$ and the other is in $V_2$. Hence we have
 $$\sum_{v \in V(C) \cap V_1} \chi(\delta(v)) = \sum_{v\in V(C) \cap V_2} \chi(\delta(v))$$
 which contradicts the linear independence of $\{\chi(\delta(v)) : v \in W\}$.
 \end{proof}
