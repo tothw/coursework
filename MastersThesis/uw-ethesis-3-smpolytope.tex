@@ -10,7 +10,7 @@ is a complete bipartite graph.  Rothblum \cite{rothblum1992characterization} lat
 We provide a simpler, more compact argument for the integrality of Rothblum's formulation. Our arguments are elementary and rely solely on some well-known results on stable matchings as well as some knowledge of the local structure of extreme points in our formulation to achieve the desired result. This proof operates in the spirit of iterative rounding as discussed in \ref{IR}. We say it is iterative rounding in spirit because, while it does not follow the strict approach of iterative rounding, it proves that there is an integral variable in every extreme point and analyses the result of dropping that variable and applying induction to the smaller problem instance to obtain a contradiction.
 \section{Linear Description}
 \paragraph{Notation}
-We will use some notation to ease exposition. Suppose $G=(A\cup B, E)$ is a bipartite graph. Let $S \subseteq E$ and let $x \in \R^{\size{E}}$. Then we denote $\sum_{e\in S} x_e$ by $x(S)$. Suppose $A \cup B$ have preference orders as in a stable matching instance. Then we for any $a\in A$ and $b \in B$ we let
+We will use some notation to ease exposition. Suppose $G=(A\cup B, E)$ is a bipartite graph. Let $S \subseteq E$ and let $x \in \R^{\size{E}}$. Then we denote $\sum_{e\in S} x_e$ by $x(S)$. Suppose $A \cup B$ have preference orders as in a stable matching instance. Then for any $a\in A$ and $b \in B$ we let
 $$\delta^{>a}(b) = \{a'b \in E(G): a' >_b a\}.$$
 We can define $\delta^{>b}(a)$ analogously, and further replace $>$ with $<, \leq, \geq, =$ in the natural way.
 \paragraph{Linear Description}
@@ -25,7 +25,7 @@ Our major theorem of this chapter is to demonstrate that $P(G)$ is integral, but
 Let $x \in \R^{\size{E}}$. Then $x$ is an integral extreme point of $P(G)$ if and only if there exists a stable matching $M$ of $G$ such that $x = \chi(M)$.
 \end{lemma}
 \begin{proof}
-Suppose that $x$ is an integral extreme point of $P(G)$. By constraints \ref{constraint:one} and \ref{constraint:nonneg} and Birkhoff's theorem \cite{birkhoff1946tres}, $x$ is the incidence vector of some matching $M$ of $G$. Suppose that $M$ is not stable, that is to say there exists $ab \in E$ which blocks $M$. But $ab$ satisfies:
+Suppose that $x$ is an integral extreme point of $P(G)$. By constraints \ref{constraint:one} and \ref{constraint:nonneg}, $x$ is the incidence vector of some matching $M$ of $G$. Suppose that $M$ is not stable, that is to say there exists $ab \in E$ which blocks $M$. But $ab$ satisfies:
 $$x(\delta^{>a}(b)) + x(\delta^{>b}(a)) + x_{ab} \geq 1.$$
 Since $x$ is integral this implies that either
 $$x(\delta^{>a}(b)) = 1 \quad\text{or}\quad  x(\delta^{>b}(a)) = 1 \quad\text{or}\quad x_{ab}=1,$$
@@ -33,7 +33,7 @@ and as $ab \not\in M$ we known $\chi(M)_{ab} = x_{ab}=0$. Thus we have two cases
 $$x(\delta^{>a}(b)) = 1 \quad\text{or}\quad  x(\delta^{>b}(a)) = 1.$$
 In the first case there exists $ab' \in \delta^{>a}(b)$ for which $x_{ab'} = 1$ and hence $ab' \in M$  with $b' >_a b$. Thus in the first case $ab$ does not block $M$. Similarly in the second case there exists $a' >_b a$ with $a'b \in M$ and hence $ab$ does not block $M$ in either case. Therefore $M$ is stable.
 \paragraph{}
-Now suppose there exists a stable matching $M$ of $G$ for which $x = \chi(M)$. Since $M$ is a matching $x(\delta(v)) \leq 1$ for all $v \in A \cup B$ and $x_e \geq 0$ for all $e \in E$. Hence it remains to verify that $x$ satisfies constraints \ref{constraint:stab}. Indeed let $ab \in E$. If $ab \in M$ then $1 = \chi(M)_{ab} = x_{ab}$ and so \ref{constraint:stab} is satisfied for $ab$. Now if $ab \not\in M$ then, since $M$ is stable, $(a,b)$ is not a blocking pair. So there exists $ab' \in M$ with $b' >_a b$ or there exists $a'b \in M$ with $a' >_b a$. In the former case $x(\delta^{>b}(a)) \geq 1$ and in the latter $x(\delta^{>a}(b)) \geq 1$. In either case \ref{constraint:stab} is satisfied for $ab$ as desired.  
+Now let $M$ be a stable matching in $G$, and suppose  $x = \chi(M)$. Since $M$ is a matching $x(\delta(v)) \leq 1$ for all $v \in A \cup B$ and $x_e \geq 0$ for all $e \in E$. Hence it remains to verify that $x$ satisfies constraints \ref{constraint:stab}. Indeed let $ab \in E$. If $ab \in M$ then $1 = \chi(M)_{ab} = x_{ab}$ and so \ref{constraint:stab} is satisfied for $ab$. Now if $ab \not\in M$ then, since $M$ is stable, $(a,b)$ is not a blocking pair. So there exists $ab' \in M$ with $b' >_a b$ or there exists $a'b \in M$ with $a' >_b a$. In the former case $x(\delta^{>b}(a)) = 1$ and in the latter $x(\delta^{>a}(b)) = 1$. In either case \ref{constraint:stab} is satisfied for $ab$ as desired.  
 \end{proof}
 \section{Proof of Integrality}
 \paragraph{}
@@ -48,7 +48,7 @@ Let $x^1, x^2 \in \R^n$. Then $x \in \R^n$ is a convex combination of $x^1, x^2$
 Let $P\subseteq \R^n$ be a polytope. Then the hyperplane given by $(h,\delta)$ is said to describe a valid inequality for $P$ if for all $x \in P$ $h^Tx \leq \delta$.
 \end{definition}
 \begin{definition}
-Let $P \subseteq \R^n$ be a polytope. For our purposes we define an edge of $P$ to be a set $F$ of the form $$F = P \cap \{x \in \R^n: h^Tx = \delta \}$$ where $(h,\delta)$ describes a valid inequality for $P$, and there exists $x^1, x^2$ distinct vertices of $P$ for which all $x \in F$ are a convex combination of $x^1, x^2$.
+Let $P \subseteq \R^n$ be a polytope. For our purposes we define an edge of $P$ to be a set $F$ of the form $$F = P \cap \{x \in \R^n: h^Tx = \delta \}$$ where $(h,\delta)$ describes a valid inequality for $P$, and there exist $x^1, x^2 \in P$ such that $x^1$ and $x^2$ are vertices of $P$ for which all $x \in F$ are a convex combination of $x^1, x^2$.
 \end{definition}
 \begin{lemma}\label{lemma:edge-midpoint}
 Let $P \subseteq \R^n$ be a polytope. Let $F$ be an edge of $P$ defined by valid inequality $(h,\delta)$ and extreme points $x^1, x^2$. Suppose there exist $y^1, y^2 \in \R^n$ not a convex combination of $x^1, x^2$ satisfying
@@ -80,12 +80,10 @@ Let $S = sup(M,M')$ and $I = inf(M,M')$. Suppose for a contradiction that $S \ne
 \begin{equation} \label{claim:chieq}
 \chi(M) + \chi(M') = \chi(S) + \chi(I)
  \end{equation}
-To see the claim, let $e \in E(G)$. If $e \in M \cap M'$ then the left hand side of $\ref{claim:chieq}$ is $2$, and further $e \in S \cap I$ and hence the right hand side of $\ref{claim:chieq}$ is $2$. If $e \not\in M \cap M'$ then both the left and right hand side of \ref{claim:chieq} is $0$. If $e \in M \backslash M'$ then either $e \in S$ or $e \in I$. In either case the left and right hand side of \ref{claim:chieq} is $1$, and the same holds for $e \in M' \backslash M$. That is the claim holds.
+To see the claim, let $e \in E(G)$. If $e \in M \cap M'$ then the left hand side of $\ref{claim:chieq}$ is $2$, and further $e \in S \cap I$ and hence the right hand side of $\ref{claim:chieq}$ is $2$. If $e \not\in M \cup M'$ then both the left and right hand side of \ref{claim:chieq} is $0$. If $e \in M \backslash M'$ then either $e \in S$ or $e \in I$. In either case the left and right hand side of \ref{claim:chieq} is $1$, and the same holds for $e \in M' \backslash M$. That is the claim holds.
 \paragraph{}
-By the claim \ref{claim:chieq} we observe two things. First that
-$$ \chi(M) + \chi(M') - \chi(S) = \chi(I) \neq 0$$
-and hence $\chi(S)$ is linearly independent from $\chi(M), \chi(M')$. Similarly $\chi(I)$ is linearly independent from $\chi(M), \chi(M')$. Thus $\chi(S)$ and $\chi(I)$ and not convex combinations of $\chi(M), \chi(M')$. Second we observe that $$\frac{1}{2}\chi(M) + \frac{1}{2} \chi(M') = \frac{1}{2} \chi(S) + \frac{1}{2} \chi(I).$$
-Therefore we are in a position to invoke lemma \ref{lemma:all-same}, concluding that one of $\chi(S), \chi(I) \not\in P(G)$. But this contradicts the lattice theorem \ref{theorem:lattice} since $S, I$ are stable matchings in $G$ implies that $\chi(S), \chi(I) \in P$  by lemma \ref{lemma:int-P}.
+By claim \ref{claim:chieq} we observe two things. First that $\chi(S)$ and $\chi(I)$ are not convex combinations of $\chi(M)$ and $\chi(M')$ since $S$ and $I$ are not equal to either of $M$ or $M'$. Second we observe that $$\frac{1}{2}\chi(M) + \frac{1}{2} \chi(M') = \frac{1}{2} \chi(S) + \frac{1}{2} \chi(I).$$
+Therefore we are in a position to invoke lemma \ref{lemma:edge-midpoint}, concluding that one of $\chi(S), \chi(I) \not\in P(G)$. But this contradicts the lattice theorem \ref{theorem:lattice} since $S, I$ are stable matchings in $G$ implies that $\chi(S), \chi(I) \in P$  by lemma \ref{lemma:int-P}.
 \end{proof}
 \begin{corollary}\label{cor:edge} (Ratier) \cite{ratier1996stable}:
 Let $M$ and $M'$ be distinct stable matchings in bipartite graph $G=(A\cup B, E)$ with preferences. If there exists $a \in A$ and $b \in B$ such that
@@ -95,9 +93,9 @@ then $\chi(M)$ and $\chi(M')$ do not define an edge of the polytope $P(G)$.
 \end{corollary}
 \begin{proof}
 By condition \ref{cond:nonedge} we have $$M(a)>_a M'(a)$$ and $$M(b) >_b M'(b).$$
-Since $M(a) >_a M'(a)$, $aM(a) \in \sup(M,M')$. That is $$sup(M,M') \cap M \neq \emptyset$$ and since $M'(a) \neq M(a)$, 
+Since $M(a) >_a M'(a)$, $aM(a) \in sup(M,M')$. That is $$sup(M,M') \cap M \neq \emptyset$$ and since $M'(a) \neq M(a)$, 
 $$sup(M,M') \not\subseteq M'.$$
-Since $M(b) >_b M'(b)$, $M'(b)b \in \sup(M,M')$. That is $$sup(M,M') \cap M' \neq \emptyset$$ and since $M(b) \neq M'(b)$,
+Since $M(b) >_b M'(b)$, $M'(b)b \in sup(M,M')$. That is $$sup(M,M') \cap M' \neq \emptyset$$ and since $M(b) \neq M'(b)$,
 $$sup(M,M') \not\subseteq M.$$
 Taken together these observations prove that $sup(M,M')$ is a distinct stable matching from $M$ and $M'$. Thus by lemma \ref{lemma:all-same}, $\chi(M)$ and $\chi(M')$ do not define an edge of $P(G)$.  
 \end{proof}
@@ -108,7 +106,7 @@ We are now ready to provide our proof that $P(G)$ is integral. The strategy is t
 Let $G = (A\cup B, E)$ be a bipartite graph with preferences. Let $x$ be an extreme point of $P(G)$. Then there exists $e \in E(G)$ such that $x_e \in \{0,1\}$.
 \end{lemma}
 \begin{proof}
-Suppose for a contradiction that for all $e \in E(G)$, $0 <x_e < 1$. Recall by constraints \ref{constraint:nonneg} and \ref{constraint:one} that $0 \leq x_e \leq 1$ and so our assumption is sufficient for a contradiction. Since $x$ is a basic feasible solution (see section \ref{IR:LP}), $x$ is defined by $\size{E}$ linearly independent constraints which are tight (satisfied with equality) at $x$. Since $x > 0$ no such constraints are from type \ref{constraint:nonneg}. Thus all such constraints are from \ref{constraint:one} and \ref{constraint:stab}. Let $V_x \subseteq V(G)$ and $E_x \subseteq E(G)$ be such that $V_x$ and $E_x$ respectively contain vertices and edges corresponding to a set of $\size{E}$ linearly independent constraints tight at $x$. That is $V_x$ contains vertices corresponding to constraints from \ref{constraint:one}, $E_x$ contains edges corresponding to constraints from \ref{constraint:stab}, $\size{E} = \size{E_x} + \size{V_x}$, and $$\{\chi(\delta(v)) : v \in V_x\} \cup \{\chi(\delta^{>a}(b)) + \chi(\delta^{>b}(a)) + \chi(\{ab\}): ab \in E_x\}$$ is linearly independent. Choose $V_x$ and $E_x$ in such a way that $\size{V_x}$ is maximized.
+By constraints \ref{constraint:nonneg} and \ref{constraint:one} we have that $0 \leq x_e \leq 1$. Suppose for a contradiction that for all $e \in E(G)$, $0 <x_e < 1$. Since $x$ is an extreme point of $P(G)$ with $x>0$ we may invoke lemma \ref{lemma:rank}, which says that $x$ is defined by $\size{E}$ linearly independent constraints which are tight (satisfied with equality) at $x$ and no such constraints are from constraints \ref{constraint:nonneg}. Thus all such constraints are from \ref{constraint:one} and \ref{constraint:stab}. Let $V_x \subseteq V(G)$ and $E_x \subseteq E(G)$ be such that $V_x$ and $E_x$ respectively contain vertices and edges corresponding to a set of $\size{E}$ linearly independent constraints tight at $x$. That is $V_x$ contains vertices corresponding to constraints from \ref{constraint:one}, $E_x$ contains edges corresponding to constraints from \ref{constraint:stab}, $\size{E} = \size{E_x} + \size{V_x}$, and $$\{\chi(\delta(v)) : v \in V_x\} \cup \{\chi(\delta^{>a}(b)) + \chi(\delta^{>b}(a)) + \chi(\{ab\}): ab \in E_x\}$$ is linearly independent. Choose $V_x$ and $E_x$ in such a way that $\size{V_x}$ is maximized.
 \paragraph{}
 First observe that $V_x \subsetneq V$. To see this, suppose that $V_x = V$. Then since $G$ is bipartite
 $$\sum_{a \in A} \chi(\delta(a)) = \sum_{b \in B} \chi(\delta(b))$$
@@ -116,18 +114,18 @@ and hence $\{\chi(\delta(v)) : v \in V=V_x\}$ is not linearly independent. Thus 
 \paragraph{}
 For any $v \in V(G)$ denote by $N(v)$ the set $\{ w \in V(G): vw \in \delta(v)\}$ and let $N_{max}(v) \in N(v)$ be such that $N_{max}(v) \geq_v w$ for all $w \in N(v)$. Similarly let $N_{min}(v) \in N(v)$ be such that $N_{min}(v) \leq_v w$ for all $w \in N(v)$.
 \paragraph{}
-Let $b \in B$. We claim that if $a = N_{max}(b)$ then $ab \not\in E_x$. Indeed suppose for a contradiction that $ab \in E_x$. Since $a = N_{max}(b)$, $\delta^{>a}(b) = \emptyset$ and hence
-$$1 \leq x(\delta^{>a}(b)) + x(\delta^{>b}(a)) + x_{ab}  = x(\delta^{\geq b}(a)) \leq x(\delta(a)) \leq 1,$$
-shows that $1 = x(\delta^{\geq b}(a)$ and thus $x(\delta^{<b}(a) = 0$. Since $x_e > 0$ for all $e \in E(G)$ this implies that $\delta^{<b}(a)) = \emptyset$. Therefore
-$$\chi(\delta(a)) = \chi(\delta^{\geq b}(a)) = \chi(\delta^{>a}(b)) + \chi(\delta^{>b}(a)) + \chi(\{ab\})$$
-and hence by linear independence we cannot have both $ab \in E_x$ and $a \in V_x$. Since $ab \in E_x$ this implies $a \not\in V_x$. But then the sets $V_x \cup\{a\}$ and $E_x \backslash\{ab\}$ describe the same vectors as $V_x, E_x$ but $\size{V_x \cup\{a\}} > \size{V_x}$ contradicting our choice of $V_x$. Thus $ab \not\in E_x$. Similarly we can show that $aN_{max} \not\in E_x$. Therefore for any $v \in V$, $vN_{max}(v) \not\in E_x$.
+Let $v \in V(G)$. We claim that if $w = N_{max}(v)$ then $vw \not\in E_x$. Indeed suppose for a contradiction that $vw \in E_x$. Since $w = N_{max}(v)$, $\delta^{>w}(v) = \emptyset$ and hence
+$$1 \leq x(\delta^{>w}(v)) + x(\delta^{>v}(w)) + x_{vw}  = x(\delta^{\geq v}(w)) \leq x(\delta(w)) \leq 1,$$
+shows that $1 = x(\delta^{\geq v}(w))$ and thus $x(\delta^{<v}(w))= 0$. Since $x_e > 0$ for all $e \in E(G)$ this implies that $\delta^{<v}(w)) = \emptyset$. Therefore
+$$\chi(\delta(w)) = \chi(\delta^{\geq v}(w)) = \chi(\delta^{>w}(v)) + \chi(\delta^{>v}(w)) + \chi(\{vw\})$$
+and hence by linear independence we cannot have both $vw \in E_x$ and $w \in V_x$. Since $vw \in E_x$ this implies $w \not\in V_x$. But then the sets $V_x \cup\{w\}$ and $E_x \backslash\{vw\}$ describe the same vectors as $V_x, E_x$ but $\size{V_x \cup\{w\}} > \size{V_x}$ contradicting our choice of $V_x$. Thus $vw \not\in E_x$. Therefore for any $v \in V(G)$, $vN_{max}(v) \not\in E_x$.
 \paragraph{}
-Let $v \in V_x$. Let $w = N_{min}(v)$. We claim analogously to the previous claim that $vw \not\in E_x$ (this time we will show it without mention of $A$,$B$). Indeed suppose for a contradiction that $vw  \in E_x$. Since $v \in V_x$, by tightness,
+Let $v \in V_x$. Let $w = N_{min}(v)$. We claim analogously to the previous claim that $vw \not\in E_x$. Indeed suppose for a contradiction that $vw  \in E_x$. Since $v \in V_x$, by tightness,
 $$x(\delta(v)) = 1$$
 and since $vw \in E_x$, by tightness,
 $$x(\delta^{>v}(w)) + x(\delta^{>w}(v)) + x_{vw} = 1.$$
 Since $w = N_{min}(v)$, $\delta^{>w}(v) \cup \{vw\} = \delta(v)$ and hence
-$$x(\delta^{>w}(v)) + x_{vw} = x(\delta(v)$$
+$$x(\delta^{>w}(v)) + x_{vw} = x(\delta(v))$$
 and
 $$\chi(\delta^{>w}(v)) + \chi(\{vw\}) = \chi(\delta(v)).$$
 Thus
@@ -162,11 +160,7 @@ First we consider the case where $x_{ab} = 0$. Let $P' = P(G) \cap \{x \in \R^{\
 $$P' = P(G') \cap \{x \in \R^{\size{E(G')}} : x(\delta^{>a}(b)) + x(\delta^{>b}(a)) \geq 1 \}.$$
 Let $H$ be the hyperplane $\{x \in \R^{\size{E(G')}} : x(\delta^{>a}(b)) + x(\delta^{>b}(a)) = 1\}$. Then every extreme point of $P'$ is either an extreme point of $P(G')$ or the intersection of an edge of $P(G')$ with $H$. Since the extreme points of $P(G')$ are integral by our minimality assumption, $x$ must at the intersection of an edge $F$ of $P(G')$ with $H$. Let $M$ and $M'$ be stable matchings such that $\chi(M)$ and $\chi(M')$ define $F$. Since $x$ is not integral, $x \neq \chi(M)$ and $x \neq \chi(M')$. Also note that neither $\chi(M)$ nor $\chi(M')$ lies on the hyperplane $H$, since $x$ is the unique and distinct intersection of $H$ with the line segment of convex combinations of $\chi(M)$ and $\chi(M')$. Thus from our definition of $H$, since $\chi(M), \chi(M') \not\in H$,  we have $\size{M \cap (\delta^{>a}(b) \cup \delta^{>b}(a))} \neq 1$ and $\size{M' \cap (\delta^{>a}(b) \cup \delta^{>b}(a))} \neq 1$. On the other hand, the line segment of convex combinations of $\chi(M)$ and $\chi(M')$ has a non-empty intersection with $H$, namely $x$,  and so without loss of generality we may assume that $\size{M \cap (\delta^{>a}(b) \cup \delta^{>b}(a))} = 2$ and $\size{M' \cap (\delta^{>a}(b) \cup \delta^{>b}(a))} = 0$ (notice the size of said intersections is at most $2$ by \ref{constraint:one} and at least $0$ by \ref{constraint:nonneg}). Critically, this means $M$ and $M'$ satisfy \ref{cond:nonedge} and so by corollary \ref{cor:edge}, $\chi(M)$ and $\chi(M')$ do not define an edge of $P(G')$. This contradicts that they do indeed define an edge of $P(G')$.
 \paragraph{}
-Finally we consider the case where $x_{ab} = 1$. Let $x'$ be obtained by dropping the coordinates corresponding to edges of $\delta(a) \cup \delta(b)$, and let $G'$ be the graph with $V(G') = V \backslash \{a,b\}$ and $E(G') = E(G) \backslash (\delta(a) \cup \delta(b))$. Notice that all variables dropped from $x$ to obtain $x'$ were either $1$ in the case of $x_{ab}$ or $0$ for all remaining variables by constraints \ref{constraint:one} for $a$ and $b$. Thus it remains to show that $x'$ is integral, which implies that the remaining variables of $x$ are integral, contradicting that $x$ is not integral and completing the proof. Since $G$ is a minimal counterexample, all the extreme points of $P(G')$ are integral. We claim that $x'$ is in fact an extreme point of $P(G')$. Suppose for a contradiction that $x'$ is not an extreme point of $P(G')$. Then there exists distinct $y^1, y^2 \in P(G')$ such that
-$$\frac{1}{2}y^1 + \frac{1}{2} y^2 = x'.$$
-Let $x^1 \in \R^{\size{E(G)}}$ be obtained from $y^1$ by adding back the variables dropped from $x$ to obtain $x'$ and setting them to the same values they take in $x$. Do similarly to obtain $x^2$ from $y^2$. Then $x^1, x^2 \in P(G)$ and further
-$$\frac{1}{2} x^1 + \frac{1}{2} x^2 = x,$$
-which implies that $x$ is not an extreme point of $P(G)$, a contradiction. Therefore $x'$ is an extreme point of $P(G')$, is thus integral, and hence $x$ is integral. 
+Finally we consider the case where $x_{ab} = 1$. By constraints \ref{constraint:one} for $a$ and $b$ we see that $x_{e} = 0$ for all $e \in (\delta(a) \cup \delta(b))\backslash \{ab\}$. Thus if there exists $e \in (\delta(a) \cup \delta(b))\backslash \{ab\}$ then $x_e = 0$ and we may run the previous case analysis with edge $e$. So it remains to consider when $(\delta(a) \cup \delta(b))\backslash \{ab\} = \emptyset$. If we let $G'$ be the graph $G$ with edge $ab$ removed then $P(G')$ is described by precisely the same constraints as $P(G)$ with the exclusion of constraint \ref{constraint:stab} for edge $ab$. Let $x'$ be the vector $x$ restricted to variables $E(G)\backslash\{ab\}$. We claim that $x'$ is an extreme point of $P(G')$. By the rank lemma \ref{lemma:rank}, $x$ is described by $|E(G)|$ linearly independent tight constraints. Since $\delta(a) = \delta(b) = \{ab\}$, the constraints \ref{constraint:one} for $a$ and $b$ and the constraint \ref{constraint:stab} for $ab$ are pairwise linearly dependent, and in fact equal. Hence at most one of them is in the description of $x$. Thus we can find $|E(G)| -1 = |E(G')|$ linearly independent constraints tight at $x'$ in $P(G')$ by excluding the constraint \ref{constraint:stab} for $ab$ from those which describe $x$. Therefore $x'$ is an extreme point of $P(G')$. So by minimality $x'$ is integral, and thus $x$ is integral.
 \end{proof}
 \paragraph{}
 This theorem is significant because it allows one to be able to solve maximum weight stable matching problems in bipartite graphs in polynomial time via the use of linear programming.
