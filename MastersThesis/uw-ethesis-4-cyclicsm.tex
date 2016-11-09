@@ -98,14 +98,18 @@ We mention a few things here that are immediately obvious from the definition of
 \item If $v \in \cD(G,M)$ then there exists $w >_v M(v)$ such that $w \in \cD(G,M)$.
 \end{itemize}
 \end{note}
-
+\paragraph{}
+Sometimes we want to talk about the vertices that some given vertices can form blocking triples with. The following definition captures this idea.
+\begin{definition}
+Let $G$ be the hypergraph underlying an instance of $C3GSM$. Let $W \subseteq V(G)$. We define $\cD(G,M, W) = \{v \in \cD(G,M): \exists w\in W: v>_w M(w) \}$.
+\end{definition}
 \paragraph{}
 The following lemma underlies a common approach to finding stable matchings. In it we demonstrate how a partial matching can be used to construct a complete stable matching.
 \begin{lemma}\label{lemma:inductive}
 Let $G=(A\cup B \cup C, E)$ be a hypergraph underlying an instance of $C3GSM$ of size $n$, where $n-1$ is the best known size that satisfies conjecture \ref{conj:stab}. Suppose there exists a non-empty matching $M$ in $G$ such that $V(M) \cap \cD(G,M) = \emptyset$. Then $G$ has a stable matching.
 \end{lemma}
 \begin{proof}
-Let $G' = G[V(G)\backslash V(M)]$ be the subgraph of $G$ induced by vertices unmatched in $M$.  Consider the instance of $C3GSM$ with underlying hypergraph $G'$ and preference orders induced by $G$. Since $M \neq emptyset$ the size of this new instance is at most $n-1$. Hence by conjecture \ref{conj:stab} there exists a stable matching $M'$ in $G'$. Let $S = M \cup M'$. Then $S$ is a perfect matching in $G$. We claim that $S$ is stable. Indeed since $M \subseteq S$ and $V(M) \cap \cD(G,M) = \emptyset$ we have that $V(M) \cap \cD(G,S) = \emptyset$. So $\cD(G,S) \subseteq V(M')$. Since $V(M') = V(G')$ if $\cD(G,S)$ is non-empty then $\cD(G', M')$ is non-empty, contradicting that $M'$ is a stable matching in $G'$. Thus $\cD(G,S) = \emptyset$ and therefore $S$ is a stable matching in $G$.
+Let $G' = G[V(G)\backslash V(M)]$ be the subgraph of $G$ induced by vertices unmatched in $M$.  Consider the instance of $C3GSM$ with underlying hypergraph $G'$ and preference orders induced by $G$. Since $M \neq \emptyset$ the size of this new instance is at most $n-1$. Hence by conjecture \ref{conj:stab} there exists a stable matching $M'$ in $G'$. Let $S = M \cup M'$. Then $S$ is a perfect matching in $G$. We claim that $S$ is stable. Indeed since $M \subseteq S$ and $V(M) \cap \cD(G,M) = \emptyset$ we have that $V(M) \cap \cD(G,S) = \emptyset$. So $\cD(G,S) \subseteq V(M')$. Since $V(M') = V(G')$ if $\cD(G,S)$ is non-empty then $\cD(G', M')$ is non-empty, contradicting that $M'$ is a stable matching in $G'$. Thus $\cD(G,S) = \emptyset$ and therefore $S$ is a stable matching in $G$.
 \end{proof}
 
 \paragraph{}
@@ -133,12 +137,55 @@ Let $a_1, \dots, a_n \in A$. Let $c = f(G,b,1)$. Then there exists some $a_k$ su
 \paragraph{}
 The follow lemmas study situations where we nearly have a matching which satisfies $\cD(G,M) = \emptyset$ except some part, without loss $A$, has vertices which form some limited blocking triples. The first lemma looks to build a matching containing $M$ and using lemma \ref{lemma:inductive} to find a stable matching. The second lemma shows that if the matching $M$ is large enough if implies the existence of a stable matching directly.
 
-\begin{lemma} Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$ where $n-1$ is the best known size satisfying conjecture \ref{conj:stab}. Let $M$ be a matching in $G$. Suppose that
+\begin{lemma} \label{lemma:partial-match}Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$ where $n-1$ is the best known size satisfying conjecture \ref{conj:stab}. Let $M$ be a matching in $G$. Suppose that
 $$ V(M) \cap (B \cup C) \cap \cD(G,M) = \emptyset$$
 and that there exists $b \in B\backslash V(M)$ satisfying
-$$V(M) \cap A \cap \cD(G, M)  = \{b\}$$
+$$ \cD(G, M, V(M) \cap A)  = \{b\}$$
 and for all $a \in A \backslash V(M)$, $f(G[V(G)\backslash V(M)], a, 1) = b$. Then $G$ has a stable matching.
 \end{lemma}
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\Vertex[x=0,y=6,L=$a_0$]{a0}
+\Vertex[x=3,y=6,L=$b_0$] {b0}
+\Vertex[x=6,y=6,L=$c_0$]{c0}
+
+\Edge[](a0)(b0)
+\Edge[](b0)(c0)
+
+\Vertex[x=0,y=4,L=$a_1$]{a1}
+\Vertex[x=3,y=4,L=$b_1$] {b1}
+\Vertex[x=6,y=4,L=$c_1$]{c1}
+
+\Edge[](a1)(b1)
+\Edge[](b1)(c1)
+
+\Vertex[x=0,y=2,L=$a_2$]{a2}
+\Vertex[x=3,y=2,L=$b_2$] {b2}
+\Vertex[x=6,y=2,L=$c_2$]{c2}
+
+\Vertex[x=0,y=0,L=$a_3$]{a3}
+\Vertex[x=3,y=0,L=$b_3$] {b3}
+\Vertex[x=6,y=0,L=$c_3$]{c3}
+
+%\Edge[](a3)(b3)
+%\Edge[](b3)(c3)
+
+\Vertex[x=0,y=-2,L=$a_4$]{a4}
+\Vertex[x=3,y=-2,L=$b_4$] {b4}
+\Vertex[x=6,y=-2,L=$c_4$]{c4}
+
+%\Edge[](a4)(b4)
+%\Edge[](b4)(c4)
+
+
+\tikzstyle{EdgeStyle}=[dashed,post]
+\Edge[](a2)(b2)
+
+\end{tikzpicture}
+\caption{Visualizing lemma \ref{lemma:partial-match}}
+\end{figure}
+
 \begin{proof}
 Let $G' = G[V(G)\backslash V(M)]$ be the subgraph of $G$ induced by vertices unmatched in $M$. Let $c = f(G',b,1)$ and $a = f(G',c,1)$. By our hypothesis, $b = f(G',a,1)$. Let $T = \{abc\}$. Consider the matching $M' = M \cup T$. We will show that $V(M') \cap \cD(G, M') = \emptyset$ to invoke lemma \ref{lemma:inductive} to complete the proof.
 \paragraph{}
@@ -148,9 +195,9 @@ Let $v \in V(M')$. First consider the case where $v \in V(M) \cap ( B \cup C)$. 
 Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ such that $|M| \geq n-3$. Suppose that 
 $$V(M) \cap C \cap \cD(G,M) = \emptyset$$
 and there exists $b \in B \backslash V(M)$ satisfying
-$$V(M)\cap A \cap \cD(G,M) = \{b\}$$
+$$\cD(G,M,V(M) \cap A) = \{b\}$$
 and for all $a \in A \backslash V(M)$, $f(G[V(G)\backslash V(M)], a, 1) = b$. Suppose also that there exists $c \in C \backslash V(M)$ satisfying
-$$V(M) \cap B \cap \cD(G,M) = \{c\}.$$ 
+$$\cD(G,M,V(M) \cap B ) = \{c\}.$$ 
 Then $G$ has a stable matching.
 \end{lemma}
 \begin{proof}
@@ -189,7 +236,7 @@ If $f(G,a,1) \neq f(G,a',1)$ for all $a,a' \in A$ in a hypergraph $G=(A\cup B \c
 Observe that $M = \{ab : b = f(G,a,1)\}$ is a perfect $A$-$B$ matching since $f(G,\cdot, 1)$ is a bijection between $A$ and $B$. In this case we have $B' = \emptyset$ by the definition of $f(G,\cdot,1)$. Thus we may invoke lemma \ref{lemma:genderstab} to obtain a stable matching of $G$.
 \end{proof}
 \begin{lemma}\label{lemma:fixing}
-Let $G = (A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ with $\size{M} = n-2$. Suppose there exists $a \in A \cap V(M)$ such that for all $e \in \cB(G, V(M))$ if there exists $v \in V(M)$ such that $v \in e$ then $v = a$. That is, $a$ is the only vertex matched in $M$ that forms blocking triples against $G$. If there exists $b \in B\backslash V(M)$, for all $b' \in B$, $b' \geq_a b$ (that is, the last choice of $a$ is unmatched in $M$) then $G$ has a stable matching.
+Let $G = (A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ with $\size{M} = n-2$. Suppose there exists $a \in A \cap V(M)$ such that $$V(M) \cap \cD(G,M) = \{a\}.$$ That is, $a$ is the only vertex matched in $M$ that forms blocking triples against $G$. If $f(G, a, $n$)$ is not in $V(M)$ (that is, the last choice of $a$ is unmatched in $M$) then $G$ has a stable matching.
 \end{lemma}
 \begin{proof}
 By the size of $M$ there exists $b,b' \in B$ such that $\{b,b'\} = B \backslash V(M)$. Without loss say that $b$ is the last choice of $a$. Let $c' = f(G[V(G)\backslash V(M)],b', 1)$ be the first choice of $b'$ not matched in $M$. Let $a' \in A\backslash V(M)$. Form triple $T = a'b'c'$ and let $T'$ be the triple containing $b$ and the remaining two vertices unmatched in $M$ or $T$. Then $S = M \cup \{T, T'\}$ is a perfect matching of $G$. We claim that $S$ is stable.
