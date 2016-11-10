@@ -150,15 +150,11 @@ and for all $a \in A \backslash V(M)$, $f(G[V(G)\backslash V(M)], a, 1) = b$. Th
 \Vertex[x=3,y=6,L=$b_0$] {b0}
 \Vertex[x=6,y=6,L=$c_0$]{c0}
 
-\Edge[](a0)(b0)
-\Edge[](b0)(c0)
-
 \Vertex[x=0,y=4,L=$a_1$]{a1}
 \Vertex[x=3,y=4,L=$b_1$] {b1}
 \Vertex[x=6,y=4,L=$c_1$]{c1}
 
-\Edge[](a1)(b1)
-\Edge[](b1)(c1)
+
 
 \Vertex[x=0,y=2,L=$a_2$]{a2}
 \Vertex[x=3,y=2,L=$b_2$] {b2}
@@ -168,22 +164,36 @@ and for all $a \in A \backslash V(M)$, $f(G[V(G)\backslash V(M)], a, 1) = b$. Th
 \Vertex[x=3,y=0,L=$b_3$] {b3}
 \Vertex[x=6,y=0,L=$c_3$]{c3}
 
-%\Edge[](a3)(b3)
-%\Edge[](b3)(c3)
-
 \Vertex[x=0,y=-2,L=$a_4$]{a4}
 \Vertex[x=3,y=-2,L=$b_4$] {b4}
 \Vertex[x=6,y=-2,L=$c_4$]{c4}
 
-%\Edge[](a4)(b4)
-%\Edge[](b4)(c4)
+\tikzstyle{EdgeStyle}=[post]
 
+\Edge[label=$\{b_2\}$](a0)(b0)
+\Edge[label=$\emptyset$](b0)(c0)
+
+\Edge[label=$\{b_2\}$](a1)(b1)
+\Edge[label=$\emptyset$](b1)(c1)
+
+\tikzstyle{EdgeStyle}=[post,bend right]
+\Edge[label=$\emptyset$](c0)(a0)
+\Edge[label=$\emptyset$](c1)(a1)
 
 \tikzstyle{EdgeStyle}=[dashed,post]
 \Edge[](a2)(b2)
+\Edge[](a3)(b2)
+\Edge[](a4)(b2)
+\Edge[](b2)(c2)
+\tikzstyle{EdgeStyle}=[dashed,post,bend left]
 
+\Edge[](c2)(a2)
 \end{tikzpicture}
 \caption{Visualizing lemma \ref{lemma:partial-match}}
+\small
+\begin{flushleft}
+Solid arcs indicate matching $M$, and are labelled with $\cD(G,M,\{t\})$ where $t$ is the tail vertex of the arc. Dashed arcs indicate first choice of tail vertex outside $V(M)$.
+\end{flushleft}
 \end{figure}
 
 \begin{proof}
@@ -221,11 +231,118 @@ Now consider the case when $c' \neq c$. Let $a = f(G',c,1)$. Let $a' = f(G'[V(G'
 \end{itemize}
 Now we did not explicitly choose the partner of $b'$ based on her preference, so we cannot perform the above line of reasoning to conclude that $b' \not\in \cD(G,M')$. Therefore $V(M') \cap \cD(G,M') \subseteq \{b'\}$. Let $S$ be an arbitrary perfect matching of $G$ such that $M' \subseteq S$. Since $|M'| \geq n-1$ and $V(M') \cap \cD(G,M')$ there is exactly  one triple $e \in S \backslash M'$, and the vertex $b'$ from which any blocking triple against $S$ in $G$ could draw its vertices. This is insufficient to form a blocking triple and thus $S$ is a stable matching in $G$.
 \end{proof}
+
+\begin{lemma}\label{lemma:fixing}
+Let $G = (A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ with $\size{M} = n-2$. Suppose there exists $a \in A \cap V(M)$ such that $$V(M) \cap \cD(G,M) = \{a\}.$$ If $f(G, a, $n$)$ is not in $V(M)$ then $G$ has a stable matching.
+\end{lemma}
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\Vertex[x=0,y=6,L=$a_0$]{a0}
+\Vertex[x=3,y=6,L=$b_0$] {b0}
+\Vertex[x=6,y=6,L=$c_0$]{c0}
+
+\Vertex[x=0,y=4,L=$a_1$]{a1}
+\Vertex[x=3,y=4,L=$b_1$] {b1}
+\Vertex[x=6,y=4,L=$c_1$]{c1}
+
+
+
+\Vertex[x=0,y=2,L=$a_2$]{a2}
+\Vertex[x=3,y=2,L=$b_2$] {b2}
+\Vertex[x=6,y=2,L=$c_2$]{c2}
+
+\Vertex[x=0,y=0,L=$a_3$]{a3}
+\Vertex[x=3,y=0,L=$b_3$] {b3}
+\Vertex[x=6,y=0,L=$c_3$]{c3}
+
+\Vertex[x=0,y=-2,L=$a_4$]{a4}
+\Vertex[x=3,y=-2,L=$b_4$] {b4}
+\Vertex[x=6,y=-2,L=$c_4$]{c4}
+
+\tikzstyle{EdgeStyle}=[post]
+
+\Edge[label=$\emptyset$](a0)(b0)
+\Edge[label=$\emptyset$](b0)(c0)
+
+\Edge[label=$\emptyset$](a1)(b1)
+\Edge[label=$\emptyset$](b1)(c1)
+
+\Edge[label=$\{b_3\}$](a2)(b2)
+\Edge[label=$\emptyset$](b2)(c2)
+
+\tikzstyle{EdgeStyle}=[post,bend right]
+\Edge[label=$\emptyset$](c0)(a0)
+\Edge[label=$\emptyset$](c1)(a1)
+\Edge[label=$\emptyset$](c2)(a2)
+
+\end{tikzpicture}
+\caption{Visualizing lemma \ref{lemma:fixing}}
+\small
+\begin{flushleft}
+Solid arcs indicate matching $M$, and are labelled with $\cD(G,M,\{t\})$ where $t$ is the tail vertex of the arc. In this figure $b_4$ is the last choice of $a_2$.
+\end{flushleft}
+\end{figure}
+\begin{proof}
+By the size of $M$ there exists $b,b' \in B$ such that $\{b,b'\} = B \backslash V(M)$. Without loss say that $b = f(G, a, n)$. Let $G' = G[V(G)\backslash V(M)]$ and let $c' = f(G',b', 1)$. Let $a' \in A\backslash V(M)$. Let $T = \{a'b'c'\}$ and let $T' = \{a''bc''\}$ where $a''$ and $c''$ the remaining two vertices unmatched in $M$ or $T$. Then $S = M \cup T \cup T'$ is a perfect matching of $G$. We claim that $S$ is stable.
+\paragraph{}
+Let $v \in V(G)$. We will show that $v \not\in \cD(G,S)$ and thus that $S$ is stable. If $v \in V(M) \cap (A\backslash \{a\} \cup B \cup B)$ then $v \not\in \cD(G,M)$ and thus $v \not \in \cD(G,S)$ as $M \subseteq M$. If $v = b'$ then $w >_v S(v)$ implies that $w \in V(M) \cap C$ by our construction of $T$. Since such $w \not\in \cD(G,S)$ we have $v=b' \not\in \cD(G,S)$. Now if $v = a$ then if $w>_v S(v)$ then $w \in V(M) \cap B$ or $w = b'$. In either case $w \not\in \cD(G,S)$ and thus $a \not \in \cD(G,S)$. Now we have $V(M) \cap A \cap \cD(G,S) = \emptyset$. So $\cD(G,S) \subseteq \{a',a'',b, c',c''\}$. But $\{a',a'',b, c',c''\}$ consists only of vertices matched together in either the triple of $T$ or the triple of $T'$, hence they cannot form a blocking triple, as any triple from $\{a',a'',b, c',c''\}$ would contain a vertex and their match in $S$. Therefore $\cD(G,S) = \emptyset$ and thus $S$ is stable.
+\end{proof}
+
 \paragraph{Stabilizing $A,B,C$:}
 The previous lemmas have the common theme of building matchings that have no blocking triples in the hypergraph then using induction to make the matching perfect. The following lemma and corollary take a different strategy. Whereas before we tried to create a matching where matched vertices have no blocking triples even with unmatched vertices, alternatively we can attempt to pair all the vertices in one of $A,B,C$ with a partner in such a way that none of them will participate in a blocking triple.
 \begin{lemma}\label{lemma:genderstab}
 Let $G=(A\cup B\cup C, E)$ be the hypergraph underlying an instance of $C3GSM$. Let $M$ be a perfect $A$-$B$ matching (that is a perfect matching of the underlying complete bipartite graph between $A$ and $B$). Let $B' = \{ b \in B : \exists a \in A : b >_a M(a) \}$. Hence $B'$ is the set of vertices through which agents of $A$ can form blocking triples. If for all $b, b' \in B'$, $f(G,b,1) \neq f(G,b',1)$ then $G$ has a stable matching.
 \end{lemma}
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\Vertex[x=0,y=6,L=$a_0$]{a0}
+\Vertex[x=3,y=6,L=$b_0$] {b0}
+\Vertex[x=6,y=6,L=$c_0$]{c0}
+
+\Vertex[x=0,y=4,L=$a_1$]{a1}
+\Vertex[x=3,y=4,L=$b_1$] {b1}
+\Vertex[x=6,y=4,L=$c_1$]{c1}
+
+
+
+\Vertex[x=0,y=2,L=$a_2$]{a2}
+\Vertex[x=3,y=2,L=$b_2$] {b2}
+\Vertex[x=6,y=2,L=$c_2$]{c2}
+
+\Vertex[x=0,y=0,L=$a_3$]{a3}
+\Vertex[x=3,y=0,L=$b_3$] {b3}
+\Vertex[x=6,y=0,L=$c_3$]{c3}
+
+\Vertex[x=0,y=-2,L=$a_4$]{a4}
+\Vertex[x=3,y=-2,L=$b_4$] {b4}
+\Vertex[x=6,y=-2,L=$c_4$]{c4}
+
+\tikzstyle{EdgeStyle}=[post]
+
+\Edge[label=$\emptyset$](a0)(b0)
+\Edge[label=$\{b_0\}$](a1)(b1)
+\Edge[label=$\{b_1\}$](a2)(b2)
+\Edge[label=$\{b_2\}$](a3)(b3)
+\Edge[label=$\emptyset$](a4)(b4)
+
+
+
+\tikzstyle{EdgeStyle}=[dashed,post]
+\Edge[](b0)(c0)
+\Edge[](b1)(c1)
+\Edge[](b2)(c2)
+
+\Edge[](b2)(c2)
+
+\end{tikzpicture}
+\caption{Visualizing lemma \ref{lemma:genderstab}}
+\small
+\begin{flushleft}
+Solid arcs indicate matching $M$, and are labelled with $\cD(G,M,\{t\})$ where $t$ is the tail vertex of the arc. Dashed arcs indicate first choice of tail vertex.
+\end{flushleft}
+\end{figure}
 \begin{proof}
 Let $C' = \{ c \in C : \exists b\in B', c = f(G,b,1)\}$. Since $f(G,\cdot,1)$ is a bijection between $B'$ and $C'$ we can form the matching $S_1 = \{abc \in E: a = M(b)\text{ and } c = f(G,b,1)\}$. Let $S_2$ be an arbitrary perfect matching of $G[V(G) \backslash V(S_1)]$, the remaining vertices unmatched in $S_1$. Let $S = S_1 \cup S_2$. Then $S$ is a complete matching on $G$. We claim that $S$ is stable. Suppose for a contradiction there exists blocking triple $a,b,c$. Then $b >_a M(a)$ and hence $b \in B'$. Thus $M(b) = f(G,b,1)$ and so $M(b) \geq_b c$ by definition of $f(G,\cdot,1)$, but this contradicts that $a,b,c$ is a blocking triple since that requires $c >_b M(b)$.
 \end{proof}
@@ -234,14 +351,6 @@ If $f(G,a,1) \neq f(G,a',1)$ for all $a,a' \in A$ in a hypergraph $G=(A\cup B \c
 \end{corollary}
 \begin{proof}
 Observe that $M = \{ab : b = f(G,a,1)\}$ is a perfect $A$-$B$ matching since $f(G,\cdot, 1)$ is a bijection between $A$ and $B$. In this case we have $B' = \emptyset$ by the definition of $f(G,\cdot,1)$. Thus we may invoke lemma \ref{lemma:genderstab} to obtain a stable matching of $G$.
-\end{proof}
-\begin{lemma}\label{lemma:fixing}
-Let $G = (A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ with $\size{M} = n-2$. Suppose there exists $a \in A \cap V(M)$ such that $$V(M) \cap \cD(G,M) = \{a\}.$$ That is, $a$ is the only vertex matched in $M$ that forms blocking triples against $G$. If $f(G, a, $n$)$ is not in $V(M)$ (that is, the last choice of $a$ is unmatched in $M$) then $G$ has a stable matching.
-\end{lemma}
-\begin{proof}
-By the size of $M$ there exists $b,b' \in B$ such that $\{b,b'\} = B \backslash V(M)$. Without loss say that $b$ is the last choice of $a$. Let $c' = f(G[V(G)\backslash V(M)],b', 1)$ be the first choice of $b'$ not matched in $M$. Let $a' \in A\backslash V(M)$. Form triple $T = a'b'c'$ and let $T'$ be the triple containing $b$ and the remaining two vertices unmatched in $M$ or $T$. Then $S = M \cup \{T, T'\}$ is a perfect matching of $G$. We claim that $S$ is stable.
-\paragraph{}
-Suppose for a contradiction that there exists $e \in \cB(G,S)$. First consider the case where for all $v \in V(M)$, $v \not\in e$. Then $e$ uses only vertices of the triples $T$ and $T'$, but that is an insufficient number of vertices to form a blocking triple. Now consider when there exists $v \in V(M)$, $v \in e$. Since $M \subseteq S$, $\cB(G,S) \subseteq \cB(G,M)$ and hence $e \in \cB(G,M)$. So by our assumptions $a=v$, since all $v' \neq a \in V(M)$ are such that $v' \not\in e$. Now observe that we have either $b \in e$ or $b' \in e$. Since $a \in e$, $b$ is the last choice of $a$, and $e$ is a blocking triple, we know $b \not\in e$ (otherwise $b >_a S(a)$ which is a contradiction as $S$ is a perfect matching). Thus $b' \in e$. Let $c \in e \cap V(C)$. Now since $S(b') = c' = f(G[V(G)\backslash V(M),b',1)$ we have $c >_{b'} c'$. Then by our choice of $c'$, $c \in V(M)$. But this implies $c \not \in e$ which contradicts that $c \in e$. Therefore $S$ is stable.
 \end{proof}
 \subsection{Symmetry in Problem Instances}\label{subsec:symmetry}
 \paragraph{}
