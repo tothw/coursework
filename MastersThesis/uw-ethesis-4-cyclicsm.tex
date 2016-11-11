@@ -121,6 +121,16 @@ Let $G = (A\cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$ of si
 \begin{proof}
 Let $a \in V(M)$. Suppose there exists $abc \in \cB(G,M)$. Since $b >_a M(a)$ and $a \in V(M)$, we have that $b \in V(M)$. Similarly since $c >_b M(b)$ we have that $c \in V(M)$. Further since $a >_c M(a)$ we have that $abc \in \cB(G[V(M)],M)$, contradicting that $\cB(G[V(M)],M) = \emptyset$. Hence for all $e \in \cB(G,M)$, $a \not\in e$. Thus $a\not \in \cD(G,M)$ and therefore $V(M) \cap \cD(G,M) = \emptyset$. So by lemma \ref{lemma:inductive} $G$ has a stable matching.
 \end{proof}
+\paragraph{Example}
+Consider the following instance of $C3GSM$ and focus on the bolded preferences:
+\begin{align*}
+a_0 &: \boldsymbol{b_1} > \boldsymbol{b_0} > b_2 > b_3 > b_4    &b_0: \boldsymbol{c_1} > \boldsymbol{c_0}  > c_2 > c_3 > c_4   &\ &c_0:\boldsymbol{a_1} > \boldsymbol{a_0} > a_2 > a_3 > a_4\\
+a_1 &: \boldsymbol{b_0} > \boldsymbol{b_1} > b_4 > b_2 > b_3    &b_1: \boldsymbol{c_0} > \boldsymbol{c_1}  > c_3 > c_4 > c_2  &\ &c_1:\boldsymbol{a_0} > \boldsymbol{a_1} > a_2 > a_3 > a_4\\
+a_2 &: b_2 > b_1 > b_0 > b_3 > b_4    &b_2: c_2 > c_1 > c_3 > c_4 > c_0    &\ &c_2: a_0 > a_2 > a_3 > a_4 > a_1\\
+a_3 &: b_1 > b_0 > b_3 > b_4 > b_3    &b_0': c_3 > c_4 > c_2 > c_1 > c_0   &\ &c_3:a_1 > a_0 > a_3 > a_2 > a_4 \\
+a_4 &: b_0 > b_2 > b_3 > b_4 > b_1    &b_1': c_0 > c_1 > c_2 > c_3 > c_4   &\ &c_4:a_4 > a_3 > a_2 > a_1 > a_0\\
+\end{align*}
+
 \begin{corollary}\label{cor:1cycle}
 Let $G$ be the hypergraph for an instance of $C3GSM$ and $n$ be as in lemma \ref{lemma:partialstab}. If there exists $a,b,c \in V(G)$ such that $b = f(G,a,1)$, $c = f(G,b,1)$, and $a = f(G,c,1)$ (a $1,1,1$ triple) then $G$ has a stable matching.
 \end{corollary}
