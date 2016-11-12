@@ -130,7 +130,7 @@ a_2 &: b_2 > b_1 > b_0 > b_3 > b_4    &b_2: c_2 > c_1 > c_3 > c_4 > c_0    &\ &c
 a_3 &: b_1 > b_0 > b_3 > b_4 > b_3    &b_0': c_3 > c_4 > c_2 > c_1 > c_0   &\ &c_3:a_1 > a_0 > a_3 > a_2 > a_4 \\
 a_4 &: b_0 > b_2 > b_3 > b_4 > b_1    &b_1': c_0 > c_1 > c_2 > c_3 > c_4   &\ &c_4:a_4 > a_3 > a_2 > a_1 > a_0\\
 \end{align*}
-
+Matching $M = \{a_0b_0c_0, a_1b_1c_1\}$ satisfies lemma \ref{lemma:partialstab}. Therefore $M$ and any stable matching of $a_2,a_3,a_4,b_2,b_3,b_4,c_2,c_3,c_4$ together form a stable matching in this problem instance.
 \begin{corollary}\label{cor:1cycle}
 Let $G$ be the hypergraph for an instance of $C3GSM$ and $n$ be as in lemma \ref{lemma:partialstab}. If there exists $a,b,c \in V(G)$ such that $b = f(G,a,1)$, $c = f(G,b,1)$, and $a = f(G,c,1)$ (a $1,1,1$ triple) then $G$ has a stable matching.
 \end{corollary}
