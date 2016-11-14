@@ -301,6 +301,10 @@ Let $v \in V(G)$. We will show that $v \not\in \cD(G,S)$ and thus that $S$ is st
 
 \paragraph{Stabilizing $A,B,C$:}
 The previous lemmas have the common theme of building matchings that have no blocking triples in the hypergraph then using induction to make the matching perfect. The following lemma and corollary take a different strategy. Whereas before we tried to create a matching where matched vertices have no blocking triples even with unmatched vertices, alternatively we can attempt to pair all the vertices in one of $A,B,C$ with a partner in such a way that none of them will participate in a blocking triple.
+\paragraph{}
+A motivation to consider this different approach comes from the context we intend to use these lemmas. In our computer search procedure to be defined in \ref{sec:computersearch} we use these lemmas to eliminate instances of $C3GSM$ from consideration without actually finding a stable matching. A desirable feature in these lemmas is that they can eliminate instances with minimal knowledge of vertices preferences. That is a lemma that can prove a stable matching exists only considering $f(G,v,1)$ for all $v$ is preferable to one that also needs to check $f(G,v,2)$.
+\paragraph{}
+With the above motivation in mind, the intuitive difference between the lemmas previously described and those to be described is that the previous lemmas capture a lot of instances where vertices of $A$ or $B$ or $C$ largely agree on which vertices are high ranking in terms of preferences. For example when there is a $1,1,1$ triple corollary \ref{cor:1cycle} proves the existence of a stable matching. A distinctly difference situation, but still operating within the first choices of vertices occurs when there are no $1,1,1$ triples, but each vertex in $A$ has a different first choice vertex in $B$. Then one of corollaries to follow, corollary \ref{cor:alldiff}, say that there is a stable matching in this instance.
 \begin{lemma}\label{lemma:genderstab}
 Let $G=(A\cup B\cup C, E)$ be the hypergraph underlying an instance of $C3GSM$. Let $M$ be a perfect $A$-$B$ matching (that is a perfect matching of the underlying complete bipartite graph between $A$ and $B$). Let $B' = \{ b \in B : \exists a \in A : b >_a M(a) \}$. Hence $B'$ is the set of vertices through which agents of $A$ can form blocking triples. If for all $b, b' \in B'$, $f(G,b,1) \neq f(G,b',1)$ then $G$ has a stable matching.
 \end{lemma}
@@ -356,7 +360,7 @@ Solid arcs indicate matching $M$, and are labelled with $\cD(G,M,\{t\})$ where $
 \begin{proof}
 Let $C' = \{ c \in C : \exists b\in B', c = f(G,b,1)\}$. Since $f(G,\cdot,1)$ is a bijection between $B'$ and $C'$ we can form the matching $S_1 = \{abc \in E: a = M(b)\text{ and } c = f(G,b,1)\}$. Let $S_2$ be an arbitrary perfect matching of $G[V(G) \backslash V(S_1)]$, the remaining vertices unmatched in $S_1$. Let $S = S_1 \cup S_2$. Then $S$ is a complete matching on $G$. We claim that $S$ is stable. Suppose for a contradiction there exists blocking triple $a,b,c$. Then $b >_a M(a)$ and hence $b \in B'$. Thus $M(b) = f(G,b,1)$ and so $M(b) \geq_b c$ by definition of $f(G,\cdot,1)$, but this contradicts that $a,b,c$ is a blocking triple since that requires $c >_b M(b)$.
 \end{proof}
-\begin{corollary}
+\begin{corollary}\label{cor:alldiff}
 If $f(G,a,1) \neq f(G,a',1)$ for all $a,a' \in A$ in a hypergraph $G=(A\cup B \cup C, E)$ underlying a $C3GSM$ instance then $G$ has a stable matching.
 \end{corollary}
 \begin{proof}
@@ -406,6 +410,8 @@ We compare vertices $seq(G)_k$ and $ seq(H)_k$ as if they are natural numbers co
 \end{definition}
 \paragraph{}
 Unfortunately we do not have a full characterization of the lexicographic minimum of a given equivalence class under the order $>_{lex}$, which would be desirable. Instead we do have some necessary conditions which we collect in the following lemma. These are useful for finding instances of $C3GSM$ that we can avoid testing in a computer search since we are certain we are at least testing the lexicographic minimum of each equivalence class.
+\paragraph{}
+The following lemma presents four necessary conditions which we will summarize intuitively before presenting in rigorous formality. The first condition says that vertex $(0,0)$ has preference list $0,1,\dots, n-1$, which means that $(1,0) >_{(0,0)} (1,1) >_{(0,0)} (1,2) >_{(0,0)}\dots >_{(0,0)} (1,n-1).$ The second condition says the same thing regarding $(1,0)$. The third condition says that preference lists of vertices in $A$ are sorted lexicographically. The last condition says that you cannot rotate the roles of $A,B,C$ to obtain a lexicographically smaller instance than the lexicographic minimum.
 \begin{lemma}\label{lemma:nec-symmetry}
 Let $G$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. If $G$ is the lexicographic minimum of $[G]$ then the following are satisfied:
 \begin{enumerate}
