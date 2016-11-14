@@ -438,31 +438,51 @@ and thus by the lexicographic minimality of $G$, $seq(G) \leq_{lex} seq(H)$ and 
 \end{proof}
 \subsection{Computer Search}\label{sec:computersearch}
 \paragraph{}
-Our goal now is to describe a computer search procedure to test all instances of $C3GSM$ for a given size $n$ under the assumption that for $k<n$ it is known that all instances of $C3GSM$ have a stable matching (in our case we study $n=5$). A major challenge towards solving this problem computationally is that enumerating all instances of $C3GSM$ would be infeasible. For each vertex there is one possible preference order over the vertices they face for each permutation of $\{1,\dots,n\}$. There are $3n$ (that is $15$ in our case) such vertices, and thus there are $(5!)^{15}$ possible problem instances for $C3GSM$ with size $5$. 
+Our goal now is to describe a computer search procedure to test all instances of $C3GSM$ for a given size $n$ under the assumption that for $k<n$ it is known that all instances of $C3GSM$ have a stable matching. In our case we study $n=5$. A major challenge towards solving this problem computationally is that enumerating all instances of $C3GSM$ would be infeasible. For each vertex there is one possible preference order over the vertices they face for each permutation of $\{1,\dots,n\}$. There are $3n$ such vertices, and thus there are $(5!)^{15}$ possible problem instances for $C3GSM$ with size $5$. 
 \paragraph{}
-So what we resolve to do is attempt to eliminate preference systems from consideration using our symmetry and sufficient checks theory from the previous subsections. Our approach is based on the idea that if we relax the total orders to partial orders giving only the first few preferences of each vertex and can find a stable matching then any $C3GSM$ instance that results from completing the partial order will also have said stable matching. The following theory formalizes this idea.
+So what we resolve to do is attempt to eliminate preference systems from consideration using our symmetry and sufficient checks theory from the previous subsections. Our approach is based on the idea that if we relax the total orders to partial orders giving only the first few preferences of each vertex and can find a stable matching then any $C3GSM$ instance that results from completing the partial order will also have said stable matching. The following theory formalizes this idea. Herein and henceforth we use the ordered pair labeling for vertices of $G$ as outlined in note \ref{note:labels}.
 \begin{definition}
-A partially specified instance of $C3GSM$ again provides a complete $3$-partite hypergraph $G$, but now we do not know the total orders for each of the vertices of $G$. Herein and henceforth we use the ordered pair labelling for vertices of $G$ as outlined in note \ref{note:labels}. In our partially specified instance there exists some ordered triple of integers $(i,j,k)$, called the indicator of this instance, such that, for all vertices $(x,a)$ where $x<i$ or, $x=i$ and $a\leq j$ we have that $f(G,(x,a), 1), \dots f(G,(x,a), k)$ are the only choices $(x,a)$ has specified. For all other vertices $(x,a)$ (those with $x=i$ and $a > j$ or, $x>i$) we have that $f(G,(x,a), 1), \dots, f(G,(x,a),k-1)$ are the only choices $(x,a)$ has specified.
-\end{definition}
-\paragraph{}
-We give a few quick examples. A partially specified instance of $C3GSM$ with indicator $(i,j,k)$ where any of $i,j,k <0$ has specified no choices for any vertex. A partially specified instance with indicator$(2,4,5)$ of size $5$ is in fact a completely specified instance of $C3GSM$ of size $5$. A partially specified instance with indicator $(0,4,1)$ has each vertex in $V(G)_0$ specifying their first choice and no other choice specified.
-\begin{definition}
-A partially specified instance of $C3GSM$, $I'$, of size $n$ with indicator $(i',j',k')$ is called an extension of partially specified instance of $C3GSM$, $I$,of size $n$ with indicator $(i,j,k)$ if  they both have underlying hypergraph $G$ and the following is satisfied:
-\begin{equation} \label{cond:indicator}
-(i',j',k') = \begin{cases}
-(0,0,k+1), \text{if $i=2$ and $j=n-1$} \\
-(i+1, 0, k), \text{else, if $j = n-1$} \\
-(i,j+1, k), \text{otherwise},
-\end{cases}
-\end{equation}
-and for all $v \in V(G)$, the order specified for $v$  in $I$ is contained in the order specified for $v$ in $I'$.
-\end{definition}
-\paragraph{}
-For example consider the partially specified instance of $C3GSM$ of size $5$ where the first four vertices of $V(G)_0$ specify their first choice to be $(1,0)$, and the remaining vertices specify no choices. This instance has indicator $(0,3,1)$. The partially specified instances of $C3GSM$ where the first four vertices of $V(G)_0$ specify their first choice to be $(1,0)$ and the vertex $(0,4)$ specifies $f(G,(0,4),1) = k$ where $k \in \{(1,0), \dots, (1,4)\}$ are extensions of our original partially specified instance. In this example the indicator of our original instance satisfies the third case of equation \ref{cond:indicator}. By the second case of \ref{cond:indicator} any extensions of our above mentioned extensions would next have vertex $(1,0)$ specify their first choice. By third case of \ref{cond:indicator} an extension of a system where all first choices are specified and no others would have $(0,0)$ specifying their first two choices and and all others specifying their first choice.
-\paragraph{Computer Search Algorithm}
-We now describe our procedure for deciding if each instance of $C3GSM$ of size $n=5$ has a stable matching. For any partially specified instance of $C3GSM$, $I$, let $\cE(I)$ denote the list of partially specified instances of $C3GSM$ which are extensions of $I$ and let $\cP(I)$ denote the unique instance that $I$ is an extension of. For uniqueness if $I$ is an instance with no preferences specified its canonical indicator will be $(0,-1,1)$ and we will say $\cP(I) = I$. The algorithm is as follows:
+A partially specified instance of $C3GSM$ of size $n$ provides a complete $3$-partite hypergraph $G$, as in an instance of $C3GSM$, but not the total orders for each of the vertices of $G$. In our partially specified instance there exists a vertex $(g,v)$ called the extender, and an integer $\ell \in \{1, \dots, n+1\}$ called the length satisfying that:
 \begin{enumerate}
-\item Let $I$ be the partially specified instance of $C3GSM$ of size $5$ with indicator $(0,-1,1)$.
+\item For all $(h,w)$ where $h < g$, or $h=g$ and $w < v$ we have that 
+$$f(G, (h,w), 1), \dots, f(G,(h,w),\ell)$$
+are specified in the order of $(h,w)$, and 
+$$f(G, (h,w), \ell+1), \dots, f(G, (h,w), n)$$
+are not specified in the order of $(h,w)$.
+\item For all $(h,w)$ where $h = g$ and $w \geq v$, or $h > g$ we have that
+$$f(G, (h,w), 1), \dots, f(G, (h,w), \ell -1)$$
+are specified in the order of $(h,w)$ and
+$$f(G, (h,w), \ell), \dots, f(G,(h,w), n)$$
+are not specified in the order of $(h,w)$.
+\end{enumerate}
+\end{definition}
+\paragraph{}
+The idea of the definition is that every vertex lexicographically smaller than the extender has only specified their first $\ell$ choices, where $\ell$ is the length, and every vertex lexicographically at least the extender has only specified their their first $\ell-1$ choices. We give a few quick examples:
+\begin{itemize}
+\item A partially specified instance of $C3GSM$ with no vertices specifying any of their orders has extender $(0,0)$ and length $1$. This is the unique ``empty" instance.
+\item A partially specified instance of $C3GSM$ of size $5$ that is in fact an instance of $C3GSM$ proper has extender $(0,0)$ and length $6$. Observe that since $6$ is one greater than the size of the instance this is the only situation where the length is $6$.
+\item The two previous examples can be generalized. A partially specified instance of $C3GSM$ of size $n$ where each vertex has specified their first $k$ choices, for $k \in \{0, \dots, n\}$ has extender $(0,0)$ and length $k+1$.
+\item A partially specified instance of $C3GSM$ that has only every vertex of $V(G)_0$ specifying their first choice and no other choices specified has extender $(1,0)$ and length $1$.
+\item A partially specified instance of $C3GSM$ of size $5$ with extender $(2,2)$ and length $3$ has every vertex of $V(G)_0$ and $V(G)_1$ specifying their first $3$ choices. It also $(2,0)$ and $(2,1)$ specifying their first $3$ choices. The vertices $(2,2)$, $(2,3)$, and $(2,4)$ specify only their first $2$ choices.
+\end{itemize}
+\begin{definition}
+Let $I$ and $I'$ be two partially specified instances of $C3GSM$ of size $n$ with the same underlying hypergraph $G$. Let $(g,v)$ be the extender of $I$ and $\ell$ be the length of $I$. Let $(g',v')$ be the extender of $I'$ and $\ell'$ be the length of $I'$. We say that $I'$ is an extension of $I$ provided that for all $v \in V(G)$ the preference order specified by $v$ in $I$ is contained in the preference order specified by $v$ in $I'$, and the following cases are satisfied:
+\begin{enumerate}
+\item If $(g,v) = (2,n-1)$ then $(g',v') = (0,0)$ and $\ell' = \ell + 1$.
+\item If $g < 2$ and $v = n-1$ then $(g',v') = (g+1, 0)$ and $\ell' = \ell$.
+\item If $g<2$ and $v<n-1$ then $(g',v') = (g+1, v+1)$ and $\ell' = \ell$.
+\end{enumerate}
+\end{definition}
+\paragraph{}
+For example consider the partially specified instance of $C3GSM$ of size $5$ where the first four vertices of $V(G)_0$ specify their first choice to be $(1,0)$, and the remaining vertices specify no choices. This instance has extender $(0,4)$ and length $1$. The partially specified instances of $C3GSM$ where the first four vertices of $V(G)_0$ specify their first choice to be $(1,0)$ and the vertex $(0,4)$ specifies $f(G,(0,4),1) = k$ where $k \in \{(1,0), \dots, (1,4)\}$ are extensions of our original partially specified instance. In this example the indicator of our original instance satisfies the third case in our definition of extension. 
+\paragraph{}
+As another example consider an instance of $C3GSM$ where each vertex has specified their first choice, and each vertex of $V(G)_0$ has specified their second choice. Each extension would have the same preferences but additionally have $(1,0)$ specify their second choice. This example covers the second case in our definition of extension. 
+\paragraph{}
+Any instance of $C3GSM$ where the first $k$ preferences have been specified for each vertex provides as example for the first case in our definition of extension. In any such instance the extensions have vertex $(0,0)$ specifying their $k+1$-th preference.
+\paragraph{Computer Search Algorithm}
+We now describe our procedure for deciding if each instance of $C3GSM$ of size $n=5$ has a stable matching. For any partially specified instance of $C3GSM$, $I$, let $\cE(I)$ denote the list of partially specified instances of $C3GSM$ which are extensions of $I$ and let $\cP(I)$ denote the unique instance that $I$ is an extension of. For convention we will say $\cP(I) = I$ for the empty instance with extender $(0,0)$ and length $1$. The algorithm is as follows:
+\begin{enumerate}
+\item Let $I$ be the partially specified instance of $C3GSM$ of size $5$ with extender $(0,0)$ and length $1$.
 \item While $\cE(I) \neq \emptyset$ or $\cP(I) \neq I$
 	\begin{enumerate}
 	\item If $I$ satisfies a lemma of \ref{subsec:sufficient} which implies $I$ has a stable matching or the graph underlying $I$ is not the lexicographical minimum of its equivalence class by lemma \ref{lemma:nec-symmetry} then set $\cE(I) \leftarrow \emptyset$ and $I \leftarrow \cP(I)$, and continue to the next iteration of step $2$.
@@ -473,7 +493,7 @@ We now describe our procedure for deciding if each instance of $C3GSM$ of size $
 \end{enumerate}
 \paragraph{}
 The intuition behind this approach is that we can often conclude that a problem instance has a stable matching without looking at all the preferences of each vertex. Recall, for instance that if there is a cycle of vertices, all respective first choices of each other, then there is a stable matching. The goal is to develop enough theory of lemmas that imply stable matchings as in subsection \ref{subsec:sufficient} that we can eliminate many instances in step $2(a)$ early on in execution. To see the benefit of this suppose we eliminate in step $2(a)$ a partially specified instance that has only specified each vertex's first choice. There are $(4!)^{15}$ possible fully specified instances of $C3GSM$ that can be obtained from said instance via a sequence of extensions that we do not need to check now.
-\paragraph{Notes on using lemmas of subsection\ref{subsec:sufficient}}
+\paragraph{Notes on using lemmas of subsection \ref{subsec:sufficient}}
 In step $2(a)$ it important to observe that saying $I$ has a stable matching is a bit of an abuse of notation. What we mean is that any completely specified instance that can be obtained from $I$ by a sequence of extensions has a stable matching. This is actually easier to verify in many cases than is immediately apparent. If one can form a matching in $I$ that only matches vertices with those that they have specified a ranking for (first choice, second choice, etc.) then it is easy to see which vertices they prefer to the matching. When the $k$-th choice of a vertex in an extension is specified all their $k-1$-th choices have previously been specified. Most lemmas only need knowledge of the vertices preferred by a vertex to their partner, and so for them just match as above and check the lemma's conditions directly. There is a notable exception in lemma \ref{lemma:fixing} which we use in a slightly different way.
 \paragraph{Fixing Choices With Lemma \ref{lemma:fixing}}
 Lemma \ref{lemma:fixing} requires knowledge of a vertex's last choice in order to conclude that the given problem instance has a stable matching. Unfortunately lemmas which rely on last choices don't naturally lend themselves to cutting instances from consideration early on via step $2(a)$. There is an alternative approach to using them though. Suppose there is a partially specified instance $I$ and matching $M$ for which each vertex except for $a$ that is matched in $I$ is matched to a partner that they have already specified their ranking for in $I$, and all vertices $a$ has specified a ranking for are matched in $M$. Also suppose that $M$ satisfies all the requirements of lemma \ref{lemma:fixing} except for the requirement that $a$'s last choice is unmatched in $M$ (as a consequence of not knowing $a$'s last choice). Then by lemma \ref{lemma:fixing} any fully specified instance of $C3GSM$ extended from $I$ wherein $M(a)$ is not the last choice of $a$ is one where $a$'s last choice is unmatched in $M$ and hence has a stable matching. Thus we know we need only consider extensions where $M(a)$ is the last choice of $a$. If one can find another such matching $M'$ with $M'(a) \neq M(a)$ then we know $I$ has a stable matching since the last choice of $a$ cannot simultaneously be $M'(a)$ and $M(a)$.
