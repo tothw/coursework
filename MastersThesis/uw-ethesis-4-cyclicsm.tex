@@ -113,7 +113,7 @@ Let $G' = G[V(G)\backslash V(M)]$ be the subgraph of $G$ induced by vertices unm
 \end{proof}
 
 \paragraph{}
-The following lemma gives a condition that is faster to check than the previous lemma, but still covers some common cases.
+The condition in the lemma \ref{lemma:inductive} that $V(M) \cap \cD(G,M) = \emptyset$ is not very useful for our computer search to be described in \ref{sec:computersearch} because we are operating with partial information about preferences in that context. We propose a stronger requirement which is easier to verify with partial information. The conditions $\cB(G[V(M)], M) = \emptyset$ and $\{w \in V(G): \exists v \in V(M), w >_v M(v)\} \subseteq V(M)$ together imply that $V(M) \cap \cD(G,M) = \emptyset$. In the proof of the following lemma this will be made clear.
 
 \begin{lemma}\label{lemma:partialstab}
 Let $G = (A\cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$ of size $n$ where $n-1$ is the best known size that  satisfies conjecture \ref{conj:stab}. Suppose that $G$ has a non-empty matching $M$ for which $\cB(G[V(M)],M) = \emptyset$. If $$\{w \in V(G): \exists v \in V(M), w >_v M(v)\} \subseteq V(M)$$ then $G$ has a stable matching.
@@ -211,7 +211,7 @@ Let $G' = G[V(G)\backslash V(M)]$ be the subgraph of $G$ induced by vertices unm
 \paragraph{}
 Let $v \in V(M')$. First consider the case where $v \in V(M) \cap ( B \cup C)$. Since $v \not\in \cD(G,M)$ and $M \subseteq M'$, we have that $v \not\in \cD(G,M')$. Second consider the case where $v \in \{a,b\}$. If $w >_v M'(v)=T(v)$ then $w \in V(M) \cap (B \cup C)$ by our construction of $T$. Since such $ w\not\in \cD(G,M')$ we have $v \not\in \cD(G,M')$. Third consider the case where $v \in V(M) \cap A$. By our hypothesis if $w >_v M'(v) = M(v)$ then $w = b$. Since $b \not\in \cD(G,M')$ we have $v \not\in \cD(G,M')$. Finally consider the case where $v = c$. Since $v \in T$, by our construction of $T$, if $w >_v M'(v)$ then $w \in V(M) \cap A$. Since such $w \not\in \cD(G,M')$ we have $v \not\in \cD(G,M')$. Therefore $V(M') \cap \cD(G,M') = \emptyset$, and since $T \subseteq M'$,  we have $M' \neq \emptyset$ so we may apply lemma \ref{lemma:inductive} to conclude that $G$ has a stable matching.
 \end{proof}
-\begin{lemma}
+\begin{lemma}\label{lemma:partial-match-2}
 Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ such that $|M| \geq n-3$. Suppose that 
 $$V(M) \cap C \cap \cD(G,M) = \emptyset$$
 and there exists $b \in B \backslash V(M)$ satisfying
@@ -241,6 +241,37 @@ Now consider the case when $c' \neq c$. Let $a = f(G',c,1)$. Let $a' = f(G'[V(G'
 \end{itemize}
 Now we did not explicitly choose the partner of $b'$ based on her preference, so we cannot perform the above line of reasoning to conclude that $b' \not\in \cD(G,M')$. Therefore $V(M') \cap \cD(G,M') \subseteq \{b'\}$. Let $S$ be an arbitrary perfect matching of $G$ such that $M' \subseteq S$. Since $|M'| \geq n-1$ and $V(M') \cap \cD(G,M')$ there is exactly  one triple $e \in S \backslash M'$, and the vertex $b'$ from which any blocking triple against $S$ in $G$ could draw its vertices. This is insufficient to form a blocking triple and thus $S$ is a stable matching in $G$.
 \end{proof}
+
+\paragraph{}
+Just as we did with lemma \ref{lemma:inductive} and lemma \ref{lemma:partialstab}, in lemmas \ref{lemma:partial-match} and \ref{lemma:partial-match-2} we want to replace conditions regarding the set of vertices in blocking triples with ones easier to check in our computer search. The following lemmas do so in a manner analogous to our approach to transforming lemma \ref{lemma:inductive} into lemma \ref{lemma:partialstab}.
+
+\begin{lemma}\label{lemma:comp-match}
+Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$ where $n-1$ is the best known size satisfying conjecture \ref{conj:stab}. Let $M$ be a matching in $G$. Suppose that $\cB(G[V(M)], M) = \emptyset$, and 
+$$ \{w \in V(G): \exists v \in V(M), w>_v M(v)\} \cap (B \cup C) \subseteq V(M)$$
+and that there exists $b \in B\backslash V(M)$ satisfying
+$$\{w \in V(G): \exists v \in V(M)\cap A, w>_v M(v)\} \subseteq \{b\} \cup V(M)$$
+and for all $a \in A \backslash V(M)$, $f(G[V(G)\backslash V(M)], a, 1) = b$. Then $G$ has a stable matching.
+\end{lemma}
+
+\begin{proof}
+Similarly to the proof of lemma \ref{lemma:partialstab} the conditions $$\cB(G[V(M)], M) = \emptyset$$ and $$\{w \in V(G): \exists v \in V(M), w>_v M(v)\} \cap (B \cup C) \subseteq V(M)$$ imply that $$V(M) \cap (B\cup C) \cap \cD(G,M) = \emptyset.$$ Further $$\{w \in V(G): \exists v \in V(M)\cap A, w>_v M(v)\} \subseteq \{b\} \cup V(M)$$ implies similarly that $$\cD(G, M, V(M) \cap A) = \{b\}.$$ Thus by lemma \ref{lemma:partial-match} $G$ has a stable matching.
+\end{proof}
+
+\begin{lemma}\label{lemma:comp-match-2}
+Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ such that $|M| \geq n-3$. Suppose that $\cB(G[V(M)],M) = \emptyset$, and
+$$\{w \in V(G): \exists v \in V(M), w>_v M(v)\} \cap C \subseteq V(M)$$
+and there exists $b \in B \backslash V(M)$ satisfying
+$$\{w \in V(G): \exists v \in V(M)\cap A, w>_v M(v)\} \subseteq \{b\} \cup V(M)$$
+and for all $a \in A \backslash V(M)$, $f(G[V(G)\backslash V(M)], a, 1) = b$. Suppose also that there exists $c \in C \backslash V(M)$ satisfying
+$$\{w \in V(G): \exists v \in V(M)\cap B, w>_v M(v)\} \subseteq \{c\} \cup V(M).$$ 
+Then $G$ has a stable matching.
+\end{lemma}
+\begin{proof}
+Similar to the proof of \ref{lemma:comp-match}.
+\end{proof}
+
+\paragraph{}
+Another idea in finding stable matchings is to consider vertices left out of matchings. The following lemma shows that if you have a large enough matching where a dissatisfied vertex is not matched to their last choice then that matching can be extended to a stable matching. 
 
 \begin{lemma}\label{lemma:fixing}
 Let $G = (A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ with $\size{M} = n-2$. Suppose there exists $a \in A \cap V(M)$ such that $$V(M) \cap \cD(G,M) = \{a\}.$$ If $f(G, a, $n$)$ is not in $V(M)$ then $G$ has a stable matching.
@@ -502,6 +533,9 @@ We now describe our procedure for deciding if each instance of $C3GSM$ of size $
 \paragraph{}
 The intuition behind this approach is that we can often conclude that a problem instance has a stable matching without looking at all the preferences of each vertex. Recall, for instance that if there is a cycle of vertices, all respective first choices of each other, then there is a stable matching. The goal is to develop enough theory of lemmas that imply stable matchings as in subsection \ref{subsec:sufficient} that we can eliminate many instances in step $2(a)$ early on in execution. To see the benefit of this suppose we eliminate in step $2(a)$ a partially specified instance that has only specified each vertex's first choice. There are $(4!)^{15}$ possible fully specified instances of $C3GSM$ that can be obtained from said instance via a sequence of extensions that we do not need to check now.
 \paragraph{On using lemmas of subsection \ref{subsec:sufficient}}
+
+TODO: Lemmas to use: \ref{lemma:partialstab} \ref{cor:1cycle} \ref{lemma:comp-match} \ref{lemma:comp-match-2} \ref{lemma:genderstab}  \ref{cor:alldiff} \ref{lemma:fixing}
+
 In step $2(a)$ it may not be clear how to use the lemmas of \ref{subsec:sufficient} to conclude that $I$ is stable. This is actually easier to verify in many cases than is immediately apparent. If one can form a matching in $I$ that only matches vertices with those that they have specified a ranking for (first choice, second choice, etc.) then it is easy to see which vertices they prefer to the matching. When the $k$-th choice of a vertex in an extension is specified all their $k-1$-th choices have previously been specified. Most lemmas only need knowledge of the vertices preferred by a vertex to their partner, and so for them just match as above and check the lemma's conditions directly. There is a notable exception in lemma \ref{lemma:fixing} which we use in a slightly different way.
 \paragraph{Fixing Choices With Lemma \ref{lemma:fixing}}
 Lemma \ref{lemma:fixing} requires knowledge of a vertex's last choice in order to conclude that the given problem instance has a stable matching. Unfortunately lemmas which rely on last choices don't naturally lend themselves to cutting instances from consideration early on via step $2(a)$. There is an alternative approach to using them though. Suppose there is a partially specified instance $I$ and matching $M$ for which each vertex except for $a$ that is matched in $I$ is matched to a partner that they have already specified their ranking for in $I$, and all vertices $a$ has specified a ranking for are matched in $M$. Also suppose that $M$ satisfies all the requirements of lemma \ref{lemma:fixing} except for the requirement that $a$'s last choice is unmatched in $M$ (as a consequence of not knowing $a$'s last choice). Then by lemma \ref{lemma:fixing} any fully specified instance of $C3GSM$ extended from $I$ wherein $M(a)$ is not the last choice of $a$ is one where $a$'s last choice is unmatched in $M$ and hence has a stable matching. Thus we know we need only consider extensions where $M(a)$ is the last choice of $a$. If one can find another such matching $M'$ with $M'(a) \neq M(a)$ then we know $I$ has a stable matching since the last choice of $a$ cannot simultaneously be $M'(a)$ and $M(a)$.
