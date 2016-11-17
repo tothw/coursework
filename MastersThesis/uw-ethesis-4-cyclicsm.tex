@@ -6,17 +6,17 @@ This chapter describes the cyclic stable matching problem as posed by Knuth. We 
 \paragraph{}
 In Knuth's writing on stable matching \cite{knuth1997stable} he talks about some extensions of the classical stable matching problems as discussed so far. One such avenue for generalization is increasing the number of ``genders", which is to say instead of matching pairs, we consider matching triples in tripartite graphs or more generally matching $k$-tuples in $k$-partite graphs. We will make this notion formal through the terminology of hypergraphs.
 \begin{definition}
-We say $G=(V,E)$ is a hypergraph if $V$ is some discrete set and $E \subseteq 2^V$ ($2^V$ denotes the set of all subsets of elements in $V$). We can think of adjacency in this case as $v \sim w$ provided there exists $e \in E$ such that $v, w \in e$. The notions of degree $d$ and edges incident upon a vertex $\delta$ extend naturally. A matching in this context is $M \subseteq E$ such that for all $m_1, m_2 \in M$, $m_1 \cap m_2 = \emptyset$. We call $G$ $k$-uniform if for all $e \in E$, $|e| = k$. We call $k$-uniform $G$ $k$-partite if there exists $V_1, \dots, V_k$ which partition $V$ and for all $e=(v_1, \dots, v_k) \in E$, $v_i \in V_i$ for $i = 1,\dots, k$. Lastly we say $k$-partite graph $G$ is balanced if $\size{V_1} = \dots = \size{V_k}$.
+We say $G=(V,E)$ is a hypergraph if $V$ is some discrete set and $E \subseteq 2^V$ ($2^V$ denotes the set of all subsets of elements in $V$). We can think of adjacency in this case as $v \sim w$ provided there exists $e \in E$ such that $v, w \in e$. The notions of degree $d$ and $\delta(v)$, the edges incident upon a vertex, extend naturally. A matching in this context is $M \subseteq E$ such that for all $m_1, m_2 \in M$, $m_1 \cap m_2 = \emptyset$. We call $G$ $k$-uniform if for all $e \in E$, $|e| = k$. We call $k$-uniform $G$ $k$-partite if there exists $V_0, \dots, V_{k-1}$ which partition $V$ and for all $e=\{v_0, \dots, v_{k-1}\} \in E$, $v_i \in V_i$ for $i = 0,\dots, k-1$. Lastly we say $k$-partite graph $G$ is balanced if $\size{V_0} = \dots = \size{V_{k-1}}$.
 \end{definition}
 \paragraph{}
-With our description hypergraphs complete we are ready to describe a generalization of stable matching.
+With our description of hypergraphs complete we are ready to describe a generalization of stable matching.
 \begin{definition}
 In an instance of cyclic $k$-gender stable matching ($kGSM$), we are given a $k$-partite hypergraph $G=(V_0 \cup \dots \cup V_{k-1}, E)$ and for each $i \in \{0,\dots,k-1\}$, each $v_i \in V_i$ is equipped with a preference order over $V_{i+1} \cap V(\delta(v_i))$ where addition of indices is taken modulo $k$ (so $V_{k-1}$ vertices have preferences over $V_0$ vertices, hence the descriptor cyclic). That is each vertex in a given gender has preferences over vertices acceptable to them in another gender. \end{definition}
 \begin{definition}
-We say our instance of $kGSM$, and naturally the hypergraph $G$, is complete if for all $v_0 \in V_0$, $\dots$, $v_{k-1} \in V_{k-1}$, we have $(v_0,\dots,v_{k-1}) \in E$. Hence in complete instances, which we will shorthand to $CkGSM$ instances, all possible tuples are acceptable to use in matchings.
+We say our instance of $kGSM$, and naturally the hypergraph $G$, is complete if for all $v_0 \in V_0$, $\dots$, $v_{k-1} \in V_{k-1}$, we have $\{v_0,\dots,v_{k-1}\} \in E$. Hence in complete instances, which we will shorthand to $CkGSM$ instances, all possible tuples are acceptable to use in matchings.
 \end{definition}
 \begin{definition}
-A solution to an instance of $kGSM$ is a matching $M \subseteq E$ that is stable in the sense that no blocking tuple exists. A tuple $e=(v_0,\dots, v_{k-1}) \in E$ blocks $M$ if $e\not\in M$ and for each $i \in \{0,\dots, k-1\}$, $v_{i+1} >_{v_i} M(v_i)$ where $M(v_i) \in V_{i+1}$ is the vertex satisfying that there exists an edge $m \in M$ for which $v_i, M(v_i) \in m$.
+A solution to an instance of $kGSM$ is a matching $M \subseteq E$ that is stable in the sense that no blocking tuple exists. A tuple $e=\{v_0,\dots, v_{k-1}\} \in E$ blocks $M$ if $e\not\in M$ and for each $i \in \{0,\dots, k-1\}$, $v_{i+1} >_{v_i} M(v_i)$ where $M(v_i) \in V_{i+1}$ is the vertex satisfying that there exists an edge $m \in M$ for which $v_i, M(v_i) \in m$.
 \end{definition}
 \begin{note}
 We may assume that instances of $kGSM$ are balanced. To see this observe that adding dummy vertices does not affect the solutions. Thus if $\size{V_i} < \size{V_j}$ we can add $\size{V_j} - \size{V_i}$ dummy vertices to $V_i$ to balance their sizes. If incomplete preferences are allowed then dummy vertices can simply have no incoming edges. If preferences are required to be complete then we may simply place dummy vertices as the least preferred vertices among the relevant preference lists and give the dummy vertices arbitrary orders over ``real" vertices they face. We say that an instance of $kGSM$ is of size $n$ if it is balanced with each $V_i$ having size $n$.
@@ -40,14 +40,14 @@ a_1'&: b_0 &b_1': c_0 &\ &c_1':a_1\\
 a_2' &:b_1 &b_2': c_1 &\ & c_1':a_2.
 \end{align*}
 We will adopt the notation of the original authors calling the agents $\{a_i, b_i, c_i: 1 \leq i \leq 3 \}$ the inner agents and $\{a_i',b_i',c_i': 1\leq i \leq 3\}$ the outer agents.
-\end{note}.
+\end{note}
 \begin{lemma}
 The problem instance of $3GSM$ described in note \ref{ex:R6} has no stable matching.
 \end{lemma}
 \begin{proof}
 Let $M$ be a matching in $R6$. We observe that the possible triples in $M$ have very particular forms. Let $m \in M$ be a triple. Suppose that inner vertex $a_i$ is in $m$. Then by $a_i$'s preferences either $b_i \in m$ or $b_i' \in m$. If $b_i \in m$ then as $a_i$ is not acceptable to $c_i$, the triple $m$ is of the form $a_ib_ic_i'$. If $b_i' \in m$ then $c_{i-1} \in m$ (recall index addition and subtraction is done modulo $3$) and hence the triple $m$ is of the form $a_i b_i'c_{i-1}$. Otherwise if outer vertex $a_i' \in m$ then the triple $m$ is of the form $a_i'b_{i-1}c_{i-1}$. That is the only triples in $M$ are those of the form
 $$a_ib_ic_i' \quad\text{or}\quad a_ib_i'c_{i-1} \quad\text{or}\quad a_i'b_{i-1}c_{i-1}.$$
-Then triples in $M$ contain exactly two inner agents and one outer agent each. Since each agent can only be matched at most once, and inner agents are matched in pairs then $M$ matches an even number of inner agents. But there are an odd number of inner agents ($9$ to be precise). Hence at least one inner agent is unmatched in $M$. By the symmetry of $R6$ we may assume without loss of generality that this inner agent is $a_i$. Consider the triple $T=(a_i, b_{i}', c_{i-1})$. If $c_{i-1}$ is matched in $M$ then, as $a_i$ is unmatched, $M(c_{i-1}) = a_i'$. Hence $a_i >_{c_{i-1}} M(c_{i-1})$. Again since $a_i$ is unmatched, $b_{i}'$ is unmatched and thus prefers $T$ to $M$. Hence the triple $T$ blocks $M$, and since $M$ was an arbitrary matching no matching of $R6$ is stable.
+Then triples in $M$ contain exactly two inner agents and one outer agent each. Since each agent can only be matched at most once, and inner agents are matched in pairs then $M$ matches an even number of inner agents. But there are an odd number of inner agents ($9$ to be precise). Hence at least one inner agent is unmatched in $M$. By the symmetry of $R6$ we may assume without loss of generality that this inner agent is $a_i$. Consider the triple $T=\{a_i, b_{i}', c_{i-1}\}$. If $c_{i-1}$ is matched in $M$ then, as $a_i$ is unmatched, $M(c_{i-1}) = a_i'$. Hence $a_i >_{c_{i-1}} M(c_{i-1})$. Again since $a_i$ is unmatched, $b_{i}'$ is unmatched and thus prefers $T$ to $M$. Hence the triple $T$ blocks $M$, and since $M$ was an arbitrary matching no matching of $R6$ is stable.
 \end{proof}
 \paragraph{}
 Since we have a counterexample to stability in the case where incomplete preferences are allowed this motivates us to restrict the problem to the situation where problem instances are complete. It is in this setting that we will work going forward. As of yet we are not aware of any counterexample instance that has no stable matching for complete $3GSM$ ($C3GSM$), nor of any proof that all instances admit a stable matching. Thus we consider a modified conjecture for $C3GSM$ instances as follows.
@@ -65,16 +65,17 @@ Let $G = (A\cup B \cup C, E)$ be a hypergraph underlying an instance of $C3GSM$.
 \paragraph{}
 So in lieu of algorithmic insight into the problem, researchers have presented ad-hoc methods to demonstrate when instances of $C3GSM$ are stable for fixed sizes $n$. It has been shown by Eriksson et al. \cite{eriksson2006three} that complete instances of size $n \leq 4$ always have a stable matching. First observe that cases of size $n \leq 2$ are not interesting as blocking triples are impossible since a blocking triple must draw each of its vertices from a distinct triple in the matching (no vertices in instances of $C3GSM$ are unmatched in a stable matching, as there would be at least three and they prefer to be together than unmatched). The case for $n=3$ is straightforward and can even be checked by hand. Eriksson et al. have shown something stronger for the $n=3$ case: that they can actually fix the quality of match any arbitrary vertex receives in a stable matching. We will present below some notation to ease exposition then give their proof.
 \begin{definition}
-Let $G=(A\cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$. We will define the following functions for $A$ but we will use analogous versions for $B$ and $C$ throughout. Let $a \in A$. Let $s \in \{1,\dots,n\}$. If $s=1$ define $f(G,a,s) = b$ provided for all $b' \in B$, $b \geq_a b'$. If $s>1$ define $f(G,a,s) = b$ provided $$f(G[V(G) \backslash \{f(G,a,t): t\in\{1,\dots,s-1\}], a, 1) = b.$$ Intuitively $f(G,a,s)$ is $a$'s $s$-th choice among vertices in $B$ where $G = (A\cup B \cup C, E)$.
+Let $G=(A\cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$ of size $n$. We will define the following functions for $A$ but we will use analogous versions for $B$ and $C$ throughout. Let $a \in A$. Let $s \in \{1,\dots,n\}$. We say that $f(G,a,s) = b$ provided that
+$$\size{\{b'\in B : b' >_a b\}} = s-1.$$  Intuitively $f(G,a,s)$ is $a$'s $s$-th choice among vertices in $B$ where $G = (A\cup B \cup C, E)$.
 \end{definition}
 \begin{definition}
-Let $G = (A \cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$. We say $G$ has an $i,j,k$ triple if there exist $a \in A$, $b\in B$, and $c \in C$ such that $f(G,a,i) = b$, $f(G,b,j) = c$, and $f(G,c,k) = a$. Of particular interest are $1,1,1$ triples. If a matching contains a $1,1,1$ triple then none of the vertices in the triple will participate in any blocking triple against the matching.
+Let $G = (A \cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$. We say $G$ has an $i,j,k$ triple if there exist $a \in A$, $b\in B$, and $c \in C$ such that $f(G,a,i) = b$, $f(G,b,j) = c$, and $f(G,c,k) = a$. Of particular interest are $1,1,1$ triples. If a matching contains a $1,1,1$ triple then none of the vertices in the triple will participate in any blocking triple that prevents the matching from being stable.
 \end{definition}
 \begin{lemma}\label{lemma:n3}
 (Eriksson et al.) \cite{eriksson2006three}: Let $G=(A\cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$ of size $3$. Let $a \in A$. Then $G$ has a stable matching $M$ where either $M(a)= f(G,a,1)$ or, $M(a) = f(G,a,2)$ and $M(b) = f(G,b,1)$ where $b = f(G,a,1)$.
 \end{lemma}
 \begin{proof} First consider the case where $G$ has a $1,1,1$ triple $(a',b',c')$. Construct the matching $M$ as follows. Add $a'b'c'$ to $M$. Now $a',b',c'$ will not participate in any blocking triples against $M$. Hence there are only $6$ vertices remaining, so regardless of how we choose the next two triples for $M$ the resulting matching will be stable. If $a = a'$ then we are done, so we may assume $a\neq a'$. If $b = b'$ then complete $M$ arbitrarily as long as $M(a) = f(G,a,2)$. Otherwise, $b\neq b'$ and we may complete $M$ arbitarily ensuring $M(a) = b$.
-\paragraph{} Now consider the case where $G$ has no $1,1,1$ triple. Let $c = f(G,b,1)$. Since there is no $1,1,1$ triple, $a \neq f(G,c,1)$. Let $a' = f(G,c,1)$. Again since there is no $1,1,1$ triple $b \neq f(G,a',1)$. Let $b' = f(G,a',1)$. Similarly $c \neq f(G,b',1)$ and let $c' = f(G,b',1)$. Let $a'', b'', c''$ be the remaining vertices in $A,B,C$ respectively. Form the matching $M = \{abc,a'b'c',a''b''c''\}$. We claim $M$ is stable. Since $a$ and $a'$ were matched to their first choices they will not participate in any blocking triple. Hence $a''$ is the only vertex in $A$ willing to participate in a blocking triple. But $a'$ is only unmatched to $b$ and $b'$, both of which are matched to their first choices and hence are unwilling to participate in any blocking triple. Thus there are no blocking triples against $M$ and hence $M$ is stable. Further since $M(a) = b$ we are done. 
+\paragraph{} Now consider the case where $G$ has no $1,1,1$ triple. Let $c = f(G,b,1)$. Since there is no $1,1,1$ triple, $a \neq f(G,c,1)$. Let $a' = f(G,c,1)$. Again since there is no $1,1,1$ triple $b \neq f(G,a',1)$. Let $b' = f(G,a',1)$. Similarly $c \neq f(G,b',1)$ and let $c' = f(G,b',1)$. Let $a'', b'', c''$ be the remaining vertices in $A,B,C$ respectively. Form the matching $M = \{abc,a'b'c',a''b''c''\}$. We claim $M$ is stable. Since $a$ and $a'$ were matched to their first choices they will not participate in any blocking triple. Hence $a''$ is the only vertex in $A$ willing to participate in a blocking triple. But $a'$ is only unmatched to $b$ and $b'$, both of which are matched to their first choices and hence are unwilling to participate in any blocking triple. Thus there are no blocking triples with respect to $M$ and hence $M$ is stable. Further since $M(a) = b$ we are done. 
 \end{proof}
 \paragraph{}
 Using lemma \ref{lemma:n3} Eriksson et al. show the following theorem. We omit the proof as, by the authors own admission, it is a technical case analysis.
@@ -101,7 +102,7 @@ We mention a few things here that are immediately obvious from the definition of
 \paragraph{}
 Sometimes we want to talk about the vertices that some given vertices can form blocking triples with. The following definition captures this idea.
 \begin{definition}
-Let $G$ be the hypergraph underlying an instance of $C3GSM$. Let $W \subseteq V(G)$. We define $\cD(G,M, W) = \{v \in \cD(G,M): \exists w\in W: v>_w M(w) \}$.
+Let $G$ be the hypergraph underlying an instance of $C3GSM$. Let $W \subseteq V(G)$. We define $\cD(G,M, W) = \{w \in \cD(G,M): \exists v\in W: w>_v M(v) \}$.
 \end{definition}
 \paragraph{}
 The following lemma underlies a common approach to finding stable matchings. In it we demonstrate how a partial matching can be used to construct a complete stable matching.
@@ -113,7 +114,7 @@ Let $G' = G[V(G)\backslash V(M)]$ be the subgraph of $G$ induced by vertices unm
 \end{proof}
 
 \paragraph{}
-The following lemma gives a condition that is faster to check than the previous lemma, but still covers some common cases.
+The condition in the lemma \ref{lemma:inductive} that $V(M) \cap \cD(G,M) = \emptyset$ is not very useful for our computer search to be described in \ref{sec:computersearch} because we are operating with partial information about preferences in that context. We propose a stronger requirement which is easier to verify with partial information. The conditions $\cB(G[V(M)], M) = \emptyset$ and $\{w \in V(G): \exists v \in V(M), w >_v M(v)\} \subseteq V(M)$ together imply that $V(M) \cap \cD(G,M) = \emptyset$. In the proof of the following lemma this will be made clear.
 
 \begin{lemma}\label{lemma:partialstab}
 Let $G = (A\cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$ of size $n$ where $n-1$ is the best known size that  satisfies conjecture \ref{conj:stab}. Suppose that $G$ has a non-empty matching $M$ for which $\cB(G[V(M)],M) = \emptyset$. If $$\{w \in V(G): \exists v \in V(M), w >_v M(v)\} \subseteq V(M)$$ then $G$ has a stable matching.
@@ -135,7 +136,7 @@ Matching $M = \{a_0b_0c_0, a_1b_1c_1\}$ satisfies lemma \ref{lemma:partialstab}.
 Let $G$ be the hypergraph for an instance of $C3GSM$ and $n$ be as in lemma \ref{lemma:partialstab}. If there exists $a,b,c \in V(G)$ such that $b = f(G,a,1)$, $c = f(G,b,1)$, and $a = f(G,c,1)$ (a $1,1,1$ triple) then $G$ has a stable matching.
 \end{corollary}
 \begin{proof}
-Invoke lemma \ref{lemma:partialstab} with $M = \{(a,b,c)\}$.
+Invoke lemma \ref{lemma:partialstab} with $M = \{abc\}$.
 \end{proof}
 \begin{corollary}
 Let $G=(A\cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$ with $n$ as in lemma \ref{lemma:partialstab}. If one of $A,B,C$, say without loss $A$, is such that there exists $b \in B$, for all $a \in A$, $f(G,a,1) = b$ then $G$ has a stable matching.
@@ -145,7 +146,7 @@ Let $a_1, \dots, a_n \in A$. Let $c = f(G,b,1)$. Then there exists some $a_k$ su
 \end{proof}
 
 \paragraph{}
-The follow lemmas study situations where we nearly have a matching which satisfies $\cD(G,M) = \emptyset$ except some part, without loss $A$, has vertices which form some limited blocking triples. The first lemma looks to build a matching containing $M$ and using lemma \ref{lemma:inductive} to find a stable matching. The second lemma shows that if the matching $M$ is large enough if implies the existence of a stable matching directly.
+The following lemmas study situations where we nearly have a matching which satisfies $\cD(G,M) = \emptyset$ except some part, without loss $A$, has matched vertices which participate in some blocking triples of a particular form. The first lemma looks to build a matching containing $M$ and using lemma \ref{lemma:inductive} to find a stable matching. The second lemma shows that if the matching $M$ is large enough it implies the existence of a stable matching directly.
 
 \begin{lemma} \label{lemma:partial-match}Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$ where $n-1$ is the best known size satisfying conjecture \ref{conj:stab}. Let $M$ be a matching in $G$. Suppose that
 $$ V(M) \cap (B \cup C) \cap \cD(G,M) = \emptyset$$
@@ -211,7 +212,7 @@ Let $G' = G[V(G)\backslash V(M)]$ be the subgraph of $G$ induced by vertices unm
 \paragraph{}
 Let $v \in V(M')$. First consider the case where $v \in V(M) \cap ( B \cup C)$. Since $v \not\in \cD(G,M)$ and $M \subseteq M'$, we have that $v \not\in \cD(G,M')$. Second consider the case where $v \in \{a,b\}$. If $w >_v M'(v)=T(v)$ then $w \in V(M) \cap (B \cup C)$ by our construction of $T$. Since such $ w\not\in \cD(G,M')$ we have $v \not\in \cD(G,M')$. Third consider the case where $v \in V(M) \cap A$. By our hypothesis if $w >_v M'(v) = M(v)$ then $w = b$. Since $b \not\in \cD(G,M')$ we have $v \not\in \cD(G,M')$. Finally consider the case where $v = c$. Since $v \in T$, by our construction of $T$, if $w >_v M'(v)$ then $w \in V(M) \cap A$. Since such $w \not\in \cD(G,M')$ we have $v \not\in \cD(G,M')$. Therefore $V(M') \cap \cD(G,M') = \emptyset$, and since $T \subseteq M'$,  we have $M' \neq \emptyset$ so we may apply lemma \ref{lemma:inductive} to conclude that $G$ has a stable matching.
 \end{proof}
-\begin{lemma}
+\begin{lemma}\label{lemma:partial-match-2}
 Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ such that $|M| \geq n-3$. Suppose that 
 $$V(M) \cap C \cap \cD(G,M) = \emptyset$$
 and there exists $b \in B \backslash V(M)$ satisfying
@@ -241,6 +242,37 @@ Now consider the case when $c' \neq c$. Let $a = f(G',c,1)$. Let $a' = f(G'[V(G'
 \end{itemize}
 Now we did not explicitly choose the partner of $b'$ based on her preference, so we cannot perform the above line of reasoning to conclude that $b' \not\in \cD(G,M')$. Therefore $V(M') \cap \cD(G,M') \subseteq \{b'\}$. Let $S$ be an arbitrary perfect matching of $G$ such that $M' \subseteq S$. Since $|M'| \geq n-1$ and $V(M') \cap \cD(G,M')$ there is exactly  one triple $e \in S \backslash M'$, and the vertex $b'$ from which any blocking triple against $S$ in $G$ could draw its vertices. This is insufficient to form a blocking triple and thus $S$ is a stable matching in $G$.
 \end{proof}
+
+\paragraph{}
+Just as we did with lemma \ref{lemma:inductive} and lemma \ref{lemma:partialstab}, in lemmas \ref{lemma:partial-match} and \ref{lemma:partial-match-2} we want to replace conditions regarding the set of vertices in blocking triples with ones easier to check in our computer search. The following lemmas do so in a manner analogous to our approach to transforming lemma \ref{lemma:inductive} into lemma \ref{lemma:partialstab}.
+
+\begin{lemma}\label{lemma:comp-match}
+Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$ where $n-1$ is the best known size satisfying conjecture \ref{conj:stab}. Let $M$ be a matching in $G$. Suppose that $\cB(G[V(M)], M) = \emptyset$, and 
+$$ \{w \in V(G): \exists v \in V(M), w>_v M(v)\} \cap (B \cup C) \subseteq V(M)$$
+and that there exists $b \in B\backslash V(M)$ satisfying
+$$\{w \in V(G): \exists v \in V(M)\cap A, w>_v M(v)\} \subseteq \{b\} \cup V(M)$$
+and for all $a \in A \backslash V(M)$, $f(G[V(G)\backslash V(M)], a, 1) = b$. Then $G$ has a stable matching.
+\end{lemma}
+
+\begin{proof}
+Similarly to the proof of lemma \ref{lemma:partialstab} the conditions $$\cB(G[V(M)], M) = \emptyset$$ and $$\{w \in V(G): \exists v \in V(M), w>_v M(v)\} \cap (B \cup C) \subseteq V(M)$$ imply that $$V(M) \cap (B\cup C) \cap \cD(G,M) = \emptyset.$$ Further $$\{w \in V(G): \exists v \in V(M)\cap A, w>_v M(v)\} \subseteq \{b\} \cup V(M)$$ implies similarly that $$\cD(G, M, V(M) \cap A) = \{b\}.$$ Thus by lemma \ref{lemma:partial-match} $G$ has a stable matching.
+\end{proof}
+
+\begin{lemma}\label{lemma:comp-match-2}
+Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ such that $|M| \geq n-3$. Suppose that $\cB(G[V(M)],M) = \emptyset$, and
+$$\{w \in V(G): \exists v \in V(M), w>_v M(v)\} \cap C \subseteq V(M)$$
+and there exists $b \in B \backslash V(M)$ satisfying
+$$\{w \in V(G): \exists v \in V(M)\cap A, w>_v M(v)\} \subseteq \{b\} \cup V(M)$$
+and for all $a \in A \backslash V(M)$, $f(G[V(G)\backslash V(M)], a, 1) = b$. Suppose also that there exists $c \in C \backslash V(M)$ satisfying
+$$\{w \in V(G): \exists v \in V(M)\cap B, w>_v M(v)\} \subseteq \{c\} \cup V(M).$$ 
+Then $G$ has a stable matching.
+\end{lemma}
+\begin{proof}
+Similar to the proof of \ref{lemma:comp-match}.
+\end{proof}
+
+\paragraph{}
+Another idea in finding stable matchings is to consider vertices left out of matchings. The following lemma shows that if you have a large enough matching where a dissatisfied vertex is not matched to their last choice then that matching can be extended to a stable matching. 
 
 \begin{lemma}\label{lemma:fixing}
 Let $G = (A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ with $\size{M} = n-2$. Suppose there exists $a \in A \cap V(M)$ such that $$V(M) \cap \cD(G,M) = \{a\}.$$ If $f(G, a, $n$)$ is not in $V(M)$ then $G$ has a stable matching.
@@ -378,7 +410,7 @@ Let $G$ and $H$ be two hypergraphs underlying distinct instances of $C3GSM$. We 
 \begin{note}
 It is clear that $\equiv$ is an equivalence relation. Through the identity bijection we have reflexivity, through the inverse bijection we have symmetry, and through composition of bijections we have transitivity. Thus $\equiv$ is an equivalence relation as desired.
 \end{note}
- \begin{lemma}
+ \begin{lemma}\label{lemma:equiv}
  If $G \equiv H$ then $G$ has a stable matching if and only if $H$ has a stable matching
  \end{lemma}
  \begin{proof}
@@ -406,7 +438,7 @@ We say $G >_{lex} H$ if $seq(G)$ is lexicographically larger than $seq(H)$. That
 $$seq(G)_k > seq(H)_k$$
 and for all $i < k$
 $$seq(G)_i = seq(H)_i.$$
-We compare vertices $seq(G)_k$ and $ seq(H)_k$ as if they are natural numbers corresponding to their labels. That is if $seq(G)_k = (i,a)$ and $seq(H)_k = (j,b)$ then we simply say $seq(G)_k > seq(H)_k$ if and only if $a>b$. 
+We compare vertices in $seq(G)_k$ and $ seq(H)_k$ as if they are natural numbers corresponding to their labels. That is if $seq(G)_k = (i,a)$ and $seq(H)_k = (j,b)$ then we simply say $seq(G)_k > seq(H)_k$ if and only if $a>b$. 
 \end{definition}
 \paragraph{}
 Unfortunately we do not have a full characterization of the lexicographic minimum of a given equivalence class under the order $>_{lex}$, which would be desirable. Instead we do have some necessary conditions which we collect in the following lemma. These are useful for finding instances of $C3GSM$ that we can avoid testing in a computer search since we are certain we are at least testing the lexicographic minimum of each equivalence class.
@@ -422,25 +454,25 @@ Let $G$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. If $G$ 
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-We first prove $(1)$. Let $\phi : V(G) \rightarrow V(G)$ be described by $(0,e,\pi_1, e)$ where $e$ denotes the identity permutation and $\pi_1$ is the permutation which sends $seq(G,0,0)$ to $0,1,\dots,n-1$. Let $H$ be the hypergraph underlying an instance of $C3GSM$ such that $G \equiv H$ under $\phi$. Since $G$ is the lexicographic minimum of $[G]$ and $H \in [G]$, $seq(G,0,0) \leq_{lex} seq(H,0,0) = 0,1,\dots,n-1$. Since $0,1,\dots,n-1$ is the lexicographic minimum sequence possible we have $seq(G,0,0) = 0,1,\dots,n-1$.
+We first prove $(1)$. Let $\phi : V(G) \rightarrow V(G)$ be described by $(0,e,\pi_1, e)$ where $e$ denotes the identity permutation and $\pi_1$ is the permutation which sends $seq(G,0,0)$ to $0,1,\dots,n-1$. Let $H$ be the hypergraph underlying an instance of $C3GSM$ such that $G \equiv H$ with respect to $\phi$. Since $G$ is the lexicographic minimum of $[G]$ and $H \in [G]$, $seq(G,0,0) \leq_{lex} seq(H,0,0) = 0,1,\dots,n-1$. Since $0,1,\dots,n-1$ is the lexicographic minimum sequence possible we have $seq(G,0,0) = 0,1,\dots,n-1$.
 \paragraph{}
-To prove $(2)$ we do something similar to $(1)$. Let $\phi$ be described by $(0,e,e,\pi_2)$ where $\pi_2$ is the permutation which sends $seq(G,1,0)$ to $0,1,\dots,n-1$. Let $H$ be the hypergraph underlying an instance of $C3GSM$ such that $G \equiv H$ under $\phi$. Observe that since $r = 0$ and $\pi_0 = \pi_1 = e$, $seq(G,0) = seq(H,0)$. Since $G$ is the lexicographic minimum of $[G]$ and $H \in [G]$, $seq(G,1,0) \leq_{lex} seq(H,1,0) = 0,1,\dots,n-1$. Since $0,1,\dots,n-1$ is the lexicographic minimum sequence possible we have $seq(G,1,0) = 0,1,\dots,n-1$.
+To prove $(2)$ we do something similar to $(1)$. Let $\phi$ be described by $(0,e,e,\pi_2)$ where $\pi_2$ is the permutation which sends $seq(G,1,0)$ to $0,1,\dots,n-1$. Let $H$ be the hypergraph underlying an instance of $C3GSM$ such that $G \equiv H$ with respect to $\phi$. Observe that since $r = 0$ and $\pi_0 = \pi_1 = e$, $seq(G,0) = seq(H,0)$. Since $G$ is the lexicographic minimum of $[G]$ and $H \in [G]$, $seq(G,1,0) \leq_{lex} seq(H,1,0) = 0,1,\dots,n-1$. Since $0,1,\dots,n-1$ is the lexicographic minimum sequence possible we have $seq(G,1,0) = 0,1,\dots,n-1$.
 \paragraph{}
-We now turn our attention to proving $(3)$. Observe that $seq(G,0,a) <_{lex} seq(G,0,b)$. Let $\phi$ be described by $(0,\pi_0,e,e)$ where $\pi_0$ which transposes $a$ and $b$. Let $H$ be the hypergraph underlying an instance of $C3GSM$ such that $G \equiv H$ under $\phi$. Suppose for a contradiction that $b<a$. Since $r=0$, $\pi_1=\pi_2=e$, and $\pi_0$ simply transposes $a$ and $b$, this yields 
+We now turn our attention to proving $(3)$. Observe that $seq(G,0,a) <_{lex} seq(G,0,b)$. Let $\phi$ be described by $(0,\pi_0,e,e)$ where $\pi_0$ which transposes $a$ and $b$. Let $H$ be the hypergraph underlying an instance of $C3GSM$ such that $G \equiv H$ with respect to $\phi$. Suppose for a contradiction that $b<a$. Since $r=0$, $\pi_1=\pi_2=e$, and $\pi_0$ simply transposes $a$ and $b$, this yields 
 \begin{align*}seq(H,0) &= seq(G,0,0) \dots seq(G,0,b-1)seq(G,0,a)seq(G,0,b+1)\\
 &\dots seq(G,0,a-1) seq(G,0,b) seq(G,0,a+1) \dots seq(G,0,n-1) \\
 &<_{lex} seq(G,0).\end{align*}
 This contradicts the lexicographic minimality of $G$.
 \paragraph{}
-Finally we prove $(4)$. Let $\phi$ be described by $(1,e,e,e)$. We will prove $seq(G)$ is lexicographically at most $seq(G,1)seq(G,2)seq(G,0)$. The proof that $G$ is lexicographically smaller that $seq(G,2)seq(G,0)seq(G,1)$ folllws similarly using $(2,e,e,e)$. Let $H$ be the hypergraph underlying an instance of $C3GSM$ such that $G \equiv H$ under $\phi$. Since $\pi_0=\pi_1=\pi_2=e$ and $r=1$ we have that
+Finally we prove $(4)$. Let $\phi$ be described by $(1,e,e,e)$. We will prove $seq(G)$ is lexicographically at most $seq(G,1)seq(G,2)seq(G,0)$. The proof that $G$ is lexicographically smaller that $seq(G,2)seq(G,0)seq(G,1)$ follows similarly using $(2,e,e,e)$. Let $H$ be the hypergraph underlying an instance of $C3GSM$ such that $G \equiv H$ with respect to $\phi$. Since $\pi_0=\pi_1=\pi_2=e$ and $r=1$ we have that
 $$seq(H) = seq(G,1)seq(G,2)seq(G,0)$$
 and thus by the lexicographic minimality of $G$, $seq(G) \leq_{lex} seq(H)$ and the result follows.
 \end{proof}
 \subsection{Computer Search}\label{sec:computersearch}
 \paragraph{}
-Our goal now is to describe a computer search procedure to test all instances of $C3GSM$ for a given size $n$ under the assumption that for $k<n$ it is known that all instances of $C3GSM$ have a stable matching. In our case we study $n=5$. A major challenge towards solving this problem computationally is that enumerating all instances of $C3GSM$ would be infeasible. For each vertex there is one possible preference order over the vertices they face for each permutation of $\{1,\dots,n\}$. There are $3n$ such vertices, and thus there are $(5!)^{15}$ possible problem instances for $C3GSM$ with size $5$. 
+Our goal now is to describe a computer search procedure to test all instances of $C3GSM$ for a given size $n$ under the assumption that for $k<n$ it is known that all instances of $C3GSM$ have a stable matching. In our case we study $n=5$. A major challenge towards solving this problem computationally is that enumerating all instances of $C3GSM$ would be infeasible. For each vertex there is one possible preference order or each permutation of $\{1,\dots,n\}$. There are $3n$ such vertices, and thus there are $(5!)^{15}$ possible problem instances for $C3GSM$ with size $5$. 
 \paragraph{}
-So what we resolve to do is attempt to eliminate preference systems from consideration using our symmetry and sufficient checks theory from the previous subsections. Our approach is based on the idea that if we relax the total orders to partial orders giving only the first few preferences of each vertex and can find a stable matching then any $C3GSM$ instance that results from completing the partial order will also have said stable matching. The following theory formalizes this idea. Herein and henceforth we use the ordered pair labeling for vertices of $G$ as outlined in note \ref{note:labels}.
+We resolve to overcome the sheer number of possible $C3GSM$ instances by eliminating instances from consideration using our symmetry and sufficient checks theory from the previous subsections. Our approach is based on the idea that if we relax the total orders to partial orders giving only the first few preferences of each vertex and can find a perfect stable matching then any $C3GSM$ instance that results from completing the partial order will also have said stable matching. The following theory formalizes this idea. Herein and henceforth we use the ordered pair labeling for vertices of $G$ as outlined in note \ref{note:labels}.
 \begin{definition}
 A partially specified instance of $C3GSM$ of size $n$ provides a complete $3$-partite hypergraph $G$, as in an instance of $C3GSM$, but not the total orders for each of the vertices of $G$. In our partially specified instance there exists a vertex $(g,v)$ called the extender, and an integer $\ell \in \{1, \dots, n+1\}$ called the length satisfying that:
 \begin{enumerate}
@@ -493,17 +525,19 @@ We now describe our procedure for deciding if each instance of $C3GSM$ of size $
 \item Let $I$ be the partially specified instance of $C3GSM$ of size $5$ with extender $(0,0)$ and length $1$.
 \item While $\cE(I) \neq \emptyset$ or $\cP(I) \neq I$
 	\begin{enumerate}
-	\item If $I$ is stable via a lemma of \ref{subsec:sufficient} or the graph underlying $I$ does not satisfy lemma \ref{lemma:nec-symmetry} then set $\cE(I) \leftarrow \emptyset$ and $I \leftarrow \cP(I)$, and continue to the next iteration of step $2$.
+	\item If $I$ is stable via a lemma of \ref{subsec:sufficient} or the graph underlying $I$ does not satisfy a conclusion of lemma \ref{lemma:nec-symmetry} then set $\cE(I) \leftarrow \emptyset$ and $I \leftarrow \cP(I)$, and continue to the next iteration of step $2$.
 	\item Else If $\cE(I) = \emptyset$ then return $I$ as a counterexample to conjecture \ref{conj:stab}
 	\item Otherwise let $E \in \cE(I)$. Remove $E$ from $\cE(I)$ and set $I \leftarrow E$. 
 	\end{enumerate}
 \item If While loop terminates with no counterexample found then conjecture \ref{conj:stab} is proven for $n=5$ and return that it is so.
 \end{enumerate}
-\paragraph{}
-The intuition behind this approach is that we can often conclude that a problem instance has a stable matching without looking at all the preferences of each vertex. Recall, for instance that if there is a cycle of vertices, all respective first choices of each other, then there is a stable matching. The goal is to develop enough theory of lemmas that imply stable matchings as in subsection \ref{subsec:sufficient} that we can eliminate many instances in step $2(a)$ early on in execution. To see the benefit of this suppose we eliminate in step $2(a)$ a partially specified instance that has only specified each vertex's first choice. There are $(4!)^{15}$ possible fully specified instances of $C3GSM$ that can be obtained from said instance via a sequence of extensions that we do not need to check now.
 \paragraph{On using lemmas of subsection \ref{subsec:sufficient}}
-In step $2(a)$ it may not be clear how to use the lemmas of \ref{subsec:sufficient} to conclude that $I$ is stable. This is actually easier to verify in many cases than is immediately apparent. If one can form a matching in $I$ that only matches vertices with those that they have specified a ranking for (first choice, second choice, etc.) then it is easy to see which vertices they prefer to the matching. When the $k$-th choice of a vertex in an extension is specified all their $k-1$-th choices have previously been specified. Most lemmas only need knowledge of the vertices preferred by a vertex to their partner, and so for them just match as above and check the lemma's conditions directly. There is a notable exception in lemma \ref{lemma:fixing} which we use in a slightly different way.
+In step $2(a)$ it may not be clear how to use the lemmas of subsection \ref{subsec:sufficient} to conclude that $I$ is stable. This is actually easier to verify in many cases than is immediately apparent. If one can form a matching in $I$ that only matches vertices with those that they have specified a ranking for (first choice, second choice, etc.) then it is easy to see which vertices they prefer to the matching. When the $k$-th choice of a vertex in an extension is specified all their choices of rank less than $k$ have previously been specified. Lemmas \ref{lemma:partialstab}, \ref{lemma:comp-match}, \ref{lemma:comp-match-2}, and \ref{lemma:genderstab} can be checked on this basis without worry that any descendant instances would violate their hypothesis. This follows since descendant instances are generated by a sequence of extensions which do not alter the set of vertices preferred by any matched vertex to their partner. There is a notable exception in lemma \ref{lemma:fixing} which we use in a slightly different way.
 \paragraph{Fixing Choices With Lemma \ref{lemma:fixing}}
-Lemma \ref{lemma:fixing} requires knowledge of a vertex's last choice in order to conclude that the given problem instance has a stable matching. Unfortunately lemmas which rely on last choices don't naturally lend themselves to cutting instances from consideration early on via step $2(a)$. There is an alternative approach to using them though. Suppose there is a partially specified instance $I$ and matching $M$ for which each vertex except for $a$ that is matched in $I$ is matched to a partner that they have already specified their ranking for in $I$, and all vertices $a$ has specified a ranking for are matched in $M$. Also suppose that $M$ satisfies all the requirements of lemma \ref{lemma:fixing} except for the requirement that $a$'s last choice is unmatched in $M$ (as a consequence of not knowing $a$'s last choice). Then by lemma \ref{lemma:fixing} any fully specified instance of $C3GSM$ extended from $I$ wherein $M(a)$ is not the last choice of $a$ is one where $a$'s last choice is unmatched in $M$ and hence has a stable matching. Thus we know we need only consider extensions where $M(a)$ is the last choice of $a$. If one can find another such matching $M'$ with $M'(a) \neq M(a)$ then we know $I$ has a stable matching since the last choice of $a$ cannot simultaneously be $M'(a)$ and $M(a)$.
+Lemma \ref{lemma:fixing} requires knowledge of a vertex's last choice in order to conclude that the given problem instance has a stable matching. Unfortunately lemmas which rely on last choices don't naturally lend themselves to cutting instances from consideration early on via step $2(a)$. There is an alternative approach to using them though. Suppose there is a partially specified instance $I$ and matching $M$ for which each vertex except for $a$ that is matched in $I$ is matched to a partner that they have already specified their ranking for in $I$, and all vertices $a$ has specified a ranking for are matched in $M$. Also suppose that $M$ satisfies all the requirements of lemma \ref{lemma:fixing} except for the requirement that $a$'s last choice is unmatched in $M$ (as a consequence of not knowing $a$'s last choice). Then by lemma \ref{lemma:fixing} any fully specified instance of $C3GSM$ extended from $I$ wherein $M(a)$ is not the last choice of $a$ is one where $a$'s last choice is unmatched in $M$ and hence has a stable matching. Thus we know we need only consider extensions where $M(a)$ is the last choice of $a$. If one can find another such matching $M'$ with $M'(a) \neq M(a)$ then we know $I$ is stable since the last choice of $a$ cannot simultaneously be $M'(a)$ and $M(a)$.
+\paragraph{Correctness of Algorithm}
+With the prior discussion in mind it becomes clear that the computer search procedure works. If the graph underlying some partially specified instance $I$ does not satisfy a conclusion of lemma \ref{lemma:nec-symmetry} then no instance of $C3GSM$ which is a descendant of $I$ will satisfy that same conclusion and thus is not the lexicographical minimum instance of its equivalence class. Therefore step $2(a)$ only eliminates instances of $C3GSM$ which not lexicographical minima or have a stable matching by a lemma of subsection \ref{subsec:sufficient}. In the former case, by lemma \ref{lemma:equiv}, we need not consider this instance as it has a stable matching if and only if the lexicographical minimum of its equivalence class, which we do consider, has a stable matching. In the latter case the sufficient condition lemmas tell us directly we need not consider these instances as they have a stable matching. Hence all removed instances during the execution of the computer search algorithm have a stable matching or are equivalent to an instance considered by the algorithm. Furthermore all instances of $C3GSM$ are considered since they all are descendants of the ``empty" instance the algorithm starts running with.
+\paragraph{}
+The intuition behind our computer search procedure is that we can often conclude that a problem instance has a stable matching without looking at all the preferences of each vertex. Recall, for instance that if there is a cycle of vertices, all respective first choices of each other, then there is a stable matching. The goal is to develop enough theory of lemmas that imply stable matchings as in subsection \ref{subsec:sufficient} that we can eliminate many instances in step $2(a)$ early on in execution. To see the benefit of this suppose we eliminate in step $2(a)$ a partially specified instance that has only specified each vertex's first choice. There are $(4!)^{15}$ possible fully specified instances of $C3GSM$ that can be obtained from said instance via a sequence of extensions that we do not need to check now.
 \paragraph{Results of Computational Experiments}
 We implemented our computer search algorithm in Java (see \href{https://github.com/tothw/cyclicstablematching}{github.com/tothw/cyclicstablematching} for our source code). We were unsuccessful in getting the algorithm to terminate but we were able to eliminate many preferences. We are confident that our computations are close to proving that all $C3GSM$ instances of size $5$ admit a stable matching or finding a counterexample to \ref{conj:stab}. Our confidence comes from the observation that the current implementation very rarely needs to go deeper than specifying every vertices second choice to decide that the instance has a stable matching. However our computations have not terminated yet, so nothing can be said about the conjecture for $n=5$ at this time. On the other hand for considering instance of size $n \geq 6$ we will need considerably more ideas characterizing when an instance has a stable matching in order to hope that the computational approach will go through.
