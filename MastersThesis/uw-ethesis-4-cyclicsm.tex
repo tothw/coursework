@@ -100,7 +100,7 @@ We mention a few things here that are immediately obvious from the definition of
 \end{itemize}
 \end{note}
 \paragraph{}
-Sometimes we want to talk about the vertices that some given vertices can form blocking triples with. The following definition captures this idea.
+Sometimes we want to talk about the vertices that some given vertices can form blocking triples with. The following definition defines a superset of such vertices which we will study in our subsequent lemmas.
 \begin{definition}
 Let $G$ be the hypergraph underlying an instance of $C3GSM$. Let $W \subseteq V(G)$. We define $\cD(G,M, W) = \{w \in \cD(G,M): \exists v\in W: w>_v M(v) \}$.
 \end{definition}
@@ -113,23 +113,27 @@ Let $G=(A\cup B \cup C, E)$ be a hypergraph underlying an instance of $C3GSM$ of
 Let $G' = G[V(G)\backslash V(M)]$ be the subgraph of $G$ induced by vertices unmatched in $M$.  Consider the instance of $C3GSM$ with underlying hypergraph $G'$ and preference orders induced by $G$. Since $M \neq \emptyset$ the size of this new instance is at most $n-1$. Hence by conjecture \ref{conj:stab} there exists a stable matching $M'$ in $G'$. Let $S = M \cup M'$. Then $S$ is a perfect matching in $G$. We claim that $S$ is stable. Indeed since $M \subseteq S$ and $V(M) \cap \cD(G,M) = \emptyset$ we have that $V(M) \cap \cD(G,S) = \emptyset$. So $\cD(G,S) \subseteq V(M')$. Since $V(M') = V(G')$ if $\cD(G,S)$ is non-empty then $\cD(G', M')$ is non-empty, contradicting that $M'$ is a stable matching in $G'$. Thus $\cD(G,S) = \emptyset$ and therefore $S$ is a stable matching in $G$.
 \end{proof}
 
+\begin{definition}
+Let $G$ be a hypergraph underlying an instance of $C3GSM$ and let $M$ be a matching in $G$. We define the set of vertices higher ranked than any partner of a matched vertex as $$\cS(G,M) = \{w \in V(G): \exists v \in V(M), w >_v M(v)\}.$$
+\end{definition}
+
 \paragraph{}
-The condition in the lemma \ref{lemma:inductive} that $V(M) \cap \cD(G,M) = \emptyset$ is not very useful for our computer search to be described in \ref{sec:computersearch} because we are operating with partial information about preferences in that context. We propose a stronger requirement which is easier to verify with partial information. The conditions $\cB(G[V(M)], M) = \emptyset$ and $\{w \in V(G): \exists v \in V(M), w >_v M(v)\} \subseteq V(M)$ together imply that $V(M) \cap \cD(G,M) = \emptyset$. In the proof of the following lemma this will be made clear.
+The condition in lemma \ref{lemma:inductive} that $V(M) \cap \cD(G,M) = \emptyset$ is not very useful for our computer search to be described in \ref{sec:computersearch} because we are operating with partial information about preferences in that context. We propose a stronger requirement which is easier to verify with partial information. The conditions $\cB(G[V(M)], M) = \emptyset$ and $\cS(G,M) \subseteq V(M)$ together imply that $V(M) \cap \cD(G,M) = \emptyset$. In the proof of the following lemma this will be made clear.
 
 \begin{lemma}\label{lemma:partialstab}
-Let $G = (A\cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$ of size $n$ where $n-1$ is the best known size that  satisfies conjecture \ref{conj:stab}. Suppose that $G$ has a non-empty matching $M$ for which $\cB(G[V(M)],M) = \emptyset$. If $$\{w \in V(G): \exists v \in V(M), w >_v M(v)\} \subseteq V(M)$$ then $G$ has a stable matching.
+Let $G = (A\cup B \cup C, E)$ be the hypergraph for an instance of $C3GSM$ of size $n$ where $n-1$ is the best known size that  satisfies conjecture \ref{conj:stab}. Suppose that $G$ has a non-empty matching $M$ for which $\cB(G[V(M)],M) = \emptyset$. If $$\cS(G,M) \subseteq V(M)$$ then $G$ has a stable matching.
 \end{lemma}
 \begin{proof}
 Let $a \in V(M)$. Suppose there exists $abc \in \cB(G,M)$. Since $b >_a M(a)$ and $a \in V(M)$, we have that $b \in V(M)$. Similarly since $c >_b M(b)$ we have that $c \in V(M)$. Further since $a >_c M(a)$ we have that $abc \in \cB(G[V(M)],M)$, contradicting that $\cB(G[V(M)],M) = \emptyset$. Hence for all $e \in \cB(G,M)$, $a \not\in e$. Thus $a\not \in \cD(G,M)$ and therefore $V(M) \cap \cD(G,M) = \emptyset$. So by lemma \ref{lemma:inductive} $G$ has a stable matching.
 \end{proof}
 \paragraph{Example}
-Consider the following instance of $C3GSM$ and focus on the bolded preferences:
+Consider the following instance of $C3GSM$ with $\dots$ denoting arbitrary preferences:
 \begin{align*}
-a_0 &: \boldsymbol{b_1} > \boldsymbol{b_0} > b_2 > b_3 > b_4    &b_0: \boldsymbol{c_1} > \boldsymbol{c_0}  > c_2 > c_3 > c_4   &\ &c_0:\boldsymbol{a_1} > \boldsymbol{a_0} > a_2 > a_3 > a_4\\
-a_1 &: \boldsymbol{b_0} > \boldsymbol{b_1} > b_4 > b_2 > b_3    &b_1: \boldsymbol{c_0} > \boldsymbol{c_1}  > c_3 > c_4 > c_2  &\ &c_1:\boldsymbol{a_0} > \boldsymbol{a_1} > a_2 > a_3 > a_4\\
-a_2 &: b_2 > b_1 > b_0 > b_3 > b_4    &b_2: c_2 > c_1 > c_3 > c_4 > c_0    &\ &c_2: a_0 > a_2 > a_3 > a_4 > a_1\\
-a_3 &: b_1 > b_0 > b_3 > b_4 > b_3    &b_0': c_3 > c_4 > c_2 > c_1 > c_0   &\ &c_3:a_1 > a_0 > a_3 > a_2 > a_4 \\
-a_4 &: b_0 > b_2 > b_3 > b_4 > b_1    &b_1': c_0 > c_1 > c_2 > c_3 > c_4   &\ &c_4:a_4 > a_3 > a_2 > a_1 > a_0\\
+a_0 &: \boldsymbol{b_1} > \boldsymbol{b_0} > \dots    &&b_0: \boldsymbol{c_1} > \boldsymbol{c_0}  > \dots  &\ &c_0:\boldsymbol{a_1} > \boldsymbol{a_0} > \dots\\
+a_1 &: \boldsymbol{b_0} > \boldsymbol{b_1} > \dots    &&b_1: \boldsymbol{c_0} > \boldsymbol{c_1}  > \dots  &\ &c_1:\boldsymbol{a_0} > \boldsymbol{a_1} >\dots \\
+a_2 &: \dots    &&b_2: \dots   &\ &c_2: \dots\\
+a_3 &: \dots    &&b_3: \dots   &\ &c_3:\dots \\
+a_4 &: \dots    &&b_4: \dots   &\ &c_4:\dots\\
 \end{align*}
 Matching $M = \{a_0b_0c_0, a_1b_1c_1\}$ satisfies lemma \ref{lemma:partialstab}. Therefore $M$ and any stable matching of $a_2,a_3,a_4,b_2,b_3,b_4,c_2,c_3,c_4$ together form a stable matching in this problem instance.
 \begin{corollary}\label{cor:1cycle}
@@ -203,7 +207,7 @@ and for all $a \in A \backslash V(M)$, $f(G[V(G)\backslash V(M)], a, 1) = b$. Th
 \caption{Visualizing lemma \ref{lemma:partial-match}}
 \small
 \begin{flushleft}
-Solid arcs indicate matching $M$, and are labelled with $\cD(G,M,\{t\})$ where $t$ is the tail vertex of the arc. Dashed arcs indicate first choice of tail vertex outside $V(M)$.
+Solid arcs indicate matching $M$, and are labelled vertices tail of arc prefers to their match. Dashed arcs indicate first choice of tail vertex outside $V(M)$.
 \end{flushleft}
 \end{figure}
 
@@ -222,7 +226,7 @@ $$\cD(G,M,V(M) \cap B ) = \{c\}.$$
 Then $G$ has a stable matching.
 \end{lemma}
 \begin{proof}
-Let $G' = G[V(G)\backslash V(M)]$ be the subgraph of $G$ induced by vertices unmatched in $M$. Let $c' = f(G',b,1)$ be the first choice of $b$ unmatched in $M$. We consider two cases: when $c' = c$ and when $c' \neq c$.
+Let $G' = G[V(G)\backslash V(M)]$ be the subgraph of $G$ induced by vertices unmatched in $M$. Let $c' = f(G',b,1)$ be the first choice of $b$ among unmatched vertices in $M$. We consider two cases: when $c' = c$ and when $c' \neq c$.
 
 \paragraph{} First consider when $c' = c$.  Let $a' = f(G',c', 1)$ be the first choice of $c'$ unmatched in $M$. Let $T = \{a'bc\}$. Let $M' = M \cup T$. We will show $V(M') \cap \cD(G,M') =\emptyset$. Let $v \in V(M')$. We give the following case analysis on $v$:
 \begin{itemize} 
@@ -248,23 +252,23 @@ Just as we did with lemma \ref{lemma:inductive} and lemma \ref{lemma:partialstab
 
 \begin{lemma}\label{lemma:comp-match}
 Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$ where $n-1$ is the best known size satisfying conjecture \ref{conj:stab}. Let $M$ be a matching in $G$. Suppose that $\cB(G[V(M)], M) = \emptyset$, and 
-$$ \{w \in V(G): \exists v \in V(M), w>_v M(v)\} \cap (B \cup C) \subseteq V(M)$$
+$$ \cS(G,M) \cap (A \cup C) \subseteq V(M)$$
 and that there exists $b \in B\backslash V(M)$ satisfying
-$$\{w \in V(G): \exists v \in V(M)\cap A, w>_v M(v)\} \subseteq \{b\} \cup V(M)$$
+$$\cS(G,M)\cap B \subseteq \{b\} \cup V(M)$$
 and for all $a \in A \backslash V(M)$, $f(G[V(G)\backslash V(M)], a, 1) = b$. Then $G$ has a stable matching.
 \end{lemma}
 
 \begin{proof}
-Similarly to the proof of lemma \ref{lemma:partialstab} the conditions $$\cB(G[V(M)], M) = \emptyset$$ and $$\{w \in V(G): \exists v \in V(M), w>_v M(v)\} \cap (B \cup C) \subseteq V(M)$$ imply that $$V(M) \cap (B\cup C) \cap \cD(G,M) = \emptyset.$$ Further $$\{w \in V(G): \exists v \in V(M)\cap A, w>_v M(v)\} \subseteq \{b\} \cup V(M)$$ implies similarly that $$\cD(G, M, V(M) \cap A) = \{b\}.$$ Thus by lemma \ref{lemma:partial-match} $G$ has a stable matching.
+Similarly to the proof of lemma \ref{lemma:partialstab} the conditions $$\cB(G[V(M)], M) = \emptyset$$ and $$\cS(G,M) \cap (A \cup C) \subseteq V(M)$$ imply that $$V(M) \cap (B\cup C) \cap \cD(G,M) = \emptyset.$$ Further $$\cS(G,M) \cap B \subseteq \{b\} \cup V(M)$$ implies similarly that $$\cD(G, M, V(M) \cap A) = \{b\}.$$ Thus by lemma \ref{lemma:partial-match} $G$ has a stable matching.
 \end{proof}
 
 \begin{lemma}\label{lemma:comp-match-2}
 Let $G=(A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ such that $|M| \geq n-3$. Suppose that $\cB(G[V(M)],M) = \emptyset$, and
-$$\{w \in V(G): \exists v \in V(M), w>_v M(v)\} \cap C \subseteq V(M)$$
+$$\cS(G,M) \cap A \subseteq V(M)$$
 and there exists $b \in B \backslash V(M)$ satisfying
-$$\{w \in V(G): \exists v \in V(M)\cap A, w>_v M(v)\} \subseteq \{b\} \cup V(M)$$
+$$\cS(G,M) \cap B \subseteq \{b\} \cup V(M)$$
 and for all $a \in A \backslash V(M)$, $f(G[V(G)\backslash V(M)], a, 1) = b$. Suppose also that there exists $c \in C \backslash V(M)$ satisfying
-$$\{w \in V(G): \exists v \in V(M)\cap B, w>_v M(v)\} \subseteq \{c\} \cup V(M).$$ 
+$$\cS(G,M) \cap C \subseteq \{c\} \cup V(M).$$ 
 Then $G$ has a stable matching.
 \end{lemma}
 \begin{proof}
@@ -277,7 +281,9 @@ Another idea in finding stable matchings is to consider vertices left out of mat
 \begin{lemma}\label{lemma:fixing}
 Let $G = (A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM$ of size $n$. Let $M$ be a matching in $G$ with $\size{M} = n-2$. Suppose there exists $a \in A \cap V(M)$ such that $$V(M) \cap \cD(G,M) = \{a\}.$$ If $f(G, a, $n$)$ is not in $V(M)$ then $G$ has a stable matching.
 \end{lemma}
-\begin{figure}[h]
+\paragraph{}
+In figure \ref{figure:fixing} we see that vertex $a_2$ is the only vertex in $V(M)$ blocking the matching. It prefers only $b_3$ to its partner and $b_4$ is the last choice of $a2$. Since $b_4$ is unmatched in $M$ and $\size(M) = 3 = 5 - 2$ we see that this example satisfies the conditions of lemma \ref{lemma:fixing}.
+\begin{figure}[h]\label{figure:fixing}
 \centering
 \begin{tikzpicture}
 \Vertex[x=0,y=6,L=$a_0$]{a0}
@@ -325,6 +331,7 @@ Let $G = (A\cup B \cup C, E)$ be the hypergraph underlying an instance of $C3GSM
 Solid arcs indicate matching $M$, and are labelled with $\cD(G,M,\{t\})$ where $t$ is the tail vertex of the arc. In this figure $b_4$ is the last choice of $a_2$.
 \end{flushleft}
 \end{figure}
+\paragraph{}
 \begin{proof}
 By the size of $M$ there exists $b,b' \in B$ such that $\{b,b'\} = B \backslash V(M)$. Without loss say that $b = f(G, a, n)$. Let $G' = G[V(G)\backslash V(M)]$ and let $c' = f(G',b', 1)$. Let $a' \in A\backslash V(M)$. Let $T = \{a'b'c'\}$ and let $T' = \{a''bc''\}$ where $a''$ and $c''$ the remaining two vertices unmatched in $M$ or $T$. Then $S = M \cup T \cup T'$ is a perfect matching of $G$. We claim that $S$ is stable.
 \paragraph{}
@@ -332,11 +339,11 @@ Let $v \in V(G)$. We will show that $v \not\in \cD(G,S)$ and thus that $S$ is st
 \end{proof}
 
 \paragraph{Stabilizing $A,B,C$:}
-The previous lemmas have the common theme of building matchings that have no blocking triples in the hypergraph then using induction to make the matching perfect. The following lemma and corollary take a different strategy. Whereas before we tried to create a matching where matched vertices have no blocking triples even with unmatched vertices, alternatively we can attempt to pair all the vertices in one of $A,B,C$ with a partner in such a way that none of them will participate in a blocking triple.
+The previous lemmas have the common theme of building matchings that have no blocking triples in the hypergraph among the matched vertices then using induction to make the matching perfect. The following lemma and corollary take a different strategy. Whereas before we tried to create a matching where matched vertices have no blocking triples even with unmatched vertices, alternatively we can attempt to pair all the vertices in one of $A,B,C$ with a partner in such a way that none of them will participate in a blocking triple.
 \paragraph{}
 A motivation to consider this different approach comes from the context we intend to use these lemmas. In our computer search procedure to be defined in \ref{sec:computersearch} we use these lemmas to eliminate instances of $C3GSM$ from consideration without actually finding a stable matching. A desirable feature in these lemmas is that they can eliminate instances with minimal knowledge of vertices preferences. That is a lemma that can prove a stable matching exists only considering $f(G,v,1)$ for all $v$ is preferable to one that also needs to check $f(G,v,2)$.
 \paragraph{}
-With the above motivation in mind, the intuitive difference between the lemmas previously described and those to be described is that the previous lemmas capture a lot of instances where vertices of $A$ or $B$ or $C$ largely agree on which vertices are high ranking in terms of preferences. For example when there is a $1,1,1$ triple corollary \ref{cor:1cycle} proves the existence of a stable matching. A distinctly difference situation, but still operating within the first choices of vertices occurs when there are no $1,1,1$ triples, but each vertex in $A$ has a different first choice vertex in $B$. Then one of corollaries to follow, corollary \ref{cor:alldiff}, say that there is a stable matching in this instance.
+With the above motivation in mind, the intuitive difference between the lemmas previously described and those to be described is that the previous lemmas capture a lot of instances where vertices of $A$ or $B$ or $C$ largely agree on which vertices are high ranking in terms of preferences. For example when there is a $1,1,1$ triple corollary \ref{cor:1cycle} proves the existence of a stable matching. A distinctly difference situation, but still operating within the first choices of vertices occurs when there are no $1,1,1$ triples, but each vertex in $A$ has a different first choice vertex in $B$. Then one of the corollaries to follow, corollary \ref{cor:alldiff}, says that there is a stable matching in this instance.
 \begin{lemma}\label{lemma:genderstab}
 Let $G=(A\cup B\cup C, E)$ be the hypergraph underlying an instance of $C3GSM$. Let $M$ be a perfect $A$-$B$ matching (that is a perfect matching of the underlying complete bipartite graph between $A$ and $B$). Let $B' = \{ b \in B : \exists a \in A : b >_a M(a) \}$. Hence $B'$ is the set of vertices through which agents of $A$ can form blocking triples. If for all $b, b' \in B'$, $f(G,b,1) \neq f(G,b',1)$ then $G$ has a stable matching.
 \end{lemma}
@@ -402,9 +409,9 @@ Observe that $M = \{ab : b = f(G,a,1)\}$ is a perfect $A$-$B$ matching since $f(
 \paragraph{}
 We will now turn our attention towards formulating an equivalence relation on instances of $C3GSM$. In doing so we hope to answer the question ``when does knowledge that one instance of $C3GSM$ has a stable matching translate to knowing that another instance does?". This question is motivated by our efforts to design a computer search protocol in the next subsection. In checking if all $C3GSM$ instances of a certain size have a stable matching it is desirable to avoid repeated work by not checking instances ``symmetric" to one already checked.
 \begin{definition}
-Let $G$ and $H$ be two hypergraphs underlying distinct instances of $C3GSM$. We say that $G$ and $H$ are equivalent in the sense that they denote symmetric problem instances, written $G \equiv H$ if there exists a bijection $\phi: V(G) \rightarrow V(H)$ such that for all $v \in V(G)$,
+Let $G$ and $H$ be two hypergraphs underlying distinct instances of $C3GSM$. Let $>_v$ for $v\in V(G)$ denote the orders associated with vertices in $G$. Let $>'_v$ for $v \in V(H)$ denote the orders associated with vertices in $H$. We say that $G$ and $H$ are equivalent in the sense that they denote symmetric problem instances, written $G \equiv H$ if there exists a bijection $\phi: V(G) \rightarrow V(H)$ such that for all $v \in V(G)$,
  \begin{equation}\label{cond:order}
- w >_v u \text{ if and only if } \phi(w) >_{\phi(v)} \phi(u).
+ w >_v u \text{ if and only if } \phi(w) >'_{\phi(v)} \phi(u).
  \end{equation}
  \end{definition}
 \begin{note}
@@ -420,21 +427,34 @@ It is clear that $\equiv$ is an equivalence relation. Through the identity bijec
  It is not hard to see that since $M$ is a matching and $\phi$ is a bijection that $\phi(M)$ is a matching. Suppose for a contradiction that $\phi(M)$ is not stable for $H$. Let $xyz$ be a blocking triple of $\phi(M)$ against $H$. Let $abc = \phi^{-1}(x)\phi^{-1}(y)\phi^{-1}(z)$. By our definition of $\phi(M)$, $abc \not\in M$. Further since $y >_x \phi(M)(x)$, by the definition of $\phi$ we have $b >_a M(a)$. Similarly $c>_b M(b)$ and $a>_c M(c)$. Thus $abc$ is a blocking triple of $M$, a contradiction.
  \end{proof}
  \begin{note}\label{note:labels}
- Since we require that $\phi$ is a bijection it is necessary that $G$ and $H$ underly instances of $C3GSM$ of the same size, say $n$. Let $V(G)$ be partitioned as $V(G)_0 \cup V(G)_1 \cup V(G)_2$ since $G$ is tripartite. Let $i \in \{0,1,2\}$. Since each $V(G)_i$ is of size $n$ we may label the elements of $V(G)_i$ as $(i,0), \dots, (i,n-1)$. We may induce the same labelling on $V(H)$. Then $\phi$ is a bijection from $Z_3 \times Z_n$ to itself which preserves each vertex's order of its neighbours (and consequently the graph incidence structure). So we can say a few things about $\phi$ from this perspective.
+ Since we require that $\phi$ is a bijection it is necessary that $G$ and $H$ underly instances of $C3GSM$ of the same size, say $n$. Let $V(G)$ be partitioned as $V(G)_0 \cup V(G)_1 \cup V(G)_2$ since $G$ is tripartite. Let $i \in \{0,1,2\}$. Since each $V(G)_i$ is of size $n$ we may label the elements of $V(G)_i$ as $(i,0), \dots, (i,n-1)$. We may use the same labelling convention for $V(H)$. Then $\phi$ is a bijection from $Z_3 \times Z_n$ to itself which preserves each vertex's order of its neighbours (and consequently the graph incidence structure). So we can say a few things about $\phi$ from this perspective.
  \end{note}
- \paragraph{Observations} Firstly by $\ref{cond:order}$ we must preserve the graph structure. Hence for any $i \in \{0,1,2\}$ there exists $j \in \{0,1, 2\}$ such that $\phi(V_i) = V_j$ otherwise the tripartite structure fails. Furthermore if $\phi(V_i) = V_j$ then $\phi(V_{i+1}) = V_{j+1}$ with addition taken modulo $3$. Again this follows from condition \ref{cond:order}.
+ \paragraph{Observations} Firstly by $\ref{cond:order}$ we must preserve the graph structure. Hence for any $i \in \{0,1,2\}$ there exists $j \in \{0,1, 2\}$ such that $\phi(V_i) = V_j$ otherwise the graph $H$ is not tripartite. Furthermore if $\phi(V_i) = V_j$ then $\phi(V_{i+1}) = V_{j+1}$ with addition taken modulo $3$. Again this follows from condition \ref{cond:order}.
 \paragraph{}
-Together the previous observations limply that there exists $r \in \{0,1,2\}$ such that $\phi(V_i) = V_{i+r}$ for any $i \in\{0,1,2\}$. Hence we can specify $\phi$ by $(r,\Pi)$ where $\Pi = \{\pi_0, \pi_1,\pi_2\}$ is a family of three permutations $\pi_i$ on $\Z_5$, one for each part $V(G)_i$. In specifying $\phi=(r,\Pi)$ we require that $(r,\Pi)$ satisfying a translation of condition \ref{cond:order} for all $(i,a) \in V(G)$
+Together the previous observations imply that there exists $r \in \{0,1,2\}$ such that $\phi(V_i) = V_{i+r}$ for any $i \in\{0,1,2\}$. Hence we can specify $\phi$ by $(r,\Pi)$ where $\Pi = \{\pi_0, \pi_1,\pi_2\}$ is a family of three permutations $\pi_i$ on $\Z_5$, one for each part $V(G)_i$. In specifying $\phi=(r,\Pi)$ we require that $(r,\Pi)$ satisfying a translation of condition \ref{cond:order} for all $(i,a) \in V(G)$; that is, 
 \begin{equation}\label{cond:orderT}
 (i+1,b) >_{(i,a)} (i+1, b') \text{ if and only if } (i+1+r, \pi_{i+1}(b)) >_{(i+r,\pi_i(a))} (i+1+r, \pi_{i+1}(b')).
 \end{equation}
 \paragraph{}
 Of interest to us are the equivalence classes of a given problem instance under $\equiv$. For a hypergraph $G$ underlying an instance of $C3GSM$ we will denote the equivalence class containing $G$ by $[G]$. In a procedure to test whether instances of $C3GSM$ of a certain size have stable matchings one can hope to avoid unnecessary repeated work by only testing one representative from $[G]$ instead of all instances in $[G]$. We will now define a strict total order on instances of $C3GSM$ of size $n$, with the goal of obtaining a method to test only the minimum element with respect to this order for each equivalence class $[G]$.
+\paragraph{}
+To define an order on instances of $C3GSM$ of size $n$ we will translate instances into finite sequences then apply a natural lexicographic order to said sequences. The next sequence of definitions will make this formal.
 \begin{definition}
-We will use the symbol $>_{lex}$ to denote our lexicographical order of instances of $C3GSM$ of a given size $n$. Let $G$ and $H$ be hypergraphs underlying size $n$ instances of $C3GSM$. We will translate $G$ and $H$ to finite sequences and apply the natural lexicographical order to said sequences. The sequence $seq(G)$ will consist of appending sequences for each of its vertex partitions as $seq(G) = seq(G,0)seq(G,1)seq(G,2)$ to be defined as follows. Let $i \in \{0,1, 2\}$.  We define $seq(G,i)$ by appending sequences for each vertex of $V(G)_i$. Formally $seq(G,i) = seq(G,i,0)\dots seq(G,i,4)$ where for each $j \in \{0,\dots, n-1\}$,
-$$seq(G,i,j) = f(G,(i,j),1)f(G,(i,j),2)\dots f(G,(i,j),n).$$
-So for instance $seq(G,0, 0)$ is obtained by appending the first through $n$-th choices of vertex $0$ in $V(G)_0$. We sometimes will refer to $seq(G,0,0)$ as $(0,0)$'s preference list. So $seq(G)$ consists of appending the preference lists of vertices $0$ through $n-1$ of $V(G)_0$ followed by appending the same for $V(G)_1$ and finally $V(G)_2$.
-We say $G >_{lex} H$ if $seq(G)$ is lexicographically larger than $seq(H)$. That is there exists some $k$ such that
+Let $G$ be a hypergraph underlying an instance of $C3GSM$ of size $n$. Let $i \in \{0,1,2\}$ and let $j \in \{0,\dots,n-1\}$. We define
+$$seq(G,i,j) = f(G,(i,j),1)f(G,(i,j),2)\dots f(G,(i,j),n)$$
+to be the sequence of first through to last choices for vertex $(i,j)$.We sometimes will refer to $seq(G,i,j)$ as $(i,j)$'s preference list.
+\end{definition}
+\begin{definition}
+Let $G$ be a hypergraph underlying an instance of $C3GSM$ of size $n$. Let $i \in \{0,1,2\}$. We define a sequence for each vertex partition, $seq(G,i)$, by appending $seq(G,i,j)$ for each $j \in \{0, \dots, n-1\}$.  Formally we say
+$$seq(G, i) = seq(G,i,0)\dots seq(G,i,n-1).$$
+\end{definition}
+\begin{definition}
+Let $G$ be a hypergraph underlying an instance of $C3GSM$ of size $n$. We define our sequence for $G$, $seq(G)$ by appending the sequences corresponding to each vertex partition. Formally we have
+$$seq(G) = seq(G,0)seq(G,1)seq(G,2).$$
+So $seq(G)$ consists of appending the preference lists of vertices $0$ through $n-1$ of $V(G)_0$ followed by appending the same for $V(G)_1$ and finally $V(G)_2$.
+\end{definition}
+\begin{definition}
+We will use the symbol $>_{lex}$ to denote our lexicographical order of instances of $C3GSM$ of a given size $n$. Let $G$ and $H$ be hypergraphs underlying size $n$ instances of $C3GSM$. We say $G >_{lex} H$ if $seq(G)$ is lexicographically larger than $seq(H)$. That is there exists some $k$ such that
 $$seq(G)_k > seq(H)_k$$
 and for all $i < k$
 $$seq(G)_i = seq(H)_i.$$
@@ -472,20 +492,20 @@ and thus by the lexicographic minimality of $G$, $seq(G) \leq_{lex} seq(H)$ and 
 \paragraph{}
 Our goal now is to describe a computer search procedure to test all instances of $C3GSM$ for a given size $n$ under the assumption that for $k<n$ it is known that all instances of $C3GSM$ have a stable matching. In our case we study $n=5$. A major challenge towards solving this problem computationally is that enumerating all instances of $C3GSM$ would be infeasible. For each vertex there is one possible preference order or each permutation of $\{1,\dots,n\}$. There are $3n$ such vertices, and thus there are $(5!)^{15}$ possible problem instances for $C3GSM$ with size $5$. 
 \paragraph{}
-We resolve to overcome the sheer number of possible $C3GSM$ instances by eliminating instances from consideration using our symmetry and sufficient checks theory from the previous subsections. Our approach is based on the idea that if we relax the total orders to partial orders giving only the first few preferences of each vertex and can find a perfect stable matching then any $C3GSM$ instance that results from completing the partial order will also have said stable matching. The following theory formalizes this idea. Herein and henceforth we use the ordered pair labeling for vertices of $G$ as outlined in note \ref{note:labels}.
+We resolve to overcome the sheer number of possible $C3GSM$ instances by eliminating instances from consideration using our symmetry and sufficiency checks theory from the previous subsections. Our approach is based on the idea that if we relax the total orders to partial orders giving only the first few preferences of each vertex and can find a perfect stable matching then any $C3GSM$ instance that results from completing the partial order will also have said stable matching. The following theory formalizes this idea. Herein and henceforth we use the ordered pair labeling for vertices of $G$ as outlined in note \ref{note:labels}.
 \begin{definition}
 A partially specified instance of $C3GSM$ of size $n$ provides a complete $3$-partite hypergraph $G$, as in an instance of $C3GSM$, but not the total orders for each of the vertices of $G$. In our partially specified instance there exists a vertex $(g,v)$ called the extender, and an integer $\ell \in \{1, \dots, n+1\}$ called the length satisfying that:
 \begin{enumerate}
 \item For all $(h,w)$ where $h < g$, or $h=g$ and $w < v$ we have that 
 $$f(G, (h,w), 1), \dots, f(G,(h,w),\ell)$$
-are specified in the order of $(h,w)$, and 
+are specified in the partial order of $(h,w)$, and 
 $$f(G, (h,w), \ell+1), \dots, f(G, (h,w), n)$$
-are not specified in the order of $(h,w)$.
+are not specified in the partial order of $(h,w)$. That is, $(h,w)$ specifies their top-ranked $\ell$ preferences in their partial order.
 \item For all $(h,w)$ where $h = g$ and $w \geq v$, or $h > g$ we have that
 $$f(G, (h,w), 1), \dots, f(G, (h,w), \ell -1)$$
-are specified in the order of $(h,w)$ and
+are specified in the partial order of $(h,w)$ and
 $$f(G, (h,w), \ell), \dots, f(G,(h,w), n)$$
-are not specified in the order of $(h,w)$.
+are not specified in the partial order of $(h,w)$. That is, $(h,w)$ specifies their top-ranked $\ell-1$ preferences in their partial order.
 \end{enumerate}
 \end{definition}
 \paragraph{}
@@ -510,7 +530,7 @@ For example consider the partially specified instance of $C3GSM$ of size $5$ whe
 \paragraph{}
 As another example consider an instance of $C3GSM$ where each vertex has specified their first choice, and each vertex of $V(G)_0$ has specified their second choice. Each extension would have the same preferences but additionally have $(1,0)$ specify their second choice. This example covers the second case in our definition of extension. 
 \paragraph{}
-Any instance of $C3GSM$ where the first $k$ preferences have been specified for each vertex provides as example for the first case in our definition of extension. In any such instance the extensions have vertex $(0,0)$ specifying their $k+1$-th preference.
+Any instance of $C3GSM$ where the first $k$ preferences have been specified for each vertex provides an example for the first case in our definition of extension. In any such instance the extensions have vertex $(0,0)$ specifying their $k+1$-th preference.
 \begin{definition}
 Let $I$ and $I'$ be partially specified instances of $C3GSM$ with the same underlying graph. We say that $I'$ is a descendant of $I$ if there exists a sequence of partially specified $C3GSM$ instances
 $$I = I_0, I_1, \dots, I_k=I'$$
