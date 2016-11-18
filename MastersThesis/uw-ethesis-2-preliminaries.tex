@@ -255,12 +255,12 @@ Therefore by induction the algorithm always returns a matching with weight at le
 \end{proof}
 \paragraph{}
 As discussed in the previous section, the above lemmas imply that that $LP(G)$ is integral.
-\section{Stable Matching}
+\section{Stable Matching}\label{sec:SM}
 \subsection{Problem}
 \paragraph{Input}The stable matching problem gives as input a bipartite graph $G=(V, E)$ with bipartition $V = A\cup B$, where each $v \in V$ has a strict order over $\delta(v)$ referred to as $v$'s preferences. We will use $u <_v w$ to denote that edge $vw$ is preferred by $v$ to edge $vu$, and we will use $>_v$, $\leq_v$, $\geq_v$, and $=_v$ analogously. We say equivalently that $v$ prefers $w$ to $u$ and can treat $<_v$ as an order on the vertices adjacent to $v$. It will usually be clear from context how we are viewing $<_v$.
 \paragraph{Output} Given a stable matching instance as input with underlying graph $G$ one is to find a matching $M$ in $G$ that is stable. A matching is called stable if there is no blocking pair $(a,b)$. A pair $(a,b)$ is said to block $M$ if $ab \not\in M$ and $b >_a M(a)$ and $a >_b M(b)$.
 \paragraph{Application} The sets $A,B$ are colloqially referred to as men and women respectively. This alludes to the toy application of stable matching in forming couples from single people together who have preferences over the opposite gender. In this context a blocking pair references to a pair who mutually prefer each other to their partner. One of the original applications of stable matching \cite{roth1984evolution} was to pair medical students with hospitals at which they were to do their residency, and another was college admissions.
-\subsection{Gale Shapley Algorithm}
+\subsection{Gale Shapley Algorithm}\label{SM:ALG}
 \paragraph{}
 In their original work, Gale and Shapley gave an algorithm, called deferred acceptance \cite{gale1962college}, for solving the stable matching problem and in doing so proved that every bipartite graph with strict preference orders has a stable matching.
 \paragraph{Deferred Acceptance Algorithm}
