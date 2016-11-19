@@ -1,0 +1,222 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{report}
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\pagestyle{fancy}
+
+\listfiles
+
+\setlength{\hoffset}{0pt}			% 1 inch left margin
+\setlength{\oddsidemargin}{0pt}		% 1 inch left margin
+\setlength{\voffset}{0pt}			% 1 inch top margin
+\setlength{\marginparwidth}{0pt}	% no margin notes
+\setlength{\marginparsep}{0pt}		% no margin notes
+\setlength{\textwidth}{6.375in}
+\raggedbottom
+
+\rhead{William Justin Toth 650 1} %CHANGE n to ASSIGNMENT NUMBER
+\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{1}
+\paragraph{}
+Let $G$ be an undirected graph connected weighted graph with at least one cycle. Let $C$ be a cycle of G and let $e$ be an edge such that for all $e_1 \in E(C)$ such that $e_1 \neq e$, $c_e >  c_{e_1}$. Suppose that $e$ does belong to a minimum spanning tree (MST) of $G$, $T$. Then, by the characterization of spanning trees, for all $uv \in E(G) \backslash E(T)$, for all $e \in T_{uv}$, $c_e \leq c_{uv}$. 
+\paragraph{}
+Now there exists an edge $uv \in E(C)$, $uv \in E(G) \backslash E(T)$, since all edges in the cycle cannot belong to $T$, else $T$ contains a cycle which by the definition of trees is impossible. Since at least one such edge exists let us consider the "first" such edge. More precisely choose $uv$ such that $e,e_1,\dots,e_k$ is a path in $T$ of edges in $C$ and $u \in e_k$ or $v \in e_k$. Such a path exists since $e$ is in $T$. Say without loss of generality that $v \in e_k$.
+\paragraph{}
+Let $e=\{a,b\}$, and $b \in e_1$. Then since $T$ is a spanning tree there is a unique $ua$ path in $T$. Join this path with the previously described path to obtain the $uv$ path in $T$. Now $e$ lies on $T_{uv}$. But $c_e > c_{uv}$ which contradicts the MST characterization.$\blacksquare$ 
+\paragraph{}
+A counterexample where the largest cost edge is not unique would be $K_3$ with two edges weighted at value $2$, and one edge weighted at value $1$. The graph is itself a cycle, and its largest cost edge is not unique. There are only three possible spanning trees for this graph (choose any pair of edges), and each spanning tree contains at least one of the largest cost edges.
+\section*{2}
+\paragraph{}
+Let $G=(V,E)$ be a weighted graph such that all weights are distinct. That is to say, for all $e_1, e_2 \in E(G)$, $c_{e_1} \neq c_{e_2}$. Suppose that the MST of $G$ is not unique. Let $T_1$ be a MST of $G$. For all MST's of $G$, $T$, let $K_T = \{ e \in T_1 \mid e \not\in T \}$. Choose $T \neq T_1$ such that $|K_T|$ is minimal.
+\paragraph{}
+Since $T \neq T_1$, $|K_T| \geq 1$. Choose $e' = \{u,v\} \in K_T$. So $e' \in E(G) \backslash E(T)$. Since $T$ is an MST, and all edges have distinct costs (specifically equality in costs is not possible) we have:
+\begin{align}
+\forall e \in T_{uv}, c_e < c_{uv}
+\end{align}
+Let $C$ be the cycle formed by $\{e \in T_{uv} \} \cup e'$. Since $e' \in T_1$, there exists $e'' \in C, e'' \not\in T_1$. By $(1)$, $c_{e''} < c_{e'}$.
+\paragraph{}
+Construct a tree, $T_2 = T_1 - e' + e''$. Now, $T_2$ is a spanning tree since it is acyclic and has $|V(G)| - 1$ edges. But $C(T_2) = C(T_1) - c_{e'} + c_{e''} < C(T_1) - c_{e'} + c_{e'} = C(T_1)$ which contradicts that $T_1$ is a minimal spanning tree.$\blacksquare$
+\section*{3}
+Consider the algorithm that returns a MST given a connected graph $G=(V,E)$:
+\begin{algorithm}
+\begin{algorithmic}[1]
+\Procedure{}{}
+\State $H = G$
+\While{$e$ is a max-cost edge such that $H \backslash e$ is connected}
+\State $H = H \backslash e$
+\EndWhile
+\State \Return $H$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+\subsection*{Time Complexity}
+\paragraph{}
+Line $2$ runs in $O(1)$ time.  The while loop at line $3$ runs at most $O(|E|-|V|) = O(|E|)$ times since trees are minimally connected. Verifying the condition on the while loop takes $O(|E|)$ time to scan edge list for max cost edge and $O(|E|)$ time to verify connectedness (possibly with depth first search or a similar process). Line $4$ runs in $O(1)$ time. Thus the entire while loop takes $O(|E|*|E|*|E|) = O(|E|^3)$ time. Hence the algorithm runs in polynomial time in the size of the graph.$\blacksquare$
+\subsection*{Correctness}
+\paragraph{}
+Since the algorithm terminates when $H$ is minimally connected the graph returned is a spanning tree for $G$. Let $H$ be said spanning tree. Suppose for contradiction that $H$ is not minimal. Then there exists $uv \in E \backslash E(H)$, there exists $e \in H_{uv}$, $c_{e} > c_{uv}$.
+\paragraph{}
+Then during the iteration of the algorithm where $uv$ is deleted from $H$, $e \in H$. Notice that since the algorithm chose $uv$ at this stage, deleting $uv$ would keep the graph connected. But $H_{uv} + uv$ forms a cycle, so any edge from this cycle could be deleted at this iteration and the graph would remain connected. In particular $e$ could be deleted. Since $c_e > c_{uv}$ the algorithm should not have chosen $uv$ at this stage since there exists at least one preferable candidate. A contradiction. $\blacksquare$.
+\section*{4}
+\paragraph{}
+Let $G=(V,E)$ be an undirected graph with weights $c \in \mathbb{R}^E$ and $v$ a vertex in $V$.
+\subsection*{a}
+\begin{algorithm}
+\begin{algorithmic}[1]
+\Procedure{}{}
+\If{$deg(v) < 2$}
+\State \Return infeasible
+\EndIf
+\State $T = Kruskal(G)$
+\If{$deg(v)$ in $T \geq 2$}
+\State \Return $T$
+\Else
+\State Choose the edge pair $(e_{T}, e_{G})$ that minimizes $\{c_{e_{G}} - c_{e_{T}} \mid v \in e_G \not\in T$ and $v \not\in e_T \in P_{e_G} \}$ where $P_{e_G}$ is the path between the endpoints of $e_G$ in $T$.
+\State \Return $T - e_T + e_G$
+\EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+\paragraph{Time Complexity}
+Lines $2$ and $3$ are $O(1)$. Line $5$ is $O(|E|log(|E|))$ time. Lines $6$ and $7$ are $O(1)$. In line $9$ there are at most $O(|E|)$ edges incident to $v$, and for each such edge there are at most $O(|E|)$ edges to pair with them. Thus line $9$ takes $O(|E|^2)$ time. Line $10$ is $O(1)$. Thus the entire algorithm is runs in $O(|E|^2)$ time. That is, it is a polynomial time algorithm. $\blacksquare$
+\subsection*{Correctness}
+\paragraph{Lemma 4.1}
+If $T$ is a MST for $G-v$ (connected) and $e^* \in \delta(\{v\})$, for all $e \in \delta(\{v\})$, $c_{e^*} \leq c_e$, then $T + e^*$ is a MST for $G$ where $v$ is a leaf.
+\paragraph{Proof}
+Since $T$ is a spanning tree of $G-v$ and $e^*$ is the only edge incident with $v$ in $T + e^*$ we see that $T+e^*$ is a spanning tree of $G$ wherein $v$ is a leaf.
+Let $T'$ be a spanning tree of $G$ where $v$ is a leaf. Let $e$ be the edge incident with $v$. Then $C(T') = C(T'-e) + c_e \geq C(T) + c_e \geq C(T) + c_{e^*} = C(T+e^*)$. Thus $T + e^*$ is a minimal spanning tree with $v$ is a leaf.$\blacksquare$.
+\paragraph{Lemma 4.2}
+Let $T$ be a minimal spanning tree of $G$ where $deg(v) = 2$ in $T$. Then there exists $e_T \in T$, there exists $e_G \not \in T$ with $e_T$ is incident to $v$ and $e_G$ is not incident to $v$, such that $T - e_T + e_G$ is a minimal spanning tree of $G$ with $v$ a leaf (provided such a problem is feasible).
+\paragraph{Proof}
+Since $deg(v) = 2$ in $T$, $v$ is a cut vertex of $T$. Thus $T-v$ has two connected components. Call them $T_1$ and $T_2$. Let $G_1$ and $G_2$ be the two respective induced subgraphs of $G$ for the vertex sets of $T_1$ and $T_2$.
+\paragraph{}
+If there is not an edge from $G_1$ to $G_2$ then the problem where $v$ is a leaf is infeasible, because it would imply that every path from a vertex in $G_1$ to one in $G_2$ must go through $v$ in a spanning tree. So if the problem is feasible at least one such edge exists. Call the edge between $G_1$ and $G_2$ of minimum weight $e_G$.
+\paragraph{}
+Now $T_1$ is a MST of $G_1$ and $T_2$ is a MST of $G_2$. Since $e_G$ is the minimum edge in the cut between $G_1$ and $G_2$ it is in any minimum spanning tree of $G-v$. Then since $T_1 \cup T_2 + e_G$ has $|V| - 2$ edges and is connected it is a minimum spanning tree of $G - v$. 
+\paragraph{}
+Choose $e^*$ to be such that $e^* \in \delta(\{v\})$ and for all $e \in \delta(\{v\})$, $c_{e^*} \leq c_e$. Then by Lemma 4.1, $T_1 \cup T_2 + e_G + e^*$ is a minimal spanning tree with $v$ a leaf. Notice that $e^* \in T$ since it is minimal in the boundary of the cut $\{v\}$. Let $e_T$ be the other edge incident to $v$ in $T$. Now $T = T_1 \cup T_2 + e^* + e_T$. So $T_1 \cup T_2 + e_G + e^* = T - e_T+ e_G$ is a minimal spanning tree with $v$ a leaf.$\blacksquare$
+\paragraph{Lemma 4.3}
+Let $T$ be a minimal spanning tree for $G$ where $v$ is a leaf. Then there exists $e_G \not\in T$, there exists $e_T \in T$ with $e_G$ is incident to $v$ and $e_T$ is not incident to $v$, such that $T + e_G - e_T$ is a minimal spanning tree for $G$ wherein $deg(v) = 2$ (provided such a problem is feasible).
+\paragraph{Proof}
+For the problem to be feasible, $deg(v) \geq 2$ in $G$. So there exists $e_G \not\in T$ incident to $v$. Let $P_{e_G}$ be the path from $v$ to $w$ where $\{v,w\} = e_G \not\in T$. Choose the pair $(e_T, e_G)$ that minimizes:
+\begin{align}
+\{c_{e_G} - c_{e_T} \mid v \in e_G \not\in T \text{ and } v \not\in e_T \in P_{e_G} \}
+\end{align}
+\paragraph{}
+Suppose for contradiction that $T + e_G - e_T$ is not minimal for the spanning tree problem wherein $deg(v)=2$. Let $T^*$ be a minimal spanning tree for $G$ where $deg(v) = 2$. By Lemma 4.2 there exists $e^*_T \in T^*$, there exists $e^*_G \not\in T^*$, with $e^*_T$ is incident to $v$ and $e^*_G$ is not incident to $v$, such that  $T^* + e^*_G - e^*_T$ is minimal for the spanning tree problem wherein $deg(v) = 1$.
+\paragraph{}
+Note that $(e^*_T, e^*_G)$ is an argument pair for $(2)$. So $c_{e_G} - c_{e_T} \leq c_{e^*_G} - c_{e^*_T}$, which implies that $c_{e^*_T} - c_{e^*_G} \leq c_{e_G} - c_{e_T}$. Now:
+\begin{align*}
+C(T^* + e^*_G - e^*_T) &= C(T^*) + c_{e^*_G} - c_{e^*_T}\\
+&< C(T) + c_{e_G} - c_{e_T} + c_{e^*_G} - c_{e^*_T}\\
+&= C(T) +c_{e_G} - c_{e_T} - (c_{e^*_T} - c_{e^*_G})\\
+&\leq C(T) + c_{e_G} - c_{e_T} - (c_{e_T} - c_{e_G})\\
+&= C(T)  
+\end{align*}
+This contradicts the optimality of $T$. $\blacksquare$
+\paragraph{Proof of Correctness}
+If the problem is infeasible then line $2$ catches it. After line $5$ if $T$ is feasible then it is returned in line $7$. Otherwise by Lemma 4.3 the tree $T - e_T + e_G$ is feasible and optimal. $\blacksquare$
+\subsection*{b}
+\begin{algorithm} \begin{algorithmic}[1]
+\Procedure{}{}
+\State $G' = G - v$
+\If{$G'$ is not connected}
+\State \Return infeasible
+\Else
+\State $T = Kruskal(G')$
+\State Choose $e$ that minimizes $\{ c_e \mid v \in e \in E(G) \}$
+\State \Return $T + e$
+\EndIf
+\EndProcedure
+\end{algorithmic} \end{algorithm}
+\paragraph{Time Complexity}
+Line $2$ is $O(1)$. Line $3$ can be verified in $O(|E|)$ time with depth first search. Line $6$ runs in $O(|E|log(|E|))$ time. Line $7$ runs in $O(|E|)$ time. So the entire algorithm runs in $O(|E|log|E|)$ time. Since $|E|log|E| \in O(|E|^2)$  this algorithm runs in polynomial time.$\blacksquare$
+\paragraph{Correctness}
+If $G'$ is not connected then there is no spanning tree of $G$ where $v$ is a leaf and the problem is infeasible. The algorithm correctly identifies this in line $4$. Otherwise if $G'$ is connected the problem is feasible and by Lemma 4.1 the algorithm returns an optimal solution. $\blacksquare$
+\section*{5}
+\paragraph{}
+Let $G=(V,E)$ be an undirected connected graph and $c : E \rightarrow \mathbb{R}$
+Let $A$ be an algorithm that solves the max forest problem in polynomial time. 
+\begin{algorithm} \begin{algorithmic}[1]
+\Procedure{}{}
+\State $s = max(\{c_e \mid c \in E \} \cup {0}) + 1$
+\State Let $c' : E \rightarrow \mathbb{R_+}$ such that $c'_e = s - c_e$
+\State \Return $A(G, c')$
+\EndProcedure
+\end{algorithmic} \end{algorithm}
+\paragraph{Time Complexity}
+Line $2$ runs in $O(|E|)$ time. Line $3$ runs in $O(1)$ time. Line $4$ runs in polynomial time in the size of the graph. Thus the entire algorithm runs in polynomial time in the size of the graph. $\blacksquare$
+\subsection*{Correctness}
+\paragraph{Lemma 5.1}
+If for all $e \in E$ $c_e > 0$ and $F$ is a max forest of $G$ then $F$ is a spanning tree.
+\paragraph{Proof}
+Suppose $F$ is disconnected. Then there are at least two connected components in $F$, say $F_1$ and $F_2$. Since $G$ is connected there is a vertex $v_1 \in F_1$ and a vertex $v_2 \in F_2$ such that there is an edge $e \in E(G)$, $e = \{v_1, v_2\}$. Since $e$ is an edge between 2 connected components of $F$, adding $e$ to $F$ will not create a cycle. That is to say, $F + e$ is a forest. But $C(F + e) = C(F) + c_e > C(F)$ since $c_e > 0$. This contradicts the optimality of $F$. $\blacksquare$
+\paragraph{Proof of Correctness}
+Notice that for all $e \in E(G)$, $0 > c_e -s$. So then $c'_e = s - c_e > 0$. So line $4$ returns a max spanning tree of $G$ with edge costs $c'$ by Lemma 5.1. But by our choice of $c'$ this is a minimum spanning tree for $G$ with edge costs $c$. This can be seen by noting $c$ is a shift (which does not affect optimal solution) and a negation (which flips max and min) of $c'$. $\blacksquare$
+\paragraph{}
+Now let $A$ be an algorithm which solves the min spanning tree problem in polynomial time.
+\begin{algorithm} \begin{algorithmic}[1]
+\Procedure{}{}
+\State Let $c' : E \rightarrow \mathbb{R}$ be such that $c'_e = -c_e$ if $c_e \geq 0$ and $c'_e = 0$ otherwise
+\State $T = A(G,c')$
+\State Delete all $0$ cost edges from $T$ and return the result
+\EndProcedure
+\end{algorithmic} \end{algorithm}
+\paragraph{Time Complexity}
+Line $2$ runs in $O(|E|)$ time. Line $3$ runs in polynomial time in the size of the graph. Thus the entire algorithm runs in polynomial time in the size of the graph. $\blacksquare$
+\subsection*{Correctness}
+\paragraph{Lemma 5.2}
+A max-forest $F$ does not contain an edge $e$ such that $c_e < 0$.
+\paragraph{Proof}
+Suppose $F$ is max forest and $F$ contains an edge $e$ such that $c_e < 0$. Removing an edge from $F$ does not create a cycle. So $F - e$ is a forest. But $C(F - e) = C(F) - c_e > C(F)$ since $c_e < 0$. This contradicts the optimality of $F$. $\blacksquare$
+\paragraph{Lemma 5.3}
+If for all $e \in E(G)$, $c_e \geq 0$ and $T$ is a max-cost spanning tree of $G$ then $T$ is a max cost forest.
+\paragraph{Proof}
+Suppose there exists a max cost forest forest $F$ such that $C(F) > C(T)$. Let $\kappa(G)$ be the number of connected components for any graph $G$. If $\kappa(F) = 1$ then $F$ is a tree, which contradicts $T$ is max cost tree.
+So $\kappa(F) > 1$. Let $K = \{ \text{connected components of } F \}$. Since $G$ is connected, for all $V_0, V_1 \in K$, with $V_0 \neq V_1$ there exists $v_0 \in V_0$ and there exists $v_1 \in V_1$ such that there exists $e \in E(G)$, $e = \{v_0, v_1\}$. Precisely there are ${|K| \choose 2}$ such edges $e$. Choose $|K|  - 1 = \kappa(F) - 1$ such edges such there addition to $F$ results in a connected graph (since there are edges between all connected components this is possible).  Call this set $B$. Construct $F' = F + B$. By our choice of edges in $B$, $F'$ is connected and spans $G$. Further $|E(F')| = |E(F)| + |B| = |V| - \kappa(F) + \kappa(F) - 1 = |V| - 1$. So $F'$ is a spanning tree of $G$. Now $C(F') = C(F) + \sum_{e \in B} c_e \geq C(F)$ since all $c_e \geq 0$. But $C(F) > C(T)$ so $C(F') > C(T)$ contradicting the optimality of $T$. $\blacksquare$ 
+\paragraph{Proof of Correctness}
+By Lemma 5.2 we can remove the negative edge costs in line $2$ without affecting the optimal solution. After setting all negative cost edges in the cost function $c$ to $0$ in $c'$ we negate the non-negative cost edges in $c$ to give their value in $c'$. Thus a minimum spanning tree returned in line $3$ by $A$ for cost function $c'$ is a max cost spanning tree for $G$ with cost function $-c'$. By Lemma 5.3 this is in fact a max cost forest for $G$ with cost function $-c'$. We delete all $0$ cost edges in Line 4 as they either do not contribute to a max cost forest for $G$ with cost function $c$ or correspond to a negative cost edge under $c$ and by Lemma 5.2 they do not contribute to the solution. Thus the value returned in line $4$ is a max cost forest for $G$ with cost function $c$. $\blacksquare$.
+\section*{6}
+Let $LP$ denote the linear program:
+\begin{align*}
+\text{min } &c^Tx\\
+\text{s.t. } x(E) &= n-1\\
+x(E_\pi) &\geq r_\pi -1 &\forall \pi \in \Pi \\
+x &\geq 0
+\end{align*}
+Let $P_{ST}$ denote the linear program:
+\begin{align*}
+\text{min } &c^Tx\\
+\text{s.t. } x(E) &= n-1 \\
+x(S) &\leq |S| -1 &\forall S, \emptyset \subsetneq S \subsetneq V\\
+x &\geq 0
+\end{align*}
+\paragraph{}
+From the lectures we already have the result that the characteristic vector of the tree returned by Kruskal's algorithm is optimal for $P_{ST}$. Thus the problem reduces to showing that $LP$ and $P_{ST}$ are equivalent. Noting that their objective functions are the same it remains to show that their feasible regions are the same.
+\paragraph{}
+Let $x$ be feasible for $LP$. Let $S \subsetneq V$, $S \neq \emptyset$. Then $x(S) = x(E) - x(V-S) - x(\delta(S))$.  Let $\pi = (S, \{v_0\}, ..., \{v_{n-|S|}\})$ where each $v_i \in V - S$. Note we have $r_\pi = n - |S| + 1$. Then $E_{\pi} = \{ e \in E \mid e \subset V-S \text{ or } e \in \delta(S) \}$. So $x(E_\pi) = x(V-S) + x(\delta(S)) = x(E) - x(S) = n - 1 - x(S)$. Since $x(E_\pi) \geq r_\pi - 1$ we have:
+\begin{align*}
+r_\pi - 1 &\leq n - 1 - x(S) \\
+\Rightarrow x(S) &\leq n - r_\pi\\\
+&= n - (n - |S| +1) \\
+&= |S| -1
+\end{align*} 
+Thus $x$ satisfies all constraints of $P_{ST}$ and is feasible for $P_{ST}$.
+\paragraph{}
+Let $x$ be feasible for $P_{ST}$. Let $\pi = (V_1, \dots, V_q)$. Notice $x(E_\pi) = x(E) - \sum_{i=1}^q x(V_i) = n - 1 - \sum_{i=1}^qx(V_i)$. Since each $V_i$ is non-empty, we have by $P_{ST}$ feasibility that $x(V_i) \leq |V_i| -1$. Then we have:
+\begin{align*}
+\sum_{i=1}^qx(V_i) &\leq \sum_{i=1}^q|V_i| - q \\
+&= n - q\\
+\Rightarrow q - n &\leq - \sum_{i=1}^qx(V_i) \\
+\Rightarrow q - n + x(E) &\leq x(E) - \sum_{i=1}^qx(V_i)\\
+\Rightarrow q - n + n -1 &\leq x(E_\pi) \\
+\Rightarrow x(E_\pi) &\geq r_\pi -1
+\end{align*}
+That is, $x(E_\pi) \geq r_\pi - 1$, for all $\pi \in \Pi$. Therefore $x$ is $LP$ feasible.
+\paragraph{}
+Since $x$ is $LP$ feasible if and only if $x$ is $P_{ST}$ feasible, their feasible regions are equivalent. This fact, taken with $LP$ and $P_{ST}$ having the same objective functions gives that these linear programs are equivalent. Therefore since the characteristic vector given by Kruskal's algorithm is optimal for $P_{ST}$, it is optimal for $LP$. $\blacksquare$
+\end{document}

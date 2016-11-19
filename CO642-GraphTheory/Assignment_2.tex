@@ -1,0 +1,192 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{report}
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\pagestyle{fancy}
+
+\listfiles
+
+\setlength{\hoffset}{0pt}			% 1 inch left margin
+\setlength{\oddsidemargin}{0pt}		% 1 inch left margin
+\setlength{\voffset}{0pt}			% 1 inch top margin
+\setlength{\marginparwidth}{0pt}	% no margin notes
+\setlength{\marginparsep}{0pt}		% no margin notes
+\setlength{\textwidth}{6.375in}
+\raggedbottom
+
+\rhead{William Justin Toth 642 2} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{1}
+\paragraph{}
+Let $k$ and $l$ be non-negative integers. Let $G$ be a graph. Suppose that $G$ does not contain $k$ vertex disjoint cycles, each of length at least $l$. Let $H$ be the graph formed by $k$ disjoint copies of the cycle graph of length $l$. Then $G \in Forb(H)$. Since $H$ is planar, by the Grid Theorem, there exists a function $f: \mathbb{Z}^+ \rightarrow \mathbb{Z}^+$ such that $tw(G) \leq f(k)$.
+\paragraph{}
+Thus there exists a tree-decomposition $(T, X(G))$ of width at most $f(k)$. For every cycle, $C_l$, of length at least $l$,  in $G$ let $S_{C_l} = \{ v \in V(T) : X(v) \cap V(C_l) \neq \emptyset \}$. Note that $S_{C_l} \subseteq V(T)$. Since every cycle of length $l$, $C_l$, is connected, by the definition of tree decompositions, $S_{C_l}$ is a subtree of $T$. Thus $\{S_{C_l}\}_{C_l \in G}$ is a collection of subtrees of $T$. By the Helly Property Lemma (proven in Assignment $1$) either there exists $k$ vertex disjoint trees $S_{C_l}$ or there exists $X \subseteq V(T)$, $|X| \leq k-1$, such that for all $C_l$, $S_{C_l} \cap X \neq \emptyset$. If there are $k$ vertex disjoint $S_{C_l}$ then there are $k$ vertex disjoint cycles in $G$ of length at least $l$, a contradiction. So there exists $X \subseteq V(T)$, $|X| \leq k-1$, such that for all $C_l$, $S_{C_l}\cap X \neq \emptyset$.
+\paragraph{}
+Let $X' = \bigcup_{v\in X} X(v) \subseteq V(G)$. Suppose there exists a cycle $C_l$ of length at least $l$ such that $X' \cap C_l = \emptyset$. Then $S_{C_l} \cap X = \emptyset$, a contradiction. Thus every cycle of length at least $l$, $C_l$, in $G$ is such that $X' \cap C_l \neq \emptyset.$ Then $G-X$ has no cycle of length $\geq l$. Now $|X'| = |\bigcup_{v\in X} X(v)| \leq |X|\cdot (tw(G) + 1) \leq (k-1)(f(k) + 1)$.  Choosing $h = (k-1)(f(k) + 1) \in \mathbb{Z}$ (independent of $G$) gives $|X| \leq h$ as desired. $\blacksquare$ 
+\section*{2}
+\paragraph{}
+Let $G$ be a planar graph with minimum degreee at least $3$. Suppose for contradiction that $G$ has all of the following properties:
+\begin{align*}
+&\text{(a) Every vertex of degree three is not incident with a face of length at most } 5\\
+&\text{(b) Every vertex of degree four is not incident with a triangle} \\
+&\text{(c) Every vertex of degree five is incident with at most three triangles}
+\end{align*}
+\paragraph{}
+Proceed by a face discharging argument. Let the initial charge of every vertex, $v$, of $G$ be $ch(v) = 2d(v) - 6$. Let the initial charge of every face, $f$, of $G$ be $ch(f) = |f| - 6$. Then
+\begin{align*}
+\sum_{v \in V(G)} ch(v) + \sum_{f \in F(G)} ch(f) &= \sum_{v \in V(G)} (2d(v) - 6) + \sum_{f \in F(G)} (|f| - 6) \\ &= 4|E| - 6|V| + 2|E| - 6|F| \\ &= -6(|V| - |E| + F|) \\ &= -12. 
+\end{align*}
+\paragraph{}
+Discharge according to the following rules:
+\begin{align*}
+&\text{Let } v\in V(G) \text{. If } d(v) \geq 4 \text{ then send } \frac{1}{2} \text{ charge to adjacent faces of length at least four} &(1)\\
+&\text{Let } v \in V(G) \text{. If } d(v) \geq 5 \text{ then send } 1 \text{ charge to adjacent triangle faces.} &(2)
+\end{align*}
+\paragraph{}
+Let $v \in V(G)$. Let $ch_F(v)$ denote the final charge of $v$. If $d(v) < 4$ then $v$ sends no charge and $d(v) = 3$. So $ch_F(v) \geq ch(v)  = 2(3) - 6 = 0$. 
+\paragraph{}
+If $d(v) = 4$ then $v$ sends $\frac{1}{2}$ charge to each of its neighbouring faces. Since $v$ has at most four neighbouring faces, $ch_F(v) \geq ch(v) - 4\frac{1}{2} = 2(4) - 6 - 2 = 8 - 8 = 0$. 
+\paragraph{}
+If $d(v) = 5$ then $v$ sends $\frac{1}{2}$ charge to each of its neighbouring faces of length at least four and $1$ charage to each adjacent triangle face. By assumption $(c)$ every vertex of degree $5$ is incident with at most three triangles. Since $v$ is incident with at most five faces, it is incident with at most three triangles and at least two faces of length four or more. Since $v$ gives more charge to triangle faces than other faces, in the worst case $v$ is adjacent to three triangle faces and two length four or more faces. Thus $ch_F(v) \geq ch(v) - 2\frac{1}{2} - 3(1) = 2(5) - 6 -1 - 3 = 0$.
+\paragraph{}
+If $d(v) \geq 6$ then $v$ sends $\frac{1}{2}$ charge to each of its neighbouring faces of length at least four and $1$ charge to each of its triangle faces. Since $v$ has at most $d(v)$ neighbouring faces, in the worst case $v$ has at most $d(v)$ neighbouring triangle faces. Then $ch_F(v) \geq ch(v) - d(v) = 2d(v) - 6 - d(v) = d(v) - 6 \geq 6 - 6 = 0$. Therefore every vertex has a non-negative final charge.
+\paragraph{}
+Let $f \in F(G)$. Let $ch_F(f)$ denote the final charge of $f$. No faces send any charge, so $ch_F(f) \geq ch(f)$. If $|f| \geq 6$ then $ch_F(f) \geq ch(f) = 6 -6 =0$.
+\paragraph{}
+If $|f| = 5$ then by assumption $(a)$ every vertex incident with $f$ is of degree four or more. Since $f$ has five adjacent vertices it receives at least $5\frac{1}{2}$ charge from its adjacent vertices. Thus $ch_F(f) \geq ch(f) + \frac{5}{2} = 5 - 6 + \frac{5}{2} \geq 0$.
+\paragraph{}
+If $|f| = 4$ then by assumption $(a)$ every vertex incident with $f$ is of degree four or more. Since $f$ has four adjacent vertices it receives at least $4\frac{1}{2}$ charge from its adjacent vertices. Thus $ch_F(f) \geq ch(f) + \frac{4}{2} = 4 - 6 + 2 = 0$.  
+\paragraph{}
+If $|f| = 3$ then by assumption $(a)$ every vertex incident with $f$ is of degree four or more. Further by assumption $(b)$ every vertex incident with $f$ is not of degree four, so every vertex incident with $f$ is of degree $5$ or more. Thus every vertex incident with $f$ sends $f$ one charge by rule $(2)$. Therefore $ch_F(f) = ch(f) + 3 = 3 - 6 + 3 = 0$. Therefore every face has a non-negative final charge.
+\paragraph{}
+The total charge has not changed, precisely it is negative, yet every vertex and every face has non-negative charge, a contradiction. $\blacksquare$
+
+\section*{3}
+\paragraph{}
+Choose $c = 49 > 0$. Let $G$ be a connected graph embedded on a surface $\Sigma$ of genus $g$ such that every face bounds a disk. Suppose for contradiction that $G$ has all of the following properties:
+\begin{align*}
+&\text{(a) Every vertex of $G$ has degree at least six}\\
+&\text{(b) Every vertex of degree six is incident with less than six facial triangles}\\
+&\text{   or has a neighbour of degree greater than six} \\
+&\text{(c) } |V(G)| > cg 
+\end{align*}
+\paragraph{}
+Proceed by a vertex discharging argument. Let the initial charge of every vertex, $v$, of $G$ be $ch(v) = d(v) - 6 - \frac{d(v)}{|V|}g$. Let the initial charge of every face, $f$, of $G$ be $ch(f) = 2|f| - 6$. Then
+\begin{align*}
+\sum_{v \in V(G)} ch(v) + \sum_{f \in F(G)} ch(f) &\leq \sum_{v \in V(G)} (d(v) - 6 -\frac{6}{|V|}g) + \sum_{f \in F(G)} (2|f| - 6) \\ &= 2|E| - 6|V| - 6g + 4|E| - 6|F| \\ &= -6(|V| - |E| + |F| + g) \\ &= -12. 
+\end{align*}
+\paragraph{}
+Discharge according to the following rules:
+\begin{align*}
+&\text{A vertex of degree at least seven gives $\frac{6}{c}$ charge to adjacent vertices of degree six} &(1)\\
+&\text{A face of length at least four gives $\frac{6}{c}$ charge to adjacent vertices of degree six} &(2)
+\end{align*}
+\paragraph{}
+Let $v \in V(G)$. Let $ch_F(v)$ denote the final charge of $v$. The degree of $v$ is at least six. If $d(v) = 6$ then by $(b)$ either $v$ is incident with less than six facial triangles or $v$ has a neighbour of degree greater than six. Suppose $v$ is incident with less than six facial triangles. Then $v$ is incident with at least one face of length at least four. By rule $(2)$ this face gives $\frac{6}{c}$ charge to $v$ by rule $(2)$. Otherwise $v$ is incident with a vertex of degree at least seven and this vertex gives $\frac{6}{c}$ charge to $v$ by rule $(1)$. Notice $v$ gives away no charge. Thus $ch_F(v) \geq ch(v) + \frac{6}{c} = 6 - 6 - \frac{6}{|V|}g + \frac{6}{c} > -\frac{6}{cg}g + \frac{6}{c} = 0$. 
+\paragraph{}
+If $d(v) \geq 7$ then $v$ sends $\frac{6}{c}$ charge to each neighbouring vertex of degree $6$ by rule $(1)$. There can be at most $d(v)$ such vertices therefore $v$ sends at most $\frac{6}{c}d(v)$ charge. Thus
+\begin{align*}
+ch_F(v) &\geq ch(v) -\frac{6}{c}d(v) \\ &= d(v) - 6 - \frac{d(v)}{|V|}g - \frac{6}{c}d(v) \\ &\geq d(v) - 6 -\frac{d(v)}{c} - \frac{6}{c}d(v) \\ &= \frac{d(v)c - 6c - d(v) - 6d(v)}{c} \\ &= \frac{(c - 7)d(v) - 6c}{c} \\ &= \frac{42d(v) - 6(49)}{c} \\ &\geq \frac{42(7) - 6(49)}{c} \\ &= \frac{6(7)(7) - 6(7)(7)}{c} \\ &=  0.
+\end{align*}
+Therefore every vertex has a non-negative final charge.
+\paragraph{}
+Let $f \in F(G)$. Let $ch_F(f)$ denote the final charge of $f$. If $|f| = 3$ then $f$ gives no charge. Thus $ch_F(f) = ch(f) = 2|f| - 6 = 0$.
+\paragraph{}
+If $|f| \geq 4$ then $f$ sends $\frac{6}{c}$ charge to each incident vertex of degree six by rule $(2)$. There can be at most $|f|$ such vertices. Thus
+\begin{align*} 
+ch_F(f) &\geq ch(f) - \frac{6}{c}|f| \\ &= 2|f| - 6 - \frac{6}{c}|f| \\ &= \frac{2c|f| - |f| - 6c}{c}  \\ &= \frac{97|f| - 6(49)}{c} \\ &\geq \frac{97(4) - 6(49)}{c} \\ &= \frac{94}{c} \\ &\geq 0.
+\end{align*}
+Therefore every face has a non-negative final charge.
+\paragraph{}
+The total charge has not changed, precisely it is negative, yet every vertex and every face has non-negative charge, a contradiction. $\blacksquare$
+\section*{4}
+\paragraph{}
+Let $G$ be a graph and let $\phi$ be a $k$-coloring of $G$. Let $G_{ij}$ denote the subgraph of $G$ induced by the vertices colored $i$ and $j$ in $\phi$.
+\subsection*{a}
+\paragraph{}
+Let $e = \{u,w\} \in E(G)$. Then there exists a unique $i$ such that $\phi(u) = i$ and a unique $j$ such that $\phi(w) = j$. Thus $e \in E(G_{ij})$ and $e \not\in E(G_{kl})$ for $k \neq i$ or $l \neq j$. That is, $e$ is counted in exactly one $G_{ij}$. Therefore $\sum_{i \neq j} |E(G_{ij})| = \sum_{e \in E(G)} \sum_{G_{ij}: e \in E(G_ij)} 1 = \sum_{e \in E(G)} 1 = |E(G)|$.
+\paragraph{}
+Let $v \in V(G)$. Then there exists a unique $i$ such that $\phi(v) = i$. So for all $j\neq i$ we see that $v \in V(G_{ij})$. There are $k-1$ such $G_{ij}$. Thus $\sum_{G_{ij}: v \in V(G_{ij})} 1 = k-1$. Therefore $\sum_{i\neq j} |V(G_{ij})| = \sum_{v \in V(G)} \sum_{G_{ij} : v \in V(G_{ij})} 1 = \sum_{v \in V(G)} k-1 = (k-1)|V(G)|$.
+\paragraph{}
+Hence combining the two previous summation results we obtain the result $\sum_{i\neq j}|E(G_{ij})| - |V(G_{ij})| = \sum_{i\neq j} |E(G_{ij})| - \sum_{i\neq j} |V(G_{ij})| = |E(G)| - (k-1)|V(G)|$. $\blacksquare$
+\subsection*{b}
+\paragraph{Lemma 4.1}
+Let $G$ be a graph. Then $|V(G)| \leq |E(G)| + \kappa(G)$ where $\kappa(G)$ is the number of connected components of $G$.
+\paragraph{Proof of Lemma 4.1}
+Proceed by induction on $|E(G)|$. If $|E(G)| = 0$ then each vertex of $G$ is in its own connected component. Hence $|V(G)| = \kappa(G) = |E(G)| + \kappa(G)$. Now suppose for induction that for all graphs, $H$, such that $0 \leq |E(H)| < |E(G)|$ that $|V(H)| \leq |E(H)| + \kappa(H)$. Let $e \in E(G)$. Let $G' = G - e$. Then $|E(G')| = |E(G)| - 1 < |E(G)|$. So by the induction hypothesis $|V(G')| \leq |E(G')| + \kappa(G')$. Now $V(G') = V(G)$ so in fact we have $|V(G)| \leq |E(G)| - 1 + \kappa(G')$. If $e$ is a bridge then $\kappa(G') = \kappa(G) + 1$. Otherwise $\kappa(G') = \kappa(G) \leq \kappa(G) + 1$. In either case $\kappa(G') \leq \kappa(G) + 1$. So finally we have $|V(G)| \leq |E(G)| -1 + \kappa(G) + 1 \leq |E(G)| + \kappa(G)$ as desired. $\blacksquare$ 
+\paragraph{}
+Let $k \in \mathbb{Z}$ such that $k \geq 2$. Choose $m =$ $\frac{2}{k(k-1)} > 0$. Let $\epsilon > 0$. Suppose that $|E(G)| \leq (k - 1 - \epsilon) |V(G)|$. Then we have $|E(G)| - (k-1)|V(G)| \leq -\epsilon |V(G)|$. So by $4(a)$, $\sum_{i \neq j} |E(G_{ij})| - |V(G_{ij})| \leq -\epsilon |V(G)|$. 
+\paragraph{}
+If for all $i \neq j$, $|E(G_{ij})| - |V(G_{ij})| < - \epsilon m |V(G)|$ then $\sum_{i \neq j} |E(G_{ij})| - |V(G_{ij})| < \sum_{i \neq j } -  \epsilon m |V(G)| < \frac{-\epsilon m |V(G)|}{m}$. The last inequality follows since there are $k \choose 2$ $= \frac{k(k-1)}{2}$ ways to choose $i,j$ such that $i \neq j$. But then $\sum_{i \neq j} |E(G_{ij})| - |V(G_{ij})| < -\epsilon |V(G)|$, a contradiction. Hence there exists $i, j$, such that $i \neq j$, and $|E(G_{ij})| - |V(G_{ij})| \leq - \epsilon m |V(G)|$.
+\paragraph{}
+Thus we have $\epsilon m |V(G)| \leq |V(G_{ij})| - |E(G_{ij})|$. So by lemma $4.1$, $\epsilon m |V(G)| \leq \kappa(G_{ij})$. Let $Comp$ denote the set of connected components of $G_{ij}$. Then $|Comp| = \kappa(G_{ij})$. Let $\mathcal{K} = \{ K \subseteq Comp \}$. Then $|\mathcal{K}| = 2^{|Comp|} = 2^{\kappa(G_{ij})} \geq 2^{\epsilon m |V(G)|}$. Let $K \in \mathcal{K}$. Let $\phi_{K}$ be the coloring given by $\phi$, except that every connected component in $K$ has its vertices that are colored $i$ in $\phi$ colored $j$, and those colored $j$ in $\phi$ colored $i$. Since $G_{ij}$ is bipartite this is still a valid coloring. Each possible $\phi_{K}$ is a distinct coloring. There are $|\mathcal{K}|$ ways to choose $K$ and thus $|\mathcal{K}|$ such distinct colorings. Therefore there are at least $2^{\epsilon m |V(G)|}$ distinct colorings of $G$. $\blacksquare$
+\subsection*{c}
+\paragraph{i}
+Let $G$ be a planar graph with vertex set $V$, edge set $E$, and face set $F$. Suppose $|V| \geq 3$. Then every face of $G$ is bordered by at least $3$ edges, and every edge of $G$ is adjacent to at most two faces. Thus is $3|F| \leq 2|E|$. Substituting into Euler's formula, $|V| - |E| + |F| = 2$ we obtain $|V| -|E| + \frac{2}{3}|E| \geq 2$ which implies that $3|V| - 6 \geq |E|$.
+\paragraph{}
+By the $5$-color theorem $G$ has a $5$-coloring. Let $k = 5$. Then by $4(b)$ there exists $m > 0$ such that for every $\epsilon > 0 $ if $|E| \leq (4 - \epsilon)|V|$ then $G$ has at least $2^{\epsilon m |V|}$ distinct $5$-colorings. Choose $\epsilon = 1$. Then $(4 - 1)|V| = 3|V|\geq 3|V| - 6 \geq |E|$. Therefore $G$ satisfies the hypothesis of $4(b)$ with $\epsilon = 1 > 0$ and thus has $2^{\epsilon m |V|}$ distinct $5$-colorings.
+\paragraph{}
+Choose $n_0 = 3$, choose $c = 1$ then for all planar graphs, $G$, with $|V(G)| \geq n_0$, $G$ has at least $c \cdot 2^{\epsilon m |V(G)|}$ distinct $5$-colorings. That is $G$ has $\Omega(2^{\epsilon m |V(G)|})$ distinct $5$-colorings. Therefore $G$ has exponentially many distinct $5$-colorings. $\blacksquare$
+\paragraph{ii}
+Let $G$ be a planar graph with vertex set $V$, edge set $E$, and face set $F$. Suppose that $G$ is triangle-free. Suppose that $|V| \geq 4$. Then every face of $G$ is bordered by at least $4$ edges, and every edge of $G$ is adjacent to at most two faces. Thus $4|F| \leq 2|E|$, that is $2|F| \leq |E|$. Substituting into Euler's formula, $|V| - |E| + |F| = 2$ we obtain $|V| - |E| + \frac{1}{2} |E| \geq 2$ which implies that $2|V| - 4 \geq |E|$.
+\paragraph{}
+Now we will show that $G$ is $3$-degenerate. Suppose for contradiction that every vertex of $G$ has degree at least four. Then $\sum_{v\in V} deg(v) \geq 4|V|$. So by handshaking $2|E| \geq 4|V|$, that is $|E| \geq 2|V|$, contradiction $2|V| - 4 \geq |E|$. Therefore $G$ is $3$-degenerate. Invoking a proposition from the notes we see that this implies that $G$ has a $4$-coloring.
+\paragraph{}
+Let $k = 4$. Then by $4(b)$ there exists $m > 0$ such that for every $\epsilon > 0 $ if $|E| \leq (3 - \epsilon)|V|$ then $G$ has at least $2^{\epsilon m |V|}$ distinct $4$-colorings. Choose $\epsilon = 1$. Then $(3 - 1)|V| = 2|V| \geq 2|V| - 4 \geq |E|$. Therefore $G$ satisfies the hypothesis of $4(b)$ with $\epsilon = 1 > 0$ and thus has $2^{\epsilon m |V|}$ distinct $4$-colorings.
+\paragraph{}
+Choose $n_0 = 4$, choose $c = 1$ then for all triangle-free planar graphs, $G$, with $|V(G)| \geq n_0$, $G$ has at least $c \cdot 2^{\epsilon m |V(G)|}$ distinct $4$-colorings. That is $G$ has $\Omega(2^{\epsilon m |V(G)|})$ distinct $4$-colorings.Therefore $G$ has exponentially many distinct $4$-colorings.$\blacksquare$
+\paragraph{iii}
+Let $G$ be a planar graph with vertex set $V$, edge set $E$, and face set $F$. Suppose that $G$ has girth at least $5$. Suppose that $|V| \geq 5$. Then every face of $G$ is bordred by at least $5$ edges, and every edge of $G$ is adjacent to at most two faces. Thus $5|F| \leq 2|E|$. Substituting into Euler's formula, $|V| - |E| + |F| = 2$ we obtain $|V| - |E| + \frac{2}{5}|E| \geq 2$. which implies that $5|V| - 10 \geq 3|E|$. 
+\paragraph{}
+Now we will show that $G$ is $2$-degenerate. Suppose for contradiction that every vertex of $G$ has degree at least three. Then $\sum_{v\in V} deg(v) \geq 3|V|$. So by handshaking $2|E| \geq 3|V|$, that is $|E| \geq \frac{3}{2}|V|$, contradiction that $\frac{5}{3}|V| \geq |E|$. Therefore $G$ is $2$-degenerate. Invoking a proposition from the notes we see that this implies that $G$ has a $3$-coloring.
+\paragraph{}
+Let $k = 3$. Then by $4(b)$ there exists $m > 0$ such that for every $\epsilon > 0$ if $|E| \leq (2 - \epsilon)|V|$ then $G$ has at least $2^{\epsilon m |V|}$ distinct $3$-colorings. Choose $\epsilon = \frac{1}{3}$. Then $(2 - \frac{1}{3})|V| = \frac{5}{3}|V| \geq \frac{5}{3}|V| - \frac{10}{3} \geq |E|$. Therefore $G$ satisfies the hypothesis of $4(b)$ with $\epsilon = \frac{1}{3} > 0$ and thus has $2^{\epsilon m |V|}$ distinct $3$-colorings.
+\paragraph{}
+Choose $n_0 = 5$, choose $c = 1$ then for all planar graphs of girth at least $5$, $G$, with $|V(G)| \geq n_0$, $G$ has at least $c \cdot 2^{\epsilon m |V(G)|}$ distinct $3$-colorings. That is $G$ has $\Omega(2^{\epsilon m |V(G)|})$ distinct $3$-colorings.Therefore $G$ has exponentially many distinct $3$-colorings.$\blacksquare$
+
+\section*{5}
+\paragraph{}
+Let $\delta > \epsilon > 0$ be the chosen by theorem $0.1$. Choose $D = \frac{2\epsilon}{\delta} + 1$. Let $G$ be a planar graph of girth at least five and let $X \subseteq V(G)$ such that $d(x_1, x_2) \geq D$ for all $x_1, x_2 \in X$. Suppose for contradiction that $G$ is a minimal counterexample. That is $|V(G)|$ is minimal such that there is a $3$-coloring of $X$ that does not extend to a $3$-coloring of $G$. Let $\phi_X$ be such a coloring of $X$.
+\paragraph{Claim 5.1}
+$G$ is connected.
+\paragraph{Proof}
+Suppose $G$ is disconnected. If every connected component of $G$, $G_i$ is such that the $3$-coloring of $X \cap V(G_i)$ could be extended to a $3$-coloring of $G$ then the $3$-coloring of $X$ can be extended to a $3$-coloring of $G$ by the possible extensions in the respective connected components of $G$, a contradiction. So there exists a connected compont of $G$,  $G_1$ such that $X \cap V(G_1) \neq \emptyset$ and the $3$-coloring of $X \cap V(G_1)$ cannot be extended to a $3$-coloring of $G$. Let $X_1 = X \cap V(G_1)$. Let $x_1, x_2 \in X_1$. Then $d(x_1, x_2) \geq D$ since $x_1, x_2 \in X$. Therefore $G_1$ along with $X_1$ is a smaller counterexample than $G$ with $X$, contradicting the minimality of $G$. Therefore the claim holds. $\blacksquare$
+\paragraph{Claim 5.2}
+$|X| \geq 2$.
+\paragraph{Proof}
+Suppose $|X| < 2$. If $X = \emptyset$ the trivial $3$-coloring can be extended to any $3$-coloring of $G$ since $G$ is $3$-colorable by Grotzsch's theorem. If $|X| = 1$ then there exists a single $x \in X$.  Let $\phi$ be a $3$-coloring of $G$, which exists by Grotzsch's theorem. If $\phi_X(x) = \phi(x)$ we have a contradiction as $\phi_X$ can be extended to $\phi$ immediately. If $\phi_X(x) \neq \phi(x)$, then permute the colours in $\phi$ to obtain $\phi'$ such that every vertex in $G$ colored $\phi(x)$ in $\phi$ is colored $\phi_X(x)$ in $\phi'$ and every vertex colored $\phi_X(x)$ in $\phi$ is colored $\phi(x)$ in $\phi'$. Then $\phi'$ is a $3$-coloring of $G$ that can be extended from $\phi_X$. Thus the $3$-coloring of $X$ can be extended to a $3$-coloring of $G$, a contradiction. $\blacksquare$
+\paragraph{}
+Now for all vertices of $X$ colored $i$ identify them as a "super" vertex $v_i$. Pairwise connect all vertices in different $v_i$'s (of which there are at most three, but at least one). Call the set of added edges $E_X$. Call the resulting graph $G'$. There are no edges between the vertices which form each $v_i$  since they share a color in $\phi$ so $E(G') = E(G) \cup E_X $. Also notice that $\phi_X$ is still a valid coloring of $X$ since edges were only added between vertices of distinct colors.
+\paragraph{Claim 5.3}
+$G'$ is $4$-critical.
+\paragraph{Proof}
+First we will show that $G'$ is $4$-colorable. Let $v \in V(G')$. If $v \not \in X$ then by the minimality of $G$, $\phi_X$  can be extended to $\phi$, a $3$-coloring of $G-v$. Now extend $\phi$ to $\phi'$, a $4$-coloring of $G'$, by giving $v$ the fourth color in $\phi'$. If $v \in X$, then $\phi_X$ is a three coloring of $X-v$ which by minimality can be extended to $\phi$, a $3$-coloring of $G-v$. Now extend $\phi$ to $\phi'$, a $4$-coloring of $G'$, by giving $v$ the fourth color in $\phi'$.
+\paragraph{}
+Now we will show that $G'$ is not $3$-colorable. Suppose for contradiction that $G$ is $3$-colorable. Let $\phi$ be such a coloring. Consider the coloring of $X$ in $G'$ by $\phi$. Permute the colors of $\phi$ to agree with the colors of $\phi_X$ to obtain $\phi'$, a $3$-coloring of $G'$ extended from $\phi_X$. Further this is a $3$-coloring of $G$ extended from $\phi_X$, a contradiction.
+\paragraph{}
+Finally we will show that any proper subgraph of $G'$ is $3$-colorable. Let $H$ be a proper subgraph of $G'$. If $X$ is contained in the $V(H)$ then by the minimality of $G$ we can extend $\phi_X$ to a $3$-coloring of $H$. If $X$ is not contained in $V(H)$ then either some proper subset of $X$, $X'$ is contained in $V(H)$ or $X \cap V(H) = \emptyset$. If there is some $X'$ contained in $V(H)$ then by the minimality of $G$, $\phi_X$ as a $3$-coloring of $X'$ can be extended to a $3$-coloring of $H$. If $X \cap V(H) = \emptyset$ then $H$ is a subgraph of $G - X$, so $H$ is triangle-free and planar. Thus by Grotzsch's theorem $H$ is $3$-colorable.
+\paragraph{}
+Therefore $G'$ is $4$-critical since $G'$ is $4$-colorable, not $3$-colorable, and any proper subgraph of $G'$ is $3$-colorable. $\blacksquare$
+\paragraph{}
+Since $E(G') = E(G) \cup E_X$ and $G$ is of girth at least five, every cycle of length less than five in $G'$ contains an edge of $E_X$. Therefore $G' - X$ is of girth at least five. Since $G'$ is also $4$-critical, by theorem $0.1$, $|E(G')| \geq (\frac{5}{3} + \epsilon)|V(G')| - \delta|X|$. Further $V(G') = V(G)$ so $|E(G')| \geq (\frac{5}{3} + \epsilon)|V(G)| - \delta|X|$. Now $|E(G')|  = |E(G)| + |E_X|$ so $|E(G)| \geq |E(G')|$. Since $G$ is planar and of girth at least five, by the proof of $4(c)(iii)$, $\frac{5}{3}|V(G)| -\frac{10}{3} \geq |E(G)|$. Combining these inequalities we have:
+\begin{align*}
+\frac{5}{3}|V(G)| -\frac{10}{3} &\geq |E(G)| \\
+& \geq |E(G')| \\
+& \geq (\frac{5}{3} + \epsilon)|V(G)| - \delta|X|
+\end{align*}
+Which implies that $-\frac{10}{3} \geq \epsilon|V(G)| - \delta|X|$. Call this inequality $(*)$.
+\paragraph{Claim 5.4}
+If $|X| \geq 3$ then if $x_1,x_2,x_3$ are distinct vertices in $X$ then the shortest path between $x_1,x_2$ shares at most $\frac{D-1}{2}$  vertices with the shortest path between $x_2,x_3$.
+\paragraph{Proof}
+Suppose $|X| \geq 3$. Let $x_1,x_2,x_3$ be distinct vertices in $X$. Let $P(x,y)$ denote the shortest $xy$-path between vertices $x,y$ in $G$. Firstly see that for any $x_i, x_j \in X$ such that $x_i \neq x_j$, $d(x_i, x_j) \geq D$. Therefore $|V(P(x_i,x_j)) - X| \geq D-1$ as otherwise the length of $P(x_i, x_j) < D$, a contradiction. Suppose for contradiction that $x_1,x_2,x_3$ are a path-length minimal counterexample. That is $|V(P(x_1,x_2)) \cap V(P(x_2,x_3))| > \frac{D-1}{2}$ and length of $P(x_1,x_2), P(x_2,x_3)$, and $P(x_1,x_3)$ are minimal. These paths exist since $G$ is connected. Let $x \in V(P(x_1,x_2))$ such that $x$ is the first vertex on $P(x_1,x_2)$ to also be on $P(x_2,x_3)$. Then $P(x_1,x)$ is a subpath of $P(x_1,x_2)$ and $P(x_1,x_3)$, and $P(x,x_2)$ is a subpath of $P(x_2,x_3)$ and $P(x_1,x_2)$, and $P(x,x_3)$ is a subpath of $P(x_1,x_3)$ and $P(x_2,x_3)$. Now $|V(P(x,x_2))| > \frac{D-1}{2}$ so $|V(P(x_1,x))| < \frac{D-1}{2}$. Further since $|V(P(x,x_2))| > \frac{D-1}{2}$, $|V(P(x,x_3))| < \frac{D-1}{2}$. So the $|V(P(x_1,x_3))| = |V(P(x_1,x)) \cup V(P(x,x_3))| < \frac{D-1}{2} + \frac{D-1}{2} = D-1$, a contradiction. $\blacksquare$
+\paragraph{Claim 5.5}
+$|V(G)| \geq \frac{D-1}{2}|X|$.
+\paragraph{Proof}
+Let $P(x,y)$ denote the shortest $xy$-path between vertices $x,y$ in $G$.  Now if $|X| = 2$ then $|V(G)| \geq |V(P(x_1,x_2)| \geq D-1 = D-1\frac{2}{2} = \frac{D-1}{2}|X|$ as desired. So consider the case where $|X| \geq 3$. By claim $5.4$ shortest paths between any two vertices of $|X|$ share at most $\frac{D-1}{2}$ vertices. So $|V(G)| \geq (D-1)|X| - \frac{D-1}{2}|X| = \frac{D-1}{2}|X|$, by counting the minimal number of vertices between any two paths and subtracting the maximal number of shared vertices. Thus in either case $|V(G)| \geq \frac{D-1}{2}|X|$. $\blacksquare$
+\paragraph{}
+Substituting claim $5.5$ into $(*)$ we see that: $-\frac{10}{3} \geq \epsilon \frac{2}{D-1}|X| - \delta|X|$. Which implies that $-\frac{10}{3} \geq (2\epsilon - (D-1)\delta )\frac{|X|}{D-1}$ so $-\frac{10}{3} \geq (\frac{2\epsilon}{D-1} - \delta)|X|$. By our choice of $D$, $(\frac{2\epsilon}{D-1} -\delta)|X| \geq 0$ so $-\frac{10}{3} \geq 0$, a contradiction. $\blacksquare$.
+\end{document}

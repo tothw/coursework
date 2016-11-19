@@ -1,0 +1,146 @@
+\documentclass[letterpaper,12pt,oneside,onecolumn]{report}
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\pagestyle{fancy}
+
+\listfiles
+
+\setlength{\hoffset}{0pt}			% 1 inch left margin
+\setlength{\oddsidemargin}{0pt}		% 1 inch left margin
+\setlength{\voffset}{0pt}			% 1 inch top margin
+\setlength{\marginparwidth}{0pt}	% no margin notes
+\setlength{\marginparsep}{0pt}		% no margin notes
+\setlength{\textwidth}{6.375in}
+\raggedbottom
+
+\rhead{William Justin Toth 685 3} %CHANGE n to ASSIGNMENT NUMBER ijk TO COURSE CODE
+\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\baselinestretch}{1.2} % 1.2 line spacing for legibility (optional)
+
+\begin{document}
+\section*{1}
+\subsection*{(Preimage Resistance, Second-preimage Resistance)}
+\paragraph{}
+For this problem I assume $DLOG$. That is, given a prime order group $\mathbb{Z}_p^*$ it is computationally infeasible to compute $\alpha$ given $g, g^\alpha \in \mathbb{Z}_p^*$. Let $g \in \mathbb{Z}_p^*$. Let $H : \mathbb{N}_n \cup \{0\} \rightarrow \mathbb{Z}_p^*$ be a hash function defined by $H(\alpha) = g^\alpha\ mod\ p$ for all $\alpha \in \mathbb{N}_n \cup \{0\}$ for $n > 2p$ where $p$ is prime.
+\paragraph{}
+The hash function $H$ is preimage resistant, as otherwise an oracle for $H$ could be used directly to solve $DLOG$. But $H$ is not second-preimage resistant. Let $\alpha \in \mathbb{N}_n \cup \{0\}$. If $\alpha < p$ choose $\alpha_1 = \alpha + (p-1)$. Then $H(\alpha_1) = g^{\alpha + p-1}\ mod\ p-1 = g^\alpha g^{p-1}\ mod\ p= g^\alpha\ mod\ p = H(\alpha)$ as for any $g \in \mathbb{Z}^+ \cup \{0\}$, $g^{p-1}\ mod\ p = 1$ by Fermat's Little Theorem. If $n > p-1$ simply choose $\alpha_1 = \alpha - (p-1)$ and repeat the same calculation. Thus it is easy to solve any instance of second-preimage for $H$, and hence $H$ is not second-preimage resistant. $\blacksquare$ 
+\subsection*{(Preimage Resistance, Collision Resistance)}
+\paragraph{}
+Again I assume $DLOG$. Let $H$ be the hash function from the previous subsection. Now $H$ is preimage resistant by our previous argument. But $H(0) = 1$ and $H(p-1) = 1$ by Fermat's Little Theorem, so $0$ and $p-1$ is a collision. Thus $H$ is not collision resistant. $\blacksquare$
+\subsection*{(Second-preimage Resistance, Preimage Resistance)}
+\paragraph{}
+Let $H: S \rightarrow S$ be given by $H(s) = s$ for any $s \in S$. Then $H$ is second-preimage resistant since there simply do not exist two elements of $S$ with the same hash under $H$. But $H$ is clearly not preimage resistant as given any $s \in S$, simply outputting $s$ solves the preimage instance as $H(s) = s$. $\blacksquare$
+\subsection*{(Second-preimage Resistance, Collision Resistance)}
+\paragraph{}
+Let $H: \mathbb{N}_n \cup \{0\} \rightarrow \mathbb{N}_n$ be a hash function defined by $H(x) = x$ if $x \in \mathbb{N}_n$and $H(x) = 1$ if $x = 0$. Then $H$ is "almost injective" in that $H$ is only not injective for $1 \in \mathbb{N}$. Now $H$ is second-preimage resistant as given any $x \in \mathbb{Z}^+ \cup \{0\}$ the probability of success in finding $x' \neq x$ such that $H(x) = H(x')$ is at most the probability that $x\in \{0,1\}$, as otherwise it is impossible to find such an $x'$. Thus, supposing $x$ is chosen uniformly at random, the probability of success is $\frac{2}{n}$ which is negligible as $n$ grows large. Thus it is computationally infeasible to solve second-preimage for $H$.
+\paragraph{}
+Althought $H$ is second-preimage resistant it is easy to find a collision since $H(0) = H(1) = 1$. So $0$ and $1$ is a collision and thus $H$ is not collision resistant. $\blacksquare$
+\subsection*{(Collision Resistance, Preimage Resistance)}
+\paragraph{}
+Let $H: S \rightarrow S$ be given by $H(s) = s$ for any $s \in S$. Then $H$ is collision resistant since there simply do not exist two elements of $S$ with the same hash under $H$. But $H$ is clearly not preimage resistant as given any $s \in S$, simply outputting $s$ solves the preimage instance as $H(s) = s$. $\blacksquare$
+\subsection*{(Collision Resistance, Second-preimage Resistance)}
+\paragraph{}
+We will show that Collision Resistance implies Second-preimage Resistance. Let $H : S \rightarrow T$ be a hash function. Suppose $H$ is not second-preimage resistant. Then there exists an oracle $\mathcal{O}$ which solve the second-preimage problem for $H$ in $BPP$ time (that is, given any $s \in S$ at random, $\mathcal{O}$ find an $s' \neq s \in S$ such that $H(s) = H(s')$ with non-negligible probability of success).
+\paragraph{}
+Consider the following algorithm for solving the collision problem:
+\begin{algorithm}
+\begin{algorithmic}[1]
+\Procedure{}{}
+\State Choose a random $s$ in $S$ uniformly.
+\State Query $\mathcal{O}$ with $s$ receiving result $s'$.
+\If{$s \neq s'$}
+\State \Return $s$ and $s'$
+\EndIf
+\State \Return Failure
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+\paragraph{}
+The probability of success for this algorithim is equivalent to the probability of sucess of $\mathcal{O}$. Thus if $\mathcal{O}$ solves  second-preimage in $BPP$ then this algorithm solves collision in $BPP$. Therefore there does not exist a collision resistant hash function that is not second-preimage resistant.$\blacksquare$
+\section*{2}
+\subsection*{a}
+\paragraph{}
+Suppose Eve receives to signatures, $(S_1, S_2)$ and $(S_1', S_2')$ signed with the same $k$ value. In that case, $S_1 \equiv g^k\ (p)$ and $S_1' \equiv g^k\ (p)$, that is $S_1 \equiv S_1'\ (p)$. Thus Eve can tell immediately that Samantha has made this mistake by comparing $S_1$ and $S_1'$.
+\subsection*{b}
+\paragraph{}
+In this section I will be using some basic facts about linear congruences without proof, for reference see here \footnote{Nagell, T. "Linear Congruences." §23 in Introduction to Number Theory. New York: Wiley, pp. 76-78, 1951.}. Suppose the signature on message $D$ is $(S_1,S_2)$ and the signature on message $D'$ is $(S_1', S_2')$. Then, since these are valid signatures, by the verifaction process, $g^{\alpha S_1 + kS_2} \equiv g^D\ (p)$ and $g^{\alpha S_1' + kS_2'} \equiv g^{D'}\ (p)$. By part $a$, $S_1 = S_1'$, so in fact $g^{\alpha S_1 + kS_2'} \equiv g^{D'}\ (p)$. Considering the congruences of the exponents modulus the order of $p$ we obtain the system of congruences:
+\begin{align}
+\alpha S_1 + k S_2 &\equiv D &(p-1) \\
+\alpha S_1 + k S_2' &\equiv D' &(p-1)
+\end{align}
+Subtracting $(2)$ from $(1)$ gives:
+\begin{align}
+k(S_2 - S_2') &\equiv D-D' &(p-1)
+\end{align}
+\paragraph{}
+Let $a = S_2 - S_2'$ and $b = D - D'$. Let $d = gcd(a, p-1)$. Then $ak \equiv b\ (p-1)$ has a solution if and only if $d \mid b$. Indeed since we know that Samantha used some $k$ to sign, there is a $k$ that solves this congruence. Thus $d \mid b$. To obtain a solution, $k_0$, we solve the congruence $\frac{a}{d}k \equiv \frac{b}{d}\ (\frac{p-1}{d})$ using a standard technique like the Extended Euclidean Algorithm. Then $k_0$ is a solution to $ak \equiv b\ (p-1)$. Therefore the possible values of $k$ are $k = k_0, k_0 + \frac{p-1}{d}, k_0 + 2\frac{p-1}{d}, \dots, k_0 + (d-1)\frac{p-1}{d}$. To determine which value of $k$ was used by Samantha, we check each of the $d$ possibilities by computing $g^k$ and verifying that $S_1 \equiv g^k\ (p)$.
+\paragraph{}
+Once we have $k$ we turn our attention back to equation $(1)$. This equation can be rearranged into the form $S_1 \alpha \equiv D - kS_2\ (p-1)$. Again we know a solution for $\alpha$ exists since Samantha signed using such an $\alpha$. As in the previous paragraph we solve the linear congruence obtaining $gcd(S_1, p-1)$ solutions for $\alpha$. We may verify each solution by substituting into the congruence $kS_2' \equiv D' - \alpha S_1\ (p-1)$. Once we find a satisfactory $\alpha$ we have recovered the signing key. $\blacksquare$
+\subsection*{c}
+\paragraph{}
+Suppose Samantha is using the prime $p = 348149$, base $g=113459$, and verification key $A = 185149$. Suppose we receive messages and signatures:
+\begin{align*}
+D = 153405,\ S_1 = 208913,\ S_2 = 209176 \\
+D' = 127561,\ S_1' = 208913,\ S_2' = 217800
+\end{align*}
+\paragraph{}
+Compute $S_2 - S_2' \equiv 339524 \ (p-1)$. Compute $D - D' \equiv 25844\ (p-1)$. Now solve the congruence $339524k \equiv 25844\ (348148)$. Compute $gcd(339524, 348148) = 4$. Thus we have the four solutions to the congruence: $59623$, $146660$, $233697$, and $320734$. Now compute $g^k\ mod\ p$ for the four possible values of $k$, obtaining $113459^{59623}=208913\ (348149)$, $113459^{146660}=250667\ (348149)$, $113459^{233697}= 139236\ (348149)$, and $113459^{320734}=97482\ (348149)$. Since $113459^{59623}=S_1\ (348149)$, $k=59623$.
+\paragraph{}
+Now compute $D - kS_2 \equiv 158561\ (p-1)$. Now solve the congruence $208913\alpha \equiv 158561\ (348148)$. First compute $gcd(208913, 348148) = 1$. Thus we have the single solution to the congruence: $72729$. To verify that $\alpha = 72729$ compute $kS_2' \equiv D' - \alpha S_1\ (p-1)$, that is $(59623)(217800) \equiv 127561 - (72729)(208913)\ (348148)$. Indeed $59623(217800) \equiv 317148\ (348148)$, and $153405 - 172036(208913) \equiv 317148\ (348148)$.  Therefore we have found the signing key $\alpha = 72729$.
+\section*{3}
+\subsection*{a}
+\paragraph{}
+The verifier computes:
+\begin{align*}
+A^{S_1}S_1^{S_2} &\equiv A^{r'}r^{s} &(p) &\text{ since $r \equiv r'\ (p-1)$}\\
+&\equiv A^{r'}((g^DA^{-r'})^{s^{-1}})^s &(p) &\text{ since $r \equiv r''\ (p)$}\\
+&\equiv A^{r'}g^DA^{-r'} &(p) \\
+&\equiv g^D
+\end{align*}
+Since $A^{S_1}S_1^{S_2} \equiv g^D$ the verifier concludes that this is a valid signature. $\blacksquare$
+\subsection*{b}
+\paragraph{}
+In step $1$ it takes $O(1)$ time to choose $r' \in \mathbb{Z}_{p-1}$, and since it takes polynomial time to compute $gcd(s,p-1) = 1$, it takes polynomial time to choose and test sufficiently many $s \in \mathbb{Z}_{p-1}$ until a satisfactory candidate is found with high probability.
+\paragraph{}
+In step $2$, $s$ can be inverted modulo $p-1$ in polynomial time via the extended euclidean algorithm, and thus $(g^DA^{-r'})^{s^{-1}}\ mod\ p$ can be computed in polynomial time via square-and-multiply to take powers in polynomial time.
+\paragraph{}
+In step $3$ the system of congruences can be computed in polynomial time since the Chinese Remainder Theorem offers an explicit solution to the system.
+\paragraph{}
+Therefore the entire attack can be done successfully with high probability in polynomial time. $\blacksquare$
+\subsection*{c}
+\paragraph{}
+During the Verification step additionally verify that $r \in \mathbb{Z}_p^*$. If it is not then fail. The $r$ value used in the attack is computed by solving:
+\begin{align*}
+r &\equiv r' &(mod\ p-1)\\
+r &\equiv r'' &(mod\ p).
+\end{align*}
+Since $p$ and $p-1$ are relatively prime, by the Chinese Remainder Theorem this system of congruences has a unique solution modulo $p(p-1)$.
+\paragraph{}
+We now consider the probability that such an $r \in \mathbb{Z}_{p(p-1)}$ is in $\mathbb{Z}_p^*$ as a legitimately computed $r$ would be. The value of $r$ comes the probability distributions of $r'$ and $r''$ since it results from solving a system of congruences which depend on those values. The value of $r'$ is chosen uniformly at random. The value of $r''$ is computed based on values that are either themselves chosen uniformly at random or computed based on values chosen uniformly at random so $r''$ itself is distributed uniformly at random. Thus $r$ can be considered to be distributed uniformly at random.
+\paragraph{}
+So the probability that $r \in \mathbb{Z}_p*$ is equal to $Pr(r < p) = \sum_{i=1}^p \frac{1}{p(p-1)} = \frac{p}{p(p-1)} = \frac{1}{p-1}$. Since $p$ is chosen to be large this probability of success for the attack if we verify that $r \in \mathbb{Z}_p^*$ is negligible. Thus this modification successfuly prevents the attack with high probability.
+\subsection*{d}
+\paragraph{}
+First consider what a similar attack against DSA might look like:
+\begin{itemize}
+\item Choose random elements $r' \in \mathbb{Z}_q^*$ and $S_2 \in \mathbb{Z}_q^*$
+\item Compute
+\begin{align*}
+r'' &\equiv (g^DA^{r'})^{S_2^{-1}} &(mod\ p)
+\end{align*}
+\item Compute an integer $S_1 \in \mathbb{Z}$ such that
+\begin{align*}
+S_1 &\equiv r' &(mod\ p-1)\\
+S_1 &\equiv r'' &(mod\ q)
+\end{align*}
+\item Output $(S_1,S_2)$ as the signature.
+\end{itemize}
+\paragraph{}
+Similar to as in Elgamal one can see that $g^{V_1}A^{V_2}\ mod\ p\  \equiv S_1\ (q)$, where $V_1 \equiv DS_2^{-1}\ (q)$ and $V_2 \equiv S_1S_2^{-1}\ (q)$. But in the verification step this is not exactly what they check. In fact they check that $g^{V_1}A^{V_2}\ mod\ p\ mod\ q = S_1$. Similar to part $(c)$ one can see that $S_1 \in \mathbb{Z}_{q(p-1)}$ with its value being chosen uniformly at random, and again similarly the probability that $S_1 < q$ is $\frac{1}{p-1}$. So if $S_1$ was chosen as it is in the attack it is highly likely that $S_1 > q$ and hence it is highly unlikely that $g^{V_1}A^{V_2}\ mod\ p\ mod\ q = S_1$ since $g^{V_1}A^{V_2}\ mod\ p\ mod\ q < q$. Therefore DSA has the same check suggested in part $(c)$ built-in in a sense. Thus DSA does not admit a similar attack as Elgamal.
+\end{document}
