@@ -55,6 +55,21 @@ Let $P \subseteq \R^n$ be a polytope. Let $F$ be an edge of $P$ defined by valid
 $$\frac{1}{2}x^1 + \frac{1}{2} x^2 = \frac{1}{2} y^1 + \frac{1}{2}y^2.$$
 Then at most one of $y^1, y^2$ lies in $P$.
 \end{lemma}
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\draw[<->] (1,4) -- (1,0) -- (5,0);
+
+\draw[fill=lightgray] (3,3) node[above]{$x^1$} -- (4,2)node[right]{$x^2$} -- (4,1) -- (2,1) -- (2,2) -- (3,3);
+
+\draw[dashed] (3,2) node[below]{$y^1$} -- (4,3) node[right]{$y^2$};
+\end{tikzpicture}
+\caption{Visualizing lemma \ref{lemma:edge-midpoint}}
+\small
+\begin{flushleft}
+The extreme points $x^1$ and $x^2$ define an edge of this polytope. From the visual one can see that any line segment intersecting the edge between $x^1$ and $x^2$ cannot have both its endpoints $y^1$ and $y^2$ in the polytope.
+\end{flushleft}
+\end{figure}
 \begin{proof}
 Let $$x = \frac{1}{2}x^1 + \frac{1}{2} x^2 = \frac{1}{2} y^1 + \frac{1}{2}y^2.$$ Suppose for a contradiction that $y^1,y^2 \in P$. Since $y^1, y^2 \not\in F$ as $y_1$ and $y_2$ are not convex combinations of $x_1$ and $x_2$, we have
 $$h^Ty^1 < \delta \quad\text{and}\quad h^Ty^2 < \delta. $$

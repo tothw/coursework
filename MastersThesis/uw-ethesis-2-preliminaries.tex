@@ -20,6 +20,42 @@ where all $v_i$ are distinct for $i \in \{0,1,\dots,x_n\}$. A cycle is a path wi
 \end{definition}
 \begin{definition} Given a graph $G = (V,E)$, a matching on $G$ is any $M \subseteq E$ satisfying that for all $e_1, e_2 \in M$ we have $e_1 \cap e_2 = \emptyset$. We use $V(M) = \{v \in V: \exists e \in M, v \in e\}$ to denote the set of vertices matched in $M$. Intuitively our definition of matching means that each vertex matched in $M$ (those in $V(M)$) is matched to exactly one ``partner". That is to say $|\delta(v) \cap M| = 1$. The partner of vertex $v$, denoted $M(v)$, is the vertex such that $vM(v) \in M$. When it is clear from context we may also use $M$ to refer to the graph ``induced" by $M$, by which we mean the graph $(V(M), M)$.
 \end{definition}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\Vertex[x=0,y=3,L=$a_0$]{a0}
+\Vertex[x=0,y=2,L=$a_1$]{a1}
+\Vertex[x=0,y=1,L=$a_2$]{a2}
+
+\Vertex[x=2,y=3,L=$b_0$]{b0}
+\Vertex[x=2,y=2,L=$b_1$]{b1}
+\Vertex[x=2,y=1,L=$b_2$]{b2}
+
+
+
+\Edge[](a0)(b1)
+\Edge[](a0)(b2)
+
+\Edge[](a1)(b0)
+\Edge[](a1)(b2)
+
+\Edge[](a2)(b0)
+\Edge[](a2)(b1)
+
+\tikzstyle{EdgeStyle}=[red]
+\Edge[](a0)(b0)
+\Edge[](a1)(b1)
+\Edge[](a2)(b2)
+
+
+\end{tikzpicture}
+\caption{A complete bipartite graph and matching.}
+\small
+\begin{flushleft}
+ Graph has vertex set $\{a_0,a_1, a_2\} \cup \{b_0,b_1,b_2\}$. The red edges indicate matching the matching $\{a_0b_0, a_1b_1, a_2b_2\}$.
+\end{flushleft}
+\end{figure}
 \subsection{Maximum Cardinality Matching}\label{subsec:mcm}
 \paragraph{Problem} One classical problem in Matching Theory is the question of finding a maximum cardinality matching given a graph. This question was first investigated by Berge in \cite{berge1957two}. He gave a characterization of when a matching has maximum cardinality. 
 \begin{definition} Let $M$ be a matching in graph $G$. Let $P$ be a path contained in $G$ with $E(P) = \{v_0v_1, \dots, v_{n-1}v_n\}$. We say that $P$ is $M$-alternating if the sequence of edges $E(P)$ alternate being in $M$ and not being in $M$. More precisely $P$ is $M$-alternating provided that for any $i \in \{0, \dots, n-2\}$, edge $v_iv_{i+1} \in M$ if and only if $v_{i+1}v_{i+2} \in E(G) \backslash M$. An $M$-alternating path $P$ is called $M$-augmenting if $v_0v_1$ and $v_{n-1}v_n$ are not in $M$.
@@ -79,6 +115,20 @@ The linear function $c^Tx$ is referred to as the objective function in variables
 \begin{definition}
  A polyhedron, $P$, is unbounded if there exists $d \in \R^n\backslash \{0\}$ such that for all $\alpha \in \R$ with $\alpha \geq 0$ and $x \in P$, $x + \alpha d \in P$. Such $d$ is called a direction. A polyhedron which is not unbounded is called bounded, and such polyhedra are called polytopes. 
 \end{definition}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+
+\draw[<->] (0,5) -- (0,0) -- (5,0);
+
+\draw[fill=lightgray] (5,1) -- (3,0) -- (0,0) -- (0,2) -- (5,5);
+\draw[->] (1,1) -- (2,1.5);
+\node[right] at (2,1.5) {$d$};
+\end{tikzpicture}
+\caption{An unbounded polyhedron}
+\end{figure}
+
 \paragraph{}Observe that if $P$ is unbounded then the corresponding linear program may not have a finite optimal value. In particular this happens when translating along a direction $d$ can increase the objective value That is to say $P \neq \emptyset$, and there exists direction $d$ and ojective function $c$ for which $c^Td >0$. By choosing successively larger $\alpha$ we may make the objective value of $x + \alpha d$ arbitrarily large. Linear programs whose feasible regions are polytopes always have finite optimal values. For the critical reader we refer you to Chvatal \cite{chvatal1983linear} for a proof.
 \begin{definition}
 Let $P$ denote the feasible region of a linear program of the form \ref{LP:standard} and let $x$ be a vector in $P$. Then $x$ is a vertex of $P$ if there exists $h$ and $\delta$ such that $h^Tx = \delta$ and for all $y \in P$
@@ -144,6 +194,19 @@ where $a_i$ are the rows $A$ and $b_i$ is the corresponding entry of $b$. By our
 \end{proof}
 \paragraph{Integrality}
 The previous lemma tells us that an algorithm which solves linear programs need only concern itself with extreme point solutions. So extreme point solutions are of particular interest in applications. We call a polyhedron $P$ integral if every extreme point $x$ of $P$ is contained in $\Z^n$. We will call a linear program integral if its feasible region is integral. Integrality is important when using linear programs to model discrete optimization problems since fractional solutions rarely have an interpretation in this context. Later in this section we will demonstrate how iterative rounding can be used to prove that the feasible region of a linear program is integral.
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\draw[<->] (5,0) -- (0,0) -- (0,5);
+
+\draw[fill=lightgray] (0,0) node[below]{$(0,0)$} -- (0,3) node[left]{$(0,1)$} -- (3,3) node[right]{$(1,1)$} -- (3,0) node[below]{$(1,0)$} -- (0,0);
+\end{tikzpicture}
+\caption{An integral polytope}
+\small
+\begin{flushleft}
+This integral polytope has extreme points $(0,0)$, $(0,1)$, $(1,1)$, and $(1,0)$ which are all in $\{0,1\}^2\subseteq \Z^2$.
+\end{flushleft}
+\end{figure}
 \paragraph{Algorithms for Linear Programming}
 The most widely taught algorithm for solving linear programs is the simplex method\cite{dantzig1955generalized}. The algorithm works by starting at an extreme point and traveling along edges of the polyhedron given by the feasible region to adjacent extreme points which improve the objective value until the optimal solution is found. The order it chooses extreme points to visit is based on what is called a pivot rule. There is no known pivot rule which ensures that the simplex method examines a polynomial number of extreme points in the worst case. While this indicates a poor worst case performance for known implementations of the simplex method, it has been observed to work efficiently in practice possibly due to its average case polynomial time performance \cite{smale1983average}. The ellipsoid method came later, initially as an approximation algorithm for real convex minimization, and later shown to be able to solve linear programs in polynomial time \cite{grotschel1981ellipsoid}. While not thought to be faster than simplex in practice, the polynomial time worst case bound of the ellipsoid method is important for discrete optimization as it allows the use of linear programming for giving polynomial time algorithms for combinatorial problems,
 \paragraph{Further Reading}
