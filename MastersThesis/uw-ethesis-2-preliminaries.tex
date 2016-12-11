@@ -5,21 +5,20 @@ This chapter gives background on the tools used in the main body of work. Most o
 
 \section{Matching Theory}
 \subsection{Graphs and Matchings}
-\begin{definition} A graph $G$ is an ordered pair $(V,E)$ where $V$ is called the vertex set and $E \subseteq \{\{a,b\} : a,b \in V, a \neq b\}$ is called the edge set. The clause $a \neq b$ forbids self-loops and insisting that $E$ is a proper set forbids parallel edges. Some authors choose to work with more generality but for ease of exposition we will not. As defined above, $G$ is an undirected graph, but if one were to change $E$ to a set of ordered pairs in $V \times V$ then $G$ would be called a directed graph. We will work here with undirected graphs. When $V$ and $E$ are not explicit we can used $V(G)$ and $E(G)$ respectively to refer to the vertex and edge sets of $G$.
-\end{definition}
+\paragraph{}
+ A {\it graph} $G$ is an ordered pair $(V,E)$ where $V$ is called the vertex set and $E \subseteq \{\{a,b\} : a,b \in V, a \neq b\}$ is called the edge set. The clause $a \neq b$ forbids self-loops and insisting that $E$ is a proper set forbids parallel edges. Some authors choose to work with more generality but for ease of exposition we will not. As defined above, $G$ is an undirected graph, but if one were to change $E$ to a set of ordered pairs in $V \times V$ then $G$ would be called a directed graph. We will work here with undirected graphs. When $V$ and $E$ are not explicit we can used $V(G)$ and $E(G)$ respectively to refer to the vertex and edge sets of $G$.
 \paragraph{}
 Since it is somewhat cumbersome to write $\{a,b\} \in E(G)$ every time we wish to refer to an edge of the graph $G$ we will use throughout this text the shorthand $ab$ to denote the edge $\{a,b\}$.
-\begin{definition} In a graph $G$, two vertices $a,b \in V(G)$ are said to be adjacent, denoted $a \sim b$, if $ab \in E$. For any vertex $a \in V(G)$ we denote by $\delta(a) = \{e \in E(G): a\in e\}$ the set of edges incident upon $a$. The degree of $a$, $d(a)$,is defined as $d(a) = |\delta(a)|$.
-\end{definition}
-\begin{definition}
-A path $P$ is a graph where  $V(P) = \{v_0, v_1, \dots, v_n\}$ and 
+\paragraph{} In a graph $G$, two vertices $a,b \in V(G)$ are said to be {\it adjacent}, denoted $a \sim b$, if $ab \in E$. For any vertex $a \in V(G)$ we denote by $\delta(a) = \{e \in E(G): a\in e\}$ the set of edges incident upon $a$. The {\it: degree} of $a$, $d(a)$,is defined as $d(a) = |\delta(a)|$.
+
+\paragraph{}
+A {\it path} $P$ is a graph where  $V(P) = \{v_0, v_1, \dots, v_n\}$ and 
 $$E(P) = \{v_0v_1, v_1v_2, \dots, v_{n-1}v_n\}.$$
-where all $v_i$ are distinct for $i \in \{0,1,\dots,x_n\}$. A cycle is a path with the exception that $v_0 = v_n$.
-\end{definition}
-\begin{definition} A graph $G = (V,E)$ is said to be bipartite if there exists a partition of $V$ into $V_0, V_1$ such that for every edge $ab \in E$ either $a \in V_0$ and $b \in V_1$, or $b \in V_0$ and $a \in V_1$. We will restrict our attention to bipartite graphs in this section as most of our work on stable matchings presupposes this case.
-\end{definition}
-\begin{definition} Given a graph $G = (V,E)$, a matching on $G$ is any $M \subseteq E$ satisfying that for all $e_1, e_2 \in M$ we have $e_1 \cap e_2 = \emptyset$. We use $V(M) = \{v \in V: \exists e \in M, v \in e\}$ to denote the set of vertices matched in $M$. Intuitively our definition of matching means that each vertex matched in $M$ (those in $V(M)$) is matched to exactly one ``partner". That is to say $|\delta(v) \cap M| = 1$. The partner of vertex $v$, denoted $M(v)$, is the vertex such that $vM(v) \in M$. When it is clear from context we may also use $M$ to refer to the graph ``induced" by $M$, by which we mean the graph $(V(M), M)$.
-\end{definition}
+where all $v_i$ are distinct for $i \in \{0,1,\dots,x_n\}$. A {\it cycle} is a path with the exception that $v_0 = v_n$.
+
+\paragraph{} A graph $G = (V,E)$ is said to be {\it bipartite} if there exists a partition of $V$ into $V_0, V_1$ such that for every edge $ab \in E$ either $a \in V_0$ and $b \in V_1$, or $b \in V_0$ and $a \in V_1$. We will restrict our attention to bipartite graphs in this section as most of our work on stable matchings presupposes this case.
+
+\paragraph{} Given a graph $G = (V,E)$, a {\it matching} on $G$ is any $M \subseteq E$ satisfying that for all $e_1, e_2 \in M$ we have $e_1 \cap e_2 = \emptyset$. We use $V(M) = \{v \in V: \exists e \in M, v \in e\}$ to denote the set of vertices matched in $M$. Intuitively our definition of matching means that each vertex matched in $M$ (those in $V(M)$) is matched to exactly one ``partner". That is to say $|\delta(v) \cap M| = 1$. The {\it partner} of vertex $v$, denoted $M(v)$, is the vertex such that $vM(v) \in M$. When it is clear from context we may also use $M$ to refer to the graph ``induced" by $M$, by which we mean the graph $(V(M), M)$.
 
 \begin{figure}[h]
 \centering
@@ -58,12 +57,13 @@ where all $v_i$ are distinct for $i \in \{0,1,\dots,x_n\}$. A cycle is a path wi
 \end{figure}
 \subsection{Maximum Cardinality Matching}\label{subsec:mcm}
 \paragraph{Problem} One classical problem in Matching Theory is the question of finding a maximum cardinality matching given a graph. This question was first investigated by Berge in \cite{berge1957two}. He gave a characterization of when a matching has maximum cardinality. 
-\begin{definition} Let $M$ be a matching in graph $G$. Let $P$ be a path contained in $G$ with $E(P) = \{v_0v_1, \dots, v_{n-1}v_n\}$. We say that $P$ is $M$-alternating if the sequence of edges $E(P)$ alternate being in $M$ and not being in $M$. More precisely $P$ is $M$-alternating provided that for any $i \in \{0, \dots, n-2\}$, edge $v_iv_{i+1} \in M$ if and only if $v_{i+1}v_{i+2} \in E(G) \backslash M$. An $M$-alternating path $P$ is called $M$-augmenting if $v_0v_1$ and $v_{n-1}v_n$ are not in $M$.
-\end{definition} 
+
+\paragraph{} Let $M$ be a matching in graph $G$. Let $P$ be a path contained in $G$ with $E(P) = \{v_0v_1, \dots, v_{n-1}v_n\}$. We say that $P$ is $M$-{\it alternating} if the sequence of edges $E(P)$ alternate being in $M$ and not being in $M$. More precisely $P$ is $M$-alternating provided that for any $i \in \{0, \dots, n-2\}$, edge $v_iv_{i+1} \in M$ if and only if $v_{i+1}v_{i+2} \in E(G) \backslash M$. An $M$-alternating path $P$ is called $M$-{\it augmenting} if $v_0v_1$ and $v_{n-1}v_n$ are not in $M$.
+ 
 \paragraph{}
 The name $M$-augmenting path purposefully evokes the image of flow augmenting paths in network flow theory as there is a way to increase the cardinality of a matching $M$ by augmenting it with an $M$-augmenting path. This augmenting operation is called symmetric difference, which we define below.
-\begin{definition} For any sets $S,T \subseteq U$ the symmetric difference of $S$ and $T$, denoted $S \triangle T$, is given by $S \triangle T = (S \cup T) \backslash (S \cap T)$. 
-\end{definition}
+\paragraph{} For any sets $S,T \subseteq U$ the {\it symmetric difference} of $S$ and $T$, denoted $S \triangle T$, is given by $S \triangle T = (S \cup T) \backslash (S \cap T)$. 
+
 \paragraph{}
 The definition of symmetric difference tells us that for any $x \in S \triangle T$ either $x \in S$ or $x \in T$ but not both. Formally we could say $S \triangle T = (S \backslash T) \cup (T \backslash S)$, which is immediate from our definition of $\triangle$ and basic set theory.
 \begin{theorem} Augmenting Path Theorem (Berge \cite{berge1957two}): A matching $M$ in graph $G$ is of maximum cardinality if and only if there does not exist any $M$-augmenting path contained in $G$.
@@ -85,13 +85,12 @@ Linear programming has proven to be a powerful and unifying tool in combinatoria
 	&\text{s.t.} \sum_{e \in \delta(v)} x_e \leq 1 &\text{for all $v \in V(G)$} \\
 	&\quad\quad\quad\ \ x_e \geq 0 &\text{for all $e \in E(G)$.}
 \end{align*}
-\begin{definition}
-Let $E$ be a set of discrete elements. Let $S \subseteq E$. We define the incidence vector of $S$ to be $\chi(S) \in \Z^{|E|}$ where 
+\paragraph{} Let $E$ be a set of discrete elements. Let $S \subseteq E$. We define the {\it incidence vector} of $S$ to be $\chi(S) \in \Z^{|E|}$ where 
 $$ \chi(S)_e = \begin{cases}
 1, &\text{if $e \in S$ } \\
 0, &\text{otherwise.}
 \end{cases}$$
-\end{definition}
+
 \paragraph{}
 Let $M\subseteq E(G)$ be a matching in $G$. Then $\chi(M)$ is feasible for the above linear program. Hence the optimal solution to the linear program is an upper bound on the maximum weight of a matching in $G$. In fact Birkhoff \cite{birkhoff1946tres} showed that all extreme point solutions (see \ref{IR:LP} for definition) to this program are integral. This implies the optimal extreme point solutions are incidence vectors of matchings and that the optimal value of this linear program is equal to the maximum weight of a matching in $G$. In the next section we will define the terms of Birkhoff's Theorem and discuss a proof, not the original proof of Birkhoff, but a proof using the techniques of iterative rounding.
 \section{Iterative Rounding}\label{IR}
@@ -100,21 +99,21 @@ The technique of iterative rounding was originally inspired by Jain's work on su
 \subsection{Linear Programming Tools}\label{IR:LP}
 \paragraph{}
 In this section we will review the fundamentals of linear programming theory and discuss results necessary for application to iterative rounding. For a comprehensive treatment of linear programming consider the classic text of Chvatal \cite{chvatal1983linear}.
-\begin{definition}
-Let $A$ be an $m \times n$ matrix, let $b \in \R^m$ and let $c \in \R^n$. The goal of a linear programming problem is to find $x^* \in \{x \in \R^n : Ax \leq b, x \geq 0 \}$ which maximizes $c^Tx^*$. Here $x \geq 0$ is a shorthand for $x_i \geq 0$ for all $i \in \{1, \dots, n\}$. This is can be written in the compact form $\max\{c^Tx : Ax \leq b, x \geq 0 \}$ or displayed as
+
+\paragraph{} Let $A$ be an $m \times n$ matrix, let $b \in \R^m$ and let $c \in \R^n$. The goal of a {\it linear programming problem} is to find $x^* \in \{x \in \R^n : Ax \leq b, x \geq 0 \}$ which maximizes $c^Tx^*$. Here $x \geq 0$ is a shorthand for $x_i \geq 0$ for all $i \in \{1, \dots, n\}$. This is can be written in the compact form $\max\{c^Tx : Ax \leq b, x \geq 0 \}$ or displayed as
 \begin{align}
 \max\quad &c^Tx\nonumber \\
 Ax &\leq b \label{LP:standard}\\
 x &\geq 0.\nonumber
 \end{align}
-The linear function $c^Tx$ is referred to as the objective function in variables $x$. Given any row $a_i$ of $A$ and the corresponding $b_i$ entry of $b$, $a_i^Tx \leq b_i$ is a constraint. The constraints $x \geq 0$ are called non-negativity constraints. 
-\end{definition}
+The linear function $c^Tx$ is referred to as the {\it objective function} in variables $x$. Given any row $a_i$ of $A$ and the corresponding $b_i$ entry of $b$, $a_i^Tx \leq b_i$ is a {\it constraint}. The constraints $x \geq 0$ are called {\it non-negativity constraints}. 
+
 \paragraph{}The choice of the standard form \ref{LP:standard} eases exposition, but it is by no means rigid. If one wishes to apply a constraint of the form $a^T x = b$ or $a^T x \geq b$, or even wishes to be free of non-negativity constraints then such a linear program could be written down and converted to an equivalent program (possibly with more variables) in our standard form. To see how to do this reference Chvatal \cite{chvatal1983linear}, or try it as an easy exercise.
-\begin{definition} Given a linear program in the form \ref{LP:standard}, $P = \{ x \in \R^n: Ax \leq b, x \geq 0 \}$ is referred to as the feasible region. It describes the space of vectors which satisfy the constraints of the linear program. Such $P$ is a geometric object called a polyhedron, which can be defined as the space formed by the intersection of a finite number of half-spaces.
-\end{definition}
-\begin{definition}
- A polyhedron, $P$, is unbounded if there exists $d \in \R^n\backslash \{0\}$ such that for all $\alpha \in \R$ with $\alpha \geq 0$ and $x \in P$, $x + \alpha d \in P$. Such $d$ is called a direction. A polyhedron which is not unbounded is called bounded, and such polyhedra are called polytopes. 
-\end{definition}
+
+\paragraph{} Given a linear program in the form \ref{LP:standard}, $P = \{ x \in \R^n: Ax \leq b, x \geq 0 \}$ is referred to as the {\it feasible region}. It describes the space of vectors which satisfy the constraints of the linear program. Such $P$ is a geometric object called a {\it polyhedron}, which can be defined as the space formed by the intersection of a finite number of half-spaces.
+
+\paragraph{}
+ A polyhedron, $P$, is {\it unbounded} if there exists $d \in \R^n\backslash \{0\}$ such that for all $\alpha \in \R$ with $\alpha \geq 0$ and $x \in P$, $x + \alpha d \in P$. Such $d$ is called a {\it direction}. A polyhedron which is not unbounded is called {\it bounded}, and such polyhedra are called {\it polytopes}.
 
 \begin{figure}
 \centering
@@ -130,16 +129,16 @@ The linear function $c^Tx$ is referred to as the objective function in variables
 \end{figure}
 
 \paragraph{}Observe that if $P$ is unbounded then the corresponding linear program may not have a finite optimal value. In particular this happens when translating along a direction $d$ can increase the objective value That is to say $P \neq \emptyset$, and there exists direction $d$ and ojective function $c$ for which $c^Td >0$. By choosing successively larger $\alpha$ we may make the objective value of $x + \alpha d$ arbitrarily large. Linear programs whose feasible regions are polytopes always have finite optimal values. For the critical reader we refer you to Chvatal \cite{chvatal1983linear} for a proof.
-\begin{definition}
-Let $P$ denote the feasible region of a linear program of the form \ref{LP:standard} and let $x$ be a vector in $P$. Then $x$ is a vertex of $P$ if there exists $h$ and $\delta$ such that $h^Tx = \delta$ and for all $y \in P$
-such that $y \neq x$ we have $h^Ty < \delta$. The hyperplane specified by $(h,\delta)$ is called a supporting hyperplane for $x$.
-\end{definition}
-\begin{definition} In the same setting as the previous definition, we say $x$ is an extreme point if there does not exist distinct $y^1, y^2 \in P$ such that such that 
+
+\paragraph{}
+Let $P$ denote the feasible region of a linear program of the form \ref{LP:standard} and let $x$ be a vector in $P$. Then $x$ is a {\it vertex} of $P$ if there exists $h$ and $\delta$ such that $h^Tx = \delta$ and for all $y \in P$
+such that $y \neq x$ we have $h^Ty < \delta$. The hyperplane specified by $(h,\delta)$ is called a {\it supporting hyperplane} for $x$.
+
+\paragraph{}In the same setting as the previous definition, we say $x$ is an {\it extreme point} if there does not exist distinct $y^1, y^2 \in P$ such that 
 $$ x = \frac{1}{2} y^1 + \frac{1}{2}y^2.$$
-\end{definition}
-\begin{definition}
-Again in the same setting, for ease of exposition let \begin{equation}A' = \begin{bmatrix} A \\ -I \end{bmatrix} \quad b' = \begin{bmatrix} b \\ 0 \end{bmatrix}\label{LP:augmented}\end{equation} and thus $P = \{x\in P : A'x \leq b'\}$. The vector $x\in P$ is called a basic feasible solution if there exists $n$ linearly independent rows of $A'$, say $a_1, \dots, a_n$ (not necessarily the first $n$ rows of $A$), with corresponding entries of $b'$: $b_1, \dots, b_n$ satisfying $a_i x = b_i$ for all $i\in \{1,\dots, n\}$.
-\end{definition}
+
+\paragraph{}Again in the same setting, for ease of exposition let \begin{equation}A' = \begin{bmatrix} A \\ -I \end{bmatrix} \quad b' = \begin{bmatrix} b \\ 0 \end{bmatrix}\label{LP:augmented}\end{equation} and thus $P = \{x\in P : A'x \leq b'\}$. The vector $x\in P$ is called a {\it basic feasible solution} if there exists $n$ linearly independent rows of $A'$, say $a_1, \dots, a_n$ (not necessarily the first $n$ rows of $A$), with corresponding entries of $b'$: $b_1, \dots, b_n$ satisfying $a_i x = b_i$ for all $i\in \{1,\dots, n\}$.
+
 \paragraph{} It is not immediately obvious that the three concepts $x$ being a vertex, an extreme point, or a basic feasible solution are equivalent but in the next lemma we will show the surprising fact that they are indeed.
 \begin{lemma} \label{lemma:bfs-equiv}Let $P$ be the polyhedron corresponding to the feasible region of $\ref{LP:standard}$, and let $x \in P$. Then the following are equivalent: 
 \begin{enumerate}
@@ -216,9 +215,9 @@ The theory of linear programming is rich and very well understood. One particula
 After our brief detour into the theory of linear programming, we are now ready to describe the method through which iterative rounding can be used to prove that a linear programming relaxation of a combinatorial optimization problem is integral. In this subsection we will describe the general approach at a high level, and in the following section we will apply this approach to bipartite matching to demonstrate the technical details. See the excellent monograph of Lau, Ravi, and Singh\cite{lau2011iterative} for other applications, and ways to extend this approach to giving approximation algorithms.
 \paragraph{}
 Since we wish to describe iterative rounding in general, we are going to need some terminology to formalize what we mean in general by a problem, a combinatorial optimization problem, residual problem instances, and linear programming relaxations. This may seem somewhat esoteric, but the goal is to capture the general principles common to iterative rounding approaches. For a more concrete treatment of iterative rounding as it pertains to maximum weight matching in bipartite graphs see the next subsection: \ref{subsec:irapp}
-\begin{definition}
-We formalize the notion of a problem as a relation $R \subseteq \cI \times \cO$ where $\cI$ is some set of possible inputs, and $\cO$ is some set of possible outputs. The pair $(I,O) \in \cI \times \cO$ are related in $R$ if $O$ is a solution when given input instance $I$. We say that algorithm $\cA$ solves problem $R$ if $\cA$ takes inputs from $\cI$ and for every $I \in \cI$, running $\cA$ with input $I$ yields output $O$ such that $(I,O) \in R$. 
-\end{definition}
+
+\paragraph{}We formalize the notion of a {\it problem} as a relation $R \subseteq \cI \times \cO$ where $\cI$ is some set of possible inputs, and $\cO$ is some set of possible outputs. The pair $(I,O) \in \cI \times \cO$ are related in $R$ if $O$ is a solution when given input instance $I$. We say that algorithm $\cA$ {\it solves} problem $R$ if $\cA$ takes inputs from $\cI$ and for every $I \in \cI$, running $\cA$ with input $I$ yields output $O$ such that $(I,O) \in R$. 
+
 \paragraph{Example}
 For example consider the maximum cardinality matching problem from subsection \ref{subsec:mcm}. In this problem we could say that $\cI$ is the set of all graphs, and $\cO$ is the set of all matchings of a graph. So if we let $R$ denote the maximum cardinality matching problem, $G$ denote a graph and $M$ denote a matching of $G$ then we can say $$(G,M) \in R \text{ if and only if for all matchings } M'\text{ of } G, \text{ we have } |M| \geq |M'|.$$
 Moreover we have an algorithm, namely Edmonds Blossom algorithm \cite{edmonds1965paths}, which solves problem $R$.
@@ -230,9 +229,9 @@ We are given some combinatorial optimization  problem $CP$ with ground set $E$ a
 In some applications the linear programming relaxation given in step $1$ will have an exponential number of constraints. In this situation it is not immediate that $LP(E)$ is solvable in polynomial time with respect to size of the input to $CP$. While this problem does not arise in the applications to matching we describe in this thesis, there are methods which may circumvent it. The ellipsoid method operates with a separation oracle \cite{grotschel1981ellipsoid}, which is a procedure that decides if a given point is feasible for the linear program, and in the case of infeasibility provides a hyperplane which separates the point from the feasible region. It is normal that the inequalities of $LP(E)$ have some implicit description in terms of the combinatorics of $CP$, and so it may be possible to give a polynomial time separation oracle despite having an exponential number of constraints needed to define $LP(E)$. If one can give such a separation oracle then $LP(E)$ is polynomial time solvable despite its exponential size.
 \paragraph{}
 In our upcoming description of a general iterative rounding procedure, we will refer to the concept of residual problem instances. What we are aiming to capture is the idea of being able to use solutions to smaller instances of a problem to solve a larger instance of a problem, for some appropriate notion of smaller and larger.
-\begin{definition}
-Let $P \subseteq \cI \times \cO$ be a problem. Suppose that $\cI$ is equipped with some partial order $\leq$. Let $I, I' \in \cI$. If $I' \leq I$ then we say that $I'$ is a residual problem instance of problem instance $I$.
-\end{definition}
+
+\paragraph{}Let $P \subseteq \cI \times \cO$ be a problem. Suppose that $\cI$ is equipped with some partial order $\leq$. Let $I, I' \in \cI$. If $I' \leq I$ then we say that $I'$ is a {\it residual problem instance} of problem instance $I$.
+
 \paragraph{Example}
 Consider once more the example of the maximum cardinality matching problem. Let $G, G'$ be graphs. We say $G'$ is a subgraph of graph $G$ if $V(G') \subseteq V(G)$ and $E(G') \subseteq E(G)$. The subgraph relation is a partial order on the space of all graphs. Hence we can say that $G'$ is a residual problem instance of $G$.
 \paragraph{Step 2 - Iterative Algorithm}
@@ -351,8 +350,10 @@ We claim that Deferred Acceptance maintains the following invariant: at any iter
 \subsection{Structure}\label{SM:STRUCTURE}
 \paragraph{}
 Over time a rich body of literature around the structure of the set of stable matchings for certain families of bipartite graphs with preferences has been developed \cite{roth1992two}. In this subsection we will explore some of these results that will come up in our chapter on stable matching polytopes.
-\begin{definition} We say a stable matching $M$ is $A$-optimal with respect to our problem instance if for every stable matching $M'$ in this problem instance and for every $a \in A$, $M(a) \geq_a M'(a)$. That is, every man in $A$ likes $M$ at least as well as they like any other stable matching. We can define $B$-optimal analogously. Gale and Shapley showed that not only do $A$-optimal and $B$-optimal stable matchings exist in any problem instance, but also that their Deferred Acceptance algorithm computes an $A$-optimal stable matching \cite{gale1962college} (and could compute $B$-optimal matching by switching roles of $A$ and $B$).
-\end{definition}
+
+\paragraph{}
+We say a stable matching $M$ is $A$-{\it optimal} with respect to our problem instance if for every stable matching $M'$ in this problem instance and for every $a \in A$, $M(a) \geq_a M'(a)$. That is, every man in $A$ likes $M$ at least as well as they like any other stable matching. We can define $B$-optimal analogously. Gale and Shapley showed that not only do $A$-optimal and $B$-optimal stable matchings exist in any problem instance, but also that their Deferred Acceptance algorithm computes an $A$-optimal stable matching \cite{gale1962college} (and could compute $B$-optimal matching by switching roles of $A$ and $B$).
+
 \begin{theorem} (Gale and Shapley): For any bipartite graph $G = (A\cup B, E)$ with strict preferences there always exists a unique $A$-optimal ($B$-optimal analogously) stable matching and it can be computed via the Deferred Acceptance algorithm.
 \end{theorem}
 \begin{proof}
@@ -366,9 +367,9 @@ Suppose $M \geq_A M'$. We will show that $M' \geq_B M$ since the other direction
 \end{corollary}
 \paragraph{}
 These theorems begin to point towards an interesting structure for the set of stable matchings of a given problem instance. It was first observed by Conway \cite{knuthmariages} that this set forms an algebraic structure called a lattice. For those unfamiliar with lattices in this context we will proceed by explaining all the terms necessary to continue.
-\begin{definition}
-Let $L$ be a set endowed with a partial order $\geq$. The set $L$ is said to be a lattice if for any $x, y \in L$ there exists a unique $sup(x,y) \in L$ such that $sup(x,y) \geq x$ and $sup(x,y) \geq y)$, and there exists a unique $inf(x,y) \in L$ such that $x \geq inf(x,y)$ and $y \geq inf(x,y)$. A lattice is said to be complete if each $X \subseteq L$ also has functions $sup$ and $inf$. 
-\end{definition}
+
+\paragraph{}Let $L$ be a set endowed with a partial order $\geq$. The set $L$ is said to be a {\it lattice} if for any $x, y \in L$ there exists a unique $sup(x,y) \in L$ such that $sup(x,y) \geq x$ and $sup(x,y) \geq y)$, and there exists a unique $inf(x,y) \in L$ such that $x \geq inf(x,y)$ and $y \geq inf(x,y)$. A lattice is said to be {\it complete} if each $X \subseteq L$ also has functions $sup$ and $inf$. 
+
 \paragraph{Lattice functions for stable matchings} We now describe functions that will behave as $sup$ and $inf$ for stable matchings. Let $M, M'$ be any two stable matchings for a given problem instance. Let $M^* = sup(M,M')$ be given as follows. For all $a \in A$, $M^*(a) = M(a)$ if $M(a) >_a M'(a)$ and $M^*(a) = M'(a)$ otherwise. For all $b \in B$, $M^*(b) = M(b)$ if $M(b) <_b M'(b)$ and $M^*(b) = M'(b)$ otherwise. We can define $inf(M,M')$ analogously by interchanging the roles of $A$ and $B$. Intuitively $sup$  presents each $a \in A$ with a choice between their partner in $M$ and partner in $M'$ and pairs them with their preferred choice. In the next theorem we need to show $sup$ and $inf$ map to stable matchings and respect the partial order $\geq_A$.
 \begin{theorem}(Conway)\label{theorem:lattice} \cite{knuthmariages}: The set of stable matchings for a given problem instance endowed with the partial order $\geq_A$ is a lattice via the functions $sup$ and $inf$ defined above.
 \end{theorem}

@@ -41,15 +41,13 @@ In this section we build the necessary theory towards a proof that $P(G)$ is int
 \subsection{Edges of Polytopes}
 \paragraph{}
 Before discussing the proof proper we need to take a slight detour to review some more elementary polyhedral geometry.
-\begin{definition}
-Let $x^1, x^2 \in \R^n$. Then $x \in \R^n$ is a convex combination of $x^1, x^2$ provided there exists $\lambda \in \R$ with $0 \leq \lambda \leq 1$ and $$x = \lambda x^1 + (1-\lambda)x^2.$$
-\end{definition}
-\begin{definition}
-Let $P\subseteq \R^n$ be a polytope. Then the hyperplane given by $(h,\delta)$ is said to describe a valid inequality for $P$ if for all $x \in P$ $h^Tx \leq \delta$.
-\end{definition}
-\begin{definition}
-Let $P \subseteq \R^n$ be a polytope. For our purposes we define an edge of $P$ to be a set $F$ of the form $$F = P \cap \{x \in \R^n: h^Tx = \delta \}$$ where $(h,\delta)$ describes a valid inequality for $P$, and there exist $x^1, x^2 \in P$ such that $x^1$ and $x^2$ are vertices of $P$ for which all $x \in F$ are a convex combination of $x^1, x^2$.
-\end{definition}
+
+\paragraph{}Let $x^1, x^2 \in \R^n$. Then $x \in \R^n$ is a {\it convex combination} of $x^1, x^2$ provided there exists $\lambda \in \R$ with $0 \leq \lambda \leq 1$ and $$x = \lambda x^1 + (1-\lambda)x^2.$$
+
+\paragraph{}Let $P\subseteq \R^n$ be a polytope. Then the hyperplane given by $(h,\delta)$ is said to describe a {\it valid inequality} for $P$ if for all $x \in P$ $h^Tx \leq \delta$.
+
+\paragraph{}Let $P \subseteq \R^n$ be a polytope. For our purposes we define an {\it edge} of $P$ to be a set $F$ of the form $$F = P \cap \{x \in \R^n: h^Tx = \delta \}$$ where $(h,\delta)$ describes a valid inequality for $P$, and there exist $x^1, x^2 \in P$ such that $x^1$ and $x^2$ are vertices of $P$ for which all $x \in F$ are a convex combination of $x^1, x^2$.
+
 \begin{lemma}\label{lemma:edge-midpoint}
 Let $P \subseteq \R^n$ be a polytope. Let $F$ be an edge of $P$ defined by valid inequality $(h,\delta)$ and extreme points $x^1, x^2$. Suppose there exist $y^1, y^2 \in \R^n$ not a convex combination of $x^1, x^2$ satisfying
 $$\frac{1}{2}x^1 + \frac{1}{2} x^2 = \frac{1}{2} y^1 + \frac{1}{2}y^2.$$
